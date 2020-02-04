@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import SearchResults from '../views/SearchResults.vue';
+import CategoryArchive from '../views/CategoryArchive.vue';
+import ServiceSingle from '../views/ServiceSingle.vue';
+import PlaceSingle from '../views/PlaceSingle.vue';
 
 Vue.use(VueRouter);
 
@@ -11,7 +15,32 @@ const routes = [
     component: Home,
   },
   {
-    path: '/about',
+    path: '/buscar',
+    name: 'search',
+    component: SearchResults,
+  },
+  {
+    path: '/categoria/:categorySlug',
+    name: 'category',
+    component: CategoryArchive,
+  },
+  {
+    path: '/lugares/nuevo',
+    name: 'place-create',
+    // component: PlacesNew,
+  },
+  {
+    path: '/servicios/:serviceId',
+    name: 'service-single',
+    component: ServiceSingle,
+  },
+  {
+    path: '/lugares/:placeId',
+    name: 'place-single',
+    component: PlaceSingle,
+  },
+  {
+    path: '/acerca-de',
     name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

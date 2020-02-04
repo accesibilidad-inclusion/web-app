@@ -2722,6 +2722,24 @@ css-loader@^3.1.0:
     postcss-value-parser "^4.0.2"
     schema-utils "^2.6.0"
 
+css-loader@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-3.4.1.tgz#dfb7968aa9bffb26bd20375afdffe77d5a234b77"
+  integrity sha512-+ybmv7sVxxNEenQhkifQDvny/1iNQM7YooJbSfVUdQQvisyg1aKIqgGjCjoFSyVLJMp17z9rfZFQaR5HGHcMbw==
+  dependencies:
+    camelcase "^5.3.1"
+    cssesc "^3.0.0"
+    icss-utils "^4.1.1"
+    loader-utils "^1.2.3"
+    normalize-path "^3.0.0"
+    postcss "^7.0.23"
+    postcss-modules-extract-imports "^2.0.0"
+    postcss-modules-local-by-default "^3.0.2"
+    postcss-modules-scope "^2.1.1"
+    postcss-modules-values "^3.0.0"
+    postcss-value-parser "^4.0.2"
+    schema-utils "^2.6.0"
+
 css-select-base-adapter@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/css-select-base-adapter/-/css-select-base-adapter-0.1.1.tgz#3b2ff4972cc362ab88561507a95408a1432135d7"
@@ -6350,6 +6368,11 @@ opener@^1.5.1:
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.1.tgz#6d2f0e77f1a0af0032aca716c2c1fbb8e7e8abed"
   integrity sha512-goYSy5c2UXE4Ra1xixabeVh1guIX/ZV/YokJksb6q2lubWu6UbvPQ20p542/sFIll1nl8JnCyK9oBaOcCWXwvA==
 
+opensans-npm-webfont@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/opensans-npm-webfont/-/opensans-npm-webfont-1.0.0.tgz#910c8e525887b47eb8a6795846138a0cbac15a47"
+  integrity sha512-2ehgrX+NpoxLOil30tYGr0cDsDXSJn9gon6PfM1Ki0CxZF6ui9Mi6Dm5DGglKyK2QiX0gMb6Ch7VmRHwfc4M6Q==
+
 opn@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"
@@ -7642,6 +7665,13 @@ reusify@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.0.4.tgz#90da382b1e126efc02146e90845a88db12925d76"
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
+
+rfs@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/rfs/-/rfs-9.0.2.tgz#3561013d529e4cbeb5839bd7a6b4e2fa48a54a28"
+  integrity sha512-reBlIf8GuC3h6LgpEWMCjGUwo7kNgNNnxhX6yTEHD4NEjg4gsVoWyqJ8rdNYjD2KFWxBqAmfuFIQcuaKNY0Oqg==
+  dependencies:
+    postcss-value-parser "^4.0.2"
 
 rgb-regex@^1.0.1:
   version "1.0.1"
