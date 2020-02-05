@@ -15,10 +15,10 @@
 $rfs-rem-value: 14;
 :root {
   --font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  --color-background: #fff;
-  --color-text: #000;
   --spacer: 20px;
   --border-radius: 5px;
+  --color-text: #000;
+  --color-background: #fff;
   --color-brand-darkest: #041C42;
   --color-brand-darker: #11519B;
   --color-brand-dark: #385E85;
