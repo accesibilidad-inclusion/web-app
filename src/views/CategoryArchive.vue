@@ -1,19 +1,19 @@
 <template>
-  <div class="category">
-    <header class="category__header">
+  <div class="category entries-list">
+    <header class="category__header entries-list__header">
       <span class="category__icon"></span>
-      <h1 class="category__title">Transporte</h1>
-      <p class="category__description">Revisa los servicios disponibles que están cerca de
-        tí. <text-to-speech /></p>
+      <h1 class="category__title entries-list__title">Transporte</h1>
+      <p class="category__description entries-list__description">Revisa los servicios disponibles
+        que están cerca de tí. <text-to-speech /></p>
     </header>
-    <main class="category__items category__items--services">
+    <main class="category__items category__items--services ">
       <template v-for="service in services" v-bind:service="service">
-        <router-link class="category__item category__item--service service-block" tag="article"
-          v-bind:key="service.id" v-bind:to="'/servicios/' + service.id">
+        <router-link class="category__item category__item--service service-block entry-block"
+          tag="article" v-bind:key="service.id" v-bind:to="'/servicios/' + service.id">
           <span class="service-block__icon">
             {{ service.service_types[0] }}
           </span>
-          <h2 class="service-block__name">{{ service.name }}</h2>
+          <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
           <text-to-speech />
         </router-link>
       </template>
@@ -62,25 +62,25 @@ export default {
     display: flex;
     flex-flow: column nowrap;
   }
-  .category__header {
+  .entries-list__header {
     padding: var( --spacer );
     background: var( --color-brand-lightest );
     text-align: center;
     border-bottom: 1px solid var( --color-brand-light );
   }
-  .category__title {
+  .entries-list__title {
     color: var( --color-brand-darkest );
     @include rfs( 18px );
     line-height: 1.38888;
     margin: calc( var( --spacer ) / 4 );
   }
-  .category__description {
+  .entries-list__description {
     text-align: left;
   }
-  .category__items {
+  .entries-list__items {
     flex-grow: 1;
   }
-  .service-block {
+  .entry-block {
     padding: var( --spacer );
     border-bottom: 1px solid var( --color-brand-light );
     display: grid;
@@ -96,11 +96,11 @@ export default {
       color: var( --color-brand-lightest );
     }
   }
-  .service-block__name {
-    @include rfs( 18px );
-    line-height: 1.22222;
+  .entry-block__name {
+    @include rfs( 16px );
+    line-height: 1.375;
   }
-  .service-block__icon {
+  .entry-block__icon {
     text-indent: -9999em;
     overflow: hidden;
     display: inline-block;

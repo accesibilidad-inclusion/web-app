@@ -21,11 +21,11 @@
     </aside>
     <footer class="place__footer place__evaluation">
       <div class="place__evaluation-label">Excelente</div>
-      <div class="place__evaluation-grade">5</div>
+      <div class="place__evaluation-grade" v-bind:data-grade="5">5</div>
       <p class="place__evaluation-description">Nivel de accesibilidad de la Estación
         Viña del Mar</p>
       <p class="place__evaluation-title">¿Quieres colaborar con nosotros?</p>
-      <router-link tag="button" to="/lugar/1/evaluar" class="btn btn--ghost btn--large">
+      <router-link tag="button" to="/lugar/1/evaluar" class="btn btn--ghost btn--large btn--block">
         Evaluar este lugar
       </router-link>
     </footer>
@@ -128,5 +128,43 @@ export default {
   }
   .actions--place {
     background-color: var( --color-brand-lighter );
+  }
+  .place__evaluation {
+    background: var( --color-brand-darkest );
+    color: var( --color-background );
+    padding: var( --spacer );
+    margin-top: calc( var( --spacer ) * 1.5 );
+    text-align: center;
+  }
+  .place__evaluation-label {
+    @include rfs( 18px );
+    text-transform: uppercase;
+    line-height: calc( 25/18 );
+    font-weight: bold;
+  }
+  .place__evaluation-grade {
+    .place__footer & {
+      color: var( --color-text );
+      @include rfs( 36px );
+      line-height: 3.125rem;
+      height: 3.125rem;
+      width: 3.125rem;
+      margin: calc( var( --spacer ) / 2 ) auto;
+    }
+  }
+  .place__evaluation-description {
+    @include rfs( 14px );
+    max-width: 15rem;
+    font-weight: 600;
+    line-height: calc( 19/14 );
+    margin: calc( var( --spacer ) / 2 ) auto calc( var( --spacer ) * 1.5 );
+  }
+  .place__evaluation-title {
+    font-weight: bold;
+    margin: calc( var( --spacer ) * 1.5 ) auto calc( var( --spacer ) * .75 );
+    line-height: 1.33333;
+  }
+  .btn--large {
+    display: block;
   }
 </style>
