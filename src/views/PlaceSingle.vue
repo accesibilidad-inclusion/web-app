@@ -48,7 +48,7 @@ export default {
         // objetos de tipo "tarea"
         {
           id: 1,
-          title: 'Ir de un punto a otro',
+          title: 'Viajar de un punto a otro',
           place: 'Estación Metro Miramar',
           service: 'Metro de Valparaíso',
           aids: [

@@ -36,11 +36,15 @@ $rfs-rem-value: 16;
 html {
   font-size: #{$rfs-rem-value}px;
   line-height: 1.357;
+  overflow-x: hidden;
 }
 body {
   font-family: var( --font-family );
   background: var( --color-background );
   color: var( --color-text );
+}
+a {
+  color: var( --color-brand );
 }
 #app {
   min-height: 100vh;
@@ -60,6 +64,7 @@ body {
   background: none;
   grid-column: 3/4;
   border: 0;
+  @include rfs( 14px );
   svg {
     position: relative;
     top: 1px;
@@ -96,6 +101,10 @@ body {
   display: block;
   width: 100%;
   margin: calc( var( --spacer ) * .75 ) auto;
+}
+.btn--hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 .actions {
   padding: var( --spacer );

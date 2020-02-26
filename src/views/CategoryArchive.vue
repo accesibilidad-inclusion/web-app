@@ -71,8 +71,8 @@ export default {
   .entries-list__title {
     color: var( --color-brand-darkest );
     @include rfs( 18px );
-    line-height: 1.38888;
-    margin: calc( var( --spacer ) / 4 );
+    line-height: calc( 25/18 );
+    margin: calc( var( --spacer ) / 4 ) 0;
   }
   .entries-list__description {
     text-align: left;
