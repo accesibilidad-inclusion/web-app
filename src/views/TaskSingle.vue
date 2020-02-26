@@ -13,10 +13,16 @@
       <text-to-speech />
     </header>
     <main class="task__main">
-      <ol class="task__steps">
-        <li v-for="step in task.steps" v-bind:step="step" v-bind:key="step.id"
+      <ol class="task__steps"
+        v-touch:swipe.left="advanceStep"
+        v-touch:swipe.right="rewindStep"
+      >
+        <li v-for="step in task.steps"
+          v-bind:step="step"
+          v-bind:key="step.id"
           v-bind:class="'task-step'+ ( step.order === state.active_step ?
-          ' task-step--active' : '')">
+          ' task-step--active' : '')"
+        >
           <figure class="task-step__figure">
             <div class="step-canvas">
               <template v-for="layer in step.layers">
@@ -275,6 +281,7 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     position: relative;
+    background: var( --color-brand-lightest );
   }
   .task-step__figure {
     flex-grow: 1;
@@ -293,7 +300,8 @@ export default {
     width: 100%;
     height: 100%;
     top: 0;
-    transition: opacity .25s linear, transform .25s ease-in;
+    transition: opacity .25s .25s ease-out, transform 0 0;
+    list-style: none;
   }
   .task-step--active {
     position: relative;
@@ -302,7 +310,7 @@ export default {
     flex-grow: 1;
     opacity: 1;
     transform: translateX( 0% );
-    transition: opacity .25s linear, transform .25s .15s ease-out;
+    transition: opacity .25s ease-in, transform 0 .5s;
   }
   .task-step__layer {
     position: absolute;
@@ -330,6 +338,7 @@ export default {
     line-height: calc( 22/16 );
     font-weight: bold;
     align-items: center;
+    background: var( --color-background );
   }
   .task__nav {
     display: grid;
