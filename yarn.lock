@@ -6735,10 +6735,10 @@ picomatch@^2.0.5:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.1.1.tgz#ecdfbea7704adb5fe6fb47f9866c4c0e15e905c5"
   integrity sha512-OYMyqkKzK7blWO/+XZYP6w8hH0LDvkBvdvKukti+7kqYFCiEAk+gI3DWnryapc0Dau05ugGTy0foQ6mqn4AHYA==
 
-pictos@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/pictos/-/pictos-0.4.1.tgz#2b5a3f932a22f6cfbc7288f93ffdd28c83446d10"
-  integrity sha512-HMhLLYexwBOOwSqYI6/krO+tcTK4pEgKqY3ilyLsXXxzC3XFKnMoyPqLbpcWT6jXSNQjaWqcyxGKaZxa8RL2NA==
+pictos@^0.5:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/pictos/-/pictos-0.5.0.tgz#56d92824071351e505b664fb8fec4536007e4039"
+  integrity sha512-v2mJqF6+IEjPhhWEGTcyfjRB19l3lYtUo2uGsVoN050uJWT173aOQ4Vazt5nmZye1LvfgfS+/DJIJhl41fvsTA==
 
 pify@^2.0.0:
   version "2.3.0"
