@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="30px" viewBox="0 0 34 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>camera-filled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M17,22 C19.7614,22 22,19.7614 22,17 C22,14.2386 19.7614,12 17,12 C14.2386,12 12,14.2386 12,17 C12,19.7614 14.2386,22 17,22 Z M24.2857,2.5 L30.9643,2.5 C32.6409,2.5 34,3.89906 34,5.625 L34,26.875 C34,28.6009 32.6409,30 30.9643,30 L3.03571,30 C1.35909,30 0,28.6009 0,26.875 L0,5.625 C0,3.89906 1.35909,2.5 3.03571,2.5 L9.71429,2.5 L12.1429,0 L21.8571,0 L24.2857,2.5 Z M8.5,16.875 C8.5,21.7074 12.3056,25.625 17,25.625 C21.6944,25.625 25.5,21.7074 25.5,16.875 C25.5,12.0426 21.6944,8.125 17,8.125 C12.3056,8.125 8.5,12.0426 8.5,16.875 Z" id="camera-filled" fill="#000000"></path>
+    </g>
+</svg>

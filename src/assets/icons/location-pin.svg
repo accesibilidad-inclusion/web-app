@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="15px" viewBox="0 0 11 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>location-pin</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M5.49992,0 C2.4673,0 0,2.45653 0,5.47607 C0,9.17741 4.81863,14.5613 5.02383,14.7886 C5.14488,14.923 5.31842,15 5.49992,15 C5.68142,15 5.85496,14.923 5.97633,14.7886 C6.18137,14.561 11,9.17551 11,5.47607 C10.9998,2.45653 8.53254,0 5.49992,0 Z M5.49992,2.95889 C6.89399,2.95889 8.02798,4.08809 8.02798,5.47607 C8.02798,6.86389 6.89399,7.99294 5.49992,7.99294 C4.10601,7.99294 2.97186,6.86389 2.97186,5.47607 C2.97186,4.08809 4.10601,2.95889 5.49992,2.95889 Z" id="location-pin" fill="#000000" fill-rule="nonzero"></path>
+    </g>
+</svg>
