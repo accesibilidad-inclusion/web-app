@@ -10,22 +10,30 @@
         </p>
       </div>
       <ul class="main-categories__list">
-        <router-link to="categoria/tramites" tag="li" class="is-clickable">
-          <IconFormalities />
-          Trámites
-        </router-link>
-        <router-link to="categoria/salud" tag="li" class="is-clickable">
-          <IconHealth />
-          Salud
-        </router-link>
-        <router-link to="categoria/transporte" tag="li" class="is-clickable">
-          <IconTransport />
-          Transporte
-        </router-link>
-        <router-link to="categoria/ocio" tag="li" class="is-clickable">
-          <IconLeisure />
-          Ocio
-        </router-link>
+        <li>
+          <router-link to="categoria/tramites">
+            <IconFormalities />
+            Trámites
+          </router-link>
+        </li>
+        <li>
+          <router-link to="categoria/salud">
+            <IconHealth />
+            Salud
+          </router-link>
+        </li>
+        <li>
+          <router-link to="categoria/transporte">
+            <IconTransport />
+            Transporte
+          </router-link>
+        </li>
+        <li>
+          <router-link to="categoria/ocio">
+            <IconLeisure />
+            Ocio
+          </router-link>
+        </li>
       </ul>
     </section>
   </div>
@@ -66,32 +74,40 @@ export default {
 <style lang="scss">
   @import 'rfs/scss';
   .home {
-    padding-left: var( --spacer );
-    padding-right: var( --spacer );
+    padding-left: var(--spacer);
+    padding-right: var(--spacer);
   }
   .main-categories__title {
     @include rfs( 18px );
     line-height: calc( 25 / 18 );
-    margin-bottom: calc( var( --spacer ) * .25 );
+    margin-bottom: var(--spacer--xs);
+  }
+  .tts path {
+    fill: var(--color-brand-darkest);
   }
   .main-categories__list {
     display: grid;
-    gap: var( --spacer );
+    gap: var(--spacer);
     grid-template-columns: 1fr 1fr;
-    margin-top: var( --spacer );
+    margin-top: var(--spacer);
+    margin-bottom: var(--spacer-lg);
     > li {
-      background: var( --color-brand );
-      color: var( --color-background );
-      text-align: center;
       list-style: none;
-      font-weight: bold;
-      border-radius: 5px;
-      padding: 15px;
+      > a {
+        display: block;
+        padding: var(--spacer);
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        background-color: var(--color-brand-darkest);
+        color: var(--color-background);
+        border-radius: var(--border-radius);
+      }
       svg {
         display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: .5rem;
+        margin-bottom: var(--spacer-sm);
       }
       svg path {
         fill: #fff;

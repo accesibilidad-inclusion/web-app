@@ -15,18 +15,34 @@
 $rfs-rem-value: 16;
 :root {
   --font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  --spacer: 20px;
+  // Spacers
+  --spacer-xl: 3.75rem;
+  --spacer-lg: 2.5rem;
+  --spacer: 1.25rem;
+  --spacer-sm: .625rem;
+  --spacer-xs: .3125rem;
+  // Border radius
   --border-radius: 5px;
-  --color-text: #1D1D1B;
+  // Colors
+  --color-text: #1d1d1b;
   --color-background: #fff;
-  --color-brand-darkest: #041C42;
-  --color-brand-darker: #11519B;
-  --color-brand-dark: #385E85;
-  --color-brand: #004079;
-  --color-brand-light: #A0B6CB;
-  --color-brand-lighter: #CAE0FF;
-  --color-brand-lightest: #F1F7FF;
   --color-neutral: #727272;
+  --color-neutral-lighter: #d0d0d0;
+  --color-neutral-lightest: #eee;
+  --color-brand-darkest: #041c42;
+  --color-brand-darker: #1d3355;
+  --color-brand-dark: #004079;
+  --color-brand: #5b7fa1;
+  --color-brand-light: #a1c9ff;
+  --color-brand-lighter: #cae0ff;
+  --color-brand-lightest: #f1f7ff;
+  --color-highlight: #f6c254;
+  --color-score-bg: #ff8684;
+  --color-score-text: #2a8600;
+  --color-score-bg: #aaf886;
+  --cyan-blue-lighter: #d8e8ff;
+  --cyan-blue-lightest: #ecf4ff;
+  --blue-medium-light: #8dAdf1;
 }
 // no es el reset más elegante, pero en este caso sirve perfecto
 * {
@@ -42,6 +58,7 @@ body {
   font-family: var( --font-family );
   background: var( --color-background );
   color: var( --color-text );
+  overflow-x: hidden;
 }
 a {
   color: var( --color-brand );
@@ -54,7 +71,7 @@ a {
 .app-nav {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  padding: calc( var( --spacer ) / 2 ) var( --spacer );
+  padding: var(--spacer-sm) var(--spacer);
   background: var( --color-brand-lighter );
   position: sticky;
   top: 0;
