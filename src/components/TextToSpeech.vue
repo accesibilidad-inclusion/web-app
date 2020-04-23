@@ -1,22 +1,39 @@
 <template>
   <button class="tts" @click.prevent="speak" type="button">
-    Leer texto
+    <span class="sr-only">Leer texto</span>
+    <IconAudio />
   </button>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import {
+  Component, Prop, Vue, Ref,
+} from 'vue-property-decorator';
 
-@Component
+import IconAudio from '../../public/img/app-icons/audio.svg';
+
+@Component({
+  components: {
+    IconAudio,
+  },
+})
 export default class TextToSpeech extends Vue {
-  @Prop() private greeting!: string;
+  @Prop(String) private textAudio: string | undefined;
+
+  @Prop(String) public color!: string;
 
   speak = () => {
     const synth = window.speechSynthesis;
-    const utterThis = new SpeechSynthesisUtterance('hola que tal. quizas esta es la voz en español, ¿qué dices tú?');
-    // utterThis.voice = synth.getVoices[62];
+    const voices = synth.getVoices();
+    const utterThis = new SpeechSynthesisUtterance(this.textAudio);
+    for (let i:number = 0; i < voices.length; i += 1) {
+      if (voices[i].name === 'Paulina') {
+        utterThis.voice = voices[i];
+      }
+    }
+    utterThis.pitch = 1;
+    utterThis.rate = 0.9;
     synth.speak(utterThis);
-    return `Hello ${this.greeting}`;
   }
 
   data = () => ({
@@ -27,17 +44,13 @@ export default class TextToSpeech extends Vue {
 
 <style lang="scss">
   .tts {
-    background: transparent url('/img/app-icons/text-to-speech.svg') center no-repeat;
-    border: 0;
-    text-indent: -9999em;
-    overflow: hidden;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    box-sizing: content-box;
     cursor: pointer;
-    &:hover {
-      opacity: .9;
-    }
+    display: inline-block;
+    background-color: transparent;
+    border: 0;
+    box-sizing: content-box;
+  }
+  .sr-only {
+    display: none;
   }
 </style>

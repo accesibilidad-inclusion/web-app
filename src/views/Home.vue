@@ -3,23 +3,27 @@
     <MainSearch />
     <section class="main-categories">
       <div class="tts-target">
-        <h2 class="main-categories__title">¿Buscas un lugar específico?</h2>
+        <h2 class="main-categories__title">{{ title }}</h2>
         <p class="main-categories__description">
-          Selecciona un tipo de lugar
-          <text-to-speech />
-          </p>
+          {{ description }}
+          <text-to-speech v-bind:textAudio="textAudio" />
+        </p>
       </div>
       <ul class="main-categories__list">
         <router-link to="categoria/tramites" tag="li" class="is-clickable">
+          <IconFormalities />
           Trámites
         </router-link>
         <router-link to="categoria/salud" tag="li" class="is-clickable">
+          <IconHealth />
           Salud
         </router-link>
         <router-link to="categoria/transporte" tag="li" class="is-clickable">
+          <IconTransport />
           Transporte
         </router-link>
         <router-link to="categoria/ocio" tag="li" class="is-clickable">
+          <IconLeisure />
           Ocio
         </router-link>
       </ul>
@@ -30,12 +34,31 @@
 <script>
 import MainSearch from '@/components/MainSearch.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconFormalities from '../../public/img/app-icons/formalities.svg';
+import IconHealth from '../../public/img/app-icons/health.svg';
+import IconTransport from '../../public/img/app-icons/transport.svg';
+import IconLeisure from '../../public/img/app-icons/leisure.svg';
 
 export default {
   name: 'home',
   components: {
     MainSearch,
     TextToSpeech,
+    IconFormalities,
+    IconHealth,
+    IconTransport,
+    IconLeisure,
+  },
+  data() {
+    return {
+      title: '¿Buscas un lugar específico?\n\n',
+      description: 'Selecciona un tipo de lugar',
+    };
+  },
+  computed: {
+    textAudio() {
+      return this.title + this.description;
+    },
   },
 };
 </script>
