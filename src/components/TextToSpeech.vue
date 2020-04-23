@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import {
-  Component, Prop, Vue, Ref,
+  Component, Props, Prop, Vue, Ref,
 } from 'vue-property-decorator';
 
 import IconAudio from '../../public/img/app-icons/audio.svg';
@@ -18,14 +18,13 @@ import IconAudio from '../../public/img/app-icons/audio.svg';
   },
 })
 export default class TextToSpeech extends Vue {
-  @Prop(String) private textAudio: string | undefined;
-
-  @Prop(String) public color!: string;
+  @Prop() public textAudio: string | undefined;
 
   speak = () => {
     const synth = window.speechSynthesis;
     const voices = synth.getVoices();
-    const utterThis = new SpeechSynthesisUtterance(this.textAudio);
+    const output = typeof this.textAudio === 'undefined' ? 'Añade la propiedad textAudio' : this.textAudio;
+    const utterThis = new SpeechSynthesisUtterance(output);
     for (let i:number = 0; i < voices.length; i += 1) {
       if (voices[i].name === 'Paulina') {
         utterThis.voice = voices[i];

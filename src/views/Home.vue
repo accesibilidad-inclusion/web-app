@@ -87,6 +87,15 @@ export default {
       font-weight: bold;
       border-radius: 5px;
       padding: 15px;
+      svg {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: .5rem;
+      }
+      svg path {
+        fill: #fff;
+      }
     }
   }
 </style>
