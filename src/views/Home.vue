@@ -3,10 +3,11 @@
     <MainSearch />
     <section class="main-categories">
       <div class="tts-target">
-        <h2 class="main-categories__title">{{ title }}</h2>
+        <h2 class="main-categories__title">¿Buscas un lugar específico?</h2>
         <p class="main-categories__description">
-          {{ description }}
-          <text-to-speech v-bind:textAudio="textAudio" />
+          Selecciona un tipo de lugar
+          <!-- eslint-disable-next-line max-len -->
+          <text-to-speech v-bind:textAudio="'¿Buscas un lugar específico?\n\nSelecciona un tipo de lugar'" />
         </p>
       </div>
       <ul class="main-categories__list">
@@ -39,7 +40,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import MainSearch from '@/components/MainSearch.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg';
@@ -57,17 +58,6 @@ export default {
     IconTransport,
     IconLeisure,
   },
-  data() {
-    return {
-      title: '¿Buscas un lugar específico?\n\n',
-      description: 'Selecciona un tipo de lugar',
-    };
-  },
-  computed: {
-    textAudio() {
-      return this.title + this.description;
-    },
-  },
 };
 </script>
 
@@ -78,8 +68,8 @@ export default {
     padding-right: var(--spacer);
   }
   .main-categories__title {
-    @include rfs( 18px );
-    line-height: calc( 25 / 18 );
+    @include rfs(var(--subtitle-font-size));
+    line-height: var(--subtitle-line-height);
     margin-bottom: var(--spacer--xs);
   }
   .tts path {

@@ -6,7 +6,9 @@
         Menú <svg xmlns="http://www.w3.org/2000/svg" width="17" height="13" fill="none"><path fill="#000" paint-order="markers stroke fill" d="M0 0h17v2H0zM0 5.5h17v2H0zM0 11h17v2H0z"/></svg>
       </button>
     </div>
-    <router-view/>
+    <transition name="slide">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -43,6 +45,12 @@ $rfs-rem-value: 16;
   --cyan-blue-lighter: #d8e8ff;
   --cyan-blue-lightest: #ecf4ff;
   --blue-medium-light: #8dAdf1;
+  // Transitions
+  --transition-base: all .3s ease-out;
+  // Font sizes and Line height
+  --subtitle-font-size: 18px;
+  --subtitle-line-height: calc(25/18);
+
 }
 // no es el reset más elegante, pero en este caso sirve perfecto
 * {
@@ -53,11 +61,15 @@ html {
   font-size: #{$rfs-rem-value}px;
   line-height: 1.357;
   overflow-x: hidden;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 body {
-  font-family: var( --font-family );
-  background: var( --color-background );
-  color: var( --color-text );
+  font-family: var(--font-family);
+  background: var(--color-background);
+  color: var(--color-text);
   overflow-x: hidden;
 }
 a {
@@ -72,7 +84,7 @@ a {
   display: grid;
   grid-template-columns: auto 1fr auto;
   padding: var(--spacer-sm) var(--spacer);
-  background: var( --color-brand-lighter );
+  background: var(--color-brand-lighter);
   position: sticky;
   top: 0;
   z-index: 99999;
@@ -81,43 +93,44 @@ a {
   background: none;
   grid-column: 3/4;
   border: 0;
-  @include rfs( 14px );
+  @include rfs(14px);
   svg {
     position: relative;
     top: 1px;
   }
 }
 .btn {
-  border-radius: var( --border-radius );
-  border: none;
-  text-align: center;
   display: inline-block;
-  font-family: var( --font-family );
+  font-family: var(--font-family);
   font-weight: 600;
+  text-align: center;
+  text-decoration: none;
   transition: all .35s linear;
+  border-radius: var(--border-radius);
+  border: none;
   &:hover {
     cursor: pointer;
   }
 }
 .btn--large {
-  padding: calc( var( --spacer ) * .75 ) var( --spacer );
+  padding: calc( var(--spacer-sm) ) var(--spacer);
 }
 .btn--primary {
-  background: var( --color-brand );
-  color: var( --color-background );
+  background: var(--color-brand-darkest);
+  color: var(--color-background);
   &:hover {
-    background: var( --color-brand-darkest );
+    background: var(--color-brand-darker);
   }
 }
 .btn--ghost {
   background: transparent;
-  border: 1px solid var( --color-background );
-  color: var( --color-background );
+  border: 1px solid var(--color-background);
+  color: var(--color-background);
 }
 .btn--block {
   display: block;
   width: 100%;
-  margin: calc( var( --spacer ) * .75 ) auto;
+  // margin: calc( var(--spacer-sm) ) auto;
 }
 .btn--hidden {
   opacity: 0;
@@ -130,6 +143,20 @@ a {
   font-weight: bold;
   @include rfs( 14px );
   line-height: 1.35714;
-  margin-bottom: calc( var( --spacer ) / 4 );
+  margin-bottom: calc( var(--spacer-xs) );
+}
+.text-center {
+  text-align: center;
+}
+// Transition: Slide
+.slide-enter-active {
+  transition: all .5s ease;
+}
+.slide-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-enter, .slide-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
 }
 </style>

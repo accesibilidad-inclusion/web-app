@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import {
-  Component, Props, Prop, Vue, Ref,
+  Component, Prop, Vue, Ref,
 } from 'vue-property-decorator';
 
 import IconAudio from '../../public/img/app-icons/audio.svg';
