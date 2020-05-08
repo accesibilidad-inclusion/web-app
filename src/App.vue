@@ -13,8 +13,8 @@
 </template>
 
 <style lang="scss">
-@import 'rfs/scss';
-$rfs-rem-value: 16;
+@import '@/assets/scss/global.scss';
+
 :root {
   --font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   // Spacers
@@ -23,8 +23,10 @@ $rfs-rem-value: 16;
   --spacer: 1.25rem;
   --spacer-sm: .625rem;
   --spacer-xs: .3125rem;
+
   // Border radius
   --border-radius: 5px;
+
   // Colors
   --color-text: #1d1d1b;
   --color-background: #fff;
@@ -45,11 +47,13 @@ $rfs-rem-value: 16;
   --cyan-blue-lighter: #d8e8ff;
   --cyan-blue-lightest: #ecf4ff;
   --blue-medium-light: #8dAdf1;
-  // Transitions
-  --transition-base: all .3s ease-out;
+
   // Font sizes and Line height
   --subtitle-font-size: 18px;
   --subtitle-line-height: calc(25/18);
+
+  // Transitions
+  --transition-base: all .3s ease-out;
 
 }
 // no es el reset más elegante, pero en este caso sirve perfecto

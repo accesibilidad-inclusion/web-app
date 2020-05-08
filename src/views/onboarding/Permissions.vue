@@ -34,12 +34,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/global.scss';
+
 .onboarding__permissions-image {
   display: block;
-  margin: 0 auto var(--spacer-lg);
+  width: 40vw;
+  height: auto;
+  min-width: 200px;
+  max-width: 300px;
+  margin: auto auto var(--spacer-lg);
 }
+
 .text-center {
-  max-width: 70vw;
+  width: 70vw;
+  max-width: 350px;
   margin-left: auto;
   margin-right: auto;
 }

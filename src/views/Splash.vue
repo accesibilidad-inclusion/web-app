@@ -38,7 +38,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'rfs/scss';
+@import '@/assets/scss/global.scss';
+
 .splash {
   position: fixed;
   display: flex;
@@ -52,6 +53,7 @@ export default {
   background-color: #fff;
   z-index: 100000;
 }
+
 .splash__app {
   display: flex;
   justify-content: center;
@@ -59,8 +61,16 @@ export default {
   width: 100%;
   height: 50vh;
 }
+
+.splash__logo {
+  width: 40vw;
+  height: auto;
+  min-width: 200px;
+  max-width: 300px;
+}
+
 .splash__tagline {
-  @include rfs( 18px );
+  @include rfs( $font-size-18 );
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,11 +78,16 @@ export default {
   height: 50vh;
   padding: 10vh 15vw 0;
   font-weight: 600;
-  line-height: calc(25/18);
+  line-height: calc(26/18);
   color: #fff;
   text-align: center;
   background-color: var(--color-brand-darkest);
+
+  p {
+    max-width: 500px;
+  }
 }
+
 .v-spinner {
   margin-top: auto;
   margin-bottom: auto;

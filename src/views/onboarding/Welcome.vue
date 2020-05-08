@@ -1,8 +1,7 @@
 <template>
   <div class="onboarding">
-    <!-- <img src="../public/img/photos/onboarding-welcome.jpg" class="onboarding-image"> -->
-    <img src="@/assets/photos/onboarding-welcome.jpg" class="onboarding-image">
     <div class="container">
+      <img src="@/assets/photos/onboarding-welcome.jpg" class="onboarding__welcome-image">
       <h2 class="onboarding__title">¿De qué se trata?</h2>
       <!-- eslint-disable-next-line max-len -->
       <p>Pictos es un <strong>sistema de navegación espacial y evaluación</strong> de <a href="#">accesibilidad cognitiva(?)</a> que apunta a mejorar los servicios de tu ciudad para que <strong>sean accesibles por todos.</strong></p>
@@ -25,7 +24,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'rfs/scss';
+@import '@/assets/scss/global.scss';
+
 .onboarding {
   position: fixed;
   display: flex;
@@ -36,68 +36,98 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--color-neutral-lightest);
   z-index: 100000;
 
-  p {
-    @include rfs(15px);
-    // font-size: clamp(1rem, 1.15vw, 1.15rem);
-    line-height: calc(25/15);
-  }
   .container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    width: 100%;
     height: 100%;
     padding: var(--spacer);
+    background-color: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     @media screen and ( min-width: 768px ) {
-      max-width: 740px;
+      max-width: 640px;
       margin-left: auto;
       margin-right: auto;
       padding: var(--spacer-lg);
     }
     @media screen and ( min-width: 1288px ) {
-      max-width: 850px;
+      max-width: 750px;
       padding: var(--spacer-xl);
     }
   }
 }
 
-.onboarding-image {
+.onboarding__welcome-image {
   margin: calc( var(--spacer) * -1 );
   margin-bottom: var(--spacer);
   width: calc(100% + var(--spacer) * 2);
   height: auto;
   max-height: 45vh;
   object-fit: cover;
+  @media screen and ( min-width: 768px ) {
+    width: calc(100% + var(--spacer-lg) * 2);
+    margin: calc( var(--spacer-lg) * -1 );
+    margin-bottom: var(--spacer-lg);
+  }
+  @media screen and ( min-width: 1288px ) {
+    width: calc(100% + var(--spacer-xl) * 2);
+    margin: calc( var(--spacer-xl) * -1 );
+    margin-bottom: var(--spacer-xl);
+  }
 }
 
 .onboarding__navbar {
-  @include rfs(14px);
-  margin-bottom: var(--spacer);
+  @include rfs( $font-size-15 );
+  width: 100%;
   padding: var(--spacer-sm) var(--spacer);
   position: sticky;
   top: 0;
+  background-color: #fff;
+  @media screen and ( min-width: 768px ) {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--spacer) var(--spacer-lg);
+  }
+  @media screen and ( min-width: 1288px ) {
+    max-width: 750px;
+    padding: var(--spacer) var(--spacer-xl);
+  }
+
   a {
     text-decoration: none;
     color: var(--color-text);
   }
+
   svg {
+    width: .4rem;
+    height: .75rem;
+    margin-right: .25rem;
     fill: var(--color-text);
   }
+}
+
+.onboarding__title {
+  @include rfs( $font-size-18 );
+  margin-bottom: var(--spacer);
+  line-height: var(--subtitle-line-height);
+}
+
+.onboarding p {
+  @include rfs( $font-size-15 );
+  margin-bottom: var(--spacer);
+  line-height: calc(25/15);
 }
 
 .onboarding__footer {
   width: 100%;
   margin-top: auto;
-}
-
-.onboarding__title {
-  @include rfs( var(--subtitle-font-size) );
-  margin-bottom: var(--spacer);
-  // font-size: clamp(1.5rem, 1.75vw, 1.75rem);
-  line-height: var(--subtitle-line-height);
 }
 
 </style>
