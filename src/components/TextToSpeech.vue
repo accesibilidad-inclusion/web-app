@@ -41,15 +41,23 @@ export default class TextToSpeech extends Vue {
 }
 </script>
 
-<style lang="scss">
-  .tts {
-    cursor: pointer;
-    display: inline-block;
-    background-color: transparent;
-    border: 0;
-    box-sizing: content-box;
-  }
-  .sr-only {
-    display: none;
-  }
+<style lang="scss" scoped>
+@import '@/assets/scss/global.scss';
+
+.tts {
+  cursor: pointer;
+  display: inline-block;
+  background-color: transparent;
+  border: 0;
+  box-sizing: content-box;
+}
+
+.tts ::v-deep .sr-only {
+  display: none;
+}
+
+.tts ::v-deep svg {
+  @include rfs(1rem, width);
+  @include rfs(1rem, height);
+}
 </style>

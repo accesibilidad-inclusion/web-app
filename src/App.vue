@@ -31,6 +31,7 @@
   --color-text: #1d1d1b;
   --color-background: #fff;
   --color-neutral: #727272;
+  --color-neutral-light: #b7b7b7;
   --color-neutral-lighter: #d0d0d0;
   --color-neutral-lightest: #eee;
   --color-brand-darkest: #041c42;
@@ -66,6 +67,9 @@ html {
   line-height: 1.357;
   overflow-x: hidden;
   box-sizing: border-box;
+  // @media screen and ( max-width: 768px ) {
+  //   font-size: 15px;
+  // }
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -104,7 +108,9 @@ a {
   }
 }
 .btn {
+  @include rfs($font-size-12);
   display: inline-block;
+  padding: .9rem var(--spacer);
   font-family: var(--font-family);
   font-weight: 600;
   text-align: center;
@@ -117,7 +123,9 @@ a {
   }
 }
 .btn--large {
-  padding: calc( var(--spacer-sm) ) var(--spacer);
+  @include rfs($font-size-14);
+  padding-left: var(--spacer-lg);
+  padding-right: var(--spacer-lg);
 }
 .btn--primary {
   background: var(--color-brand-darkest);
@@ -162,5 +170,21 @@ a {
 .slide-enter, .slide-leave-to {
   transform: translateX(-10px);
   opacity: 0;
+}
+.mb-1 {
+  margin-bottom: var(--spacer-xs);
+}
+// Margins
+.mb-2 {
+  margin-bottom: var(--spacer-sm);
+}
+.mb-3 {
+  margin-bottom: var(--spacer);
+}
+.mb-4 {
+  margin-bottom: var(--spacer-lg);
+}
+.mb-5 {
+  margin-bottom: var(--spacer-xl);
 }
 </style>

@@ -99,24 +99,21 @@ export default {
     max-width: 750px;
     padding: var(--spacer) var(--spacer-xl);
   }
-
-  a {
-    text-decoration: none;
-    color: var(--color-text);
-  }
-
-  svg {
-    width: .4rem;
-    height: .75rem;
-    margin-right: .25rem;
-    fill: var(--color-text);
-  }
 }
 
 .onboarding__title {
   @include rfs( $font-size-18 );
+  display: flex;
   margin-bottom: var(--spacer);
   line-height: var(--subtitle-line-height);
+
+  .tts {
+    margin-left: auto;
+
+    path {
+      fill: var(--color-brand);
+    }
+  }
 }
 
 .onboarding p {
