@@ -22,8 +22,8 @@
   --spacer-xl: 3.75rem;
   --spacer-lg: 2.5rem;
   --spacer: 1.25rem;
-  --spacer-sm: .625rem;
-  --spacer-xs: .3125rem;
+  --spacer-sm: .51rem;
+  --spacer-xs: .25rem;
 
   // Border radius
   --border-radius: 5px;

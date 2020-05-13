@@ -55,10 +55,10 @@
           </li>
         </ol>
       </div>
-      <button class="task__step-feedback">
-        Reportar un problema con este paso
-      </button>
     </main>
+    <button class="task__step-feedback">
+      Reportar un problema con este paso
+    </button>
   </div>
 </template>
 
@@ -92,7 +92,7 @@ export default {
       task: {
         id: 1,
         title: 'Viajar de un punto a otro',
-        place: 'Estación Metro Miramar',
+        place: 'Estación Viña del Mar',
         place_id: 1,
         service: 'Metro de Valparaíso',
         service_id: 1,
@@ -281,13 +281,14 @@ export default {
   }
   .task-step__legend {
     @include rfs($font-size-16);
+    display: flex;
+    align-items: center;
     padding: calc( var(--spacer) * .75 ) var(--spacer);
     line-height: calc( 22/16 );
     font-weight: bold;
-    align-items: center;
     background: var(--color-background);
     @media screen and ( min-width: 640px ) {
-      padding: var(--spacer-lg);
+      padding: calc( var(--spacer-lg) * .75 ) var(--spacer-lg);
     }
     @media screen and ( min-width: 1280px ) {
       padding-left: var(--spacer-xl);
@@ -298,9 +299,9 @@ export default {
     display: grid;
     gap: 0 var(--spacer-sm);
     grid-template-columns: 1fr 1fr;
-    padding: var(--spacer);
+    padding: var(--spacer) var(--spacer) var(--spacer-lg);
     @media screen and ( min-width: 640px ) {
-      padding: var(--spacer-lg);
+      padding: var(--spacer-lg) var(--spacer-lg) calc( var(--spacer-lg) + 1.5rem );
     }
     @media screen and ( min-width: 1280px ) {
       padding-left: var(--spacer-xl);
@@ -308,35 +309,48 @@ export default {
     }
   }
   .task__steps-indicator {
-    margin: calc( var( --spacer ) * .75 ) 0;
+    margin-top: var(--spacer-xs);
+    margin-bottom: var(--spacer-xs);
     text-align: center;
     grid-column: 1/3;
     li {
-      list-style: none;
       display: inline-block;
-      width: calc( var( --spacer ) * .35 );
-      height: calc( var( --spacer ) * .35 );
-      line-height: calc( var( --spacer ) * .35 );;
-      background: #e1e1e1;
+      width: calc( var(--spacer) * .35 );
+      height: calc( var(--spacer) * .35 );
+      margin: 0 calc( var(--spacer) * .125 );
+      list-style: none;
       text-indent: -9999em;
-      border-radius: var( --spacer );
-      margin: 0 calc( var( --spacer ) * .125 );
+      line-height: calc( var(--spacer) * .35 );
+      background: #e1e1e1;
+      border-radius: var(--spacer);
     }
   }
   li.task__step-indicator--active {
-    background: var( --color-brand );
+    background: var(--color-brand);
   }
   .task__step-feedback {
     order: 4;
   }
   .task__step-feedback {
-    margin: auto calc( var( --spacer ) / 2 ) 0;
+    @include rfs($font-size-12);
+    cursor: pointer;
+    position: fixed;
+    display: block;
+    width: calc(100% - ( var(--spacer) * 2 ) );
+    max-width: calc(640px - ( var(--spacer) * 2 ) );
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: calc( var(--spacer) * .65 );
     background: var( --color-brand-lighter );
     border-top-left-radius: var( --border-radius );
     border-top-right-radius: var( --border-radius );
-    padding: calc( var( --spacer ) / 2 ) var( --spacer );
     border: 0;
     font-family: inherit;
-    @include rfs( 12px );
+    @media screen and ( min-width: 1280px ) {
+      max-width: calc(750px - ( var(--spacer-lg) * 2 ) );
+    }
   }
 </style>
