@@ -5,11 +5,11 @@
     </header>
     <div class="container">
       <!-- eslint-disable-next-line max-len -->
-      <h2 class="onboarding__title">Cuéntanos un poco de ti <text-to-speech v-bind:textAudio="'Cuéntanos un poco de ti'" /></h2>
+      <h2 class="onboarding__title">Cuéntanos un poco de ti <text-to-speech :text-audio="'Cuéntanos un poco de ti'" /></h2>
       <!-- eslint-disable-next-line max-len -->
       <p>Registra tu fecha de nacimiento, sexo y si tienes algún tipo de discapacidad. Toda la información será estrictamente confidencial.</p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'birthday'" />
+        <onboarding-next :linkTo="'birthday'"></onboarding-next>
       </footer>
     </div>
   </div>

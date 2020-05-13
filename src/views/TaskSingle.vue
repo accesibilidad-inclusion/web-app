@@ -1,16 +1,16 @@
+<!-- eslint-disable max-len -->
+<!-- eslint-disable global-require -->
+<!-- eslint-disable import/no-dynamic-require -->
 <template>
   <div class="task__single">
     <header class="task__header entries-list__header">
-      <h1 class="task__title entries-list__title">{{ task.title }}</h1>
       <p class="entries-list__description task__description">
-        <router-link :to="{ name: 'place-single', params: { 'placeId': task.place_id } }">
-          {{ task.place }}</router-link>
+        <router-link :to="{ name: 'place-single', params: { 'placeId': task.place_id } }">{{ task.place }}</router-link>
         en
-        <router-link :to="{ name: 'service-single', params: { 'serviceId': task.service_id } }">
-          {{ task.service }}
-        </router-link>
+        <router-link :to="{ name: 'service-single', params: { 'serviceId': task.service_id } }">{{ task.service }}</router-link>
       </p>
-      <text-to-speech />
+      <h1 class="task__title entries-list__title">{{ task.title }}</h1>
+      <text-to-speech :text-audio="audioTaskHeader" />
     </header>
     <main class="task__main">
       <ol class="task__steps"
@@ -25,15 +25,14 @@
         >
           <figure class="task-step__figure">
             <div class="step-canvas">
-              <template v-for="layer in step.layers">
-                <img src="~pictos/src/2-landmarks/turnstile.svg" v-bind:key="layer.id"
-                  v-bind:class="'task-step__layer task-step__layer--'+layer.order">
+              <template v-for="(layer, type) in step.layers">
+                <img v-bind:src="`/pictos/src/${layer.img}`"
+                  v-bind:key="layer.id"
+                  v-bind:class="'task-step__layer task-step__layer--'+type"
+                >
               </template>
             </div>
-            <figcaption class="task-step__legend">
-              <img src="~pictos/src/actions/handle-card.svg" class="task-step__action-icon">
-              {{ step.legend }}
-            </figcaption>
+            <figcaption class="task-step__legend">{{ step.legend }}</figcaption>
           </figure>
         </li>
       </ol>
@@ -63,7 +62,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import TextToSpeech from '@/components/TextToSpeech.vue';
 
 export default {
@@ -80,6 +79,10 @@ export default {
       // eslint-disable-next-line no-plusplus
       this.$data.state.active_step--;
     },
+    // getIcon(img) {
+    //   // eslint-disable-next-line global-require, import/no-dynamic-require
+    //   return require(`../src/assets/pictos/src/${img}`);
+    // },
   },
   data() {
     return {
@@ -112,36 +115,15 @@ export default {
             id: 1,
             order: 0,
             legend: 'Pasa tu tarjeta por el sensor del torniquete',
-            action: {
-              img: 'actions/handle-card.svg',
-            },
             layers: {
               subject: {
-                order: 1,
                 img: '1-subject/handle.svg',
-                flip: true,
-                position: {
-                  // corresponde a un porcentaje de desplazamiento en el eje dado
-                  x: 50,
-                },
               },
-              landmarks: {
-                id: 2,
-                order: 2,
+              landmark: {
                 img: '2-landmarks/turnstile.svg',
-                flip: false,
-                position: {
-                  x: 0,
-                },
               },
               context: {
-                id: 3,
-                order: 3,
-                img: '',
-                flip: false,
-                position: {
-                  x: 0,
-                },
+                img: '3-context/sign--center.svg',
               },
             },
           },
@@ -149,36 +131,15 @@ export default {
             id: 2,
             order: 1,
             legend: 'Baja al andén correspondiente',
-            action: {
-              img: 'actions/go-left.svg',
-            },
             layers: {
               subject: {
-                order: 1,
-                img: '1-subject/handle.svg',
-                flip: true,
-                position: {
-                  // corresponde a un porcentaje de desplazamiento en el eje dado
-                  x: 50,
-                },
+                img: '1-subject/go-down.svg',
               },
-              landmarks: {
-                id: 2,
-                order: 2,
-                img: '2-landmarks/turnstile.svg',
-                flip: false,
-                position: {
-                  x: 0,
-                },
+              landmark: {
+                img: '2-landmarks/exit.svg',
               },
               context: {
-                id: 3,
-                order: 3,
-                img: '',
-                flip: false,
-                position: {
-                  x: 0,
-                },
+                img: '3-context/seat.svg',
               },
             },
           },
@@ -186,36 +147,12 @@ export default {
             id: 3,
             order: 2,
             legend: 'Espera el metro detrás de la línea',
-            action: {
-              img: 'actions/stop.svg',
-            },
             layers: {
               subject: {
-                order: 1,
-                img: '1-subject/handle.svg',
-                flip: true,
-                position: {
-                  // corresponde a un porcentaje de desplazamiento en el eje dado
-                  x: 50,
-                },
+                img: '1-subject/wait-side.svg',
               },
-              landmarks: {
-                id: 2,
-                order: 2,
-                img: '2-landmarks/turnstile.svg',
-                flip: false,
-                position: {
-                  x: 0,
-                },
-              },
-              context: {
-                id: 3,
-                order: 3,
-                img: '',
-                flip: false,
-                position: {
-                  x: 0,
-                },
+              landmark: {
+                img: '2-landmarks/metro--front.svg',
               },
             },
           },
@@ -237,115 +174,138 @@ export default {
       },
     };
   },
+  computed: {
+    audioTaskHeader() {
+      return `${this.task.title}. ${this.task.place}, en ${this.task.service}`;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-  @import "rfs/scss";
+  @import '@/assets/scss/global.scss';
   .task__single {
     display: flex;
     flex-flow: column nowrap;
     overflow-x: hidden;
   }
   .task__header {
-    text-align: left;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    background: var( --color-background );
+    text-align: left;
+    background: var(--color-background);
   }
   .task__title {
     grid-column: 1/2;
-    margin-top: 0;
+    margin-bottom: 0;
   }
   .task__description {
-    @include rfs( 14px );
+    @include rfs($font-size-12);
+    grid-column: 1/2;
+    grid-row: 1/2;
+    margin-bottom: var(--spacer-xs);
     line-height: 1.35;
-    grid-column: 1/3;
-    grid-row: 2/3;
   }
   .tts {
     .task__header & {
+      align-self: flex-start;
       grid-column: 2/3;
       grid-row: 1/2;
+      path {
+        fill: var(--color-brand);
+      }
     }
   }
   .task__main {
-    display: flex;
-    flex-grow: 1;
-    flex-flow: column nowrap;
     position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
   }
   .task__steps {
-    flex-grow: 1;
+    position: relative;
     display: flex;
     flex-flow: column nowrap;
-    position: relative;
-    background: var( --color-brand-lightest );
+    flex-grow: 1;
+    background: var(--color-brand-lightest);
   }
   .task-step__figure {
-    flex-grow: 1;
     display: grid;
     grid-template-rows: auto 1fr;
+    flex-grow: 1;
+    border-top: 1px solid var(--color-brand-light);
+    border-bottom: 1px solid var(--color-brand-light);
   }
   .step-canvas {
     position: relative;
-    min-height: 75vw;
-    background: var( --color-brand-lightest );
+    width: 100%;
+    background: var(--color-brand-lightest);
+    height: 77vw;
+    min-height: 13rem;
+    max-height: 40vh;
   }
   .task-step {
-    opacity: 0;
-    transform: translateX( 100% );
     position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
-    top: 0;
+    transform: translateX( 100% );
     transition: opacity .25s .25s ease-out, transform 0 0;
     list-style: none;
+    opacity: 0;
   }
   .task-step--active {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
     flex-grow: 1;
-    opacity: 1;
     transform: translateX( 0% );
     transition: opacity .25s ease-in, transform 0 .5s;
+    opacity: 1;
   }
   .task-step__layer {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: 100%;
   }
-  .task-step__layer--1 {
-    z-index: 1;
-    left: 0%;
-  }
-  .task-step__layer--2 {
-    z-index: 2;
-    left: 10%;
-  }
-  .task-step__layer--3 {
+  .task-step__layer--subject {
     z-index: 3;
-    left: 20%;
+  }
+  .task-step__layer--context {
+    z-index: 2;
+  }
+  .task-step__layer--landmark {
+    z-index: 1;
   }
   .task-step__legend {
-    display: grid;
-    padding: var( --spacer );
-    grid-template-columns: calc( var( --spacer ) * 2.5 ) auto;
-    gap: calc( var( --spacer ) / 2 );
-    @include rfs( 16px );
+    @include rfs($font-size-16);
+    padding: calc( var(--spacer) * .75 ) var(--spacer);
     line-height: calc( 22/16 );
     font-weight: bold;
     align-items: center;
-    background: var( --color-background );
+    background: var(--color-background);
+    @media screen and ( min-width: 640px ) {
+      padding: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
   }
   .task__nav {
     display: grid;
-    gap: 0 calc( var( --spacer ) / 2 );
+    gap: 0 var(--spacer-sm);
     grid-template-columns: 1fr 1fr;
-    padding: var( --spacer ) var( --spacer ) 0;
-    border-top: 1px solid var( --color-brand-lighter );
+    padding: var(--spacer);
+    @media screen and ( min-width: 640px ) {
+      padding: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
   }
   .task__steps-indicator {
     margin: calc( var( --spacer ) * .75 ) 0;

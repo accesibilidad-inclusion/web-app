@@ -13,7 +13,7 @@
 <script>
 // Se utilzan spinners desde https://github.com/greyby/vue-spinner
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
-import LogoPictos from '../../public/img/app-icons/logo-pictos.svg';
+import LogoPictos from '../../public/img/app-icons/logo-pictos.svg?inline';
 
 // Acá se debe hacer la consulta inicial y configurar la aplicación
 export default {

@@ -1,7 +1,7 @@
 <template>
   <router-link class="task task-block" tag="article" v-bind:to="'/tareas/' + task.id">
-    <p class="task-block__title">{{ title ? title : task.title }}</p>
-    <text-to-speech/>
+    <p class="task-block__title">{{ outputTitle }}</p>
+    <text-to-speech :text-audio="outputTitle" />
     <div class="task-block__aids">
       <span>Apoyo:</span>
       <ul class="task-block__aids-list">
@@ -15,7 +15,7 @@
   </router-link>
 </template>
 
-<script lang="js">
+<script lang="ts">
 import TextToSpeech from './TextToSpeech.vue';
 
 export default {
@@ -27,47 +27,56 @@ export default {
     return {
     };
   },
+  computed: {
+    outputTitle() {
+      return this.title ? this.title : this.task.title;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-  @import "rfs/scss";
+  @import '@/assets/scss/global.scss';
+
   .task-block {
-    border-radius: var( --border-radius );
-    border: 2px solid #A1C9FF;
-    box-shadow: 0 1px 5px rgba( 148, 148, 148, 0.25 );
-    margin: var( --spacer ) 0;
     display: grid;
     grid-template-columns: 1fr auto;
-    transition: all .35s linear;
+    margin: var(--spacer) 0;
+    border: 2px solid var(--color-brand-lighter);
+    border-radius: var( --border-radius );
+    box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.25);
+    transition: var(--transition-base);
     &:hover {
       cursor: pointer;
-      background: var( --color-brand-lightest );
-      box-shadow: 0 1px 5px rgba( 148, 148, 148, 0.5 );
+      border-color: var(--color-brand-light);
+      box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.5);
     }
   }
   .task-block__title {
-    @include rfs( 16px );
+    @include rfs($font-size-16);
     line-height: 1.375;
     color: var( --color-brand-darkest );
     font-weight: bold;
-    padding: calc( var( --spacer ) / 2 ) calc( var( --spacer ) * .75 );
+    padding: calc( var(--spacer) / 2 ) calc( var(--spacer) * .75 );
     grid-column: 1/2;
   }
   .task-block .tts {
     grid-column: 2/3;
-    padding: calc( var( --spacer ) / 2 ) calc( var( --spacer ) * .75 );
+    padding: calc( var(--spacer) / 2 ) calc( var(--spacer) * .75 );
+    svg path {
+      fill: var(--color-brand);
+    }
   }
   .task-block__aids {
+    @include rfs($font-size-13);
     display: flex;
     align-items: center;
     grid-column: 1/3;
     border-top: 1px solid #a1c9ff;
-    padding: calc( var( --spacer ) / 2 ) calc( var( --spacer ) * .75 );
+    padding: calc( var(--spacer) / 2 ) calc( var(--spacer) * .75 );
     flex-flow: row nowrap;
-    color: var( --color-neutral );
+    color: var(--color-neutral);
     font-weight: 600;
-    @include rfs( 12px );
     line-height: calc( 16 / 12 );
   }
   .task-block__aids-list {
@@ -75,7 +84,7 @@ export default {
     flex-flow: row nowrap;
     li {
       list-style: none;
-      margin-left: calc( var( --spacer ) / 2 );
+      margin-left: calc( var(--spacer) / 2 );
     }
   }
 </style>

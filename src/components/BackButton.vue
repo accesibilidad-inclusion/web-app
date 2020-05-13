@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import IconChevronLeft from '../../public/img/app-icons/chevron-left.svg';
+import IconChevronLeft from '../../public/img/app-icons/chevron-left.svg?inline';
 
 export default {
   name: 'BackButton',

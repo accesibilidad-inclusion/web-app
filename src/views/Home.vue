@@ -1,37 +1,37 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="home">
     <MainSearch />
-    <section class="main-categories">
+    <section class="main-categories container">
       <div class="tts-target">
         <h2 class="main-categories__title">¿Buscas un lugar específico?</h2>
         <p class="main-categories__description">
           Selecciona un tipo de lugar
-          <!-- eslint-disable-next-line max-len -->
-          <text-to-speech v-bind:textAudio="'¿Buscas un lugar específico?\n\nSelecciona un tipo de lugar'" />
+          <text-to-speech :text-audio="'¿Buscas un lugar específico?\n\nSelecciona un tipo de lugar'" />
         </p>
       </div>
       <ul class="main-categories__list">
         <li>
           <router-link to="categoria/tramites">
-            <IconFormalities />
+            <icon-formalities />
             Trámites
           </router-link>
         </li>
         <li>
           <router-link to="categoria/salud">
-            <IconHealth />
+            <icon-health />
             Salud
           </router-link>
         </li>
         <li>
           <router-link to="categoria/transporte">
-            <IconTransport />
+            <icon-transport />
             Transporte
           </router-link>
         </li>
         <li>
           <router-link to="categoria/ocio">
-            <IconLeisure />
+            <icon-leisure />
             Ocio
           </router-link>
         </li>
@@ -43,10 +43,10 @@
 <script lang="ts">
 import MainSearch from '@/components/MainSearch.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
-import IconFormalities from '../../public/img/app-icons/formalities.svg';
-import IconHealth from '../../public/img/app-icons/health.svg';
-import IconTransport from '../../public/img/app-icons/transport.svg';
-import IconLeisure from '../../public/img/app-icons/leisure.svg';
+import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
+import IconHealth from '../../public/img/app-icons/health.svg?inline';
+import IconTransport from '../../public/img/app-icons/transport.svg?inline';
+import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
 
 export default {
   name: 'home',
@@ -62,15 +62,26 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'rfs/scss';
+  @import '@/assets/scss/global.scss';
   .home {
     padding-left: var(--spacer);
     padding-right: var(--spacer);
+    @media screen and ( min-width: 640px ) {
+      padding-left: var(--spacer-lg);
+      padding-right: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
   }
   .main-categories__title {
-    @include rfs(var(--subtitle-font-size));
+    @include rfs($font-size-18);
     line-height: var(--subtitle-line-height);
-    margin-bottom: var(--spacer--xs);
+    margin-bottom: var(--spacer-xs);
+  }
+  .main-categories__description {
+    @include rfs($font-size-14);
   }
   .tts path {
     fill: var(--color-brand-darkest);
@@ -84,6 +95,7 @@ export default {
     > li {
       list-style: none;
       > a {
+        @include rfs($font-size-14);
         display: block;
         padding: var(--spacer);
         font-weight: bold;
@@ -95,6 +107,8 @@ export default {
       }
       svg {
         display: block;
+        width: 1.75rem;
+        height: 1.75rem;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: var(--spacer-sm);

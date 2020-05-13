@@ -17,7 +17,7 @@
 <script lang="ts">
 import BackButton from '@/components/BackButton.vue';
 import OnboardingNext from '@/components/OnboardingNext.vue';
-import IconPermissions from '../../../public/img/app-icons/permissions.svg';
+import IconPermissions from '../../../public/img/app-icons/permissions.svg?inline';
 
 export default {
   name: 'Welcome',

@@ -45,12 +45,12 @@ export default {
     justify-content: flex-start;
     width: 100%;
     height: 100%;
-    padding: var(--spacer);
+    padding: var(--spacer-lg) var(--spacer) var(--spacer);
     background-color: #fff;
     overflow-x: hidden;
     overflow-y: auto;
 
-    @media screen and ( min-width: 768px ) {
+    @media screen and ( min-width: 640px ) {
       max-width: 640px;
       margin-left: auto;
       margin-right: auto;
@@ -64,21 +64,18 @@ export default {
 }
 
 .onboarding__welcome-image {
-  margin: calc( var(--spacer) * -1 );
-  margin-bottom: var(--spacer);
+  margin: calc( var(--spacer-lg) * -1 ) calc( var(--spacer) * -1 ) var(--spacer);
   width: calc(100% + var(--spacer) * 2);
   height: auto;
   max-height: 45vh;
   object-fit: cover;
-  @media screen and ( min-width: 768px ) {
+  @media screen and ( min-width: 640px ) {
     width: calc(100% + var(--spacer-lg) * 2);
-    margin: calc( var(--spacer-lg) * -1 );
-    margin-bottom: var(--spacer-lg);
+    margin: calc( var(--spacer-lg) * -1 ) calc( var(--spacer-lg) * -1 ) var(--spacer-lg);
   }
   @media screen and ( min-width: 1288px ) {
     width: calc(100% + var(--spacer-xl) * 2);
-    margin: calc( var(--spacer-xl) * -1 );
-    margin-bottom: var(--spacer-xl);
+    margin: calc( var(--spacer-xl) * -1 ) calc( var(--spacer-xl) * -1 ) var(--spacer-xl);
   }
 }
 
@@ -89,7 +86,7 @@ export default {
   position: sticky;
   top: 0;
   background-color: #fff;
-  @media screen and ( min-width: 768px ) {
+  @media screen and ( min-width: 640px ) {
     max-width: 640px;
     margin-left: auto;
     margin-right: auto;
@@ -104,14 +101,27 @@ export default {
 .onboarding__title {
   @include rfs( $font-size-18 );
   display: flex;
-  margin-bottom: var(--spacer);
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
   line-height: var(--subtitle-line-height);
+  color: var(--color-brand-darkest);
+
+  .onboarding--dark & {
+    color: var(--color-highlight);
+  }
 
   .tts {
+    margin-top: .45rem;
     margin-left: auto;
-
     path {
       fill: var(--color-brand);
+    }
+  }
+
+  @media screen and (min-width: 640px) {
+    margin-bottom: var(--spacer-lg);
+    .tts {
+      margin-top: .75rem;
     }
   }
 }
@@ -125,6 +135,12 @@ export default {
 .onboarding__footer {
   width: 100%;
   margin-top: auto;
+}
+
+.onboarding--dark .container,
+.onboarding--dark .onboarding__navbar {
+  color: var(--color-highlight);
+  background-color: var(--color-brand-darkest);
 }
 
 </style>

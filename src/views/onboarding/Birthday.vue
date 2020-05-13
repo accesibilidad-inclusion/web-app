@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template */
 <template>
   <div class="onboarding">
     <header class="onboarding__navbar">
@@ -6,7 +5,7 @@
     </header>
     <div class="container">
       <!-- eslint-disable-next-line max-len -->
-      <h2 class="onboarding__title">Fecha de nacimiento <text-to-speech v-bind:textAudio="'Fecha de nacimiento'" /></h2>
+      <h2 class="onboarding__title">Fecha de nacimiento <text-to-speech :text-audio="'Fecha de nacimiento'" /></h2>
       <!-- eslint-disable-next-line max-len -->
       <form>
         <div class="form-group">
@@ -26,7 +25,7 @@
         </div>
       </form>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'birthday'" :disabled="true" />
+        <onboarding-next :linkTo="'sex'" :disabled="true"></onboarding-next>
       </footer>
     </div>
   </div>

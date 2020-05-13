@@ -1,17 +1,20 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="category entries-list">
     <header class="category__header entries-list__header">
-      <span class="category__icon"></span>
+      <icon-transport class="category__icon" />
       <h1 class="category__title entries-list__title">Transporte</h1>
-      <p class="category__description entries-list__description">Revisa los servicios disponibles
-        que están cerca de tí. <text-to-speech /></p>
+      <p class="category__description entries-list__description">
+        Revisa los servicios disponibles que están cerca de tí.
+        <text-to-speech :text-audio="'Revisa los servicios disponibles que están cerca de tí'" />
+      </p>
     </header>
-    <main class="category__items category__items--services ">
+    <main class="category__items category__items--services">
       <template v-for="service in services" v-bind:service="service">
-        <router-link class="category__item category__item--service service-block entry-block"
-          tag="article" v-bind:key="service.id" v-bind:to="'/servicios/' + service.id">
+        <router-link class="category__item category__item--service service-block entry-block" tag="article" v-bind:key="service.id" v-bind:to="'/servicios/' + service.id">
           <span class="service-block__icon">
-            {{ service.service_types[0] }}
+            <span class="sr-only">{{ service.service_types[0] }}</span>
+            <icon-transport></icon-transport>
           </span>
           <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
           <text-to-speech />
@@ -30,11 +33,16 @@
 
 <script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
+import IconHealth from '../../public/img/app-icons/health.svg?inline';
+import IconTransport from '../../public/img/app-icons/transport.svg?inline';
+import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
 
 export default {
   name: 'categoryArchive',
   components: {
     TextToSpeech,
+    IconTransport,
   },
   data() {
     return {
@@ -57,56 +65,83 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'rfs/scss';
+  @import '@/assets/scss/global.scss';
   .category {
     display: flex;
     flex-flow: column nowrap;
   }
+  .category__icon {
+    width: 2.1875rem;
+    height: 2.1875rem;
+  }
   .entries-list__header {
-    padding: var( --spacer );
-    background: var( --color-brand-lightest );
+    padding: var(--spacer);
     text-align: center;
-    border-bottom: 1px solid var( --color-brand-light );
+    background-color: var(--color-brand-lighter);
+    @media screen and ( min-width: 640px ) {
+      padding: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
   }
   .entries-list__title {
-    color: var( --color-brand-darkest );
-    @include rfs( 18px );
+    @include rfs($font-size-18);
+    margin-bottom: var(--spacer-sm);
     line-height: calc( 25/18 );
-    margin: calc( var( --spacer ) / 4 ) 0;
+    color: var( --color-brand-darkest );
   }
   .entries-list__description {
-    text-align: left;
+    @media screen and ( max-width: 639px ) {
+      text-align: left;
+    }
   }
-  .entries-list__items {
+  .category__items {
     flex-grow: 1;
   }
   .entry-block {
-    padding: var( --spacer );
-    border-bottom: 1px solid var( --color-brand-light );
     display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     justify-content: flex-start;
-    grid-template-columns: auto 1fr auto;
-    gap: 0 calc( var( --spacer ) / 2 );
+    gap: 0 var(--spacer-sm);
+    padding: var(--spacer);
+    color: var(--color-brand-darkest);
+    border-bottom: 1px solid var(--color-brand-light);
     transition: all .15s linear;
-    color: var( --color-brand-darkest );
     &:hover {
       cursor: pointer;
-      background: var( --color-brand-darkest );
-      color: var( --color-brand-lightest );
+      background: var(--color-brand-lightest);
+    }
+    @media screen and( min-width: 640px ) {
+      padding: 1.75rem var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
     }
   }
   .entry-block__name {
-    @include rfs( 16px );
+    @include rfs($font-size-16);
     line-height: 1.375;
   }
-  .entry-block__icon {
-    text-indent: -9999em;
-    overflow: hidden;
-    display: inline-block;
-    width: var( --spacer );
-    height: var( --spacer );
-    border-radius: var( --spacer );
-    background: var( --color-brand-darkest );
+  .service-block__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    line-height: 1;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--color-brand-darkest);
+    svg {
+      width: .7rem;
+      height: .7rem;
+      path {
+        fill: #fff;
+      }
+    }
   }
 </style>

@@ -1,13 +1,20 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="place">
     <header class="place__header">
       <span class="place__service">Metro de Valparaíso</span>
       <h1 class="place__name">Estación Viña del Mar</h1>
-      <a href="#" class="place__map-link">Abrir en mapa</a>
-      <text-to-speech/>
+      <a href="#" class="place__map-link">
+        <icon-location-pin />
+        Abrir en mapa
+      </a>
+      <text-to-speech :text-audio="'Estación Viña del Mar' + ' en ' + 'Metro de Valparaíso'" />
     </header>
     <main class="place__tasks">
-      <p>Selecciona lo que necesites hacer en este lugar</p>
+      <p>
+        Selecciona lo que necesites hacer en este lugar
+        <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
+      </p>
       <task-block v-for="task in tasks"
         v-bind:key="task.id" v-bind:task="task"/>
     </main>
@@ -35,12 +42,14 @@
 <script>
 import TaskBlock from '@/components/TaskBlock.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
 
 export default {
   name: 'placeSingle',
   components: {
     TaskBlock,
     TextToSpeech,
+    IconLocationPin,
   },
   data() {
     return {
@@ -93,76 +102,173 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'rfs/scss';
+  @import '@/assets/scss/global.scss';
   .place__header {
-    background: var( --color-brand-darkest );
-    padding: var( --spacer );
-    color: var( --color-background );
-    line-height: calc( 22 / 16 );
-    text-align: center;
     position: relative;
+    margin-bottom: var(--spacer);
+    padding: var(--spacer);
+    text-align: center;
+    line-height: calc( 22 / 16 );
+    color: var(--color-background);
+    background: var(--color-brand-darkest);
+    @media screen and ( min-width: 640px ) {
+      margin-left: calc( var(--spacer-lg) * -1);
+      margin-right: calc( var(--spacer-lg) * -1);
+      padding: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      height: 30px;
+    }
+    &::before {
+      width: 100%;
+      left: 0;
+      background: #fff;
+      z-index: 1;
+    }
+    &::after {
+      left: calc( var(--spacer) * -1 );
+      right: calc( var(--spacer) * -1 );
+      background: var(--color-brand-darkest);
+      border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
+      z-index: 2;
+    }
   }
   .place__service {
-    @include rfs( 12px );
+    @include rfs($font-size-12);
     display: block;
+    margin-bottom: var(--spacer-xs);
   }
   .place__name {
-    @include rfs( 18px );
+    @include rfs($font-size-18);
+    margin-bottom: var(--spacer-sm);
     font-weight: bold;
     line-height: calc( 25 / 18 );
-    margin: calc( var( --spacer ) * .25 ) 0 calc( var( --spacer ) * .75 );
   }
   .place__map-link {
-    color: var( --color-background );
-    @include rfs( 12px );
+    @include rfs($font-size-12);
+    position: relative;
     font-weight: bold;
+    color: var(--color-background);
+    z-index: 10;
+    svg {
+      position: relative;
+      width: .85rem;
+      height: 1rem;
+      top: 3px;
+      path {
+        fill: #fff;
+      }
+    }
   }
   .place__header .tts {
     position: absolute;
-    top: var( --spacer );
-    right: var( --spacer );
+    top: var(--spacer);
+    right: calc( var(--spacer) * 1.5 );
+    z-index: 10;
+    @media screen and ( min-width: 640px ) {
+      top: var(--spacer-lg);
+      right: calc( var(--spacer-xl) * 1.5 );
+    }
+    @media screen and ( min-width: 1280px ) {
+      right: calc( var(--spacer-xl) * 2 );
+    }
+    svg path {
+      fill: #fff;
+    }
   }
   .place__tasks {
-    padding: var( --spacer );
-    padding-bottom: calc( var( --spacer ) * 2 );
+    padding: var(--spacer) var(--spacer) var(--spacer-lg);
+    @media screen and ( min-width: 640px ) {
+      padding-left: var(--spacer-lg);
+      padding-right: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
   }
   .actions--place {
-    background-color: var( --color-brand-lighter );
+    margin-bottom: var(--spacer-lg);
+    padding-top: var(--spacer-lg);
+    padding-bottom: var(--spacer-lg);
+    background-color: var(--color-brand-lighter);
+    @media screen and ( min-width: 640px ) {
+      padding-top: calc( var(--spacer-lg) * 1.25 );
+      padding-bottom: calc( var(--spacer-lg) * 1.25 );
+    }
   }
   .place__evaluation {
-    background: var( --color-brand-darkest );
-    color: var( --color-background );
-    padding: var( --spacer );
-    margin-top: calc( var( --spacer ) * 1.5 );
+    padding: var(--spacer-lg) var(--spacer);
     text-align: center;
+    color: var(--color-background );
+    background: var(--color-brand-darkest);
+    @media screen and ( min-width: 640px ) {
+      padding-left: var(--spacer-lg);
+      padding-right: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding: var(--spacer-xl);
+    }
   }
   .place__evaluation-label {
-    @include rfs( 18px );
-    text-transform: uppercase;
-    line-height: calc( 25/18 );
+    @include rfs($font-size-18);
+    margin-bottom: var(--spacer-xs);
     font-weight: bold;
+    line-height: calc( 25/18 );
+    text-transform: uppercase;
+    @media screen and ( min-width: 640px ) {
+      margin-bottom: var(--spacer-sm);
+    }
+    @media screen and ( min-width: 1280px ) {
+      margin-bottom: var(--spacer);
+    }
   }
   .place__evaluation-grade {
     .place__footer & {
-      color: var( --color-text );
-      @include rfs( 36px );
-      line-height: 3.125rem;
-      height: 3.125rem;
       width: 3.125rem;
-      margin: calc( var( --spacer ) / 2 ) auto;
+      height: 3.125rem;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 2rem;
+      line-height: 3.125rem;
+      color: var(--color-text);
+      @media screen and ( min-width: 640px ) {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 2.5rem;
+      }
     }
   }
   .place__evaluation-description {
-    @include rfs( 14px );
+    @include rfs($font-size-14);
     max-width: 15rem;
+    margin: var(--spacer-xs) auto var(--spacer-lg);
     font-weight: 600;
     line-height: calc( 19/14 );
-    margin: calc( var( --spacer ) / 2 ) auto calc( var( --spacer ) * 1.5 );
+    @media screen and ( min-width: 640px ) {
+      margin-top: var(--spacer-sm);
+      margin-bottom: var(--spacer-xl);
+    }
+    @media screen and ( min-width: 1280px ) {
+      margin-top: var(--spacer);
+    }
   }
   .place__evaluation-title {
+    @include rfs($font-size-16);
+    margin-bottom: var(--spacer-sm);
     font-weight: bold;
-    margin: calc( var( --spacer ) * 1.5 ) auto calc( var( --spacer ) * .75 );
     line-height: 1.33333;
+    @media screen and ( min-width: 640px ) {
+      margin-bottom: var(--spacer);
+    }
   }
   .btn--large {
     display: block;

@@ -1,7 +1,7 @@
 <template>
   <button class="tts" @click.prevent="speak" type="button">
     <span class="sr-only">Leer texto</span>
-    <IconAudio />
+    <icon-audio />
   </button>
 </template>
 
@@ -10,7 +10,7 @@ import {
   Component, Prop, Vue, Ref,
 } from 'vue-property-decorator';
 
-import IconAudio from '../../public/img/app-icons/audio.svg';
+import IconAudio from '../../public/img/app-icons/audio.svg?inline';
 
 @Component({
   components: {
@@ -50,10 +50,6 @@ export default class TextToSpeech extends Vue {
   background-color: transparent;
   border: 0;
   box-sizing: content-box;
-}
-
-.tts ::v-deep .sr-only {
-  display: none;
 }
 
 .tts ::v-deep svg {
