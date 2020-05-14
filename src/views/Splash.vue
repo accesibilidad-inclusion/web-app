@@ -24,15 +24,24 @@ export default {
   },
   data() {
     return {
+      showOnboarding: null,
       loading: true,
       color: '#fff',
       size: '20px',
     };
   },
-  created() {
-    setTimeout(() => {
-      this.$router.push('/onboarding/welcome');
-    }, 5000);
+  mounted() {
+    if (localStorage.onboarding === undefined) {
+      setTimeout(() => {
+        this.showOnboarding = true;
+        this.$router.push('/onboarding/welcome');
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        this.showOnboarding = true;
+        this.$router.push('/home');
+      }, 2000);
+    }
   },
 };
 </script>
