@@ -1,6 +1,4 @@
 <!-- eslint-disable max-len -->
-<!-- eslint-disable global-require -->
-<!-- eslint-disable import/no-dynamic-require -->
 <template>
   <div class="task__single">
     <header class="task__header entries-list__header">
@@ -35,6 +33,24 @@
             <figcaption class="task-step__legend">{{ step.legend }}</figcaption>
           </figure>
         </li>
+        <li v-bind:class="'task-step task-helpful'+ ( task.steps.length <= state.active_step ? ' task-step--active' : '')">
+          <h2 class="task-helpful__title">¿Te ha servido este apoyo?</h2>
+          <div class="task-helpful__answers">
+            <button v-bind:class="'task-helpful__answer' + ( state.helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
+              <icon-like class="task-helpful__answer__icon--like"></icon-like>
+            </button>
+            <button v-bind:class="'task-helpful__answer' + ( state.helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
+              <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
+            </button>
+          </div>
+          <router-link
+            :to="{ name: 'place-single', params: { 'placeId': task.place_id } }"
+            class="btn btn--large btn--block btn--ghost"
+          >
+            Volver a {{ task.place }}
+          </router-link>
+          <button v-bind:class="'btn--as-link' + ( state.helpful != false ? ' task-helpful__toggle-feedback--hidden' : '' )" @click="toggleFeedback">Reportar un problema</button>
+        </li>
       </ol>
       <div class="task__nav">
         <button v-bind:class="'btn btn--large btn--primary'
@@ -43,7 +59,7 @@
           Anterior
         </button>
         <button v-bind:class="'btn btn--large btn--primary'
-          + ( state.active_step + 1 < task.steps.length ? '' : ' btn--hidden' )"
+          + ( state.active_step + 1 < task.steps.length + 1 ? '' : ' btn--hidden' )"
           @click="advanceStep">
           Siguiente
         </button>
@@ -53,22 +69,35 @@
               'task__step-indicator--active' : 'task__step-indicator'">
             {{ step.order }}
           </li>
+          <li v-bind:class="state.active_step >= task.steps.length + 1 ? 'task__step-indicator--active' : 'task__step-indicator'">
+            {{ task.steps.length }}
+          </li>
         </ol>
       </div>
     </main>
-    <button class="task__step-feedback">
+    <!-- Pestaña inferior para feedback -->
+    <button v-bind:class="'task__step-feedback' + ( state.collapsed_feedback == false ? ' task__step-feedback--hidden' : '' )">
       Reportar un problema con este paso
     </button>
+    <!-- Bloque y formulario para feedback -->
+    <!-- <div class="task__feedback">
+      <h2 class="task__feedback-header">Reportar un problema con este</h2>
+    </div> -->
   </div>
 </template>
 
 <script lang="ts">
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconLike from '../../public/img/app-icons/like.svg?inline';
+import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
+
 
 export default {
   name: 'taskSingle',
   components: {
     TextToSpeech,
+    IconLike,
+    IconDislike,
   },
   methods: {
     advanceStep() {
@@ -79,15 +108,22 @@ export default {
       // eslint-disable-next-line no-plusplus
       this.$data.state.active_step--;
     },
-    // getIcon(img) {
-    //   // eslint-disable-next-line global-require, import/no-dynamic-require
-    //   return require(`../src/assets/pictos/src/${img}`);
-    // },
+    likedStep() {
+      this.$data.state.helpful = true;
+    },
+    dislikedStep() {
+      this.$data.state.helpful = false;
+    },
+    toggleFeedback() {
+      this.$data.state.collapsed_feedback = !this.$data.state.collapsed_feedback;
+    },
   },
   data() {
     return {
       state: {
         active_step: 0,
+        helpful: null,
+        collapsed_feedback: true,
       },
       task: {
         id: 1,
@@ -295,6 +331,66 @@ export default {
       padding-right: var(--spacer-xl);
     }
   }
+  // Último paso, donde se pregunta si fue de ayuda
+  .task-helpful {
+    display: flex;
+    flex: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacer);
+    color: #fff;
+    background-color: var(--color-brand-darker);
+    @media screen and ( min-width: 640px ) {
+      padding-left: var(--spacer-lg);
+      padding-right: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
+  }
+  .task-helpful__title {
+    @include rfs($font-size-18);
+    margin-bottom: var(--spacer);
+  }
+  .task-helpful__answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacer);
+    width: 100%;
+    margin-bottom: var(--spacer-lg);
+  }
+  .task-helpful__answer {
+    cursor: pointer;
+    display: block;
+    padding: var(--spacer-sm);
+    text-align: center;
+    color: var(--color-brand-darker);
+    background-color: var(--color-brand-light);
+    border: 1px solid var(--color-brand-light);
+    border-radius: var(--border-radius);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .25);
+    &:hover {
+      background-color: var(--color-brand-lighter);
+      transition: var(--transition-base);
+    }
+    &.task-helpful__answer--active {
+      background-color: var(--color-highlight);
+      border-color: var(--color-highlight);
+    }
+  }
+  [class^="task-helpful__answer__icon"] {
+    width: 25px;
+    height: 25px
+  }
+  .btn--as-link {
+    margin-top: var(--spacer);
+    color: #fff;
+    &.task-helpful__toggle-feedback--hidden {
+      display: none;
+    }
+  }
+  // Navegación
   .task__nav {
     display: grid;
     gap: 0 var(--spacer-sm);
@@ -329,9 +425,6 @@ export default {
     background: var(--color-brand);
   }
   .task__step-feedback {
-    order: 4;
-  }
-  .task__step-feedback {
     @include rfs($font-size-12);
     cursor: pointer;
     position: fixed;
@@ -349,6 +442,11 @@ export default {
     border-top-right-radius: var( --border-radius );
     border: 0;
     font-family: inherit;
+    &.task__step-feedback--hidden {
+      opacity: 0;
+      z-index: 0;
+      transition: var(--transition-base);
+    }
     @media screen and ( min-width: 1280px ) {
       max-width: calc(750px - ( var(--spacer-lg) * 2 ) );
     }

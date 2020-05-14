@@ -146,8 +146,8 @@ a {
 }
 .btn--large {
   @include rfs($font-size-14);
-  padding-left: var(--spacer-lg);
-  padding-right: var(--spacer-lg);
+  padding-left: var(--spacer);
+  padding-right: var(--spacer);
 }
 .btn--primary {
   background: var(--color-brand-darkest);
@@ -169,6 +169,12 @@ a {
 .btn--hidden {
   opacity: 0;
   visibility: hidden;
+}
+.btn--as-link {
+  @include rfs($font-size-14);
+  text-decoration: underline;
+  background: transparent;
+  border: none;
 }
 .actions {
   padding: var(--spacer);
