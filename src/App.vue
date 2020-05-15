@@ -172,6 +172,12 @@ a {
     background: var(--color-brand-darker);
   }
 }
+.btn--light {
+  background-color: var(--color-brand-light);
+  &:hover {
+    background-color: var(--color-brand-lighter);
+  }
+}
 .btn--ghost {
   background: transparent;
   border: 1px solid var(--color-background);

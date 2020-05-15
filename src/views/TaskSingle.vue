@@ -606,6 +606,5 @@ export default {
   }
   .task-feedback__response-close {
     margin-top: auto;
-    background-color: var(--color-brand-light);
   }
 </style>
