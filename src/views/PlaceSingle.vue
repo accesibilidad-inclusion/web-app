@@ -11,17 +11,19 @@
       <text-to-speech :text-audio="'Estación Viña del Mar' + ' en ' + 'Metro de Valparaíso'" />
     </header>
     <main class="place__tasks">
-      <p>
-        Selecciona lo que necesites hacer en este lugar
+      <p class="place__tasks-description">
+        <span>Selecciona lo que necesites hacer en este lugar</span>
         <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
       </p>
       <task-block v-for="task in tasks"
         v-bind:key="task.id" v-bind:task="task"/>
     </main>
     <aside class="actions actions--place">
-      <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
-      <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar
-        <text-to-speech/></p>
+      <div class="actions__header">
+        <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar'" />
+        <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
+        <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
+      </div>
       <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
         &plus; Agregar una tarea nueva
       </router-link>
@@ -171,7 +173,7 @@ export default {
   .place__header .tts {
     position: absolute;
     top: var(--spacer);
-    right: calc( var(--spacer) * 1.5 );
+    right: var(--spacer);
     z-index: 10;
     @media screen and ( min-width: 640px ) {
       top: var(--spacer-lg);
@@ -195,6 +197,16 @@ export default {
       padding-right: var(--spacer-xl);
     }
   }
+  .place__tasks-description {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: var(--spacer);
+    align-items: flex-start;
+    .tts {
+      position: relative;
+      top: var(--spacer-xs);
+    }
+  }
   .actions--place {
     margin-bottom: var(--spacer-lg);
     padding-top: var(--spacer-lg);
@@ -203,6 +215,25 @@ export default {
     @media screen and ( min-width: 640px ) {
       padding-top: calc( var(--spacer-lg) * 1.25 );
       padding-bottom: calc( var(--spacer-lg) * 1.25 );
+    }
+
+    .actions__header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      grid-gap: var(--spacer-sm);
+      .tts {
+        grid-column: 2/3;
+      }
+    }
+    .actions__title {
+      margin-bottom: 0;
+      grid-column: 1/2;
+      grid-row: 1/2;
+    }
+    .actions__description {
+      grid-column: 1/2;
+      grid-row: 2/3;
     }
   }
   .place__evaluation {

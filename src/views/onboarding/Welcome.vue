@@ -113,9 +113,6 @@ export default {
   .tts {
     margin-top: .45rem;
     margin-left: auto;
-    path {
-      fill: var(--color-brand);
-    }
   }
 
   @media screen and (min-width: 640px) {

@@ -2,12 +2,10 @@
 <template>
   <div class="service">
     <header class="service__header entries-list__header">
-      <span class="service__icon"></span>
+      <icon-transport class="service__icon" />
       <h1 class="service__title entries-list__title">Metro de Valparaíso</h1>
-      <p class="service__description entries-list__description">
-        Selecciona un lugar para ver lo que puedes hacer ahí.
-        <text-to-speech :text-audio="'Selecciona un lugar para ver lo que puedes hacer ahí.'"></text-to-speech>
-      </p>
+      <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer ahí.</p>
+      <text-to-speech :text-audio="'Selecciona un lugar para ver lo que puedes hacer ahí.'"></text-to-speech>
     </header>
     <main class="service__items service__items places">
       <template v-for="place in places" v-bind:place="place">
@@ -32,11 +30,13 @@
 
 <script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconTransport from '../../public/img/app-icons/transport.svg?inline';
 
 export default {
   name: 'serviceSingle',
   components: {
     TextToSpeech,
+    IconTransport,
   },
   data() {
     return {
@@ -89,6 +89,15 @@ export default {
   .service {
     display: flex;
     flex-flow: column nowrap;
+  }
+  .service__header .tts {
+    position: absolute;
+    top: var(--spacer);
+    right: var(--spacer);
+  }
+  .service__icon {
+    width: 1rem;
+    height: 1rem;
   }
   .service__items {
     flex-grow: 1;

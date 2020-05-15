@@ -290,7 +290,7 @@ a {
 }
 .actions__title {
   @include rfs($font-size-14);
-  margin-bottom: var(--spacer-sm);
+  margin-bottom: calc( var(--spacer) * .75 );
   font-weight: bold;
   line-height: 1.35714;
   @media screen and ( min-width: 640px ) {
@@ -299,7 +299,7 @@ a {
 }
 .actions__description {
   @include rfs($font-size-14);
-  margin-bottom: var(--spacer-sm);
+  margin-bottom: calc( var(--spacer) * .75 );
   @media screen and ( min-width: 640px ) {
     margin-bottom: var(--spacer);
   }

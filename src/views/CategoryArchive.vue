@@ -4,10 +4,8 @@
     <header class="category__header entries-list__header">
       <icon-transport class="category__icon" />
       <h1 class="category__title entries-list__title">Transporte</h1>
-      <p class="category__description entries-list__description">
-        Revisa los servicios disponibles que están cerca de tí.
-        <text-to-speech :text-audio="'Revisa los servicios disponibles que están cerca de tí'" />
-      </p>
+      <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de tí.</p>
+      <text-to-speech :text-audio="'Revisa los servicios disponibles que están cerca de tí'" />
     </header>
     <main class="category__items category__items--services">
       <template v-for="service in services" v-bind:service="service">
@@ -23,7 +21,10 @@
     </main>
     <!-- Visualmente es 'footer', pero semánticamente es 'aside' -->
     <aside class="actions actions--category">
-      <p class="actions__title">¿No encuentras el lugar que estás buscando? <text-to-speech /></p>
+      <p class="actions__title">
+        ¿No encuentras el lugar que estás buscando?
+        <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando?'" />
+      </p>
       <router-link to="/lugares/nuevo" class="btn btn--primary btn--large btn--block" tag="button">
         &plus; Agregar un lugar nuevo
       </router-link>
@@ -75,6 +76,7 @@ export default {
     height: 2.1875rem;
   }
   .entries-list__header {
+    position: relative;
     padding: var(--spacer);
     text-align: center;
     background-color: var(--color-brand-lighter);
@@ -96,6 +98,11 @@ export default {
     @media screen and ( max-width: 639px ) {
       text-align: left;
     }
+  }
+  .category__header .tts {
+    position: absolute;
+    top: var(--spacer);
+    right: var(--spacer);
   }
   .category__items {
     flex-grow: 1;
@@ -143,5 +150,10 @@ export default {
         fill: #fff;
       }
     }
+  }
+  .actions--category .actions__title {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: var(--spacer);
   }
 </style>

@@ -3,12 +3,10 @@
   <div class="home">
     <MainSearch />
     <section class="main-categories container">
-      <div class="tts-target">
+      <div class="main-categories__header">
         <h2 class="main-categories__title">¿Buscas un lugar específico?</h2>
-        <p class="main-categories__description">
-          Selecciona un tipo de lugar
-          <text-to-speech :text-audio="'¿Buscas un lugar específico?\n\nSelecciona un tipo de lugar'" />
-        </p>
+        <p class="main-categories__description">Selecciona un tipo de lugar</p>
+        <text-to-speech :text-audio="'¿Buscas un lugar específico?. Selecciona un tipo de lugar'" />
       </div>
       <ul class="main-categories__list">
         <li>
@@ -75,16 +73,26 @@ export default {
       padding-right: var(--spacer-xl);
     }
   }
+  .main-categories__header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+  }
   .main-categories__title {
     @include rfs($font-size-18);
-    line-height: var(--subtitle-line-height);
     margin-bottom: var(--spacer-xs);
+    line-height: var(--subtitle-line-height);
+    grid-column: 1/2;
+    grid-row: 1/2;
   }
   .main-categories__description {
     @include rfs($font-size-14);
+    grid-column: 1/2;
+    grid-row: 2/3;
   }
-  .tts path {
-    fill: var(--color-brand-darkest);
+  .main-categories__header .tts {
+    grid-column: 2/2;
+    grid-row: 1/2;
   }
   .main-categories__list {
     display: grid;

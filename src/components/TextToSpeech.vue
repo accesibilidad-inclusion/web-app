@@ -56,4 +56,7 @@ export default class TextToSpeech extends Vue {
   @include rfs(1rem, width);
   @include rfs(1rem, height);
 }
+.tts ::v-deep path {
+  fill: var(--color-brand);
+}
 </style>

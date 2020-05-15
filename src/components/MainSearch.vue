@@ -2,7 +2,7 @@
 <template>
   <form class="main-search" @submit.prevent="doSearch">
     <label class="main-search__label" for="s">
-      ¿Qué necesitas hacer?
+      <span>¿Qué necesitas hacer?</span>
       <text-to-speech :text-audio="'¿Qué necesitas hacer?'" />
     </label>
     <div class="main-search__group">
@@ -120,9 +120,11 @@ export default {
   }
   .main-search__label {
     @include rfs($font-size-18);
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: var(--spacer);
+    margin-bottom: var(--spacer);
     line-height: calc( 25 / 18 );
     font-weight: bold;
-    margin-bottom: var(--spacer);
   }
 </style>

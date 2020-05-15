@@ -63,9 +63,6 @@ export default {
   .task-block .tts {
     grid-column: 2/3;
     padding: calc( var(--spacer) / 2 ) calc( var(--spacer) * .75 );
-    svg path {
-      fill: var(--color-brand);
-    }
   }
   .task-block__aids {
     @include rfs($font-size-13);
