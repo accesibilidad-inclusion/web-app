@@ -209,7 +209,7 @@ export default {
                 img: '2-landmarks/turnstile.svg',
               },
               context: {
-                img: '3-context/sign--center.svg',
+                img: '3-context/sign-center.svg',
               },
             },
           },
@@ -219,7 +219,7 @@ export default {
             legend: 'Baja al andén correspondiente',
             layers: {
               subject: {
-                img: '1-subject/go-down.svg',
+                img: '1-subject/go-down--third-quadrant.svg',
               },
               landmark: {
                 img: '2-landmarks/exit.svg',
