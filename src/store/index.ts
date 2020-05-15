@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import * as mutations from './mutations';
+
+const mutations = require('./mutations');
 
 Vue.use(Vuex);
 

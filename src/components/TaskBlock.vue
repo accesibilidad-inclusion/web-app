@@ -15,7 +15,7 @@
   </router-link>
 </template>
 
-<script lang="ts">
+<script>
 import TextToSpeech from './TextToSpeech.vue';
 
 export default {
