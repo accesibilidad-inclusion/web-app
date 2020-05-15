@@ -6894,10 +6894,10 @@ picomatch@^2.0.4, picomatch@^2.0.5, picomatch@^2.0.7, picomatch@^2.2.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
   integrity sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==
 
-pictos@^0.5:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/pictos/-/pictos-0.5.0.tgz#56d92824071351e505b664fb8fec4536007e4039"
-  integrity sha512-v2mJqF6+IEjPhhWEGTcyfjRB19l3lYtUo2uGsVoN050uJWT173aOQ4Vazt5nmZye1LvfgfS+/DJIJhl41fvsTA==
+pictos@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/pictos/-/pictos-0.6.0.tgz#944ff0edbf39a24e094d9df3b118fcaf7087c923"
+  integrity sha512-gxU5flgJeOnFDoS8FXUZUWiJATvl1srGNVMzCepXYibRMGYJH/UXO85YSFyEc6PWNFU3LppHZrfVGaLW6zs7Zg==
 
 pify@^2.0.0:
   version "2.3.0"

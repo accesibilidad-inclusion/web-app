@@ -203,7 +203,7 @@ export default {
             legend: 'Pasa tu tarjeta por el sensor del torniquete',
             layers: {
               subject: {
-                img: '1-subject/handle.svg',
+                img: '1-subject/handle--third-quadrant.svg',
               },
               landmark: {
                 img: '2-landmarks/turnstile.svg',
@@ -224,9 +224,6 @@ export default {
               landmark: {
                 img: '2-landmarks/exit.svg',
               },
-              context: {
-                img: '3-context/seat.svg',
-              },
             },
           },
           {
@@ -235,7 +232,7 @@ export default {
             legend: 'Espera el metro detrás de la línea',
             layers: {
               subject: {
-                img: '1-subject/wait-side.svg',
+                img: '1-subject/wait-side--first-quadrant.svg',
               },
               landmark: {
                 img: '2-landmarks/metro--front.svg',
