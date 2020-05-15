@@ -33,13 +33,13 @@
             <figcaption class="task-step__legend">{{ step.legend }}</figcaption>
           </figure>
         </li>
-        <li v-bind:class="'task-step task-helpful'+ ( task.steps.length <= state.active_step ? ' task-step--active' : '')">
+        <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
           <h2 class="task-helpful__title">¿Te ha servido este apoyo?</h2>
           <div class="task-helpful__answers">
-            <button v-bind:class="'task-helpful__answer' + ( state.helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
+            <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
               <icon-like class="task-helpful__answer__icon--like"></icon-like>
             </button>
-            <button v-bind:class="'task-helpful__answer' + ( state.helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
+            <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
               <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
             </button>
           </div>
@@ -49,7 +49,7 @@
           >
             Volver a {{ task.place }}
           </router-link>
-          <button v-bind:class="'btn--as-link' + ( state.helpful != false ? ' task-helpful__toggle-feedback--hidden' : '' )" @click="toggleFeedback">Reportar un problema</button>
+          <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
         </li>
       </ol>
       <div class="task__nav">
@@ -69,61 +69,111 @@
               'task__step-indicator--active' : 'task__step-indicator'">
             {{ step.order }}
           </li>
-          <li v-bind:class="state.active_step >= task.steps.length + 1 ? 'task__step-indicator--active' : 'task__step-indicator'">
+          <li v-bind:class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
             {{ task.steps.length }}
           </li>
         </ol>
       </div>
     </main>
     <!-- Pestaña inferior para feedback -->
-    <button v-bind:class="'task__step-feedback' + ( state.collapsed_feedback == false ? ' task__step-feedback--hidden' : '' )">
+    <button @click="openFeedback" v-bind:class="'task__step-feedback' +
+      ( state.active_helpful === true || state.opened_modal === true ?
+        ' task__step-feedback--hidden' : '' )">
       Reportar un problema con este paso
     </button>
     <!-- Bloque y formulario para feedback -->
-    <!-- <div class="task__feedback">
-      <h2 class="task__feedback-header">Reportar un problema con este</h2>
-    </div> -->
+    <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
+      <div class="modal__backdrop">
+        <div v-bind:class="'task-feedback' + ( state.submitted_feedback ? ' task-feedback--submitted' : '' )">
+          <button type="button" class="modal__close" @click="closeFeedback"><icon-error></icon-error></button>
+          <form class="task-feedback__form" @submit.prevent="submitFeedback" v-if="!state.submitted_feedback">
+            <h2 class="task-feedback__title">Reportar un problema con este paso</h2>
+            <textarea class="task-feedback__control" v-model="feedback.body"
+              placeholder="Ejemplo: El pictograma no coincide con la instrucción" required></textarea>
+            <button v-bind:class="'task-feedback__submit btn btn--large btn--block' +
+              ( feedback.body === '' ? ' btn--ghost' : ' btn--primary' ) +
+              ( state.submitting_feedback ? ' btn--loading' : '' )"
+            >
+              Enviar
+              <clip-loader :loading="false" :color="'#fff'" :size="'1rem'"></clip-loader>
+            </button>
+          </form>
+          <div class="task-feedback__response" v-if="state.submitted_feedback">
+            <p class="task-feedback__response-message">¡Gracias!<br> tu comentario ha sido enviado</p>
+            <button type="button" class="task-feedback__response-close btn btn--large btn--block btn--light" @click="closeFeedback">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import IconLike from '../../public/img/app-icons/like.svg?inline';
 import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
-
+import IconError from '../../public/img/app-icons/error.svg?inline';
 
 export default {
   name: 'taskSingle',
   components: {
     TextToSpeech,
+    ClipLoader,
     IconLike,
     IconDislike,
+    IconError,
   },
   methods: {
     advanceStep() {
       // eslint-disable-next-line no-plusplus
       this.$data.state.active_step++;
+      if (this.$data.state.active_step === this.$data.task.steps.length) {
+        this.$data.state.active_helpful = true;
+      }
     },
     rewindStep() {
       // eslint-disable-next-line no-plusplus
       this.$data.state.active_step--;
+      if (this.$data.state.active_step < this.$data.task.steps.length) {
+        this.$data.state.active_helpful = false;
+      }
     },
     likedStep() {
-      this.$data.state.helpful = true;
+      this.$data.state.was_helpful = true;
     },
     dislikedStep() {
-      this.$data.state.helpful = false;
+      this.$data.state.was_helpful = false;
     },
-    toggleFeedback() {
-      this.$data.state.collapsed_feedback = !this.$data.state.collapsed_feedback;
+    openFeedback() {
+      this.$data.state.shown_modal = true;
+      this.$data.state.opened_modal = true;
+      this.$data.state.closed_modal = false;
+    },
+    closeFeedback() {
+      this.$data.state.opened_modal = false;
+      this.$data.state.closed_modal = true;
+    },
+    submitFeedback() {
+      this.$data.state.submitting_feedback = true;
+      setTimeout(() => {
+        this.$data.state.submitted_feedback = true;
+        this.$data.state.submitting_feedback = false;
+      }, 2000);
     },
   },
   data() {
     return {
       state: {
         active_step: 0,
-        helpful: null,
-        collapsed_feedback: true,
+        active_helpful: false,
+        was_helpful: null,
+        shown_modal: false,
+        opened_modal: false,
+        closed_modal: null,
+        submitting_feedback: false,
+        submitted_feedback: false,
+        error_feedback: false,
       },
       task: {
         id: 1,
@@ -193,6 +243,9 @@ export default {
             },
           },
         ],
+      },
+      feedback: {
+        body: '',
       },
       embedded: {
         'pictos:place': [
@@ -424,31 +477,138 @@ export default {
   li.task__step-indicator--active {
     background: var(--color-brand);
   }
+  // Botón de feedback
   .task__step-feedback {
     @include rfs($font-size-12);
     cursor: pointer;
     position: fixed;
     display: block;
-    width: calc(100% - ( var(--spacer) * 2 ) );
-    max-width: calc(640px - ( var(--spacer) * 2 ) );
+    width: calc( 100% - var(--spacer) );
+    max-width: calc( 640px - var(--spacer) );
     bottom: 0;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     padding: calc( var(--spacer) * .65 );
+    font-weight: 600;
     background: var( --color-brand-lighter );
     border-top-left-radius: var( --border-radius );
     border-top-right-radius: var( --border-radius );
     border: 0;
-    font-family: inherit;
+    transition: var(--transition-base);
     &.task__step-feedback--hidden {
+      bottom: -100%;
       opacity: 0;
-      z-index: 0;
-      transition: var(--transition-base);
     }
     @media screen and ( min-width: 1280px ) {
       max-width: calc(750px - ( var(--spacer-lg) * 2 ) );
     }
+  }
+  // Modal de feedback
+  .task-feedback {
+    position: absolute;
+    width: calc(100vw - var(--spacer) );
+    height: calc(100vh - var(--spacer-lg) );
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--spacer);
+    background-color: var(--color-brand-lighter);
+    transition: top .35s ease;
+    border-top-left-radius: var(--spacer);
+    border-top-right-radius: var(--spacer);
+    overflow: hidden;
+    .modal--fade:not(.modal--fade-out) & {
+      top: var(--spacer-lg);
+      overflow: unset;
+    }
+    &.task-feedback--submitted {
+      color: var(--color-highlight);
+      background-color: var(--color-brand-darkest);
+      transition: var(--transition-base);
+      .task-feedback__form {
+        animation: quickScaleDown 0s .5s linear forwards;
+      }
+    }
+    @media screen and ( min-width: 640px ) {
+      max-width: calc(640px - var(--spacer));
+      margin-left: auto;
+      margin-right: auto;
+      padding: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      max-width: calc(750px - var(--spacer-lg));
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
+    .modal__close {
+      cursor: pointer;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: var(--spacer-lg);
+      height: var(--spacer-lg);
+      top: calc( var(--spacer-lg) * -1 );
+      right: var(--spacer-xs);
+      line-height: 0;
+      background: none;
+      border: none;
+      svg {
+        width: 1rem;
+        height: 1rem;
+      }
+      path {
+        fill: #fff;
+      }
+    }
+  }
+  .task-feedback__form {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+  }
+  .task-feedback__title {
+    @include rfs($font-size-16);
+    margin-bottom: var(--spacer);
+  }
+  .task-feedback__control {
+    @include rfs($font-size-14);
+    width: 100%;
+    height: 40vh;
+    min-height: 100px;
+    max-height: 250px;
+    padding: var(--spacer);
+    font-family: var(--font-family);
+    font-style: italic;
+    border: none;
+    border-radius: var(--border-radius);
+  }
+  .task-feedback__submit {
+    margin-top: auto;
+  }
+  .task-feedback__response {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+  }
+  .task-feedback__response-message {
+    @include rfs($font-size-18);
+    max-width: 75%;
+    margin-top: auto;
+    margin-bottom: var(--spacer-lg);
+    font-weight: bold;
+    line-height: calc(25 / 18);
+    text-transform: uppercase;
+  }
+  .task-feedback__response-close {
+    margin-top: auto;
+    background-color: var(--color-brand-light);
   }
 </style>

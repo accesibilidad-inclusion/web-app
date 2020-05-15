@@ -62,6 +62,12 @@
   // Transitions
   --transition-base: all .3s ease-out;
 
+  // z-index
+  --z-index-navbar: 1010;
+  --z-index-modal: 1020;
+
+  // Modal
+  --modal-backdrop-bg: rgb(4, 28, 66);
 }
 // no es el reset más elegante, pero en este caso sirve perfecto
 * {
@@ -79,6 +85,12 @@ html {
 }
 *, *:before, *:after {
   box-sizing: inherit;
+}
+button, label, input, select, progress, meter {
+  font-family: inherit;
+}
+input, button {
+  -webkit-appearance: none;
 }
 body {
   min-height: 100vh;
@@ -117,7 +129,7 @@ a {
   background: var(--color-brand-lighter);
   position: sticky;
   top: 0;
-  z-index: 99999;
+  z-index: var(--z-index-navbar);
 }
 .app-nav__toggle {
   background: none;
@@ -129,6 +141,7 @@ a {
     top: 1px;
   }
 }
+// Buttons
 .btn {
   @include rfs($font-size-12);
   display: inline-block;
@@ -137,9 +150,12 @@ a {
   font-weight: 600;
   text-align: center;
   text-decoration: none;
-  transition: all .35s linear;
+  transition: var(--transition-base);
   border-radius: var(--border-radius);
   border: none;
+  .v-spinner {
+    margin-left: var(--spacer);
+  }
   &:hover {
     cursor: pointer;
   }
@@ -170,12 +186,98 @@ a {
   opacity: 0;
   visibility: hidden;
 }
+.btn--loading {
+  text-indent: -1rem;
+  .v-spinner {
+    position: absolute;
+    display: inline-block !important;
+    margin-top: .15rem;
+    animation: buttonSpinnerShow .35s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  }
+}
 .btn--as-link {
   @include rfs($font-size-14);
   text-decoration: underline;
   background: transparent;
   border: none;
 }
+// Modal
+.modal {
+  position: fixed;
+  display: table;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  overflow: hidden;
+  outline: 0;
+  z-index: var(--z-index-modal);
+  &.modal--fade {
+    transform: scale(1);
+    .modal__backdrop {
+      background-color: rgba( 4, 28, 66, 0);
+      animation: modalFadeIn .35s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+    &.modal--fade-out {
+      animation: quickScaleDown 0s .5s linear forwards;
+      .modal__backdrop {
+        animation: modalFadeOut .35s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      }
+    }
+  }
+}
+.modal__backdrop {
+  display: table-cell;
+  background-color: rgba( 4, 28, 66, .75);
+  @media screen and ( min-width: 640px ) {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media screen and ( min-width: 1280px ) {
+    max-width: 750px;
+  }
+}
+
+// Animations
+@keyframes modalFadeIn {
+  0% {
+    background: rgba( 4, 28, 66, 0);
+  }
+  100% {
+    background: rgba( 4, 28, 66, .75);
+  }
+}
+@keyframes modalFadeOut {
+  0% {
+    background: rgba( 4, 28, 66, .75);
+  }
+  100% {
+    background: rgba( 4, 28, 66, 0);
+  }
+}
+@keyframes quickScaleDown {
+  0% {
+    transform: scale(1);
+  }
+  99.9% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes buttonSpinnerShow {
+  0% {
+    margin-left: -1rem;
+  }
+  100% {
+    margin-left: 1.5rem;
+  }
+}
+
+// Actions
 .actions {
   padding: var(--spacer);
   @media screen and ( min-width: 640px ) {
