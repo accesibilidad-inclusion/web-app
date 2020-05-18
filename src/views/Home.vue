@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/global.scss';
+  @import '@/assets/scss/rfs.scss';
   .home {
     padding-left: var(--spacer);
     padding-right: var(--spacer);

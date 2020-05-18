@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/global.scss';
+  @import '@/assets/scss/rfs.scss';
   .service {
     display: flex;
     flex-flow: column nowrap;

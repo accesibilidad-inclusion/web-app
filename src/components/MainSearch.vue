@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/global.scss';
+  @import '@/assets/scss/rfs.scss';
   .main-search {
     position: relative;
     margin-left: calc( var(--spacer) * -1 );

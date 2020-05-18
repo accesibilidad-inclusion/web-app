@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global.scss';
+@import '@/assets/scss/rfs.scss';
 
 .custom-select {
   @include rfs($font-size-14);

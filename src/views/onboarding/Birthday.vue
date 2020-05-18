@@ -124,7 +124,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global.scss';
+@import '@/assets/scss/rfs.scss';
 label {
   @include rfs(.3125rem, margin-bottom);
   display: block;

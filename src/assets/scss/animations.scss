@@ -1,0 +1,36 @@
+// Animations
+@keyframes modalFadeIn {
+  0% {
+    background: rgba( 4, 28, 66, 0);
+  }
+  100% {
+    background: rgba( 4, 28, 66, .75);
+  }
+}
+@keyframes modalFadeOut {
+  0% {
+    background: rgba( 4, 28, 66, .75);
+  }
+  100% {
+    background: rgba( 4, 28, 66, 0);
+  }
+}
+@keyframes quickScaleDown {
+  0% {
+    transform: scale(1);
+  }
+  99.9% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes buttonSpinnerShow {
+  0% {
+    margin-left: -1rem;
+  }
+  100% {
+    margin-left: 1.5rem;
+  }
+}

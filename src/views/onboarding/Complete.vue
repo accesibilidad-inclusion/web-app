@@ -25,8 +25,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global.scss';
-
 .onboarding ::v-deep .onboarding__title {
   justify-content: center;
   align-items: center;
@@ -36,5 +34,4 @@ export default {
   margin-right: auto;
   text-align: center;
 }
-
 </style>

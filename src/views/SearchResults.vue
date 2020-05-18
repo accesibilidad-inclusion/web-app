@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/global.scss';
+  @import '@/assets/scss/rfs.scss';
   .search-results__description {
     margin-bottom: var(--spacer);
     padding: var(--spacer-sm) var(--spacer) var(--spacer);

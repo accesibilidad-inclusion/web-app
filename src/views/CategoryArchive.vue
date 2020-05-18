@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/global.scss';
+  @import '@/assets/scss/rfs.scss';
   .category {
     display: flex;
     flex-flow: column nowrap;

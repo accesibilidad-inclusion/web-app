@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/global.scss';
+  @import '@/assets/scss/rfs.scss';
   .place__header {
     position: relative;
     margin-bottom: var(--spacer);

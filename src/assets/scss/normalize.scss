@@ -1,0 +1,33 @@
+// no es el reset más elegante, pero en este caso sirve perfecto
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: #{$rfs-rem-value}px;
+  line-height: 1.357;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  // @media screen and ( max-width: 768px ) {
+  //   font-size: 15px;
+  // }
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+button, label, input, select, progress, meter {
+  font-family: inherit;
+}
+input, button {
+  -webkit-appearance: none;
+}
+body {
+  min-height: 100vh;
+  font-family: var(--font-family);
+  background-color: var(--color-brand-lightest);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+a {
+  color: var( --color-brand );
+}

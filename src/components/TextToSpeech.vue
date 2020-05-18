@@ -42,7 +42,7 @@ export default class TextToSpeech extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global.scss';
+@import '@/assets/scss/rfs.scss';
 
 .tts {
   cursor: pointer;
