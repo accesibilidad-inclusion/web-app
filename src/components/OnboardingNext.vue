@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="linkTo" :class="classes()">Siguiente</router-link>
+  <router-link :tag="'button'" :to="linkTo" :class="classes()">Siguiente</router-link>
 </template>
 
 <script>
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     classes() {
-      return ['btn btn--large btn--block', (this.isDisabled ? 'btn--ghost' : 'btn--primary')].join(' ');
+      return ['btn btn--large btn--block', (this.isDisabled ? 'btn--ghost-neutral' : 'btn--primary')].join(' ');
     },
   },
 };

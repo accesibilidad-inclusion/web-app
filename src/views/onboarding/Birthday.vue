@@ -5,7 +5,7 @@
     </header>
     <div class="container">
       <!-- eslint-disable-next-line max-len -->
-      <h2 class="onboarding__title">Fecha de nacimiento <text-to-speech :text-audio="'Fecha de nacimiento'" /></h2>
+      <h2 class="onboarding__title">Fecha de nacimiento <text-to-speech :text-audio="`${this.title}: Día, Mes y Año`" /></h2>
       <!-- eslint-disable-next-line max-len -->
       <form>
         <div class="form-group">
@@ -25,7 +25,7 @@
         </div>
       </form>
       <footer class="onboarding__footer">
-        <onboarding-next :linkTo="'sex'" :disabled="true"></onboarding-next>
+        <onboarding-next :linkTo="'sex'" :isDisabled="!canContinue"></onboarding-next>
       </footer>
     </div>
   </div>
@@ -47,7 +47,6 @@ export default {
   },
   data() {
     return {
-      title: 'Fecha de nacimiento',
       dayBirth: this.$store.state.user.dayBirth,
       monthBirth: this.$store.state.user.monthBirth,
       yearBirth: this.$store.state.user.yearBirth,
@@ -79,18 +78,12 @@ export default {
     },
     birthday() {
       if (this.yearBirth !== '' && this.monthBirth !== '' && this.dayBirth !== '') {
-        // eslint-disable-next-line prefer-template
-        return this.yearBirth + '-' + this.monthBirth + '-' + this.dayBirth;
+        return `${this.yearBirth}-${this.monthBirth}-${this.dayBirth}`;
       }
       return '';
     },
     canContinue() {
-      return this.dayBirth !== null && this.dayBirth !== null && this.yearBirth !== null;
-    },
-    textAudio() {
-      // eslint-disable-next-line prefer-template
-      // eslint-disable-next-line no-useless-concat
-      return `${this.title}\n\n\n\n` + 'Día' + '\n\n\n\n' + 'Mes' + '\n\n\n\n' + 'Año';
+      return this.dayBirth && this.monthBirth && this.yearBirth;
     },
   },
   methods: {
