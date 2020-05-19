@@ -16,6 +16,7 @@ import SearchResults from '../views/SearchResults.vue';
 import CategoryArchive from '../views/CategoryArchive.vue';
 import ServiceSingle from '../views/ServiceSingle.vue';
 import PlaceSingle from '../views/PlaceSingle.vue';
+import PlaceEvaluation from '../views/PlaceEvaluation.vue';
 import TaskSingle from '../views/TaskSingle.vue';
 
 Vue.use(VueRouter);
@@ -96,6 +97,11 @@ const routes = [
     path: '/lugares/:placeId/',
     name: 'place-single',
     component: PlaceSingle,
+  },
+  {
+    path: '/evaluacion/:grade/',
+    name: 'place-evaluation',
+    component: PlaceEvaluation,
   },
   {
     path: '/tareas/:taskId/',

@@ -28,15 +28,18 @@
         &plus; Agregar una tarea nueva
       </router-link>
     </aside>
-    <footer class="place__footer place__evaluation">
-      <div class="place__evaluation-label">Excelente</div>
-      <div class="place__evaluation-grade" v-bind:data-grade="5">5</div>
-      <p class="place__evaluation-description">Nivel de accesibilidad de la Estación
-        Viña del Mar</p>
-      <p class="place__evaluation-title">¿Quieres colaborar con nosotros?</p>
-      <router-link tag="button" to="/lugar/1/evaluar" class="btn btn--ghost btn--large btn--block">
-        Evaluar este lugar
+    <footer class="place__footer">
+      <router-link :to="'/evaluacion/5'" class="place__evaluation">
+        <div class="place__evaluation-title">Excelente</div>
+        <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="5">5</div>
+        <p class="place__evaluation-description">Nivel de accesibilidad de la Estación Viña del Mar</p>
       </router-link>
+      <div class="place__evaluation-actions">
+        <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
+        <router-link tag="button" to="/lugar/1/evaluar" class="btn btn--ghost btn--large btn--block">
+          Evaluar este lugar
+        </router-link>
+      </div>
     </footer>
   </div>
 </template>
@@ -236,7 +239,7 @@ export default {
       grid-row: 2/3;
     }
   }
-  .place__evaluation {
+  .place__footer {
     padding: var(--spacer-lg) var(--spacer);
     text-align: center;
     color: var(--color-background );
@@ -249,33 +252,37 @@ export default {
       padding: var(--spacer-xl);
     }
   }
-  .place__evaluation-label {
+  .place__evaluation {
+    text-decoration: none;
+    color: #fff;
+  }
+  .place__evaluation-title {
     @include rfs($font-size-18);
-    margin-bottom: var(--spacer-xs);
     font-weight: bold;
     line-height: calc( 25/18 );
     text-transform: uppercase;
-    @media screen and ( min-width: 640px ) {
-      margin-bottom: var(--spacer-sm);
-    }
-    @media screen and ( min-width: 1280px ) {
-      margin-bottom: var(--spacer);
+    .place__evaluation & {
+      margin-bottom: var(--spacer-xs);
+      @media screen and ( min-width: 640px ) {
+        margin-bottom: var(--spacer-sm);
+      }
+      @media screen and ( min-width: 1280px ) {
+        margin-bottom: var(--spacer);
+      }
     }
   }
-  .place__evaluation-grade {
-    .place__footer & {
-      width: 3.125rem;
-      height: 3.125rem;
-      margin-left: auto;
-      margin-right: auto;
-      font-size: 2rem;
-      line-height: 3.125rem;
-      color: var(--color-text);
-      @media screen and ( min-width: 640px ) {
-        width: 3.5rem;
-        height: 3.5rem;
-        font-size: 2.5rem;
-      }
+  .place__evaluation-grade--lg {
+    width: 3.125rem;
+    height: 3.125rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2rem;
+    line-height: 3.125rem;
+    color: var(--color-text);
+    @media screen and ( min-width: 640px ) {
+      width: 3.5rem;
+      height: 3.5rem;
+      font-size: 2.5rem;
     }
   }
   .place__evaluation-description {
@@ -292,7 +299,7 @@ export default {
       margin-top: var(--spacer);
     }
   }
-  .place__evaluation-title {
+  .place__evaluation-actions-title {
     @include rfs($font-size-16);
     margin-bottom: var(--spacer-sm);
     font-weight: bold;
