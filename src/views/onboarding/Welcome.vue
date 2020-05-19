@@ -6,7 +6,7 @@
       <!-- eslint-disable-next-line max-len -->
       <p>Pictos es un <strong>sistema de navegación espacial y evaluación</strong> de <a href="#">accesibilidad cognitiva(?)</a> que apunta a mejorar los servicios de tu ciudad para que <strong>sean accesibles por todos.</strong></p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'permissions'" />
+        <OnboardingNext :linkTo="'/onboarding/permissions'" />
       </footer>
     </div>
   </div>

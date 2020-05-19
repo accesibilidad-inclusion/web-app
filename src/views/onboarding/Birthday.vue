@@ -1,31 +1,27 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding">
     <header class="onboarding__navbar">
       <back-button></back-button>
     </header>
     <div class="container">
-      <!-- eslint-disable-next-line max-len -->
-      <h2 class="onboarding__title">Fecha de nacimiento <text-to-speech :text-audio="`${this.title}: Día, Mes y Año`" /></h2>
-      <!-- eslint-disable-next-line max-len -->
+      <h2 class="onboarding__title">Fecha de nacimiento <text-to-speech :text-audio="`Fecha de nacimiento: Día, Mes y Año`" /></h2>
       <form>
         <div class="form-group">
           <label for="day">Día</label>
-          <!-- eslint-disable-next-line max-len -->
           <form-select :id="'day'" :options="days" :optionDefault="'Selecciona el día'" v-model="dayBirth" @input="dayChange"></form-select>
         </div>
         <div class="form-group">
           <label for="month">Mes</label>
-          <!-- eslint-disable-next-line max-len -->
           <form-select :id="'month'" :options="months" :optionDefault="'Selecciona el mes'" v-model="monthBirth" @input="monthChange"></form-select>
         </div>
         <div class="form-group">
           <label for="ano">Año</label>
-          <!-- eslint-disable-next-line max-len -->
           <form-select :id="'year'" :options="years" :optionDefault="'Selecciona el año'" v-model="yearBirth" @input="yearChange"></form-select>
         </div>
       </form>
       <footer class="onboarding__footer">
-        <onboarding-next :linkTo="'sex'" :isDisabled="!canContinue"></onboarding-next>
+        <onboarding-next :linkTo="'/onboarding/sex'" :isDisabled="!canContinue"></onboarding-next>
       </footer>
     </div>
   </div>

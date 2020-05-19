@@ -10,3 +10,16 @@ export const yearBirth = (state, payload) => {
 export const birthday = (state, payload) => {
   state.user.birthday = payload;
 };
+export const sex = (state, payload) => {
+  state.user.sex = payload;
+};
+export const disability = (state, payload) => {
+  state.user.disability = payload;
+};
+export const disabilities = (state, payload) => {
+  if (state.user.disabilities.indexOf(payload) > -1) {
+    state.user.disabilities.splice(payload, 1);
+  } else {
+    state.user.disabilities.push(payload);
+  }
+};

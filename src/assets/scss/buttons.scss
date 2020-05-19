@@ -16,6 +16,10 @@
   &:hover {
     cursor: pointer;
   }
+  &:disabled {
+    pointer-events: none;
+    opacity: .75;
+  }
 }
 .btn--large {
   @include rfs($font-size-14);

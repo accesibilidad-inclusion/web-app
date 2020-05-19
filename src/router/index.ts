@@ -28,7 +28,7 @@ const routes = [
     component: Splash,
   },
   {
-    path: '/onboarding/welcome',
+    path: '/onboarding/',
     name: 'onboarding-welcome',
     component: Welcome,
   },

@@ -8,7 +8,7 @@
       <!-- eslint-disable-next-line max-len -->
       <p class="text-center">Necesitamos que nos permitas acceder a la cámara y ubicación de tu dispositivo.</p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'registration'" />
+        <OnboardingNext :linkTo="'/onboarding/registration'" />
       </footer>
     </div>
   </div>

@@ -9,7 +9,7 @@
       <!-- eslint-disable-next-line max-len -->
       <p>Registra tu fecha de nacimiento, sexo y si tienes algún tipo de discapacidad. Toda la información será estrictamente confidencial.</p>
       <footer class="onboarding__footer">
-        <onboarding-next :linkTo="'birthday'"></onboarding-next>
+        <onboarding-next :linkTo="'/onboarding/birthday'"></onboarding-next>
       </footer>
     </div>
   </div>

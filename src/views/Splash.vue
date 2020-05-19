@@ -34,7 +34,7 @@ export default {
     if (localStorage.onboarding === undefined) {
       setTimeout(() => {
         this.showOnboarding = true;
-        this.$router.push('/onboarding/welcome');
+        this.$router.push('/onboarding/');
       }, 2000);
     } else {
       setTimeout(() => {

@@ -4,22 +4,48 @@
     <header class="onboarding__navbar">
     </header>
     <div class="container">
-      <h2 class="onboarding__title">Gracias por tu información</h2>
-      <footer class="onboarding__footer">
-        <button v-on:click="goHome()" class="btn btn--large btn--block btn--light">Empezar a usar PICTOS</button>
-      </footer>
+      <template v-if="state.submitting_user">
+        <clip-loader :loading="state.submitting_user" :color="'#fff'" :size="'1rem'" class="mt-auto mb-auto"></clip-loader>
+      </template>
+      <template v-else>
+        <h2 class="onboarding__title">Gracias por tu información</h2>
+        <footer class="onboarding__footer">
+          <button @click="goHome()" class="btn btn--large btn--block btn--light">
+            Empezar a usar PICTOS
+          </button>
+        </footer>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
+
 export default {
   name: 'Disability',
+  components: {
+    ClipLoader,
+  },
+  data() {
+    return {
+      state: {
+        submitting_user: false,
+        user_submitted: false,
+      },
+    };
+  },
   methods: {
     goHome() {
-      localStorage.onboarding = true;
       this.$router.push('/home');
     },
+  },
+  created() {
+    this.$data.state.submitting_user = true;
+    setTimeout(() => {
+      this.$data.state.user_submitted = true;
+      this.$data.state.submitting_user = false;
+    }, 2000);
   },
 };
 </script>

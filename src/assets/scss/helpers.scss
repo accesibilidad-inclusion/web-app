@@ -19,6 +19,18 @@
   background-color: var(--color-brand-darkest);
 }
 // Margins
+.mt-auto {
+  margin-top: auto;
+}
+.mb-auto {
+  margin-bottom: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
 .mb-1 {
   margin-bottom: var(--spacer-xs);
 }

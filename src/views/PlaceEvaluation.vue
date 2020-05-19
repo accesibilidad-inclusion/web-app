@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
 
 export default {
@@ -42,10 +42,9 @@ export default {
   },
   computed: {
     evaluation() {
-      console.log(this.$route.params.grade);
       return this.$store.state.evaluations
         // eslint-disable-next-line radix
-        .find(evaluation => evaluation.grade === parseInt(this.$route.params.grade));
+        .find(evaluation => evaluation.grade === parseInt(this.$route.params.grade, 10));
     },
   },
 };
