@@ -2,25 +2,24 @@
 <template>
   <div class="place">
     <header class="place__header">
-      <span class="place__service">Metro de Valparaíso</span>
-      <h1 class="place__name">Estación Viña del Mar</h1>
+      <span class="place__service">{{ place.service }}</span>
+      <h1 class="place__name">{{ place.name }}</h1>
       <a href="#" class="place__map-link">
         <icon-location-pin />
         Abrir en mapa
       </a>
-      <text-to-speech :text-audio="'Estación Viña del Mar' + ' en ' + 'Metro de Valparaíso'" />
+      <text-to-speech :text-audio="`${place.name}, en ${place.service}`" />
     </header>
     <main class="place__tasks">
       <p class="place__tasks-description">
         <span>Selecciona lo que necesites hacer en este lugar</span>
         <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
       </p>
-      <task-block v-for="task in tasks"
-        v-bind:key="task.id" v-bind:task="task"/>
+      <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
     </main>
     <aside class="actions actions--place">
       <div class="actions__header">
-        <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar'" />
+        <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
         <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
         <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
       </div>
@@ -30,9 +29,10 @@
     </aside>
     <footer class="place__footer">
       <router-link :to="'/evaluacion/5'" class="place__evaluation">
-        <div class="place__evaluation-title">Excelente</div>
-        <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="5">5</div>
-        <p class="place__evaluation-description">Nivel de accesibilidad de la Estación Viña del Mar</p>
+        <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
+        <div class="place__evaluation-title">{{ evaluation.title }}</div>
+        <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">{{ evaluation.grade }}</div>
+        <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
       </router-link>
       <div class="place__evaluation-actions">
         <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
@@ -58,6 +58,11 @@ export default {
   },
   data() {
     return {
+      place: {
+        name: 'Estación Viña del Mar',
+        service: 'Metro de Valparaíso',
+        evaluation: 5,
+      },
       tasks: [
         // objetos de tipo "tarea"
         {
@@ -68,14 +73,17 @@ export default {
           aids: [
             {
               type: 'graphic',
+              name: 'Gráfico',
               enabled: true,
             },
             {
               type: 'written',
+              name: 'Escrito',
               enabled: true,
             },
             {
               type: 'aural',
+              name: 'Auditivo',
               enabled: true,
             },
           ],
@@ -88,20 +96,29 @@ export default {
           aids: [
             {
               type: 'graphic',
+              name: 'Gráfico',
               enabled: false,
             },
             {
               type: 'written',
+              name: 'Escrito',
               enabled: false,
             },
             {
               type: 'aural',
+              name: 'Auditivo',
               enabled: true,
             },
           ],
         },
       ],
     };
+  },
+  computed: {
+    evaluation() {
+      return this.$store.state.evaluations
+        .find(evaluation => evaluation.grade === this.place.evaluation);
+    },
   },
 };
 </script>
@@ -240,6 +257,7 @@ export default {
     }
   }
   .place__footer {
+    position: relative;
     padding: var(--spacer-lg) var(--spacer);
     text-align: center;
     color: var(--color-background );
@@ -253,25 +271,46 @@ export default {
     }
   }
   .place__evaluation {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    row-gap: var(--spacer-sm);
     text-decoration: none;
     color: #fff;
+    @media screen and ( min-width: 1280px ) {
+      row-gap: var(--spacer);
+    }
+  }
+  .place__footer .tts {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    // position: absolute;
+    // top: calc( var(--spacer-lg) * 1.125 );
+    // right: var(--spacer);
+    // @media screen and ( min-width: 640px ) {
+    //   top: calc( var(--spacer-lg) * 1.25 );
+    //   right: var(--spacer-lg);
+    // }
+    // @media screen and ( min-width: 1280px ) {
+    //   top: calc( var(--spacer-xl) * 1.25 );
+    //   right: var(--spacer-xl);
+    // }
+    path {
+      fill: #fff;
+    }
   }
   .place__evaluation-title {
     @include rfs($font-size-18);
+    grid-column: 1/2;
+    grid-row: 1/2;
     font-weight: bold;
     line-height: calc( 25/18 );
     text-transform: uppercase;
-    .place__evaluation & {
-      margin-bottom: var(--spacer-xs);
-      @media screen and ( min-width: 640px ) {
-        margin-bottom: var(--spacer-sm);
-      }
-      @media screen and ( min-width: 1280px ) {
-        margin-bottom: var(--spacer);
-      }
-    }
   }
   .place__evaluation-grade--lg {
+    grid-column: 1/2;
+    grid-row: 2/3;
     width: 3.125rem;
     height: 3.125rem;
     margin-left: auto;
@@ -287,16 +326,16 @@ export default {
   }
   .place__evaluation-description {
     @include rfs($font-size-14);
+    grid-column: 1/2;
+    grid-row: 3/4;
     max-width: 15rem;
-    margin: var(--spacer-xs) auto var(--spacer-lg);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--spacer-lg);
     font-weight: 600;
     line-height: calc( 19/14 );
     @media screen and ( min-width: 640px ) {
-      margin-top: var(--spacer-sm);
       margin-bottom: var(--spacer-xl);
-    }
-    @media screen and ( min-width: 1280px ) {
-      margin-top: var(--spacer);
     }
   }
   .place__evaluation-actions-title {

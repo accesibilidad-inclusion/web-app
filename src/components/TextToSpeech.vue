@@ -32,6 +32,7 @@ export default class TextToSpeech extends Vue {
     }
     utterThis.pitch = 1;
     utterThis.rate = 0.9;
+    synth.cancel();
     synth.speak(utterThis);
   }
 

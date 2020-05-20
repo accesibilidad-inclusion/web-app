@@ -4,13 +4,13 @@
     <header class="service__header entries-list__header">
       <icon-transport class="service__icon" />
       <h1 class="service__title entries-list__title">Metro de Valparaíso</h1>
-      <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer ahí.</p>
-      <text-to-speech :text-audio="'Selecciona un lugar para ver lo que puedes hacer ahí.'"></text-to-speech>
+      <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer en este servicio.</p>
+      <text-to-speech :text-audio="'Metro de Valparaíso.\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
     </header>
     <main class="service__items service__items places">
       <template v-for="place in places" v-bind:place="place">
         <router-link class="place-block entry-block" tag="article" v-bind:key="place.id" v-bind:to="'/lugares/' + place.id">
-          <text-to-speech :text-audio="place.name" />
+          <text-to-speech :text-audio="`${place.name}: a ${place.distance} metros de distancia. ${place.evaluation.description}`" />
           <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
           <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
           <p class="place-block__distance">a {{ place.distance }} metros de distancia</p>

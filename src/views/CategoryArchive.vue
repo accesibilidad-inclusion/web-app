@@ -5,7 +5,7 @@
       <icon-transport class="category__icon" />
       <h1 class="category__title entries-list__title">Transporte</h1>
       <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de tí.</p>
-      <text-to-speech :text-audio="'Revisa los servicios disponibles que están cerca de tí'" />
+      <text-to-speech :text-audio="'Transporte.\n\n Revisa los servicios disponibles que están cerca de tí'" />
     </header>
     <main class="category__items category__items--services">
       <template v-for="service in services" v-bind:service="service">
@@ -15,7 +15,7 @@
             <icon-transport></icon-transport>
           </span>
           <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
-          <text-to-speech />
+          <text-to-speech :text-audio="`${service.name}`" />
         </router-link>
       </template>
     </main>
@@ -23,7 +23,7 @@
     <aside class="actions actions--category">
       <p class="actions__title">
         ¿No encuentras el lugar que estás buscando?
-        <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando?'" />
+        <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
       </p>
       <router-link to="/lugares/nuevo" class="btn btn--primary btn--large btn--block" tag="button">
         &plus; Agregar un lugar nuevo

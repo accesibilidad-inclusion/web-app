@@ -1,13 +1,13 @@
 <template>
   <router-link class="task task-block" tag="article" v-bind:to="'/tareas/' + task.id">
     <p class="task-block__title">{{ outputTitle }}</p>
-    <text-to-speech :text-audio="outputTitle" />
+    <text-to-speech :text-audio="`${outputTitle}.\n\n ${outputAids}`" />
     <div class="task-block__aids">
       <span>Apoyo:</span>
       <ul class="task-block__aids-list">
         <template v-for="aid in task.aids">
           <li v-if="aid.enabled" v-bind:key="aid.type">
-            {{ aid.type }}
+            {{ aid.name }}
           </li>
         </template>
       </ul>
@@ -30,6 +30,17 @@ export default {
   computed: {
     outputTitle() {
       return this.title ? this.title : this.task.title;
+    },
+    outputAids() {
+      const aids = [];
+      const keys = Object.keys(this.task.aids);
+      // eslint-disable-next-line no-restricted-syntax
+      for (const key of keys) {
+        if (this.task.aids[key].enabled) {
+          aids.push(this.task.aids[key].name);
+        }
+      }
+      return aids.length > 0 ? ` Apoyos: ${aids.join(', ')}` : '';
     },
   },
 };
