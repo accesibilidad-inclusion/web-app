@@ -302,14 +302,14 @@ export default {
   }
   .place__evaluation-title {
     @include rfs($font-size-18);
-    grid-column: 1/2;
+    grid-column: 1/3;
     grid-row: 1/2;
     font-weight: bold;
     line-height: calc( 25/18 );
     text-transform: uppercase;
   }
   .place__evaluation-grade--lg {
-    grid-column: 1/2;
+    grid-column: 1/3;
     grid-row: 2/3;
     width: 3.125rem;
     height: 3.125rem;
@@ -326,7 +326,7 @@ export default {
   }
   .place__evaluation-description {
     @include rfs($font-size-14);
-    grid-column: 1/2;
+    grid-column: 1/3;
     grid-row: 3/4;
     max-width: 15rem;
     margin-left: auto;
