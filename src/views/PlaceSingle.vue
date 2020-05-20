@@ -2,7 +2,7 @@
 <template>
   <div class="place">
     <header class="place__header">
-      <span class="place__service">{{ place.service }}</span>
+      <router-link :to="'/servicios/1'" class="place__service">{{ place.service }}</router-link>
       <h1 class="place__name">{{ place.name }}</h1>
       <a href="#" class="place__map-link">
         <icon-location-pin />
@@ -165,8 +165,13 @@ export default {
   }
   .place__service {
     @include rfs($font-size-12);
-    display: block;
-    margin-bottom: var(--spacer-xs);
+    display: inline-block;
+    padding: var(--spacer-sm);
+    text-decoration: none;
+    color: #fff;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .place__name {
     @include rfs($font-size-18);
@@ -192,15 +197,15 @@ export default {
   }
   .place__header .tts {
     position: absolute;
-    top: var(--spacer);
+    top: calc( var(--spacer) + ( var(--spacer) / 2 ) );
     right: var(--spacer);
     z-index: 10;
     @media screen and ( min-width: 640px ) {
-      top: var(--spacer-lg);
-      right: calc( var(--spacer-xl) * 1.5 );
+      top: calc( var(--spacer-lg) + ( var(--spacer) / 2 ) );
+      right: calc( var(--spacer-xl) * 1.35 );
     }
     @media screen and ( min-width: 1280px ) {
-      right: calc( var(--spacer-xl) * 2 );
+      right: calc( var(--spacer-xl) * 1.75 );
     }
     svg path {
       fill: #fff;
