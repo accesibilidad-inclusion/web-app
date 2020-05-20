@@ -45,6 +45,7 @@ export default {
     setTimeout(() => {
       this.$data.state.user_submitted = true;
       this.$data.state.submitting_user = false;
+      localStorage.onboarding = true;
     }, 2000);
   },
 };
