@@ -571,8 +571,9 @@ export default {
     @include rfs($font-size-14);
     width: 100%;
     height: 40vh;
-    min-height: 100px;
+    min-height: 80px;
     max-height: 250px;
+    margin-bottom: var(--spacer);
     padding: var(--spacer);
     font-family: var(--font-family);
     font-style: italic;
