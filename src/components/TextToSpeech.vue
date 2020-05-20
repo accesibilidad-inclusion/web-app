@@ -30,7 +30,6 @@ export default class TextToSpeech extends Vue {
     speech.lang = 'es-MX';
     speech.pitch = 1;
     speech.rate = 1;
-    speech.default = false;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(speech);
   }
