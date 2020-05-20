@@ -21,19 +21,18 @@ export default class TextToSpeech extends Vue {
   @Prop() public textAudio: string | undefined;
 
   speak = () => {
-    const synth = window.speechSynthesis;
-    const voices = synth.getVoices();
-    const output = typeof this.textAudio === 'undefined' ? 'Añade la propiedad textAudio' : this.textAudio;
-    const utterThis = new SpeechSynthesisUtterance(output);
-    for (let i:number = 0; i < voices.length; i += 1) {
-      if (voices[i].name === 'Paulina') {
-        utterThis.voice = voices[i];
-      }
-    }
-    utterThis.pitch = 1;
-    utterThis.rate = 0.9;
-    synth.cancel();
-    synth.speak(utterThis);
+    const phrase = typeof this.textAudio === 'undefined'
+      ? 'Añade la propiedad textAudio' : this.textAudio;
+    const speech = new SpeechSynthesisUtterance(phrase);
+    const voices = window.speechSynthesis.getVoices();
+    // eslint-disable-next-line prefer-destructuring
+    speech.voice = voices.filter(voice => voice.name === 'Paulina')[0];
+    speech.lang = 'es-MX';
+    speech.pitch = 1;
+    speech.rate = 1;
+    speech.default = false;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(speech);
   }
 
   data = () => ({
