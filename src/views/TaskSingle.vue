@@ -310,6 +310,12 @@ export default {
     flex-flow: column nowrap;
     flex-grow: 1;
     background: var(--color-brand-lightest);
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        height: 100%;
+      }
+    }
   }
   .task-step__figure {
     display: grid;
@@ -317,6 +323,17 @@ export default {
     flex-grow: 1;
     border-top: 1px solid var(--color-brand-light);
     border-bottom: 1px solid var(--color-brand-light);
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        position: absolute;
+        display: flex;
+        flex-flow: column nowrap;
+        flex-grow: unset;
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
   .step-canvas {
     position: relative;
@@ -374,6 +391,12 @@ export default {
     @media screen and ( min-width: 1280px ) {
       padding-left: var(--spacer-xl);
       padding-right: var(--spacer-xl);
+    }
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        height: 100%;
+      }
     }
   }
   // Último paso, donde se pregunta si fue de ayuda
