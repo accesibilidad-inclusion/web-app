@@ -2,7 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 // On Boarding
 import Splash from '../views/Splash.vue';
-import Welcome from '../views/onboarding/Welcome.vue';
+import Onboarding from '../views/onboarding/Welcome.vue';
+import OnboardingAbout from '../views/onboarding/About.vue';
+import OnboardingHowItWorks from '../views/onboarding/HowItWorks.vue';
+import OnboardingHelpUs from '../views/onboarding/HelpUs.vue';
 import Permissions from '../views/onboarding/Permissions.vue';
 import Registration from '../views/onboarding/Registration.vue';
 import Birthday from '../views/onboarding/Birthday.vue';
@@ -29,8 +32,23 @@ const routes = [
   },
   {
     path: '/onboarding/',
-    name: 'onboarding-welcome',
-    component: Welcome,
+    name: 'onboarding',
+    component: Onboarding,
+  },
+  {
+    path: '/onboarding/about',
+    name: 'onboarding-about',
+    component: OnboardingAbout,
+  },
+  {
+    path: '/onboarding/how-it-works',
+    name: 'onboarding-how-it-works',
+    component: OnboardingHowItWorks,
+  },
+  {
+    path: '/onboarding/help-us',
+    name: 'onboarding-help-us',
+    component: OnboardingHelpUs,
   },
   {
     path: '/onboarding/permissions',

@@ -1,12 +1,19 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding">
     <div class="container">
       <img src="@/assets/photos/onboarding-welcome.jpg" class="onboarding__welcome-image">
-      <h2 class="onboarding__title">¿De qué se trata?</h2>
-      <!-- eslint-disable-next-line max-len -->
-      <p>Pictos es un <strong>sistema de navegación espacial y evaluación</strong> de <a href="#">accesibilidad cognitiva(?)</a> que apunta a mejorar los servicios de tu ciudad para que <strong>sean accesibles por todos.</strong></p>
+      <h2 class="onboarding__title">
+        Puedes activar el audio
+        <text-to-speech :text-audio="
+          'Puedes activar el audio.\n\n\n'
+          + 'Si tienes dificultad o no quieres leer, no te preocupes. Puedes activar la opción de sonido, pulsando el ícono de altavoz.'
+        " />
+      </h2>
+      <p>Si tienes dificultad o no quieres leer, no te preocupes.</p>
+      <p>Puedes <strong>activar</strong> la opción de sonido, <strong>pulsando el ícono de altavoz.</strong></p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'/onboarding/permissions'" />
+        <OnboardingNext :linkTo="'/onboarding/about'" />
       </footer>
     </div>
   </div>
@@ -14,11 +21,13 @@
 
 <script>
 import OnboardingNext from '@/components/OnboardingNext.vue';
+import TextToSpeech from '@/components/TextToSpeech.vue';
 
 export default {
   name: 'Welcome',
   components: {
     OnboardingNext,
+    TextToSpeech,
   },
 };
 </script>
