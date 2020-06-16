@@ -8,7 +8,11 @@
       <!-- eslint-disable-next-line max-len -->
       <h2 class="onboarding__title">
         ¿Tienes alguna discapacidad?
-        <text-to-speech :text-audio="'¿Tienes alguna discapacidad?'" />
+        <text-to-speech :text-audio="
+          '¿Tienes alguna discapacidad?\n\n\n\n\n\n\n'
+          + 'Sí\n\n\n\n\n\n'
+          + 'No'
+        " />
       </h2>
       <div class="custom-control custom-control--radio">
         <input type="radio" name="disability" id="yes" value="yes" class="custom-control__input"

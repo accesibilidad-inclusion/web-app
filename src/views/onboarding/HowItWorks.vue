@@ -2,7 +2,7 @@
 <template>
   <div class="onboarding">
     <div class="container">
-      <img src="@/assets/photos/onboarding-welcome.jpg" class="onboarding__welcome-image">
+      <page-image alt="Persona comprendiendo los pasos de como funciona" class="onboarding__welcome-image"></page-image>
       <h2 class="onboarding__title">
         ¿Cómo funciona?
         <text-to-speech :text-audio="
@@ -21,12 +21,14 @@
 <script>
 import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import PageImage from '../../../public/img/illustrations/onboarding-como-funciona.svg?inline';
 
 export default {
   name: 'HowItWorks',
   components: {
     OnboardingNext,
     TextToSpeech,
+    PageImage,
   },
 };
 </script>

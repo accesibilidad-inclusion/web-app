@@ -5,7 +5,17 @@
       <back-button></back-button>
     </header>
     <div class="container">
-      <h2 class="onboarding__title">¿Qué tipo de discapacidad tienes? <text-to-speech :text-audio="'¿Qué tipo de discapacidad tienes?'" /></h2>
+      <h2 class="onboarding__title">
+        ¿Qué tipo de discapacidad tienes?
+        <text-to-speech :text-audio="
+          '¿Qué tipo de discapacidad tienes?\n\n\n\n\n\n'
+          + 'Intelectual\n\n\n\n\n'
+          + 'Física\n\n\n\n\n'
+          + 'Visual\n\n\n\n\n'
+          + 'Auditiva\n\n\n\n\n'
+          + 'Otra'
+        " />
+      </h2>
       <div class="custom-control custom-control--checkbox">
         <input type="checkbox" name="disabilities" id="intelectual" value="intelectual" class="custom-control__input"
           v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('intelectual')">

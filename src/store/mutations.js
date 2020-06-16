@@ -10,8 +10,8 @@ export const yearBirth = (state, payload) => {
 export const birthday = (state, payload) => {
   state.user.birthday = payload;
 };
-export const sex = (state, payload) => {
-  state.user.sex = payload;
+export const gender = (state, payload) => {
+  state.user.gender = payload;
 };
 export const disability = (state, payload) => {
   state.user.disability = payload;

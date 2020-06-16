@@ -9,7 +9,7 @@ import OnboardingHelpUs from '../views/onboarding/HelpUs.vue';
 import Permissions from '../views/onboarding/Permissions.vue';
 import Registration from '../views/onboarding/Registration.vue';
 import Birthday from '../views/onboarding/Birthday.vue';
-import Sex from '../views/onboarding/Sex.vue';
+import Gender from '../views/onboarding/Gender.vue';
 import Disability from '../views/onboarding/Disability.vue';
 import DisabilityDetails from '../views/onboarding/DisabilityDetails.vue';
 import Complete from '../views/onboarding/Complete.vue';
@@ -66,9 +66,9 @@ const routes = [
     component: Birthday,
   },
   {
-    path: '/onboarding/sex',
-    name: 'onboarding-sex',
-    component: Sex,
+    path: '/onboarding/gender',
+    name: 'onboarding-gender',
+    component: Gender,
   },
   {
     path: '/onboarding/disability',

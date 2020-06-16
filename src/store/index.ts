@@ -14,7 +14,7 @@ const state = {
     monthBirth: '',
     yearBirth: '',
     birthday: '',
-    sex: null,
+    gender: null,
   },
   evaluations: [
     {

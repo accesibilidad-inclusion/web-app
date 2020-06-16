@@ -1,11 +1,8 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding">
-    <header class="onboarding__navbar">
-      <back-button></back-button>
-    </header>
     <div class="container">
       <IconPermissions class="onboarding__permissions-image" />
-      <!-- eslint-disable-next-line max-len -->
       <p class="text-center">Necesitamos que nos permitas acceder a la cámara y ubicación de tu dispositivo.</p>
       <footer class="onboarding__footer">
         <OnboardingNext :linkTo="'/onboarding/registration'" />
@@ -15,14 +12,12 @@
 </template>
 
 <script lang="ts">
-import BackButton from '@/components/BackButton.vue';
 import OnboardingNext from '@/components/OnboardingNext.vue';
 import IconPermissions from '../../../public/img/app-icons/permissions.svg?inline';
 
 export default {
   name: 'Welcome',
   components: {
-    BackButton,
     OnboardingNext,
     IconPermissions,
   },
@@ -30,8 +25,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import '@/assets/scss/rfs.scss';
-
 .onboarding__permissions-image {
   display: block;
   width: 40vw;

@@ -58,16 +58,22 @@ export default {
   width: 100%;
   padding: .5rem 1.75rem .5rem .75rem;
   font-weight: 400;
-  font-style: italic;
   line-height: 1.5;
   vertical-align: middle;
-  color: var(--color-neutral-light);
+  color: var(--color-neutral);
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center/8px 10px;
   background-color: #fff;
   border: 1px solid var(--color-neutral-light);
   border-radius: .25rem;
   appearance: none;
   &:valid {
+    font-style: normal;
+  }
+  &:required:invalid {
+    font-style: italic;
+    color: var(--color-neutral-light);
+  }
+  option {
     font-style: normal;
     color: var(--color-neutral);
   }

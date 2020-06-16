@@ -2,7 +2,7 @@
 <template>
   <div class="onboarding">
     <div class="container">
-      <img src="@/assets/photos/onboarding-welcome.jpg" class="onboarding__welcome-image">
+      <page-image alt="Persona revisando las funcionalidades de la aplicación" class="onboarding__welcome-image"></page-image>
       <h2 class="onboarding__title">
         ¿Para qué sirve?
         <text-to-speech :text-audio="
@@ -21,12 +21,14 @@
 <script>
 import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import PageImage from '../../../public/img/illustrations/onboarding-para-que-sirve.svg?inline';
 
 export default {
   name: 'About',
   components: {
     OnboardingNext,
     TextToSpeech,
+    PageImage,
   },
 };
 </script>
