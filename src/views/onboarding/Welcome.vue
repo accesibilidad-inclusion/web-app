@@ -75,11 +75,12 @@ export default {
 }
 
 .onboarding__welcome-image {
-  margin: calc( var(--spacer-lg) * -1 ) calc( var(--spacer) * -1 ) var(--spacer);
   width: calc(100% + var(--spacer) * 2);
   height: auto;
   max-height: 45vh;
+  margin: calc( var(--spacer-lg) * -1 ) calc( var(--spacer) * -1 ) var(--spacer);
   object-fit: cover;
+  background-color: var(--color-illustration-bg);
   @media screen and ( min-width: 640px ) {
     width: calc(100% + var(--spacer-lg) * 2);
     margin: calc( var(--spacer-lg) * -1 ) calc( var(--spacer-lg) * -1 ) var(--spacer-lg);

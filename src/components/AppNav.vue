@@ -1,50 +1,204 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="app-nav" id="nav">
     <router-link to="/home">
       <logo-pictos class="app-nav__logo" />
     </router-link>
-    <button class="app-nav__toggle">
+    <button class="app-nav__toggle" @click="openMenu">
       Menú <icon-menu class="app-nav__toggle-icon" />
     </button>
+    <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
+      <div class="modal__backdrop">
+        <div class="app-menu">
+          <div class="app-menu__wrapper">
+            <header class="app-menu__header">
+              <h3 class="app-menu__title">Menú</h3>
+              <button class="app-menu__toggle" @click="closeMenu">
+                <icon-close class="app-menu__toggle-icon"></icon-close>
+              </button>
+            </header>
+            <nav class="app-menu__body">
+              <ul class="app-menu__items">
+                <li>
+                  <router-link to="/acerca-de" @click.native="closeMenu">PICTOS</router-link>
+                </li>
+                <li>
+                  <router-link to="/" @click.native="closeMenu">Acerca de</router-link>
+                </li>
+                <li>
+                  <router-link to="/" @click.native="closeMenu">Opciones de Accesibilidad</router-link>
+                </li>
+                <li>
+                  <router-link to="/" @click.native="closeMenu">Colabora con nosotros</router-link>
+                </li>
+                <li>
+                  <router-link to="/" @click.native="closeMenu">Reactivar tutoriales</router-link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import LogoPictos from '../../public/img/app-icons/logo-pictos.svg?inline';
 import IconMenu from '../../public/img/app-icons/drag.svg?inline';
+import IconClose from '../../public/img/app-icons/error.svg?inline';
 
 export default {
   name: 'navigation',
   components: {
     LogoPictos,
     IconMenu,
+    IconClose,
+  },
+  data() {
+    return {
+      state: {
+        shown_modal: false,
+        closed_modal: null,
+      },
+    };
+  },
+  methods: {
+    openMenu() {
+      this.$data.state.shown_modal = true;
+      this.$data.state.closed_modal = false;
+    },
+    closeMenu() {
+      this.$data.state.closed_modal = true;
+    },
   },
 };
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/rfs.scss';
-  .app-nav {
-    position: sticky;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    top: 0;
-    padding: var(--spacer-sm) var(--spacer);
-    background: var(--color-brand-lighter);
-    z-index: var(--z-index-navbar);
+@import '@/assets/scss/rfs.scss';
+.app-nav {
+  position: sticky;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  top: 0;
+  padding: var(--spacer-sm) var(--spacer);
+  background: var(--color-brand-lighter);
+  z-index: var(--z-index-navbar);
+  @media screen and ( min-width: 640px ) {
+    padding-top: var(--spacer);
+    padding-bottom: var(--spacer);
   }
-  .app-nav__toggle {
-    @include rfs($font-size-14);
-    grid-column: 3/4;
-    background: none;
-    border: 0;
+}
+.app-nav__toggle {
+  @include rfs($font-size-16);
+  cursor: pointer;
+  grid-column: 3/4;
+  font-weight: 600;
+  background: none;
+  border: 0;
+}
+.app-nav__logo {
+  width: 55px;
+  height: 11px;
+}
+.app-nav__toggle-icon {
+  width: 17px;
+  height: 12px;
+  margin-left: .2rem;
+  @media screen and ( min-width: 640px ) {
+    width: 20px;
+    height: 14px;
   }
-  .app-nav__logo {
-    width: 55px;
-    height: 11px;
+}
+.app-menu {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  @media screen and ( min-width: 640px ) {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .app-nav__toggle-icon {
-    width: 17px;
-    height: 13px;
+  @media screen and ( min-width: 1288px ) {
+    max-width: 750px;
   }
+}
+.app-menu__wrapper {
+  position: relative;
+  width: calc(100% - 10vw);
+  height: 100vh;
+  margin-left: 10vw;
+  padding-left: var(--spacer);
+  padding-right: var(--spacer);
+  transition: var(--transition-base);
+  transform: translateX(100%);
+  background-color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  .modal--fade & {
+    transform: translateX(0);
+  }
+  .modal--fade-out & {
+    transform: translateX(100%);
+  }
+}
+.app-menu__header {
+  display: flex;
+  margin-bottom: var(--spacer-lg);
+  padding-top: var(--spacer-sm);
+  padding-left: var(--spacer-sm);
+  padding-bottom: var(--spacer-sm);
+  border-bottom: 1px solid var(--color-brand-lighter);
+  @media screen and ( min-width: 640px ) {
+    padding-top: var(--spacer);
+    padding-bottom: var(--spacer);
+  }
+}
+.app-menu__title {
+  @include rfs($font-size-16);
+  font-weight: 600;
+}
+.app-menu__items {
+  padding-left: var(--spacer-sm);
+  padding-right: var(--spacer-sm);
+  list-style: none;
+  li {
+    margin-top: var(--spacer-sm);
+    margin-bottom: var(--spacer-sm);
+  }
+  a {
+    display: block;
+    padding-top: var(--spacer-sm);
+    padding-bottom: var(--spacer-sm);
+    text-decoration: none;
+    color: var(--color-text);
+    &:hover {
+      color: var(--color-brand);
+      text-decoration: underline;
+    }
+    &.router-link-exact-active {
+      font-weight: 700;
+      color: var(--color-brand);
+    }
+  }
+}
+.app-menu__toggle {
+  cursor: pointer;
+  position: relative;
+  justify-self: flex-end;
+  margin-left: auto;
+  top: .1rem;
+  background: none;
+  border: 0;
+}
+.app-menu__toggle-icon {
+  width: 15px;
+  height: 15px;
+  path {
+    fill: var(--color-neutral);
+  }
+}
 </style>
