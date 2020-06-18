@@ -91,6 +91,19 @@ export default {
   }
 }
 
+[class^="main-path"] {
+  position: relative;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: quickScaleUp 1.25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  &.main-path-2 {
+    animation-duration: 1.5s;
+  }
+  &.main-path-3 {
+    animation-duration: 1.75s;
+  }
+}
+
 .onboarding__navbar {
   @include rfs( $font-size-15 );
   width: 100%;

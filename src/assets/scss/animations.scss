@@ -26,6 +26,20 @@
     transform: scale(0);
   }
 }
+@keyframes quickScaleUp {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(0);
+  }
+  90% {
+    transform: scale(1.25, 1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 @keyframes buttonSpinnerShow {
   0% {
     margin-left: -1rem;

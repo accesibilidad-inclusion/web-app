@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import LogoPictos from '../../public/img/app-icons/logo-pictos.svg?inline';
 import IconMenu from '../../public/img/app-icons/drag.svg?inline';
 import IconClose from '../../public/img/app-icons/error.svg?inline';
