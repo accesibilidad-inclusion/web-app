@@ -95,12 +95,12 @@ export default {
   position: relative;
   transform-origin: center;
   transform-box: fill-box;
-  animation: quickScaleUp 1.25s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  animation: quickScaleUp .75s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
   &.main-path-2 {
-    animation-duration: 1.5s;
+    animation-duration: 1s;
   }
   &.main-path-3 {
-    animation-duration: 1.75s;
+    animation-duration: 1.25s;
   }
 }
 
