@@ -2,6 +2,7 @@
 <template>
   <div class="page">
     <div class="container">
+      <LogoPictos class="page__logo" />
       <h1 class="page__title">
         ¿Qué es PICTOS?
         <text-to-speech :text-audio="
@@ -24,13 +25,31 @@
       <p>Para hacer esta app, trabajó mucha gente. Investigadores, diseñadores y desarrolladores con y sin discapacidad.</p>
       <p>Este es un proyecto del Núcleo de Accesibilidad e Inclusión de la Pontificia Universidad Católica de Valparaíso.</p>
       <p>Este proyecto fue financiado por SENADIS.</p>
+      <div class="page__sponsors">
+        <LogoAccesibilidad class="page__sponsor-logo" />
+        <LogoPucv class="page__sponsor-logo--pucv" />
+        <LogoSenadis class="page__sponsor-logo" />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import TextToSpeech from '@/components/TextToSpeech.vue';
+import LogoPictos from '../../public/img/app-icons/logo-pictos-color.svg?inline';
+import LogoAccesibilidad from '../../public/img/app-icons/logo-accesibilidad-inclusion.svg?inline';
+import LogoPucv from '../../public/img/app-icons/logo-pucv.svg?inline';
+import LogoSenadis from '../../public/img/app-icons/logo-senadis.svg?inline';
+
 export default {
   name: 'about',
+  components: {
+    TextToSpeech,
+    LogoPictos,
+    LogoAccesibilidad,
+    LogoPucv,
+    LogoSenadis,
+  },
 };
 </script>
 
@@ -45,9 +64,24 @@ export default {
     padding: var(--spacer-xl);
   }
 }
+.page__logo {
+  width: 40vw;
+  height: auto;
+  min-width: 170px;
+  max-width: 250px;
+  display: block;
+  margin-top: var(--spacer);
+  margin-bottom: calc(var(--spacer-lg) + var(--spacer-sm));
+  margin-right: auto;
+  margin-left: auto;
+}
 .page__title {
   @include rfs($font-size-21);
+  color: var(--color-brand-darkest);
   margin-bottom: var(--spacer);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: var(--spacer);
   @media screen and ( min-width: 640px ) {
     margin-bottom: var(--spacer-lg);
   }
@@ -56,5 +90,33 @@ export default {
   @include rfs($font-size-16);
   margin-bottom: var(--spacer);
   line-height: 1.5;
+}
+.page__sponsors {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: var(--spacer) 0;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: var(--spacer-sm);
+}
+.page__sponsor-logo {
+  display: block;
+  width: 19vw;
+  min-width: 60px;
+  max-width: 75px;
+  height: auto;
+  margin-top: var(--spacer-sm);
+  margin-right: auto;
+  margin-left: auto;
+}
+.page__sponsor-logo--pucv {
+  display: block;
+  width: 48vw;
+  min-width: 150px;
+  max-width: 190px;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
 }
 </style>

@@ -20,16 +20,16 @@
             <nav class="app-menu__body">
               <ul class="app-menu__items">
                 <li>
-                  <router-link to="/acerca-de" @click.native="closeMenu">PICTOS</router-link>
+                  <router-link to="/" @click.native="closeMenu">PICTOS</router-link>
                 </li>
                 <li>
-                  <router-link to="/" @click.native="closeMenu">Acerca de</router-link>
+                  <router-link to="/acerca-de" @click.native="closeMenu">Acerca de</router-link>
                 </li>
                 <li>
                   <router-link to="/" @click.native="closeMenu">Opciones de Accesibilidad</router-link>
                 </li>
                 <li>
-                  <router-link to="/" @click.native="closeMenu">Colabora con nosotros</router-link>
+                  <router-link to="/colabora-con-nosotros" @click.native="closeMenu">Colabora con nosotros</router-link>
                 </li>
                 <li>
                   <router-link to="/" @click.native="closeMenu">Reactivar tutoriales</router-link>
