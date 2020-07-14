@@ -22,6 +22,15 @@ import PlaceSingle from '../views/PlaceSingle.vue';
 import PlaceEvaluation from '../views/PlaceEvaluation.vue';
 import TaskSingle from '../views/TaskSingle.vue';
 
+import NewAidIntro from '../views/NewAidIntro.vue';
+import NewAidIntro2 from '../views/NewAidIntro2.vue';
+import NewAidIntro3 from '../views/NewAidIntro3.vue';
+import NewAidIntro4 from '../views/NewAidIntro4.vue';
+import NewAidStep from '../views/NewAidStep.vue';
+import NewAidStepConfirmation from '../views/NewAidStepConfirmation.vue';
+import NewAidConfirmation from '../views/NewAidConfirmation.vue';
+import NewAidComplete from '../views/NewAidComplete.vue';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -125,6 +134,46 @@ const routes = [
     path: '/tareas/:taskId/',
     name: 'task-single',
     component: TaskSingle,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/intro',
+    name: 'new-aid',
+    component: NewAidIntro,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/como-funciona',
+    name: 'new-aid',
+    component: NewAidIntro2,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/como-se-construye',
+    name: 'new-aid',
+    component: NewAidIntro3,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/notificacion',
+    name: 'new-aid',
+    component: NewAidIntro4,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/:stepId/',
+    name: 'new-aid',
+    component: NewAidStep,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/:stepId/confirmacion/',
+    name: 'new-aid',
+    component: NewAidStepConfirmation,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/confirmacion/',
+    name: 'new-aid',
+    component: NewAidConfirmation,
+  },
+  {
+    path: 'tareas/:taskId/nuevo-apoyo/completado/',
+    name: 'new-aid',
+    component: NewAidComplete,
   },
   {
     path: '/acerca-de/',
