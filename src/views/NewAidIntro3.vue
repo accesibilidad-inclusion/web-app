@@ -21,7 +21,7 @@ import TextToSpeech from '@/components/TextToSpeech.vue';
 import PageImage from '../../public/img/illustrations/onboarding-activar-audio.svg?inline';
 
 export default {
-  name: 'Welcome',
+  name: 'NewAidIntro3',
   components: {
     OnboardingNext,
     TextToSpeech,
