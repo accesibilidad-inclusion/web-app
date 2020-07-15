@@ -23,12 +23,7 @@
         >
           <figure class="task-step__figure">
             <div class="step-canvas">
-              <template v-for="(layer, type) in step.layers">
-                <img v-bind:src="`/pictos/src/${layer.img}`"
-                  v-bind:key="layer.id"
-                  v-bind:class="'task-step__layer task-step__layer--'+type"
-                >
-              </template>
+              <pictogram :layers="step.layers"></pictogram>
             </div>
             <figcaption class="task-step__legend">{{ step.legend }}</figcaption>
           </figure>
@@ -111,6 +106,7 @@
 <script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
+import Pictogram from '@/components/Pictogram.vue';
 import IconLike from '../../public/img/app-icons/like.svg?inline';
 import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
 import IconError from '../../public/img/app-icons/error.svg?inline';
@@ -120,6 +116,7 @@ export default {
   components: {
     TextToSpeech,
     ClipLoader,
+    Pictogram,
     IconLike,
     IconDislike,
     IconError,

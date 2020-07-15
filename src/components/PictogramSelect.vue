@@ -18,12 +18,12 @@
         <div class="pictogram-wrapper">
           <button
             type="button"
-            class="pictogram"
+            class="pictogram-button"
             @click="updateValue($event, picto)"
-            v-bind:class="[ state.active === picto ? 'pictogram--active' : '' ]"
+            v-bind:class="[ state.active === picto ? 'pictogram-button--active' : '' ]"
           >
-            <img v-bind:src="`/pictos/src/${picto.path}`" class="pictogram__image">
-            <span class="pictogram__name">{{ picto.label }}</span>
+            <img v-bind:src="`/pictos/src/${picto.path}`" class="pictogram-button__image">
+            <span class="pictogram-button__name">{{ picto.label }}</span>
           </button>
         </div>
       </slide>
@@ -82,7 +82,7 @@ export default {
   padding-left: .4rem;
   padding-right: .4rem;
 }
-.pictogram {
+.pictogram-button {
   @include rfs($font-size-14);
   cursor: pointer;
   display: flex;
@@ -99,17 +99,17 @@ export default {
   &:hover {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, .1), 0 0 2px var(--color-highlight);
   }
-  &.pictogram--active {
+  &.pictogram-button--active {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, .1), 0 0 0 2px var(--color-highlight);
   }
 }
-.pictogram__image {
+.pictogram-button__image {
   display: block;
   width: 100%;
   margin-bottom: var(--spacer-sm);
   box-shadow: inset 0 0 0 1px var(--color-neutral-light);
 }
-.pictogram__name {
+.pictogram-button__name {
   display: flex;
   height: 100%;
   align-items: center;
