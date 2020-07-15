@@ -35,7 +35,7 @@
       ></pictogram-select>
     </form>
     <div class="pictogram-actions">
-      <button v-bind:class="'btn btn--large btn--block' + ( state.canPreview ? ' btn--primary' : ' btn--ghost-neutral' )">
+      <button v-bind:class="'btn btn--large btn--block' + ( state.canPreview ? ' btn--ghost-primary' : ' btn--ghost-neutral' )">
         Previsualizar
       </button>
       <button v-bind:class="'btn btn--large btn--block' + ( state.canConfirm ? ' btn--primary' : ' btn--ghost-neutral' )">

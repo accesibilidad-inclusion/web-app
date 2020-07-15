@@ -96,9 +96,11 @@ export default {
   border-radius: var(--border-radius);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, .1);
   transition: var(--transition-base);
-  &:hover,
+  &:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .1), 0 0 2px var(--color-highlight);
+  }
   &.pictogram--active {
-    box-shadow: 0 0 0 2px var(--color-highlight);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .1), 0 0 0 2px var(--color-highlight);
   }
 }
 .pictogram__image {
