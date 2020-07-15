@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding">
+  <div class="onboarding onboarding--inside">
     <div class="container">
       <page-image alt="Seleccionando capas para un pictograma" class="onboarding__welcome-image"></page-image>
       <p>
