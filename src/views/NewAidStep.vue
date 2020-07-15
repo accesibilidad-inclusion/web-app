@@ -9,9 +9,9 @@
         + `${ step.legend }`
         " />
     </header>
-    <form class="pictogram-form">
-      <header class="pictogram-form__header">
-        <h2 class="pictogram-form__title">Selecciona los elementos para armar este paso</h2>
+    <form class="new-aid__form">
+      <header class="new-aid__form__header">
+        <h2 class="new-aid__form__title">Selecciona los elementos para armar este paso</h2>
         <text-to-speech :text-audio="
           'Selecciona los elementos para armar este paso:\n\n\n\n\n'
           + 'Espacio, Objeto y Persona'
@@ -34,7 +34,7 @@
         @change="handleLayerChange($event, 'subject')"
       ></pictogram-select>
     </form>
-    <div class="pictogram-actions">
+    <div class="new-aid__actions">
       <button v-bind:class="'btn btn--large btn--block' + ( state.canPreview ? ' btn--ghost-primary' : ' btn--ghost-neutral' )">
         Previsualizar
       </button>
@@ -189,7 +189,7 @@ export default {
     fill: var(--color-background);
   }
 }
-.pictogram-form {
+.new-aid__form {
   position: relative;
   display: flex;
   flex-flow: column nowrap;
@@ -212,7 +212,7 @@ export default {
     padding-right: var(--spacer-xl);
   }
 }
-.pictogram-form__header {
+.new-aid__form__header {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-gap: var(--spacer);
@@ -223,13 +223,13 @@ export default {
     top: var(--spacer-xs);
   }
 }
-.pictogram-form__title {
+.new-aid__form__title {
   @include rfs($font-size-16);
   padding-right: var(--spacer-xl);
   font-weight: bold;
   line-height: 1.375;
 }
-.pictogram-actions {
+.new-aid__actions {
   display: flex;
   flex-grow: 1;
   gap: .75rem;
