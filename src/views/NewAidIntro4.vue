@@ -1,15 +1,24 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="page">
+  <div class="onboarding">
     <div class="container">
-      <page-image alt="Persona activando el audio en la aplicación" class="onboarding__welcome-image"></page-image>
-      <h2 class="page__title">
-        Título
-        <text-to-speech :text-audio="'Audio'" />
+      <page-image alt="Persona indicando escribir mail para recibir aviso" class="onboarding__welcome-image"></page-image>
+      <h2 class="onboarding__title">
+        Avísame
+        <text-to-speech :text-audio="'Avísame\n\n\n\n\n'
+          + 'Si quieres que te avisen cuando aparezca tu aporte, puede pinchar el botón “Sí, avísame”\n\n\n\n\n'
+          + 'Luego escribes tu correo electrónico.'" />
       </h2>
-      <p>Contenido</p>
-      <footer class="page__footer">
-        <OnboardingNext :linkTo="'/path/'" />
+      <p>Si quieres que te avisen cuando aparezca tu aporte, puede pinchar el botón <strong>“Sí, avísame”</strong></p>
+      <p>Luego escribes tu correo electrónico.</p>
+      <footer class="onboarding__footer">
+       <ol class="onboarding__steps">
+          <li class="onboarding__step-indicator--active"></li>
+          <li class="onboarding__step-indicator--active"></li>
+          <li class="onboarding__step-indicator--active"></li>
+          <li class="onboarding__step-indicator--active"></li>
+        </ol>
+        <OnboardingNext :linkTo="'/nuevo-apoyo/'" />
       </footer>
     </div>
   </div>
@@ -18,7 +27,7 @@
 <script>
 import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
-import PageImage from '../../public/img/illustrations/onboarding-activar-audio.svg?inline';
+import PageImage from '../../public/img/illustrations/epica-9-avisame.svg?inline';
 
 export default {
   name: 'NewAidIntro4',
