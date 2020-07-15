@@ -3,7 +3,7 @@
   <div class="onboarding">
     <div class="container">
       <IconPermissions class="onboarding__permissions-image" />
-      <p class="text-center">Necesitamos que nos permitas acceder a la cámara y ubicación de tu dispositivo.</p>
+      <p class="text-center">Necesitamos que nos permitas acceder a la ubicación de tu teléfono para ofrecerte apoyos que estén cerca tuyo</p>
       <footer class="onboarding__footer">
         <OnboardingNext :linkTo="'/onboarding/registration'" />
       </footer>
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import OnboardingNext from '@/components/OnboardingNext.vue';
-import IconPermissions from '../../../public/img/app-icons/permissions.svg?inline';
+import IconPermissions from '../../../public/img/app-icons/location-permissions.svg?inline';
 
 export default {
   name: 'Welcome',
@@ -29,8 +29,8 @@ export default {
   display: block;
   width: 40vw;
   height: auto;
-  min-width: 200px;
-  max-width: 300px;
+  min-width: 110px;
+  max-width: 200px;
   margin: auto auto var(--spacer-lg);
 }
 
