@@ -18,7 +18,7 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <OnboardingNext :linkTo="'/nuevo-apoyo/'" />
+        <OnboardingNext :linkTo="'/nuevo-apoyo/1'" />
       </footer>
     </div>
   </div>
