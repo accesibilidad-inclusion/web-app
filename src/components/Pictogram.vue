@@ -2,6 +2,7 @@
   <div class="pictogram">
     <template v-for="(layer, type) in layers">
       <img v-bind:src="`/pictos/src/${layer.img}`"
+        v-if="layer.img"
         v-bind:key="layer.id"
         v-bind:class="'pictogram__layer pictogram__layer--' + type"
       >

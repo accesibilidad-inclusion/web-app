@@ -16,15 +16,18 @@
         data-index="0"
       >
         <div class="pictogram-wrapper">
-          <button
-            type="button"
+          <label
             class="pictogram-button"
-            @click="updateValue($event, picto)"
-            v-bind:class="[ state.active === picto ? 'pictogram-button--active' : '' ]"
+            v-bind:class="[ value === picto.path ? 'pictogram-button--active' : '' ]"
           >
             <img v-bind:src="`/pictos/src/${picto.path}`" class="pictogram-button__image">
             <span class="pictogram-button__name">{{ picto.label }}</span>
-          </button>
+            <input
+              type="radio"
+              v-bind:value="picto.path"
+              v-on:change="$emit('change', $event.target.value)"
+            >
+          </label>
         </div>
       </slide>
     </carousel>
@@ -49,19 +52,6 @@ export default {
   components: {
     Carousel,
     Slide,
-  },
-  data() {
-    return {
-      state: {
-        active: null,
-      },
-    };
-  },
-  methods: {
-    updateValue(event, picto) {
-      this.$data.state.active = picto;
-      this.$emit('change', picto.path);
-    },
   },
 };
 </script>

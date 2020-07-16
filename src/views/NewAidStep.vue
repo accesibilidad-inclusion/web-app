@@ -20,28 +20,70 @@
       <pictogram-select
         v-bind:title="'Espacio'"
         v-bind:pictos="landmarks"
-        v-model="state.layers.landmark.img"
-        @change="handleLayerChange($event, 'landmark')"
+        v-bind:value="state.layers.landmark.img"
+        v-on:change="handleLayerChange($event, 'landmark')"
       ></pictogram-select>
       <pictogram-select
         v-bind:title="'Objeto'"
         v-bind:pictos="contexts"
-        @change="handleLayerChange($event, 'context')"
+        v-bind:value="state.layers.context.img"
+        v-on:change="handleLayerChange($event, 'context')"
       ></pictogram-select>
       <pictogram-select
         v-bind:title="'Persona'"
         v-bind:pictos="subjects"
-        @change="handleLayerChange($event, 'subject')"
+        v-bind:value="state.layers.subject.img"
+        v-on:change="handleLayerChange($event, 'subject')"
       ></pictogram-select>
     </form>
     <div class="new-aid__actions">
-      <button v-bind:class="'btn btn--large btn--block' + ( state.canPreview ? ' btn--ghost-primary' : ' btn--ghost-neutral' )">
+      <button
+        type="button"
+        v-bind:class="'btn btn--large btn--block' + ( state.canPreview ? ' btn--ghost-primary' : ' btn--ghost-neutral' )"
+        @click="showPreview"
+      >
         Previsualizar
       </button>
-      <button v-bind:class="'btn btn--large btn--block' + ( state.canConfirm ? ' btn--primary' : ' btn--ghost-neutral' )">
+      <button
+        type="button"
+        v-bind:class="'btn btn--large btn--block' + ( state.canConfirm ? ' btn--primary' : ' btn--ghost-neutral' )"
+        @click="savePictogram"
+      >
         Confirmar
       </button>
     </div>
+    <modal
+      name="new-aid-preview"
+      :adaptive="true"
+      height="auto"
+    >
+      <div class="vm--modal-wrapper">
+        <div class="pictogram-preview">
+          <header class="pictogram-preview__header">
+            <h1 class="pictogram-preview__title entries-list__title">{{ step.legend }}</h1>
+            <text-to-speech :text-audio="step.legend" />
+            <ul class="layers-status">
+              <li class="layers-status__item">
+                <icon-check-rounded v-bind:class="state.layers.landmark.img ? '--checked' : ''"></icon-check-rounded>
+                Espacio
+              </li>
+              <li class="layers-status__item">
+                <icon-check-rounded v-bind:class="state.layers.context.img ? '--checked' : ''"></icon-check-rounded>
+                Objeto
+              </li>
+              <li class="layers-status__item">
+                <icon-check-rounded v-bind:class="state.layers.subject.img ? '--checked' : ''"></icon-check-rounded>
+                Persona
+              </li>
+            </ul>
+          </header>
+          <pictogram v-bind:layers="state.layers"></pictogram>
+          <footer class="pictogram-preview__footer">
+            <button type="button" class="pictogram-preview__close" @click="hidePreview">Cerrar</button>
+          </footer>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -49,12 +91,16 @@
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import Pictos from 'pictos/public/es/manifest.json';
 import PictogramSelect from '@/components/PictogramSelect.vue';
+import Pictogram from '@/components/Pictogram.vue';
+import IconCheckRounded from '../../public/img/app-icons/check-rounded.svg?inline';
 
 export default {
   name: 'NewAidStep',
   components: {
     TextToSpeech,
     PictogramSelect,
+    Pictogram,
+    IconCheckRounded,
   },
   data() {
     return {
@@ -131,7 +177,7 @@ export default {
   },
   methods: {
     handleLayerChange(event, type) {
-      this.$data.state.layers[type] = event;
+      this.$data.state.layers[type].img = event;
       this.checkActions();
     },
     checkActions() {
@@ -146,6 +192,15 @@ export default {
         && this.$data.state.layers.subject.img !== ''
       );
     },
+    showPreview() {
+      this.$modal.show('new-aid-preview');
+    },
+    hidePreview() {
+      this.$modal.hide('new-aid-preview');
+    },
+    savePictogram() {
+      console.log(state.layers);
+    },
   },
 };
 </script>
@@ -157,7 +212,7 @@ export default {
   flex-flow: column nowrap;
   overflow: hidden;
   height: calc(100vh - 42px);
-  @media screen and ( min-width: 650px ) {
+  @media screen and ( min-width: 640px ) {
     height: calc(100vh - 66px);
   }
 }
@@ -243,5 +298,96 @@ export default {
     padding-left: var(--spacer-xl);
     padding-right: var(--spacer-xl);
   }
+}
+
+.pictogram-preview {
+  height: 100%;
+}
+.pictogram-preview__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: var(--spacer);
+  @media screen and ( min-width: 640px ) {
+    padding: var(--spacer-lg);
+  }
+}
+.pictogram-preview__title {
+  @include rfs($font-size-18);
+  grid-column: 1/2;
+  margin-bottom: var(--spacer-sm);
+  line-height: 1.3;
+  @media screen and ( min-width: 640px ) {
+    margin-bottom: .75rem;
+  }
+}
+.pictogram-preview__header .tts {
+  position: relative;
+  align-self: flex-start;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  top: .5rem;
+  @media screen and ( min-width: 640px ) {
+    top: .75rem;
+  }
+}
+.layers-status {
+  display: flex;
+  grid-column: 1/3;
+  list-style: none;
+  svg {
+    position: relative;
+    width: $font-size-14;
+    height: $font-size-14;
+    top: 2px;
+    border-radius: 50%;
+    border: 1px solid var(--color-brand-darkest);
+    path {
+      fill: var(--color-background);
+    }
+    &.--checked {
+      border: 1px solid var(--color-highlight);
+      box-shadow: inset 0 0 0 2px var(--color-highlight);
+      path {
+        fill: var(--color-highlight);
+      }
+    }
+    @media screen and ( min-width: 640px ) {
+      width: $font-size-16;
+      height: $font-size-16;
+    }
+  }
+}
+.layers-status__item {
+  @include rfs($font-size-14);
+  width: 100%;
+  @media screen and ( min-width: 640px ) {
+    @include rfs($font-size-16);
+  }
+}
+.pictogram-preview .pictogram {
+  width: 100%;
+  height: 40vh;
+  min-height: 15rem;
+  max-height: 20rem;
+  background-color: var(--color-illustration-bg);
+  border-top: 1px solid var(--color-neutral-light);
+  border-bottom: 1px solid var(--color-neutral-light);
+}
+.pictogram-preview__footer {
+  padding: var(--spacer);
+  text-align: center;
+  @media screen and ( min-width: 640px ) {
+    padding: var(--spacer-lg);
+  }
+}
+.pictogram-preview__close {
+  @include rfs($font-size-16);
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+  color: var(--color-text);
+  background: none;
+  border: none;
 }
 </style>

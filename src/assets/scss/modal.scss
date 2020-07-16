@@ -36,3 +36,19 @@
     max-width: 750px;
   }
 }
+
+// Vuew modal
+.vm--container {
+  z-index: var(--z-index-modal);
+}
+.vm--modal {
+  background-color: transparent;
+  box-shadow: none;
+}
+.vm--modal-wrapper {
+  width: 90%;
+  height: 100%;
+  margin: 0 5%;
+  background-color: var(--color-background);
+  border-radius: 1rem;
+}
