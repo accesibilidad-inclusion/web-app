@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding">
+  <div class="onboarding onboarding--inside">
     <div class="container">
       <page-image alt="Una persona viendo un pictograma" class="onboarding__welcome-image"></page-image>
       <h2 class="onboarding__title">
@@ -39,6 +39,14 @@ export default {
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
 //paginador
+.onboarding--inside {
+  position: relative;
+  overflow: hidden;
+  height: calc(100vh - 50px);
+  @media screen and ( min-width: 650px ) {
+    height: calc(100vh - 66px);
+  }
+}
 .onboarding__steps {
   margin-top: var(--spacer-xs);
   margin-bottom: var(--spacer);
