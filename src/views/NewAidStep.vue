@@ -280,7 +280,6 @@ export default {
 }
 .new-aid__form__title {
   @include rfs($font-size-16);
-  padding-right: var(--spacer-xl);
   font-weight: bold;
   line-height: 1.375;
 }
@@ -367,9 +366,6 @@ export default {
 }
 .pictogram-preview .pictogram {
   width: 100%;
-  height: 40vh;
-  min-height: 15rem;
-  max-height: 20rem;
   background-color: var(--color-illustration-bg);
   border-top: 1px solid var(--color-neutral-light);
   border-bottom: 1px solid var(--color-neutral-light);

@@ -23,11 +23,15 @@ export default {
 <style lang="scss">
   .pictogram {
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     height: 100%;
   }
   .pictogram__layer {
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    grid-column: 1/1;
+    grid-row: 1/1;
     width: 100%;
     height: 100%;
   }
