@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="new-aid">
+  <div class="new-aid new-aid--fullheight">
     <header class="new-aid__header entries-list__header">
       <span class="new-aid__description">Paso {{ step.id }} de {{ task.steps.length }}:</span>
       <h1 class="new-aid__title entries-list__title">{{ step.legend }}</h1>
@@ -9,9 +9,9 @@
         + `${ step.legend }`
         " />
     </header>
-    <form class="new-aid__form">
-      <header class="new-aid__form__header">
-        <h2 class="new-aid__form__title">Selecciona los elementos para armar este paso</h2>
+    <form class="new-aid__main">
+      <header class="new-aid__main__header">
+        <h2 class="new-aid__main__title">Selecciona los elementos para armar este paso</h2>
         <text-to-speech :text-audio="
           'Selecciona los elementos para armar este paso:\n\n\n\n\n'
           + 'Espacio, Objeto y Persona'
@@ -222,10 +222,26 @@ export default {
 .new-aid {
   display: flex;
   flex-flow: column nowrap;
+}
+.new-aid--fullheight {
   overflow: hidden;
-  height: calc(100vh - 42px);
+  height: calc(100vh - ( #{$font-size-16} * 1.13 + var(--spacer-sm) * 2 ) );
   @media screen and ( min-width: 640px ) {
-    height: calc(100vh - 66px);
+    height: calc(100vh - ( #{$font-size-16} * 1.33 + var(--spacer) * 2 ) );
+  }
+  @media screen and ( min-width: 1280px ) {
+    height: calc(100vh - ( #{$font-size-16} * 1.4 + var(--spacer) * 2 ) );
+  }
+
+  .new-aid__main {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        height: 100%;
+      }
+    }
   }
 }
 .new-aid__header {
@@ -256,21 +272,13 @@ export default {
     fill: var(--color-background);
   }
 }
-.new-aid__form {
+.new-aid__main {
   position: relative;
   display: flex;
   flex-flow: column nowrap;
   flex-grow: 1;
   padding: var(--spacer);
   background: var(--color-brand-lightest);
-  overflow-x: hidden;
-  overflow-y: scroll;
-  // Hack Safari
-  @media not all and (min-resolution:.001dpcm) {
-    @supports (-webkit-appearance:none) {
-      height: 100%;
-    }
-  }
   @media screen and ( min-width: 640px ) {
     padding: var(--spacer-lg);
   }
@@ -279,7 +287,7 @@ export default {
     padding-right: var(--spacer-xl);
   }
 }
-.new-aid__form__header {
+.new-aid__main__header {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-gap: var(--spacer);
@@ -290,7 +298,7 @@ export default {
     top: var(--spacer-xs);
   }
 }
-.new-aid__form__title {
+.new-aid__main__title {
   @include rfs($font-size-16);
   font-weight: bold;
   line-height: 1.375;
