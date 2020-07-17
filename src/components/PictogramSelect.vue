@@ -18,19 +18,17 @@
         <div class="pictogram-wrapper">
           <label
             class="pictogram-button"
-            v-bind:class="[ value === picto.path ? 'pictogram-button--active' : '' ]"
+            v-bind:class="[ selected === picto.path ? 'pictogram-button--active' : '' ]"
           >
             <img v-bind:src="`/pictos/src/${picto.path}`" class="pictogram-button__image">
             <span class="pictogram-button__name">{{ picto.label }}</span>
-            <input
-              type="radio"
-              v-bind:value="picto.path"
-              v-on:change="$emit('change', $event.target.value)"
-            >
+            <input type="radio" v-bind:value="picto.path" v-model="selected">
           </label>
+          <button type="button" class="pictogram-cancel" v-on:click="reset"></button>
         </div>
       </slide>
     </carousel>
+    <input type="radio" ref="pictogramReset" v-bind:value="null" v-model="selected">
   </div>
 </template>
 
@@ -53,6 +51,21 @@ export default {
     Carousel,
     Slide,
   },
+  computed: {
+    selected: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('change', val);
+      },
+    },
+  },
+  methods: {
+    reset() {
+      this.$refs.pictogramReset.click();
+    },
+  },
 };
 </script>
 
@@ -68,6 +81,7 @@ export default {
   color: var(--color-brand-darkest);
 }
 .pictogram-wrapper {
+  position: relative;
   height: 100%;
   padding-left: .4rem;
   padding-right: .4rem;
@@ -107,6 +121,23 @@ export default {
   line-height: 1.25;
   text-align: center;
   overflow: hidden;
+}
+.pictogram-cancel {
+  cursor: pointer;
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: transparent;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  .pictogram-button--active + & {
+    display: block;
+  }
 }
 .VueCarousel-wrapper {
   margin-left: calc(var(--spacer-sm) * -1);

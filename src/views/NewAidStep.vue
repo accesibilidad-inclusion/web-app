@@ -107,13 +107,13 @@ export default {
       state: {
         layers: {
           subject: {
-            img: '',
+            img: null,
           },
           landmark: {
-            img: '',
+            img: null,
           },
           context: {
-            img: '',
+            img: null,
           },
         },
         canPreview: false,
@@ -182,14 +182,14 @@ export default {
     },
     checkActions() {
       this.$data.state.canPreview = (
-        this.$data.state.layers.landmark.img !== ''
-        || this.$data.state.layers.context.img !== ''
-        || this.$data.state.layers.subject.img !== ''
+        this.$data.state.layers.landmark.img !== null
+        || this.$data.state.layers.context.img !== null
+        || this.$data.state.layers.subject.img !== null
       );
       this.$data.state.canConfirm = (
-        this.$data.state.layers.landmark.img !== ''
-        && this.$data.state.layers.context.img !== ''
-        && this.$data.state.layers.subject.img !== ''
+        this.$data.state.layers.landmark.img !== null
+        && this.$data.state.layers.context.img !== null
+        && this.$data.state.layers.subject.img !== null
       );
     },
     showPreview() {
@@ -199,8 +199,20 @@ export default {
       this.$modal.hide('new-aid-preview');
     },
     savePictogram() {
-      console.log(state.layers);
+      this.$data.task.steps
+        .find(step => step.id === parseInt(this.$route.params.stepId, 10))
+        .layers = state.layers;
+      this.goTo();
     },
+    goTo() {
+      this.$router.push({ name: 'new-aid-step', params: { stepId: parseInt(this.$route.params.stepId, 10) + 1 } });
+    },
+  },
+  beforeRouteLeave(to, from, next) {
+    // Antes de salir, se deben reestablecer los valores de this.$data.state.layers
+    // Sino, se puede trabajar directamente sobre el objeto this.$data.task.steps[:stepId].layers
+    // O bien, usar el store
+    next();
   },
 };
 </script>
