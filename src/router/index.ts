@@ -28,7 +28,7 @@ import NewAidIntro3 from '../views/NewAidIntro3.vue';
 import NewAidIntro4 from '../views/NewAidIntro4.vue';
 import NewAidStep from '../views/NewAidStep.vue';
 import NewAidStepConfirmation from '../views/NewAidStepConfirmation.vue';
-import NewAidConfirmation from '../views/NewAidConfirmation.vue';
+import NewAidSummary from '../views/NewAidSummary.vue';
 import NewAidComplete from '../views/NewAidComplete.vue';
 
 Vue.use(VueRouter);
@@ -166,9 +166,9 @@ const routes = [
     component: NewAidStepConfirmation,
   },
   {
-    path: '/nuevo-apoyo/confirmacion/',
-    name: 'new-aid-confirmation',
-    component: NewAidConfirmation,
+    path: '/nuevo-apoyo/resumen/',
+    name: 'new-aid-summary',
+    component: NewAidSummary,
   },
   {
     path: '/nuevo-apoyo/completado/',
