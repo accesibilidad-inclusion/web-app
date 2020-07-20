@@ -1,7 +1,8 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="app-nav" id="nav">
-    <router-link to="/home">
+    <back-button></back-button>
+    <router-link to="/home" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
     </router-link>
     <button class="app-nav__toggle" @click="openMenu">
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import BackButton from '@/components/BackButton.vue';
 import LogoPictos from '../../public/img/app-icons/logo-pictos.svg?inline';
 import IconMenu from '../../public/img/app-icons/drag.svg?inline';
 import IconClose from '../../public/img/app-icons/error.svg?inline';
@@ -54,6 +56,7 @@ export default {
     LogoPictos,
     IconMenu,
     IconClose,
+    BackButton,
   },
   data() {
     return {
@@ -79,8 +82,8 @@ export default {
 @import '@/assets/scss/rfs.scss';
 .app-nav {
   position: sticky;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
   top: 0;
   padding: var(--spacer-sm) var(--spacer);
   background: var(--color-brand-lighter);
@@ -89,18 +92,44 @@ export default {
     padding-top: var(--spacer);
     padding-bottom: var(--spacer);
   }
+  .app--dark & {
+    transition: var(--transition-nav-dark);
+    color: var(--color-background);
+    background-color: var(--color-brand-darkest);
+  }
 }
 .app-nav__toggle {
   @include rfs($font-size-16);
   cursor: pointer;
-  grid-column: 3/4;
   font-weight: 600;
   background: none;
   border: 0;
+  .app--dark & {
+    transition: var(--transition-nav-dark);
+    color: var(--color-background);
+  }
+}
+.app-nav .btn-prev {
+  .app--dark & {
+    transition: var(--transition-nav-dark);
+    color: var(--color-background);
+    svg path {
+      transition: var(--transition-nav-dark);
+      fill: var(--color-background);
+    }
+  }
+}
+.app-nav__logo-wrapper {
+  margin-left: auto;
+  margin-right: auto;
 }
 .app-nav__logo {
   width: 55px;
   height: 11px;
+  .app--dark & path {
+    transition: var(--transition-nav-dark);
+    fill: var(--color-background);
+  }
 }
 .app-nav__toggle-icon {
   width: 17px;
@@ -109,6 +138,10 @@ export default {
   @media screen and ( min-width: 640px ) {
     width: 20px;
     height: 14px;
+  }
+  .app--dark & path {
+    transition: fill .3s ease .2s;
+    fill: var(--color-background);
   }
 }
 .app-menu {
@@ -160,6 +193,7 @@ export default {
 .app-menu__title {
   @include rfs($font-size-16);
   font-weight: 600;
+  color: var(--color-text);
 }
 .app-menu__items {
   padding-left: var(--spacer-sm);

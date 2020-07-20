@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:class="{ 'app--dark': state.dark }">
     <app-nav></app-nav>
     <transition name="slide">
       <router-view/>
@@ -12,8 +12,30 @@ import AppNav from '@/components/AppNav.vue';
 
 export default {
   name: 'App',
+  props: ['dark'],
   components: {
     AppNav,
+  },
+  data() {
+    return {
+      state: {
+        dark: false,
+      },
+    };
+  },
+  methods: {
+    isDark() {
+      this.$data.state.dark = this.$route.path.indexOf('nuevo-apoyo') !== -1
+        || this.$route.path.indexOf('lugares') !== -1;
+    },
+  },
+  watch: {
+    $route() {
+      this.isDark();
+    },
+  },
+  created() {
+    this.isDark();
   },
   beforeCreate() {
     const speech = new SpeechSynthesisUtterance('');
