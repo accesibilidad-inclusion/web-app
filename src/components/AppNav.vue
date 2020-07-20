@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="app-nav" id="nav">
+  <div class="app-nav" v-bind:class="{ 'app-nav--dark': state.dark }" id="nav">
     <back-button></back-button>
     <router-link to="/home" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
@@ -61,6 +61,7 @@ export default {
   data() {
     return {
       state: {
+        dark: false,
         shown_modal: false,
         closed_modal: null,
       },
@@ -74,6 +75,18 @@ export default {
     closeMenu() {
       this.$data.state.closed_modal = true;
     },
+    isDark() {
+      this.$data.state.dark = this.$route.path.indexOf('nuevo-apoyo') !== -1
+        || this.$route.path.indexOf('lugares') !== -1;
+    },
+  },
+  watch: {
+    $route() {
+      this.isDark();
+    },
+  },
+  mounted() {
+    this.isDark();
   },
 };
 </script>
@@ -92,7 +105,7 @@ export default {
     padding-top: var(--spacer);
     padding-bottom: var(--spacer);
   }
-  .app--dark & {
+  &.app-nav--dark {
     transition: var(--transition-nav-dark);
     color: var(--color-background);
     background-color: var(--color-brand-darkest);
@@ -104,19 +117,17 @@ export default {
   font-weight: 600;
   background: none;
   border: 0;
-  .app--dark & {
+  .app-nav--dark & {
     transition: var(--transition-nav-dark);
     color: var(--color-background);
   }
 }
-.app-nav .btn-prev {
-  .app--dark & {
+.app-nav--dark .btn-prev {
+  transition: var(--transition-nav-dark);
+  color: var(--color-background);
+  svg path {
     transition: var(--transition-nav-dark);
-    color: var(--color-background);
-    svg path {
-      transition: var(--transition-nav-dark);
-      fill: var(--color-background);
-    }
+    fill: var(--color-background);
   }
 }
 .app-nav__logo-wrapper {
@@ -126,7 +137,7 @@ export default {
 .app-nav__logo {
   width: 55px;
   height: 11px;
-  .app--dark & path {
+  .app-nav--dark & path {
     transition: var(--transition-nav-dark);
     fill: var(--color-background);
   }
@@ -139,7 +150,7 @@ export default {
     width: 20px;
     height: 14px;
   }
-  .app--dark & path {
+  .app-nav--dark & path {
     transition: fill .3s ease .2s;
     fill: var(--color-background);
   }
