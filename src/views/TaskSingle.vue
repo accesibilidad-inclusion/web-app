@@ -38,12 +38,24 @@
               <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
             </button>
           </div>
-          <router-link
-            :to="{ name: 'place-single', params: { 'placeId': task.place_id } }"
-            class="btn btn--large btn--block btn--ghost"
-          >
-            Volver a {{ task.place }}
-          </router-link>
+          <!-- Invertir condiciones -->
+          <template v-if="task.aids.length > 0">
+            <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
+            <router-link
+              :to="{ path: '/nuevo-apoyo/intro' }"
+              class="btn btn--large btn--block btn--ghost"
+            >
+              Crear el apoyo gráfico
+            </router-link>
+          </template>
+          <template v-else>
+            <router-link
+              :to="{ name: 'place-single', params: { 'placeId': task.place_id } }"
+              class="btn btn--large btn--block btn--ghost"
+            >
+              Volver a {{ task.place }}
+            </router-link>
+          </template>
           <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
         </li>
       </ol>
@@ -443,6 +455,11 @@ export default {
       background-color: var(--color-highlight);
       border-color: var(--color-highlight);
     }
+  }
+  .task-helpful__label {
+    @include rfs(14px);
+    margin-bottom: var(--spacer);
+    font-weight: bold;
   }
   [class^="task-helpful__answer__icon"] {
     width: 25px;

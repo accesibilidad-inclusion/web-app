@@ -72,9 +72,6 @@ export default {
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
 
-.pictogram-select {
-  margin-bottom: var(--spacer);
-}
 .pictogram-select__title {
   @include rfs($font-size-14);
   margin-bottom: -.25rem;
