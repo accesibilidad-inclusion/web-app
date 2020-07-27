@@ -101,14 +101,18 @@ export default {
 .app-nav__logo {
   width: 55px;
   height: 11px;
+  @media screen and ( min-width: 640px ) {
+    width: 86px;
+    height: 17px;
+  }
 }
 .app-nav__toggle-icon {
   width: 17px;
   height: 12px;
   margin-left: .2rem;
   @media screen and ( min-width: 640px ) {
-    width: 20px;
-    height: 14px;
+    width: 24px;
+    height: 17px;
   }
 }
 .app-menu {
