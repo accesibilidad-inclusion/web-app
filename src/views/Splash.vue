@@ -37,10 +37,10 @@ export default {
         this.$router.push('/onboarding/');
       }, 2000);
     } else {
-      setTimeout(() => {
+      this.$store.dispatch("loadData").then(() => {
         this.showOnboarding = true;
         this.$router.push('/home');
-      }, 2000);
+      });
     }
   },
 };

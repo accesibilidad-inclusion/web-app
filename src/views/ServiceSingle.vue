@@ -2,24 +2,27 @@
 <template>
   <div class="service">
     <header class="service__header entries-list__header">
-      <icon-transport class="service__icon" />
-      <h1 class="service__title entries-list__title">Metro de Valparaíso</h1>
+      <icon-transport class="service__icon" v-if="category.slug == 'transporte'" />
+      <icon-health class="service__icon" v-if="category.slug == 'salud'" />
+      <icon-leisure class="service__icon" v-if="category.slug == 'ocio'" />
+      <icon-formalities class="service__icon" v-if="category.slug == 'tramites'" />
+      <h1 class="service__title entries-list__title">{{ service.name }}</h1>
       <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer en este servicio.</p>
       <text-to-speech :text-audio="'Metro de Valparaíso.\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
     </header>
     <main class="service__items service__items places">
       <template v-for="place in places" v-bind:place="place">
         <router-link class="place-block entry-block" tag="article" v-bind:key="place.id" v-bind:to="'/lugares/' + place.id">
-          <text-to-speech :text-audio="`${place.name}: a ${place.distance} metros de distancia. ${place.evaluation.description}`" />
+          <text-to-speech :text-audio="`${place.name}: a ${place.distance} metros de distancia.`" />
           <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
           <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
-          <p class="place-block__distance">a {{ place.distance }} metros de distancia</p>
-          <div class="place-block__evaluation">
-            <span class="place__evaluation-grade place-block__evaluation-grade" v-bind:data-grade="place.evaluation.grade">
-              {{ place.evaluation.grade }}
+          <p class="place-block__distance">a {{ place.distance | distance }} de distancia</p>
+          <div class="place-block__evaluation" v-if="place.evaluation">
+            <span class="place__evaluation-grade place-block__evaluation-grade" v-bind:data-grade="place.evaluation.score">
+              {{ place.evaluation.score }}
             </span>
             <span class="place-block__evaluation-description">
-              {{ place.evaluation.description }}
+              {{ place.evaluation.calification }}
             </span>
           </div>
         </router-link>
@@ -30,55 +33,38 @@
 
 <script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
+import IconHealth from '../../public/img/app-icons/health.svg?inline';
 import IconTransport from '../../public/img/app-icons/transport.svg?inline';
+import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
+import Category from '@/models/Category';
+import Service from '@/models/Service';
+
 
 export default {
   name: 'serviceSingle',
   components: {
     TextToSpeech,
     IconTransport,
+    IconHealth,
+    IconFormalities,
+    IconLeisure,
+  },
+  beforeMount() {
+    this.$store.dispatch("setSelectedItem",{ 
+      'object': 'service', 
+      'item': this.$store.state.selected.category.near_services.find(s => s.id == this.$route.params.serviceId) 
+    }).then(() => {
+      this.category.set(this.$store.state.selected.category)
+      this.service.set(this.$store.state.selected.service)
+      this.places = this.service.near_venues
+    });
   },
   data() {
     return {
-      places: [
-        // objetos de tipo "lugar"
-        {
-          id: 1,
-          name: 'Estación Viña del Mar',
-          distance: 200,
-          evaluation: {
-            grade: 5,
-            description: 'Excelente accesibilidad',
-          },
-        },
-        {
-          id: 2,
-          name: 'Estación Hospital',
-          distance: 230,
-          evaluation: {
-            grade: 4,
-            description: 'Buena accesibilidad',
-          },
-        },
-        {
-          id: 3,
-          name: 'Estación Miramar',
-          distance: 350,
-          evaluation: {
-            grade: 1,
-            description: 'Pésima accesibilidad',
-          },
-        },
-        {
-          id: 4,
-          name: 'Estación Chorrillos',
-          distance: 2024,
-          evaluation: {
-            grade: 1,
-            description: 'Pésima accesibilidad',
-          },
-        },
-      ],
+      category: new Category(),
+      service: new Service(),
+      places: []
     };
   },
 };

@@ -23,3 +23,11 @@ export const disabilities = (state, payload) => {
     state.user.disabilities.push(payload);
   }
 };
+export const setData = (state, payload) => {
+  state.data = payload;
+};
+
+export const setSelectedItem = ( state, payload ) => {
+  state.selected[payload.object] = payload.item
+  localStorage.setItem('selected', JSON.stringify(state.selected))
+};

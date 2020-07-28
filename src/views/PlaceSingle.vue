@@ -2,7 +2,7 @@
 <template>
   <div class="place">
     <header class="place__header">
-      <router-link :to="'/servicios/1'" class="place__service">{{ place.service }}</router-link>
+      <router-link :to="'/servicios/' + service.id" class="place__service">{{ service.name }}</router-link>
       <h1 class="place__name">{{ place.name }}</h1>
       <a href="#" class="place__map-link">
         <icon-location-pin />
@@ -10,7 +10,7 @@
       </a>
       <text-to-speech :text-audio="`${place.name}, en ${place.service}`" />
     </header>
-    <main class="place__tasks">
+    <main class="place__tasks" v-if="tasks">
       <p class="place__tasks-description">
         <span>Selecciona lo que necesites hacer en este lugar</span>
         <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
@@ -28,7 +28,7 @@
       </router-link>
     </aside>
     <footer class="place__footer">
-      <router-link :to="'/evaluacion/5'" class="place__evaluation">
+      <router-link :to="'/evaluacion/5'" class="place__evaluation" v-if="evaluation">
         <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
         <div class="place__evaluation-title">{{ evaluation.title }}</div>
         <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">{{ evaluation.grade }}</div>
@@ -48,6 +48,8 @@
 import TaskBlock from '@/components/TaskBlock.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
 
 export default {
   name: 'placeSingle',
@@ -56,62 +58,21 @@ export default {
     TextToSpeech,
     IconLocationPin,
   },
+  beforeMount() {
+    this.$store.dispatch("setSelectedItem",{ 
+      'object': 'venue', 
+      'item': this.$store.state.selected.service.near_venues.find(v => v.id == this.$route.params.placeId) 
+    }).then(() => {
+      this.service = this.$store.state.selected.service
+      this.place = this.$store.state.selected.venue
+      this.tasks = this.$store.state.selected.venue.tasks
+    });
+  },
   data() {
     return {
-      place: {
-        name: 'Estación Viña del Mar',
-        service: 'Metro de Valparaíso',
-        evaluation: 5,
-      },
-      tasks: [
-        // objetos de tipo "tarea"
-        {
-          id: 1,
-          title: 'Viajar de un punto a otro',
-          place: 'Estación Metro Miramar',
-          service: 'Metro de Valparaíso',
-          aids: [
-            {
-              type: 'graphic',
-              name: 'Gráfico',
-              enabled: true,
-            },
-            {
-              type: 'written',
-              name: 'Escrito',
-              enabled: true,
-            },
-            {
-              type: 'aural',
-              name: 'Auditivo',
-              enabled: true,
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: 'Ir de un punto a otro',
-          place: 'Terminal de buses de Viña del Mar',
-          service: 'Terminal de buses Rodoviario',
-          aids: [
-            {
-              type: 'graphic',
-              name: 'Gráfico',
-              enabled: false,
-            },
-            {
-              type: 'written',
-              name: 'Escrito',
-              enabled: false,
-            },
-            {
-              type: 'aural',
-              name: 'Auditivo',
-              enabled: true,
-            },
-          ],
-        },
-      ],
+      service: new Service(),
+      place: new Venue(),
+      tasks:  null
     };
   },
   computed: {

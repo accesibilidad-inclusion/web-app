@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios'
 
 const mutations = require('./mutations');
 
@@ -14,8 +15,14 @@ const state = {
     monthBirth: '',
     yearBirth: '',
     birthday: '',
-    gender: null,
+    gender: null
   },
+  selected: JSON.parse(localStorage.getItem('selected')) || {
+    category: null,
+    service: null,
+    venue: null 
+  },
+  data: JSON.parse(localStorage.getItem('data')) || {},
   evaluations: [
     {
       grade: 1,
@@ -59,6 +66,30 @@ export default new Vuex.Store({
   state,
   mutations,
   actions: {
+    loadData( { commit } ){
+      return new Promise( ( resolve, reject ) => {
+        navigator.geolocation.getCurrentPosition(position => {
+          axios( {
+              url: process.env.VUE_APP_API_DOMAIN + 'api/categories/load',
+              method: 'POST',
+              data: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              }
+          } ).then( response => {
+              localStorage.setItem('data', JSON.stringify(response.data))
+              commit('setData', response.data)
+              resolve()
+          })
+        })
+      })
+    },
+    setSelectedItem( { commit }, payload ){
+      return new Promise( ( resolve, reject ) => {
+          commit('setSelectedItem', payload)
+          resolve()
+      })
+    }
   },
   modules: {
   },

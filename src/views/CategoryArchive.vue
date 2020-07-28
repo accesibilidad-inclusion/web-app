@@ -2,8 +2,11 @@
 <template>
   <div class="category entries-list">
     <header class="category__header entries-list__header">
-      <icon-transport class="category__icon" />
-      <h1 class="category__title entries-list__title">Transporte</h1>
+      <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
+      <icon-health class="category__icon" v-if="category.slug == 'salud'" />
+      <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
+      <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
+      <h1 class="category__title entries-list__title">{{ category.name }}</h1>
       <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de tí.</p>
       <text-to-speech :text-audio="'Transporte.\n\n Revisa los servicios disponibles que están cerca de tí'" />
     </header>
@@ -11,7 +14,7 @@
       <template v-for="service in services" v-bind:service="service">
         <router-link class="category__item category__item--service service-block entry-block" tag="article" v-bind:key="service.id" v-bind:to="'/servicios/' + service.id">
           <span class="service-block__icon">
-            <span class="sr-only">{{ service.service_types[0] }}</span>
+            <span class="sr-only">{{ $route.params.categorySlug }}</span>
             <icon-transport></icon-transport>
           </span>
           <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
@@ -38,28 +41,30 @@ import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
 import IconHealth from '../../public/img/app-icons/health.svg?inline';
 import IconTransport from '../../public/img/app-icons/transport.svg?inline';
 import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
+import Category from '@/models/Category';
 
 export default {
   name: 'categoryArchive',
   components: {
     TextToSpeech,
     IconTransport,
+    IconHealth,
+    IconFormalities,
+    IconLeisure
+  },
+  beforeMount() {
+    this.$store.dispatch("setSelectedItem",{ 
+      'object': 'category', 
+      'item': this.$store.state.data.find(d => d.slug == this.$route.params.categorySlug) 
+    }).then(() => {
+      this.category.set(this.$store.state.selected.category)
+      this.services = this.category.near_services
+    });
   },
   data() {
     return {
-      services: [
-        // objetos de tipo "servicio"
-        {
-          id: 1,
-          name: 'Metro de Valparaíso',
-          service_types: ['transporte'],
-        },
-        {
-          id: 2,
-          name: 'Terminal de Buses Rodoviario',
-          service_types: ['transporte'],
-        },
-      ],
+      category: new Category(),
+      services: [],
     };
   },
 };
