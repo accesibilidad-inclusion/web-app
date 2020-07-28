@@ -13,7 +13,7 @@
 <script>
 // Se utilzan spinners desde https://github.com/greyby/vue-spinner
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
-import LogoPictos from '../../public/img/app-icons/logo-pictos.svg?inline';
+import LogoPictos from '../../public/img/app-icons/logo-pictos-light.svg?inline';
 
 // Acá se debe hacer la consulta inicial y configurar la aplicación
 export default {
@@ -59,33 +59,33 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--color-brand-darkest);
   z-index: 100000;
 }
 
 .splash__app {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   width: 100%;
-  height: 50vh;
+  height: 48vh;
 }
 
 .splash__logo {
   width: 40vw;
   height: auto;
-  min-width: 200px;
+  min-width: 250px;
   max-width: 300px;
 }
 
 .splash__tagline {
-  @include rfs( $font-size-18 );
+  @include rfs( $font-size-16 );
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 50vh;
-  padding: 10vh 15vw 0;
+  height: 52vh;
+  padding: 5vh 10vw 0;
   font-weight: 600;
   line-height: calc(26/18);
   color: #fff;
@@ -93,7 +93,7 @@ export default {
   background-color: var(--color-brand-darkest);
 
   p {
-    max-width: 500px;
+    max-width: 400px;
   }
 }
 
