@@ -85,6 +85,7 @@ export default {
   padding: var(--spacer-sm) var(--spacer);
   background: var(--color-brand-lighter);
   z-index: var(--z-index-navbar);
+  align-items: center;
   @media screen and ( min-width: 640px ) {
     padding-top: var(--spacer);
     padding-bottom: var(--spacer);
