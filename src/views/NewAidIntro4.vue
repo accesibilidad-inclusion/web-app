@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding onboarding--inside">
+  <div class="onboarding--inside">
     <div class="container">
       <page-image alt="Persona indicando escribir mail para recibir aviso" class="onboarding__welcome-image"></page-image>
       <h2 class="onboarding__title">
