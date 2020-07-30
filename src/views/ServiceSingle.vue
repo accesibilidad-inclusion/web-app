@@ -136,6 +136,9 @@ export default {
     &[data-grade="1"] {
       background: var(--color-grade-1);
     }
+    &[data-grade="0"] {
+      background: var(--color-grade-0);
+    }
   }
   .place-block__evaluation-grade {
     display: inline-block;

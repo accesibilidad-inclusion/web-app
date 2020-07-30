@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding onboarding--inside">
+  <div class="onboarding--inside">
     <div class="container">
       <page-image alt="Una persona viendo un pictograma" class="onboarding__welcome-image"></page-image>
       <h2 class="onboarding__title">
@@ -36,35 +36,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import '@/assets/scss/rfs.scss';
-//paginador
-.onboarding--inside {
-  position: relative;
-  overflow: hidden;
-  height: calc(100vh - 50px);
-  @media screen and ( min-width: 650px ) {
-    height: calc(100vh - 66px);
-  }
-}
-.onboarding__steps {
-  margin-top: var(--spacer-xs);
-  margin-bottom: var(--spacer);
-  text-align: center;
-  grid-column: 1/3;
-  li {
-    display: inline-block;
-    width: calc( var(--spacer) * .35 );
-    height: calc( var(--spacer) * .35 );
-    margin: 0 calc( var(--spacer) * .125 );
-    list-style: none;
-    text-indent: -9999em;
-    line-height: calc( var(--spacer) * .35 );
-    background: #e1e1e1;
-    border-radius: var(--spacer);
-  }
-}
-li.onboarding__step-indicator--active {
-  background: var(--color-brand-darker);
-}
-</style>

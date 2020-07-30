@@ -28,10 +28,13 @@
       </router-link>
     </aside>
     <footer class="place__footer">
-      <router-link :to="'/evaluacion/5'" class="place__evaluation" v-if="evaluation">
+      <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
         <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
         <div class="place__evaluation-title">{{ evaluation.title }}</div>
-        <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">{{ evaluation.grade }}</div>
+        <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+          <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
+          <span v-else>!</span>
+        </div>
         <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
       </router-link>
       <div class="place__evaluation-actions">
@@ -63,22 +66,22 @@ export default {
       'object': 'venue', 
       'item': this.$store.state.selected.service.near_venues.find(v => v.id == this.$route.params.placeId) 
     }).then(() => {
-      this.service = this.$store.state.selected.service
-      this.place = this.$store.state.selected.venue
-      this.tasks = this.$store.state.selected.venue.tasks
+      this.service.set(this.$store.state.selected.service)
+      this.place.set(this.$store.state.selected.venue)
+      this.tasks = this.place.tasks
     });
   },
   data() {
     return {
       service: new Service(),
       place: new Venue(),
-      tasks:  null
+      tasks:  []
     };
   },
   computed: {
     evaluation() {
-      return this.$store.state.evaluations
-        .find(evaluation => evaluation.grade === this.place.evaluation);
+      const score = this.place.evaluation ? this.place.evaluation.score : 0
+      return this.$store.state.evaluations.find(evaluation => evaluation.grade === score)
     },
   },
 };

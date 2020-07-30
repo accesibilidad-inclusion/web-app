@@ -20,10 +20,18 @@ const state = {
   selected: JSON.parse(localStorage.getItem('selected')) || {
     category: null,
     service: null,
-    venue: null 
+    venue: null ,
+    task: null 
   },
   data: JSON.parse(localStorage.getItem('data')) || {},
   evaluations: [
+    {
+      grade: 0,
+      title: 'Sin evaluaciones',
+      longdesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
+        + ' ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'
+        + ' ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    },
     {
       grade: 1,
       title: 'Pésimo',

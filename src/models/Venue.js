@@ -18,7 +18,7 @@ class Venue {
             lng: parseFloat(venue.position.lng)
         }
         this.evaluation = venue.evaluation
-        this.tasks = venue.tasks
+        this.tasks = venue.the_tasks
         this.evaluations = venue.evaluations
     }
 

@@ -3,9 +3,9 @@
   <div class="task__single">
     <header class="task__header entries-list__header">
       <p class="entries-list__description task__description">
-        <router-link :to="{ name: 'place-single', params: { 'placeId': task.place_id } }">{{ task.place }}</router-link>
+        <router-link :to="{ name: 'place-single', params: { 'placeId': venue.id } }">{{ venue.name }}</router-link>
         en
-        <router-link :to="{ name: 'service-single', params: { 'serviceId': task.service_id } }">{{ task.service }}</router-link>
+        <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
       </p>
       <h1 class="task__title entries-list__title">{{ task.title }}</h1>
       <text-to-speech :text-audio="`${this.task.title}. ${this.task.place}, en ${this.task.service}`" />
@@ -15,17 +15,17 @@
         v-touch:swipe.left="advanceStep"
         v-touch:swipe.right="rewindStep"
       >
-        <li v-for="step in task.steps"
+        <li v-for="(step, index) in task.steps"
           v-bind:step="step"
           v-bind:key="step.id"
-          v-bind:class="'task-step'+ ( step.order === state.active_step ?
+          v-bind:class="'task-step'+ ( index === state.active_step ?
           ' task-step--active' : '')"
         >
           <figure class="task-step__figure">
             <div class="step-canvas">
-              <pictogram :layers="step.layers"></pictogram>
+              <pictogram v-if="step.pictogram" :layers="step.pictogram.images"></pictogram>
             </div>
-            <figcaption class="task-step__legend">{{ step.legend }}</figcaption>
+            <figcaption class="task-step__legend">{{ step.label }}</figcaption>
           </figure>
         </li>
         <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
@@ -39,10 +39,10 @@
             </button>
           </div>
           <router-link
-            :to="{ name: 'place-single', params: { 'placeId': task.place_id } }"
+            :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
             class="btn btn--large btn--block btn--ghost"
           >
-            Volver a {{ task.place }}
+            Volver a {{ venue.name }}
           </router-link>
           <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
         </li>
@@ -59,8 +59,8 @@
           Siguiente
         </button>
         <ol class="task__steps-indicator">
-          <li v-for="step in task.steps" v-bind:step="step" v-bind:key="step.id"
-            v-bind:class="state.active_step >= step.order ?
+          <li v-for="(step, index) in task.steps" v-bind:step="step" v-bind:key="step.id"
+            v-bind:class="state.active_step >= index ?
               'task__step-indicator--active' : 'task__step-indicator'">
             {{ step.order }}
           </li>
@@ -110,6 +110,9 @@ import Pictogram from '@/components/Pictogram.vue';
 import IconLike from '../../public/img/app-icons/like.svg?inline';
 import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
 import IconError from '../../public/img/app-icons/error.svg?inline';
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
+import Task from '@/models/Task';
 
 export default {
   name: 'taskSingle',
@@ -159,6 +162,16 @@ export default {
       }, 2000);
     },
   },
+  beforeMount() {
+    this.service.set(this.$store.state.selected.service)
+    this.venue.set(this.$store.state.selected.venue)
+    this.$store.dispatch("setSelectedItem",{ 
+      'object': 'task', 
+      'item': this.venue.tasks.find(t => t.id == this.$route.params.taskId) 
+    }).then(() => {
+      this.task.set(this.$store.state.selected.task)
+    });
+  },
   data() {
     return {
       state: {
@@ -172,72 +185,75 @@ export default {
         submitted_feedback: false,
         error_feedback: false,
       },
-      task: {
-        id: 1,
-        title: 'Viajar de un punto a otro',
-        place: 'Estación Viña del Mar',
-        place_id: 1,
-        service: 'Metro de Valparaíso',
-        service_id: 1,
-        aids: [
-          {
-            type: 'graphic',
-            enabled: true,
-          },
-          {
-            type: 'written',
-            enabled: true,
-          },
-          {
-            type: 'aural',
-            enabled: true,
-          },
-        ],
-        steps: [
-          {
-            id: 1,
-            order: 0,
-            legend: 'Pasa tu tarjeta por el sensor del torniquete',
-            layers: {
-              subject: {
-                img: '1-subject/handle--third-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/turnstile.svg',
-              },
-              context: {
-                img: '3-context/sign-center.svg',
-              },
-            },
-          },
-          {
-            id: 2,
-            order: 1,
-            legend: 'Baja al andén correspondiente',
-            layers: {
-              subject: {
-                img: '1-subject/go-down--third-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/exit.svg',
-              },
-            },
-          },
-          {
-            id: 3,
-            order: 2,
-            legend: 'Espera el metro detrás de la línea',
-            layers: {
-              subject: {
-                img: '1-subject/wait-side--first-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/metro--front.svg',
-              },
-            },
-          },
-        ],
-      },
+      task: new Task(),
+      service: new Service(),
+      venue: new Venue(),
+      // task: {
+      //   id: 1,
+      //   title: 'Viajar de un punto a otro',
+      //   place: 'Estación Viña del Mar',
+      //   place_id: 1,
+      //   service: 'Metro de Valparaíso',
+      //   service_id: 1,
+      //   aids: [
+      //     {
+      //       type: 'graphic',
+      //       enabled: true,
+      //     },
+      //     {
+      //       type: 'written',
+      //       enabled: true,
+      //     },
+      //     {
+      //       type: 'aural',
+      //       enabled: true,
+      //     },
+      //   ],
+      //   steps: [
+      //     {
+      //       id: 1,
+      //       order: 0,
+      //       legend: 'Pasa tu tarjeta por el sensor del torniquete',
+      //       layers: {
+      //         subject: {
+      //           img: '1-subject/handle--third-quadrant.svg',
+      //         },
+      //         landmark: {
+      //           img: '2-landmarks/turnstile.svg',
+      //         },
+      //         context: {
+      //           img: '3-context/sign-center.svg',
+      //         },
+      //       },
+      //     },
+      //     {
+      //       id: 2,
+      //       order: 1,
+      //       legend: 'Baja al andén correspondiente',
+      //       layers: {
+      //         subject: {
+      //           img: '1-subject/go-down--third-quadrant.svg',
+      //         },
+      //         landmark: {
+      //           img: '2-landmarks/exit.svg',
+      //         },
+      //       },
+      //     },
+      //     {
+      //       id: 3,
+      //       order: 2,
+      //       legend: 'Espera el metro detrás de la línea',
+      //       layers: {
+      //         subject: {
+      //           img: '1-subject/wait-side--first-quadrant.svg',
+      //         },
+      //         landmark: {
+      //           img: '2-landmarks/metro--front.svg',
+      //         },
+      //       },
+      //     },
+      //   ],
+      // },
       feedback: {
         body: '',
       },
