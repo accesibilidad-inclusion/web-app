@@ -22,6 +22,21 @@ import PlaceSingle from '../views/PlaceSingle.vue';
 import PlaceEvaluation from '../views/PlaceEvaluation.vue';
 import TaskSingle from '../views/TaskSingle.vue';
 
+import NewPlaceIntro from '../views/NewPlaceIntro.vue';
+import NewPlaceIntro2 from '../views/NewPlaceIntro2.vue';
+import NewPlaceIntro3 from '../views/NewPlaceIntro3.vue';
+
+import NewTaskIntro from '../views/NewTaskIntro.vue';
+import NewTaskIntro2 from '../views/NewTaskIntro2.vue';
+import NewTaskIntro3 from '../views/NewTaskIntro3.vue';
+import NewTaskIntro4 from '../views/NewTaskIntro4.vue';
+import NewTaskIntro5 from '../views/NewTaskIntro5.vue';
+
+import PlaceEvaluationIntro from '../views/PlaceEvaluationIntro.vue';
+import PlaceEvaluationIntro2 from '../views/PlaceEvaluationIntro2.vue';
+import PlaceEvaluationIntro3 from '../views/PlaceEvaluationIntro3.vue';
+import PlaceEvaluationIntro4 from '../views/PlaceEvaluationIntro4.vue';
+
 import NewAidIntro from '../views/NewAidIntro.vue';
 import NewAidIntro2 from '../views/NewAidIntro2.vue';
 import NewAidIntro3 from '../views/NewAidIntro3.vue';
@@ -134,6 +149,66 @@ const routes = [
     path: '/tareas/:taskId/',
     name: 'task-single',
     component: TaskSingle,
+  },
+  {
+    path: '/nuevo-lugar/intro',
+    name: 'new-place-intro',
+    component: NewPlaceIntro,
+  },
+  {
+    path: '/nuevo-lugar/intro2',
+    name: 'new-place-intro2',
+    component: NewPlaceIntro2,
+  },
+  {
+    path: '/nuevo-lugar/intro3',
+    name: 'new-place-intro3',
+    component: NewPlaceIntro3,
+  },
+  {
+    path: '/nueva-tarea/intro',
+    name: 'new-task-intro',
+    component: NewTaskIntro,
+  },
+  {
+    path: '/nueva-tarea/intro2',
+    name: 'new-task-intro2',
+    component: NewTaskIntro2,
+  },
+  {
+    path: '/nueva-tarea/intro3',
+    name: 'new-task-intro3',
+    component: NewTaskIntro3,
+  },
+  {
+    path: '/nueva-tarea/intro4',
+    name: 'new-task-intro4',
+    component: NewTaskIntro4,
+  },
+  {
+    path: '/nueva-tarea/intro5',
+    name: 'new-task-intro5',
+    component: NewTaskIntro5,
+  },
+  {
+    path: '/evaluacion-lugar/intro',
+    name: 'place-evaluation-intro',
+    component: PlaceEvaluationIntro,
+  },
+  {
+    path: '/evaluacion-lugar/intro2',
+    name: 'place-evaluation-intro2',
+    component: PlaceEvaluationIntro2,
+  },
+  {
+    path: '/evaluacion-lugar/intro3',
+    name: 'place-evaluation-intro3',
+    component: PlaceEvaluationIntro3,
+  },
+  {
+    path: '/evaluacion-lugar/intro4',
+    name: 'place-evaluation-intro4',
+    component: PlaceEvaluationIntro4,
   },
   {
     path: '/nuevo-apoyo/intro',
