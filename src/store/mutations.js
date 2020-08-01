@@ -27,6 +27,10 @@ export const setData = (state, payload) => {
   state.data = payload;
 };
 
+export const setQuestions = (state, payload) => {
+  state.questions = payload;
+};
+
 export const setSelectedItem = ( state, payload ) => {
   state.selected[payload.object] = payload.item
   localStorage.setItem('selected', JSON.stringify(state.selected))

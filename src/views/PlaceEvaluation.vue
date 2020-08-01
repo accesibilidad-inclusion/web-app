@@ -1,26 +1,35 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="evaluation">
-    <header class="evaluation__header">
-      <span class="evaluation__service">{{ place.service }}</span>
-      <h1 class="evaluation__place">{{ place.name }}</h1>
-      <text-to-speech :text-audio="`${place.name}, en ${place.service}`" />
-    </header>
-    <div class="evaluation__summary">
-      <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
-        <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
-        <span v-else>!</span>
-      </div>
-      <p class="evaluation__text">Nivel de accesibilidad</p>
-      <h2 class="place__evaluation-title">{{ evaluation.title }}</h2>
-    </div>
-    <div class="evaluation__body">
-      <h3 class="evaluation__explanation">¿Qué significa esto?</h3>
-      <p class="evaluation__longdesc">{{ evaluation.longdesc }}</p>
-      <text-to-speech :text-audio="`¿Qué significa esto?.\n\n${evaluation.longdesc}`" />
-    </div>
-    <div class="actions">
-      <button class="btn btn--large btn--block btn--primary">Evaluar este lugar</button>
+  <div class="onboarding--inside">
+    <div class="container">
+      <h2 class="onboarding__title">
+      {{ question.text }}
+        <text-to-speech :text-audio="question" />
+      </h2>
+      <template v-if="question.answer_type == 'Dicotomico'">
+        <div class="custom-control custom-control--radio">
+          <input type="radio" name="dicotopico" id="dicotomico_si" value="Si" class="custom-control__input" @change="setAnswer">
+          <label for="dicotomico_si" class="custom-control__label">Si</label>
+        </div>
+        <div class="custom-control custom-control--radio">
+          <input type="radio" name="dicotopico" id="dicotomico_no" value="No" class="custom-control__input" @change="setAnswer">
+          <label for="dicotomico_no" class="custom-control__label">No</label>
+        </div>
+      </template>
+      <template v-if="question.answer_type == 'Opciones'">
+        <div class="custom-control custom-control--radio" v-for="option in question.options" v-bind:key="option.id">
+          <input type="radio" name="gender" :id="'opt'+option.id" :value="option.name" class="custom-control__input" @change="setAnswer">
+          <label :for="'opt'+option.id" class="custom-control__label">{{ option.name }}</label>
+        </div>
+      </template>
+      <template v-if="question.answer_type == 'Texto'">
+        <div class="custom-control custom-control--text">
+          <input type="text">
+        </div>
+      </template>
+      <footer class="onboarding__footer">
+        <button class="btn btn--large btn--block btn--primary" :disabled="!canAdvance" @click="next()">Siguiente</button>
+      </footer>
     </div>
   </div>
 </template>
@@ -29,114 +38,51 @@
 import TextToSpeech from '@/components/TextToSpeech.vue';
 
 export default {
-  name: 'placeEvaluation',
+  name: 'PlaceEvaluation',
   components: {
     TextToSpeech,
   },
   data() {
     return {
-      place: {
-        name: 'Estación Viña del Mar',
-        service: 'Metro de Valparaíso',
-      },
-    };
+      n: 0,
+      subn: null,
+      questions: this.$store.state.questions,
+      answers: []
+    }
   },
   computed: {
-    evaluation() {
-      return this.$store.state.evaluations
-        // eslint-disable-next-line radix
-        .find(evaluation => evaluation.grade === parseInt(this.$route.params.grade, 10));
+    question() {
+      let q
+      if(this.subn !== null)
+        q = this.questions[this.n].questions[this.subn]
+      else
+        q = this.questions[this.n]
+      q.text = q.text.replace(/{{ service\.name }}/g, this.$store.state.selected.venue.name)
+      return q
     },
+    canAdvance() {
+      return this.question.answer_type == 'Instrucción' || this.question.answer_type == 'Texto' ? true : this.isResponsed
+    },
+    isResponsed() {
+      return this.answers.filter( a => a.question_id == this.question.id ).length
+    }
   },
+  methods: {
+    next() {
+      if(this.question.answer_type == 'Dicotomico' && this.answers.find( a => a.question_id == this.question.id ).answer == 'Si')
+        this.subn = 0
+      else
+        this.n++
+    },
+    setAnswer(event) {
+      if( this.answers.find( a => a.question_id == this.question.id ) ) {
+        this.answers.splice(this.answers.findIndex( a => a.question_id == this.question.id ), 1)
+      }
+      this.answers.push({
+        question_id: this.question.id,
+        answer: event.target.value
+      })
+    }
+  }
 };
 </script>
-
-<style lang="scss">
-  @import '@/assets/scss/rfs.scss';
-  .evaluation__header {
-    position: relative;
-    padding: var(--spacer);
-    text-align: center;
-    line-height: calc( 22 / 16 );
-    @media screen and ( min-width: 640px ) {
-      padding: var(--spacer-lg);
-    }
-    @media screen and ( min-width: 1280px ) {
-      padding-left: var(--spacer-xl);
-      padding-right: var(--spacer-xl);
-    }
-  }
-  .evaluation__service {
-    @include rfs($font-size-12);
-    margin-bottom: var(--spacer-sm);
-  }
-  .evaluation__place {
-    @include rfs($font-size-21);
-  }
-  .evaluation__header .tts {
-    position: absolute;
-    top: var(--spacer);
-    right: var(--spacer);
-    @media screen and ( min-width: 640px ) {
-      top: var(--spacer-lg);
-      right: var(--spacer-lg);
-    }
-    @media screen and ( min-width: 1280px ) {
-      right: var(--spacer-xl);
-    }
-  }
-
-  .evaluation__summary {
-    margin-bottom: var(--spacer-sm);
-    padding: var(--spacer);
-    text-align: center;
-    @media screen and ( min-width: 640px ) {
-      padding-left: var(--spacer-lg);
-      padding-right: var(--spacer-lg);
-    }
-    @media screen and ( min-width: 1280px ) {
-      padding: var(--spacer-xl);
-    }
-  }
-  .place__evaluation-grade {
-    .evaluation__summary & {
-      margin-bottom: var(--spacer-sm);
-    }
-  }
-  .evaluation__text {
-    @include rfs($font-size-14);
-    line-height: calc( 19/14 );
-  }
-  .evaluation__body {
-    position: relative;
-    padding: var(--spacer);
-    line-height: calc( 22 / 16 );
-    @media screen and ( min-width: 640px ) {
-      padding: var(--spacer-lg);
-    }
-    @media screen and ( min-width: 1280px ) {
-      padding-left: var(--spacer-xl);
-      padding-right: var(--spacer-xl);
-    }
-  }
-  .evaluation__explanation {
-    @include rfs($font-size-16);
-    margin-bottom: var(--spacer);
-  }
-  .evaluation__longdesc {
-    @include rfs($font-size-14);
-    line-height: 1.45;
-  }
-  .evaluation__body .tts {
-    position: absolute;
-    top: var(--spacer);
-    right: var(--spacer);
-    @media screen and ( min-width: 640px ) {
-      top: var(--spacer-lg);
-      right: var(--spacer-lg);
-    }
-    @media screen and ( min-width: 1280px ) {
-      right: var(--spacer-xl);
-    }
-  }
-</style>

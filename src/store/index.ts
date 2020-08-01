@@ -68,6 +68,7 @@ const state = {
         + ' ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
   ],
+  questions: JSON.parse(localStorage.getItem('questions')) || []
 };
 
 export default new Vuex.Store({
@@ -89,6 +90,18 @@ export default new Vuex.Store({
               commit('setData', response.data)
               resolve()
           })
+        })
+      })
+    },
+    loadQuestions( { commit } ){
+      return new Promise( ( resolve, reject ) => {
+        axios( {
+            url: process.env.VUE_APP_API_DOMAIN + 'api/questions',
+            method: 'GET',
+        } ).then( response => {
+            localStorage.setItem('questions', JSON.stringify(response.data))
+            commit('setQuestions', response.data)
+            resolve()
         })
       })
     },

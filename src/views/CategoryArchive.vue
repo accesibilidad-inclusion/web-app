@@ -28,7 +28,7 @@
         ¿No encuentras el lugar que estás buscando?
         <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
       </p>
-      <router-link to="/lugares/nuevo" class="btn btn--primary btn--large btn--block" tag="button">
+      <router-link to="/nuevo-lugar/intro" class="btn btn--primary btn--large btn--block" tag="button">
         &plus; Agregar un lugar nuevo
       </router-link>
     </aside>

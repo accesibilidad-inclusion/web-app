@@ -19,7 +19,7 @@ import SearchResults from '../views/SearchResults.vue';
 import CategoryArchive from '../views/CategoryArchive.vue';
 import ServiceSingle from '../views/ServiceSingle.vue';
 import PlaceSingle from '../views/PlaceSingle.vue';
-import PlaceEvaluation from '../views/PlaceEvaluation.vue';
+import PlaceScore from '../views/PlaceScore.vue';
 import TaskSingle from '../views/TaskSingle.vue';
 
 import NewPlaceIntro from '../views/NewPlaceIntro.vue';
@@ -31,7 +31,9 @@ import NewTaskIntro2 from '../views/NewTaskIntro2.vue';
 import NewTaskIntro3 from '../views/NewTaskIntro3.vue';
 import NewTaskIntro4 from '../views/NewTaskIntro4.vue';
 import NewTaskIntro5 from '../views/NewTaskIntro5.vue';
+import NewTask from '../views/NewTask.vue';
 
+import PlaceEvaluation from '../views/PlaceEvaluation.vue';
 import PlaceEvaluationIntro from '../views/PlaceEvaluationIntro.vue';
 import PlaceEvaluationIntro2 from '../views/PlaceEvaluationIntro2.vue';
 import PlaceEvaluationIntro3 from '../views/PlaceEvaluationIntro3.vue';
@@ -142,8 +144,8 @@ const routes = [
   },
   {
     path: '/evaluacion/:grade/',
-    name: 'place-evaluation',
-    component: PlaceEvaluation,
+    name: 'place-score',
+    component: PlaceScore,
   },
   {
     path: '/tareas/:taskId/',
@@ -164,6 +166,11 @@ const routes = [
     path: '/nuevo-lugar/intro3',
     name: 'new-place-intro3',
     component: NewPlaceIntro3,
+  },
+  {
+    path: '/nueva-tarea/',
+    name: 'new-task',
+    component: NewTask,
   },
   {
     path: '/nueva-tarea/intro',
@@ -189,6 +196,11 @@ const routes = [
     path: '/nueva-tarea/intro5',
     name: 'new-task-intro5',
     component: NewTaskIntro5,
+  },
+  {
+    path: '/evaluacion-lugar/',
+    name: 'place-evaluation',
+    component: PlaceEvaluation,
   },
   {
     path: '/evaluacion-lugar/intro',

@@ -19,7 +19,7 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <OnboardingNext :linkTo="'/nueva-tarea/intro2/'" />
+        <OnboardingNext :linkTo="'/nueva-tarea/'" />
       </footer>
     </div>
   </div>

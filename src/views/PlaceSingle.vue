@@ -10,40 +10,59 @@
       </a>
       <text-to-speech :text-audio="`${place.name}, en ${place.service}`" />
     </header>
-    <main class="place__tasks" v-if="tasks">
-      <p class="place__tasks-description">
-        <span>Selecciona lo que necesites hacer en este lugar</span>
-        <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
-      </p>
-      <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
-    </main>
-    <aside class="actions actions--place">
-      <div class="actions__header">
-        <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
-        <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
-        <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
-      </div>
-      <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
-        &plus; Agregar una tarea nueva
-      </router-link>
-    </aside>
-    <footer class="place__footer">
-      <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
-        <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
-        <div class="place__evaluation-title">{{ evaluation.title }}</div>
-        <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
-          <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
-          <span v-else>!</span>
+    <template v-if="tasks.length">
+      <main class="place__tasks">
+        <p class="place__tasks-description">
+          <span>Selecciona lo que necesites hacer en este lugar</span>
+          <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
+        </p>
+        <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
+      </main>
+      <aside class="actions actions--place">
+        <div class="actions__header">
+          <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
+          <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
+          <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
         </div>
-        <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
-      </router-link>
-      <div class="place__evaluation-actions">
-        <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
-        <router-link tag="button" to="/lugar/1/evaluar" class="btn btn--ghost btn--large btn--block">
-          Evaluar este lugar
+        <router-link to="/nueva-tarea/intro" class="btn btn--primary btn--large btn--block" tag="button">
+          &plus; Agregar una tarea nueva
         </router-link>
-      </div>
-    </footer>
+      </aside>
+      <footer class="place__footer">
+        <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
+          <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
+          <div class="place__evaluation-title">{{ evaluation.title }}</div>
+          <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+            <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
+            <span v-else>!</span>
+          </div>
+          <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
+        </router-link>
+        <div class="place__evaluation-actions">
+          <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
+          <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--ghost btn--large btn--block">
+            Evaluar este lugar
+          </router-link>
+        </div>
+      </footer>
+    </template>
+    <template v-else>
+      <main class="place__tasks">
+        <p class="place__tasks-description">
+          <icon-no-information />
+          <span>Este lugar no tiene información</span>
+        </p>
+      </main>
+      <aside class="actions actions--place">
+        <div class="actions__header">
+          <text-to-speech :text-audio="'Ayudanos a mejorar'" />
+          <p class="actions__title">Ayudanos a mejorar</p>
+        </div>
+        <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
+          &plus; Agregar tareas a este lugar
+        </router-link>
+      </aside>
+    </template>
   </div>
 </template>
 
@@ -51,6 +70,7 @@
 import TaskBlock from '@/components/TaskBlock.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
+import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
 import Service from '@/models/Service';
 import Venue from '@/models/Venue';
 
@@ -60,6 +80,7 @@ export default {
     TaskBlock,
     TextToSpeech,
     IconLocationPin,
+    IconNoInformation,
   },
   beforeMount() {
     this.$store.dispatch("setSelectedItem",{ 
