@@ -55,15 +55,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
-.page .container {
-  padding: var(--spacer);
-  @media screen and ( min-width: 640px ) {
-    padding: var(--spacer-lg);
-  }
-  @media screen and ( min-width: 1288px ) {
-    padding: var(--spacer-xl);
-  }
-}
+
 .page__logo {
   width: 40vw;
   height: auto;
@@ -75,19 +67,7 @@ export default {
   margin-right: auto;
   margin-left: auto;
 }
-.page__title {
-  @include rfs($font-size-21);
-  color: var(--color-brand-darkest);
-  margin-bottom: var(--spacer);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-gap: var(--spacer);
-  @media screen and ( min-width: 640px ) {
-    margin-bottom: var(--spacer-lg);
-  }
-}
 .page p {
-  @include rfs($font-size-16);
   margin-bottom: var(--spacer);
   line-height: 1.5;
 }
