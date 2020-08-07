@@ -48,23 +48,27 @@
           </div>
         </template>
         <template v-else-if="showStep == 4">
-          <text-to-speech :text-audio="'Gracias por tu aporte\n\n\n\n\n\n'
-            + 'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n'
-            + 'Volver\n\n\n\n\n\n'
-            + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
-          <h2 class="onboarding__title-complete">
-            Gracias por tu aporte
-          </h2>
-          <p class="onboarding__description-complete">Estás ayudando al mundo a ser un lugar más accesible</p>
-          <router-link :to="'/lugares/' + venue.id" class="onboarding__back">Volver a {{ venue.name }}</router-link>
+          <div class="thanks-message">
+            <div class="thanks-message__container">
+              <text-to-speech :text-audio="'Gracias por tu aporte\n\n\n\n\n\n'
+                + 'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n'
+                + 'Volver\n\n\n\n\n\n'
+                + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
+              <h2 class="thanks-message__title">
+                Gracias por tu aporte
+              </h2>
+              <p class="thanks-message__description">Estás ayudando al mundo a ser un lugar más accesible</p>
+              <router-link :to="'/lugares/' + venue.id" class="thanks-message__back">Volver a {{ venue.name }}</router-link>
+            </div>
+          </div>
         </template>
       </form>
       <footer class="page__footer">
-        <div v-if="showStep == 4">
-          <p class="onboarding__footer-description-complete">¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
+        <div v-if="showStep == 4" class="thanks-message__footer">
+          <p class="thanks-message__footer-description">¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
           <button v-if="!showEmailConfirm" class="btn btn--large btn--block btn--ghost" @click="showEmailConfirm = true">Sí, avísame</button>
-          <div v-else class="onboarding__form">
-            <input type="text" value="" v-model="emailConfirm" placeholder="Escribe tu e-mail aquí" class="onboarding__email" />
+          <div v-else class="thanks-message__form">
+            <input type="text" value="" v-model="emailConfirm" placeholder="Escribe tu e-mail aquí" class="thanks-message__email" />
             <button class="btn btn--large btn--ghost">Enviar</button>
           </div>
         </div>
@@ -266,45 +270,87 @@ export default {
     width: 0.5rem;
     height: auto;
   }
-  //agradecimieento aporte
-  .onboarding__title-complete {
+  //agradecimiento aporte
+  .thanks-message {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-brand-lightest);
+    z-index: 10000;
+    .thanks-message__container {
+      //background-image: url('../../public/img/illustrations/background.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: var(--color-highlight);
+      background-color: var(--color-brand-darkest);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      height: 100%;
+      padding: var(--spacer);
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      @media screen and ( min-width: 640px ) {
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: var(--spacer-lg);
+      }
+      @media screen and ( min-width: 1288px ) {
+        max-width: 750px;
+        padding: var(--spacer-xl);
+      }
+      .tts {
+        margin-left: auto;
+        path {
+          fill: var(--color-brand-light);
+        }
+      }
+    }
+  }
+  .thanks-message__title {
     margin-top: var(--spacer);
     text-transform: uppercase;
     max-width: 190px;
     color: var(--color-highlight);
   }
-  .onboarding__background-image {
-    //background-image: url('../../public/img/illustrations/background.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    .tts {
-      text-align: right;
-    }
-    .tts ::v-deep path {
-      fill: var(--color-brand-light);
-    }
-  }
-  .onboarding__description-complete {
+  .thanks-message__description {
     @include rfs($font-size-16);
     font-weight: bold;
     color: var(--color-background);
     max-width: 15rem;
     margin-top: var(--spacer);
   }
-  .onboarding__back {
+  .thanks-message__back {
+    @include rfs($font-size-16);
     color: var(--color-highlight);
+    padding: var(--spacer) 0;
+    font-weight: bold;
   }
-  .onboarding__footer-description-complete {
+  .thanks-message__footer {
+    z-index: 100000;
+    position: relative;
+  }
+  .thanks-message__footer-description {
     @include rfs($font-size-16);
     font-weight: bold;
     color: var(--color-highlight);
+    margin-bottom: var(--spacer);
   }
-  .onboarding__form {
+  .thanks-message__form {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-gap: var(--spacer-sm);
   }
-  .onboarding__email {
+  .thanks-message__email {
     @include rfs($font-size-14);
     padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
     border: 2px solid var(--color-background);
@@ -316,5 +362,4 @@ export default {
       font-family: var(--font-family);
     }
   }
-
 </style>
