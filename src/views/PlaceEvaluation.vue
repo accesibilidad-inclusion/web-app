@@ -1,8 +1,13 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding--inside">
+  <div class="page">
     <div class="container">
-      <h2 class="onboarding__title">
+      <header class="place__header">
+        <router-link :to="'/servicios/'" class="place__service">service.name</router-link>
+        <h1 class="place__name">place.name</h1>
+        <text-to-speech :text-audio="''" />
+      </header>
+      <h2 class="page__title">
       {{ question.text }}
         <text-to-speech :text-audio="question" />
       </h2>
@@ -28,9 +33,15 @@
         </div>
       </template>
       <template v-if="question.answer_type == 'Fotografía'">
-        <img id="photo" class="photo">
-        <span @click="takePhoto" v-if="isResponsed">Cambiar foto</span>
-        <span @click="deletePicture" v-if="isResponsed">Eliminar foto</span>
+        <div class="page__photo-block">
+          <div class="page__photo-wrapper">
+            <img id="photo" class="photo">
+          </div>
+          <div class="page__photo-edit" v-if="isResponsed">
+            <span @click="takePhoto" v-if="isResponsed" class="page__photo-change"><icon-camera />Cambiar foto</span>
+            <span @click="deletePicture" v-if="isResponsed" class="page__photo-delete"><icon-delete />Eliminar foto</span>
+          </div>
+        </div>
       </template>
       <template v-if="question.answer_type == 'Indicador'">
         <ul class="onboarding__evaluation">
@@ -56,9 +67,9 @@
           </li>
         </ul>
       </template>
-      <footer class="onboarding__footer">
+      <footer class="page__footer">
         <input type="file" accept="image/*" capture="camera" id="camera" @change="setPicture" />
-        <button v-if="btnPicture" class="btn btn--large btn--block btn--primary" @click="takePhoto">Tomar foto</button>
+        <button v-if="btnPicture" class="btn btn--large btn--block btn--highlight" @click="takePhoto"><icon-camera />Tomar foto</button>
         <button v-else class="btn btn--large btn--block btn--primary" :disabled="!canAdvance" @click="next">
           <span v-if="isLast">Evaluar</span>
           <span v-else>Siguiente</span>
@@ -70,11 +81,15 @@
 
 <script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconCamera from '../../public/img/app-icons/camera.svg?inline';
+import IconDelete from '../../public/img/app-icons/error.svg?inline';
 
 export default {
   name: 'PlaceEvaluation',
   components: {
     TextToSpeech,
+    IconCamera,
+    IconDelete,
   },
   data() {
     return {
@@ -141,7 +156,7 @@ export default {
         });
       }
       else {
-        if(this.question.answer_type == 'Dicotomico' && this.answers.find( a => a.question_id == this.question.id ).answer == 'Si') 
+        if(this.question.answer_type == 'Dicotomico' && this.answers.find( a => a.question_id == this.question.id ).answer == 'Si')
           this.subn = 0
         else {
           if(this.subn !== null) {
@@ -197,7 +212,7 @@ export default {
           question_id: this.question.id,
           type: this.question.answer_type,
           answer: e.target.result
-        })      
+        })
       };
       reader.onerror = (error) => {
         console.log(error)
@@ -212,7 +227,113 @@ export default {
 };
 </script>
 <style lang="scss">
-#camera {
-  display: none;
-}
+@import '@/assets/scss/rfs.scss';
+
+  .page {
+    input {
+      @include rfs($font-size-16);
+      width: 100%;
+      padding: var(--spacer-sm) var(--spacer-lg) var(--spacer-sm) var(--spacer-sm);
+      border: 1px solid var(--color-neutral-light);
+      border-radius: var(--border-radius);
+      &::placeholder {
+        color: #848484;
+        opacity: 1;
+        font-style: italic;
+        font-family: var(--font-family);
+      }
+    }
+    .place__header {
+      margin: calc( var(--spacer) * -1) calc( var(--spacer) * -1) var(--spacer);
+      @media screen and ( min-width: 640px ) {
+        margin: calc( var(--spacer-lg) * -1) calc( var(--spacer-lg) * -1) var(--spacer-lg);
+      }
+      @media screen and ( min-width: 1280px ) {
+        margin: calc( var(--spacer-xl) * -1) calc( var(--spacer-xl) * -1) var(--spacer-xl);
+      }
+      .tts {
+        top: calc(var(--spacer) + var(--spacer-sm));
+        right: var(--spacer);
+        @media screen and ( min-width: 640px ) {
+          top: calc(var(--spacer) + var(--spacer-sm));
+          right: var(--spacer-lg);
+        }
+        @media screen and ( min-width: 1280px ) {
+          top: calc(var(--spacer) + var(--spacer-sm));
+          right: var(--spacer-xl);
+        }
+      }
+    }
+  }
+  .place__title {
+    @include rfs( $font-size-18 );
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    line-height: var(--subtitle-line-height);
+    color: var(--color-brand-darkest);
+
+    .tts {
+      margin-left: var(--spacer);
+    }
+  }
+  .btn--highlight {
+      svg {
+      width: 1rem;;
+      height: auto;
+      margin-right: var(--spacer-xs);
+      vertical-align: middle;
+      path {
+        fill: var(--color-brand-darkest);
+      }
+    }
+  }
+  //Imagen
+  #camera {
+    display: none;
+  }
+  .page__photo-block {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    max-height: 8.5rem;
+  }
+  .page__photo-wrapper {
+    overflow: hidden;
+  }
+  .page__photo-edit {
+    background-color: var(--color-neutral-lightest);
+    padding: var(--spacer-sm) 0;
+    @media screen and ( min-width: 640px ) {
+      padding: var(--spacer-sm);
+    }
+    span {
+      @include rfs($font-size-16);
+      font-weight: 600;
+      display: block;
+      color: var(--color-neutral);
+      padding: var(--spacer) var(--spacer-xs);
+      margin: 0 var(--spacer-sm);
+      text-align: center;
+      cursor: pointer;
+      svg {
+        margin-right: var(--spacer-xs);
+        path {
+          fill: var(--color-neutral);
+        }
+      }
+    }
+  }
+  .page__photo-change {
+    border-bottom: 1px solid var(--color-neutral-lighter);
+    svg {
+      width: 1rem;
+      height: auto;
+    }
+  }
+  .page__photo-delete {
+    svg {
+      width: 0.6rem;
+      height: auto;
+    }
+  }
 </style>
