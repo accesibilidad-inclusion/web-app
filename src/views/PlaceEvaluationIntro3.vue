@@ -62,13 +62,17 @@ export default {
   .onboarding__evaluation {
     list-style: none;
     li {
-      margin-bottom: var(--spacer-sm);
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       column-gap: var(--spacer-sm);
     }
     .place__evaluation-grade--lg {
       margin: 0;
+      width: 2.8rem;
+      height: 2.8rem;
+      font-size: 1.5rem;
+      display: inherit;
     }
     .place-block__evaluation-description {
       @include rfs($font-size-16);

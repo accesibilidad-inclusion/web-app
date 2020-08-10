@@ -44,7 +44,7 @@
         </div>
       </template>
       <template v-if="question.answer_type == 'Indicador'">
-        <ul class="onboarding__evaluation">
+        <ul class="page__evaluation">
           <li @click="setIndicator(5)">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="5">5</span>
             <span class="place-block__evaluation-description"><strong>Excelente:</strong> No necesita mejoras.</span>
@@ -334,6 +334,38 @@ export default {
     svg {
       width: 0.6rem;
       height: auto;
+    }
+  }
+  //Evaluación puntuación
+  .page__evaluation {
+    list-style: none;
+    margin-bottom: var(--spacer);
+    li {
+      display: flex;
+      align-items: center;
+      column-gap: var(--spacer-sm);
+      border-top: 1px solid var(--color-neutral-lightest);
+      padding-top: var(--spacer-sm);
+      padding-bottom: var(--spacer-sm);
+      &:last-child {
+        border-bottom: 1px solid var(--color-neutral-lightest);
+      }
+    }
+    .place__evaluation-grade--lg {
+      margin: 0;
+      width: 4rem;
+      height: 4rem;
+      font-size: calc(var(--spacer-lg) * 1.2);
+      display: inherit;
+    }
+    .place-block__evaluation-description {
+      @include rfs($font-size-16);
+      color: var(--color-neutral);
+      strong {
+        text-transform: uppercase;
+        display: block;
+        color: var(--color-brand-darkest);
+      }
     }
   }
 </style>
