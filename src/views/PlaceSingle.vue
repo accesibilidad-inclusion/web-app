@@ -67,12 +67,12 @@
 </template>
 
 <script>
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
 import TaskBlock from '@/components/TaskBlock.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
 import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
-import Service from '@/models/Service';
-import Venue from '@/models/Venue';
 
 export default {
   name: 'placeSingle',
@@ -83,26 +83,27 @@ export default {
     IconNoInformation,
   },
   beforeMount() {
-    this.$store.dispatch("setSelectedItem",{ 
-      'object': 'venue', 
-      'item': this.$store.state.selected.service.near_venues.find(v => v.id == this.$route.params.placeId) 
+    this.$store.dispatch('setSelectedItem', {
+      object: 'venue',
+      item: this.$store.state.selected.service.near_venues
+        .find(v => v.id === parseInt(this.$route.params.placeId, 10)),
     }).then(() => {
-      this.service.set(this.$store.state.selected.service)
-      this.place.set(this.$store.state.selected.venue)
-      this.tasks = this.place.tasks
+      this.service.set(this.$store.state.selected.service);
+      this.place.set(this.$store.state.selected.venue);
+      this.tasks = this.place.tasks;
     });
   },
   data() {
     return {
       service: new Service(),
       place: new Venue(),
-      tasks:  []
+      tasks: [],
     };
   },
   computed: {
     evaluation() {
-      const score = this.place.evaluation ? this.place.evaluation.score : 0
-      return this.$store.state.evaluations.find(evaluation => evaluation.grade === score)
+      const score = this.place.evaluation ? this.place.evaluation.score : 0;
+      return this.$store.state.evaluations.find(evaluation => evaluation.grade === score);
     },
   },
 };

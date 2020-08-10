@@ -32,14 +32,13 @@
 </template>
 
 <script>
+import Category from '@/models/Category';
+import Service from '@/models/Service';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
 import IconHealth from '../../public/img/app-icons/health.svg?inline';
 import IconTransport from '../../public/img/app-icons/transport.svg?inline';
 import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
-import Category from '@/models/Category';
-import Service from '@/models/Service';
-
 
 export default {
   name: 'serviceSingle',
@@ -51,20 +50,21 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    this.$store.dispatch("setSelectedItem",{ 
-      'object': 'service', 
-      'item': this.$store.state.selected.category.near_services.find(s => s.id == this.$route.params.serviceId) 
+    this.$store.dispatch('setSelectedItem', {
+      object: 'service',
+      item: this.$store.state.selected.category.near_services
+        .find(s => s.id === parseInt(this.$route.params.serviceId, 10)),
     }).then(() => {
-      this.category.set(this.$store.state.selected.category)
-      this.service.set(this.$store.state.selected.service)
-      this.places = this.service.near_venues
+      this.category.set(this.$store.state.selected.category);
+      this.service.set(this.$store.state.selected.service);
+      this.places = this.service.near_venues;
     });
   },
   data() {
     return {
       category: new Category(),
       service: new Service(),
-      places: []
+      places: [],
     };
   },
 };

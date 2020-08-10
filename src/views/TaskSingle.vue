@@ -104,15 +104,15 @@
 </template>
 
 <script>
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
+import Task from '@/models/Task';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import Pictogram from '@/components/Pictogram.vue';
 import IconLike from '../../public/img/app-icons/like.svg?inline';
 import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
 import IconError from '../../public/img/app-icons/error.svg?inline';
-import Service from '@/models/Service';
-import Venue from '@/models/Venue';
-import Task from '@/models/Task';
 
 export default {
   name: 'taskSingle',
@@ -163,13 +163,13 @@ export default {
     },
   },
   beforeMount() {
-    this.service.set(this.$store.state.selected.service)
-    this.venue.set(this.$store.state.selected.venue)
-    this.$store.dispatch("setSelectedItem",{ 
-      'object': 'task', 
-      'item': this.venue.tasks.find(t => t.id == this.$route.params.taskId) 
+    this.service.set(this.$store.state.selected.service);
+    this.venue.set(this.$store.state.selected.venue);
+    this.$store.dispatch('setSelectedItem', {
+      object: 'task',
+      item: this.venue.tasks.find(t => t.id === parseInt(this.$route.params.taskId, 10)),
     }).then(() => {
-      this.task.set(this.$store.state.selected.task)
+      this.task.set(this.$store.state.selected.task);
     });
   },
   data() {

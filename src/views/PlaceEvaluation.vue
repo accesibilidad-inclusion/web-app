@@ -97,133 +97,132 @@ export default {
       subn: null,
       questions: this.$store.state.questions,
       answers: [],
-      factor: 0
-    }
+      factor: 0,
+    };
   },
   computed: {
     question() {
-      let q
-      if(this.subn !== null)
-        q = this.questions[this.n].questions[this.subn]
-      else
-        q = this.questions[this.n]
-      q.text = q.text.replace(/{{ service\.name }}/g, this.$store.state.selected.venue.name)
-      return q
+      let q;
+      if (this.subn !== null) {
+        q = this.questions[this.n].questions[this.subn];
+      } else {
+        q = this.questions[this.n];
+      }
+      q.text = q.text.replace(/{{ service\.name }}/g, this.$store.state.selected.venue.name);
+      return q;
     },
     btnPicture() {
-      return this.question.answer_type == 'Fotografía' && !this.isResponsed
+      return this.question.answer_type === 'Fotografía' && !this.isResponsed;
     },
     canAdvance() {
-      return this.question.answer_type == 'Instrucción' || this.question.answer_type == 'Texto' ? true : this.isResponsed
+      return this.question.answer_type === 'Instrucción' || this.question.answer_type === 'Texto' ? true : this.isResponsed;
     },
     isResponsed() {
-      return this.answers.filter( a => a.question_id == this.question.id ).length
+      return this.answers.filter(a => a.question_id === this.question.id).length;
     },
     isLast() {
-      return this.questions.length - 1 == this.n
+      return this.questions.length - 1 === this.n;
     },
     isPreLast() {
-      return this.questions.length - 2 == this.n
+      return this.questions.length - 2 === this.n;
     },
     score() {
-      let points = 0
-      this.answers.filter( a => a.type == 'Indicador').forEach( answer => {
-        points += answer.answer
-      })
-      let score = 1
-      for( let i = 1; i <= 5; i++ ) {
-        if( points <= this.factor * i ) {
+      let points = 0;
+      this.answers.filter(a => a.type === 'Indicador').forEach((answer) => {
+        points += answer.answer;
+      });
+      let score = 1;
+      for (let i = 1; i <= 5; i += 1) {
+        if (points <= this.factor * i) {
           score = i;
           break;
         }
       }
-      return score
-    }
+      return score;
+    },
   },
   mounted() {
-    let countIndicator = this.$store.state.questions.filter( q => q.answer_type == 'Indicador' ).length
-    this.$store.state.questions.forEach( question => {
-      countIndicator += question.questions.filter( q => q.answer_type == 'Indicador' ).length
-    } )
-    this.factor = countIndicator
+    let countIndicator = this.$store.state.questions.filter(q => q.answer_type === 'Indicador').length;
+    this.$store.state.questions.forEach((question) => {
+      countIndicator += question.questions.filter(q => q.answer_type === 'Indicador').length;
+    });
+    this.factor = countIndicator;
   },
   methods: {
     next() {
-      if(this.isLast) {
+      if (this.isLast) {
         this.$router.push({
           name: 'place-evaluation-confirmation',
-          params: { answers: this.answers }
+          params: { answers: this.answers },
         });
-      }
-      else {
-        if(this.question.answer_type == 'Dicotomico' && this.answers.find( a => a.question_id == this.question.id ).answer == 'Si')
-          this.subn = 0
-        else {
-          if(this.subn !== null) {
-            if(this.subn == this.questions[this.n].questions.length - 1)
-            {
-              this.subn = null
-              this.n++
-            }
-            else
-              this.subn++
+      } else {
+        if (this.question.answer_type === 'Dicotomico' && this.answers.find(a => a.question_id === this.question.id).answer === 'Si') {
+          this.subn = 0;
+        }
+        if (this.subn !== null) {
+          if (this.subn === this.questions[this.n].questions.length - 1) {
+            this.subn = null;
+            this.n += 1;
+          } else {
+            this.subn += 1;
           }
-          else
-            this.n++
+        } else {
+          this.n += 1;
         }
       }
-      if(document.querySelector('input[name="dicotomico_no"]:checked'))
+      if (document.querySelector('input[name="dicotomico_no"]:checked')) {
         document.querySelector('input[name="dicotomico_no"]:checked').checked = false;
+      }
     },
     setAnswer(event) {
-      if( this.answers.find( a => a.question_id == this.question.id ) ) {
-        this.answers.splice(this.answers.findIndex( a => a.question_id == this.question.id ), 1)
+      if (this.answers.find(a => a.question_id === this.question.id)) {
+        this.answers.splice(this.answers.findIndex(a => a.question_id === this.question.id), 1);
       }
-      if(event.target.value.trim() !== '') {
+      if (event.target.value.trim() !== '') {
         this.answers.push({
           question_id: this.question.id,
           type: this.question.answer_type,
-          answer: event.target.value
-        })
+          answer: event.target.value,
+        });
       }
     },
     setIndicator(indicator) {
-      if( this.answers.find( a => a.question_id == this.question.id ) ) {
-        this.answers.splice(this.answers.findIndex( a => a.question_id == this.question.id ), 1)
+      if (this.answers.find(a => a.question_id === this.question.id)) {
+        this.answers.splice(this.answers.findIndex(a => a.question_id === this.question.id), 1);
       }
       this.answers.push({
         question_id: this.question.id,
-          type: this.question.answer_type,
-        answer: indicator
-      })
+        type: this.question.answer_type,
+        answer: indicator,
+      });
     },
     takePhoto() {
-      document.querySelector('#camera').click()
+      document.querySelector('#camera').click();
     },
     setPicture() {
-      var file = document.querySelector('#camera').files[0]
-      var reader = new FileReader()
+      const file = document.querySelector('#camera').files[0];
+      const reader = new FileReader();
       reader.onload = (e) => {
-        if( this.answers.find( a => a.question_id == this.question.id ) ) {
-          this.answers.splice(this.answers.findIndex( a => a.question_id == this.question.id ), 1)
+        if (this.answers.find(a => a.question_id === this.question.id)) {
+          this.answers.splice(this.answers.findIndex(a => a.question_id === this.question.id), 1);
         }
-        document.querySelector('#photo').src = e.target.result
+        document.querySelector('#photo').src = e.target.result;
         this.answers.push({
           question_id: this.question.id,
           type: this.question.answer_type,
-          answer: e.target.result
-        })
+          answer: e.target.result,
+        });
       };
       reader.onerror = (error) => {
-        console.log(error)
+        console.log(error);
       };
       reader.readAsDataURL(file);
     },
     deletePicture() {
-        this.answers.splice(this.answers.findIndex( a => a.question_id == this.question.id ), 1)
-        document.querySelector('#photo').src = ''
-    }
-  }
+      this.answers.splice(this.answers.findIndex(a => a.question_id === this.question.id), 1);
+      document.querySelector('#photo').src = '';
+    },
+  },
 };
 </script>
 <style lang="scss">

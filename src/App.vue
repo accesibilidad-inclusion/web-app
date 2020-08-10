@@ -16,12 +16,12 @@ export default {
     AppNav,
   },
   beforeCreate() {
-    this.$store.commit('initialiseStore')
+    this.$store.commit('initialiseStore');
     const speech = new SpeechSynthesisUtterance('');
     speech.pitch = 0;
     speech.rate = 100;
     window.speechSynthesis.speak(speech);
-  }
+  },
 };
 </script>
 

@@ -31,27 +31,27 @@ export const setQuestions = (state, payload) => {
   state.questions = payload;
 };
 
-export const setSelectedItem = ( state, payload ) => {
-  state.selected[payload.object] = payload.item
-  localStorage.setItem('selected', JSON.stringify(state.selected))
+export const setSelectedItem = (state, payload) => {
+  state.selected[payload.object] = payload.item;
+  localStorage.setItem('selected', JSON.stringify(state.selected));
 };
 
-export const setUserId = ( state, payload ) => {
-  state.user.id = payload
-  localStorage.setItem('app_user', JSON.stringify(state.user))
+export const setUserId = (state, payload) => {
+  state.user.id = payload;
+  localStorage.setItem('app_user', JSON.stringify(state.user));
 };
 
 export const initialiseStore = (state) => {
   if (localStorage.getItem('app_user')) {
-    state.user = JSON.parse(localStorage.getItem('app_user'))
+    state.user = JSON.parse(localStorage.getItem('app_user'));
   }
   if (localStorage.getItem('selected')) {
-    state.selected = JSON.parse(localStorage.getItem('selected'))
+    state.selected = JSON.parse(localStorage.getItem('selected'));
   }
   if (localStorage.getItem('questions')) {
-    state.questions = JSON.parse(localStorage.getItem('questions'))
+    state.questions = JSON.parse(localStorage.getItem('questions'));
   }
   if (localStorage.getItem('data')) {
-    state.data = JSON.parse(localStorage.getItem('data'))
+    state.data = JSON.parse(localStorage.getItem('data'));
   }
 };
