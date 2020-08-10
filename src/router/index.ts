@@ -33,6 +33,12 @@ import NewTaskIntro4 from '../views/NewTaskIntro4.vue';
 import NewTaskIntro5 from '../views/NewTaskIntro5.vue';
 import NewTask from '../views/NewTask.vue';
 
+import AddTasksIntro from '../views/AddTasksIntro.vue';
+import AddTasksIntro2 from '../views/AddTasksIntro2.vue';
+import AddTasksIntro3 from '../views/AddTasksIntro3.vue';
+import AddTasksIntro4 from '../views/AddTasksIntro4.vue';
+import AddTasksIntro5 from '../views/AddTasksIntro5.vue';
+
 import PlaceEvaluation from '../views/PlaceEvaluation.vue';
 import PlaceEvaluationConfirmation from '../views/PlaceEvaluationConfirmation.vue';
 import PlaceEvaluationComplete from '../views/PlaceEvaluationComplete.vue';
@@ -198,6 +204,31 @@ const routes = [
     path: '/nueva-tarea/intro5',
     name: 'new-task-intro5',
     component: NewTaskIntro5,
+  },
+  {
+    path: '/agregar-tareas-intro',
+    name: 'add-tasks-intro',
+    component: AddTasksIntro,
+  },
+  {
+    path: '/agregar-tareas-intro2',
+    name: 'add-tasks-intro2',
+    component: AddTasksIntro2,
+  },
+  {
+    path: '/agregar-tareas-intro3',
+    name: 'add-tasks-intro3',
+    component: AddTasksIntro3,
+  },
+  {
+    path: '/agregar-tareas-intro4',
+    name: 'add-tasks-intro4',
+    component: AddTasksIntro4,
+  },
+  {
+    path: '/agregar-tareas-intro5',
+    name: 'add-tasks-intro5',
+    component: AddTasksIntro5,
   },
   {
     path: '/evaluacion-lugar/',

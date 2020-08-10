@@ -38,25 +38,38 @@
           </p>
           <p class="page__indication">Edita o reordena los pasos en caso de ser necesario</p>
           <div class="step-block-inserted" v-for="(step, index) in steps" v-bind:key="index">
-            {{ index + 1 }} <template v-if="editing != index">{{ step }} <span @click="editStep(index)"><icon-menu class="step-block-inserted__edit" /></span></template>
-            <template v-else><input type="text" v-model="stepEdit" /><span @click="steps[index] = stepEdit; editing = null"><icon-check class="step-block-inserted__icon" />Listo</span><span @click="editing = null"><icon-delete class="step-block-inserted__icon" />Cancelar</span></template>
+            {{ index + 1 }} <template v-if="editing != index"><p class="step-block-inserted__title">{{ step }}</p> <span @click="editStep(index)"><icon-menu class="step-block-inserted__edit" /></span></template>
+            <template v-else><input type="text" v-model="stepEdit" />
+            <div class="step-block-inserted__actions">
+              <span @click="steps[index] = stepEdit; editing = null" class="step-block-inserted__btn"><icon-check class="step-block-inserted__icon-check" />Listo</span>
+              <span @click="editing = null" class="step-block-inserted__btn"><icon-delete class="step-block-inserted__icon-cancel" />Cancelar</span>
+            </div>
+            </template>
           </div>
         </template>
         <template v-else-if="showStep == 4">
-          <h2 class="onboarding__title">
-            Gracias por tu aporte
-          </h2>
-          <p>Estás ayudando al mundo a ser un lugar más accesible</p>
-          <router-link :to="'/lugares/' + venue.id">Volver a {{ venue.name }}</router-link>
+          <div class="thanks-message">
+            <div class="thanks-message__container">
+              <text-to-speech :text-audio="'Gracias por tu aporte\n\n\n\n\n\n'
+                + 'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n'
+                + 'Volver\n\n\n\n\n\n'
+                + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
+              <h2 class="thanks-message__title">
+                Gracias por tu aporte
+              </h2>
+              <p class="thanks-message__description">Estás ayudando al mundo a ser un lugar más accesible</p>
+              <router-link :to="'/lugares/' + venue.id" class="thanks-message__back">Volver a {{ venue.name }}</router-link>
+            </div>
+          </div>
         </template>
       </form>
       <footer class="page__footer">
-        <div v-if="showStep == 4">
-          <p>¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
-          <button v-if="!showEmailConfirm" class="btn btn--large btn--block btn--primary" @click="showEmailConfirm = true">Sí, avísame</button>
-          <div v-else>
-            <input type="text" value="" v-model="emailConfirm" placeholder="Escribe tu e-mail aquí" />
-            <button class="btn btn--primary">Enviar</button>
+        <div v-if="showStep == 4" class="thanks-message__footer">
+          <p class="thanks-message__footer-description">¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
+          <button v-if="!showEmailConfirm" class="btn btn--large btn--block btn--ghost" @click="showEmailConfirm = true">Sí, avísame</button>
+          <div v-else class="thanks-message__form">
+            <input type="text" value="" v-model="emailConfirm" placeholder="Escribe tu e-mail aquí" class="thanks-message__email" />
+            <button class="btn btn--large btn--ghost">Enviar</button>
           </div>
         </div>
         <button v-else :tag="'button'" class="btn btn--large btn--block btn--primary page__footer" @click="showStep < 3 ? showStep = 3 : sendTask()" :disabled="!addStep">
@@ -190,31 +203,163 @@ export default {
       margin-right: var(--spacer-sm);
     }
   }
+  //bloque pasos
   .step-block-inserted {
     display: grid;
-    grid-template-columns: 1fr auto;
-    margin: var(--spacer) 0;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: var(--spacer-sm);
+    align-items: center;
+    margin: calc(var(--spacer) / 1.5) 0;
     border: 2px solid var(--color-brand-lighter);
     border-radius: var( --border-radius );
     box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.25);
     transition: var(--transition-base);
     padding: var(--spacer-sm);
+    font-weight: 700;
+    @media screen and ( min-width: 640px ) {
+      padding: calc(var(--spacer)/2) calc(var(--spacer)*0.75);
+    }
     &:hover {
       cursor: pointer;
       border-color: var(--color-brand-light);
       box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.5);
     }
+    input {
+      border: none;
+      border-bottom: 1px solid var(--color-neutral-light);
+      border-radius: 0;
+      padding: 0 0 var(--spacer-xs) 0;
+      color: var(--color-neutral-light);
+      font-style: italic;
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+  }
+  .step-block-inserted__title {
+    font-weight: normal;
   }
   .step-block-inserted__edit {
-    width: 1rem;
+    width: var(--spacer);
     height: auto;
   }
-  .step-block-inserted {
-    .step-block-inserted__icon {
-      width: 10px;
+  .step-block-inserted__actions {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacer-sm);
+  }
+  .step-block-inserted__btn {
+    @include rfs($font-size-14);
+    color: var(--color-brand-darkest);
+    font-weight: 600;
+    text-decoration: underline;
+    padding: var(--spacer-sm) var(--spacer) var(--spacer-xs) var(--spacer);
+    svg {
+       margin-right: var(--spacer-xs);
       path {
         fill: var(--color-brand-darkest);
       }
+    }
+  }
+  .step-block-inserted__icon-check {
+    width: 0.6rem;
+    height: auto;
+  }
+  .step-block-inserted__icon-cancel {
+    width: 0.5rem;
+    height: auto;
+  }
+  //agradecimiento aporte
+  .thanks-message {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-brand-lightest);
+    z-index: 10000;
+    .thanks-message__container {
+      //background-image: url('../../public/img/illustrations/background.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: var(--color-highlight);
+      background-color: var(--color-brand-darkest);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      height: 100%;
+      padding: var(--spacer);
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      @media screen and ( min-width: 640px ) {
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: var(--spacer-lg);
+      }
+      @media screen and ( min-width: 1288px ) {
+        max-width: 750px;
+        padding: var(--spacer-xl);
+      }
+      .tts {
+        margin-left: auto;
+        path {
+          fill: var(--color-brand-light);
+        }
+      }
+    }
+  }
+  .thanks-message__title {
+    margin-top: var(--spacer);
+    text-transform: uppercase;
+    max-width: 190px;
+    color: var(--color-highlight);
+  }
+  .thanks-message__description {
+    @include rfs($font-size-16);
+    font-weight: bold;
+    color: var(--color-background);
+    max-width: 15rem;
+    margin-top: var(--spacer);
+  }
+  .thanks-message__back {
+    @include rfs($font-size-16);
+    color: var(--color-highlight);
+    padding: var(--spacer) 0;
+    font-weight: bold;
+  }
+  .thanks-message__footer {
+    z-index: 100000;
+    position: relative;
+  }
+  .thanks-message__footer-description {
+    @include rfs($font-size-16);
+    font-weight: bold;
+    color: var(--color-highlight);
+    margin-bottom: var(--spacer);
+  }
+  .thanks-message__form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: var(--spacer-sm);
+  }
+  .thanks-message__email {
+    @include rfs($font-size-14);
+    padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
+    border: 2px solid var(--color-background);
+    border-radius: var(--border-radius);
+    &::placeholder {
+      color: #848484;
+      opacity: 1;
+      font-style: italic;
+      font-family: var(--font-family);
     }
   }
 </style>
