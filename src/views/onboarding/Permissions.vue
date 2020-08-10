@@ -5,7 +5,7 @@
       <IconPermissions class="onboarding__permissions-image" />
       <p class="text-center">Necesitamos que nos permitas acceder a la ubicación de tu teléfono para ofrecerte apoyos que estén cerca tuyo</p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'/onboarding/registration'" />
+        <OnboardingNext :linkTo="$store.state.user.id ? '/home' : '/onboarding/registration'" />
       </footer>
     </div>
   </div>

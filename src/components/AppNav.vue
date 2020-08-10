@@ -32,7 +32,7 @@
                   <router-link to="/colabora-con-nosotros" @click.native="closeMenu">Colabora con nosotros</router-link>
                 </li>
                 <li>
-                  <router-link to="/" @click.native="closeMenu">Reactivar tutoriales</router-link>
+                  <router-link to="/onboarding" @click.native="closeMenu">Reactivar tutoriales</router-link>
                 </li>
               </ul>
             </nav>

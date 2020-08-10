@@ -31,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    if (localStorage.onboarding === undefined) {
+    if (!this.$store.state.user.id) {
       setTimeout(() => {
         this.showOnboarding = true;
         this.$router.push('/onboarding/');

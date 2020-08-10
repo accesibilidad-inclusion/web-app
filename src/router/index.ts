@@ -34,6 +34,8 @@ import NewTaskIntro5 from '../views/NewTaskIntro5.vue';
 import NewTask from '../views/NewTask.vue';
 
 import PlaceEvaluation from '../views/PlaceEvaluation.vue';
+import PlaceEvaluationConfirmation from '../views/PlaceEvaluationConfirmation.vue';
+import PlaceEvaluationComplete from '../views/PlaceEvaluationComplete.vue';
 import PlaceEvaluationIntro from '../views/PlaceEvaluationIntro.vue';
 import PlaceEvaluationIntro2 from '../views/PlaceEvaluationIntro2.vue';
 import PlaceEvaluationIntro3 from '../views/PlaceEvaluationIntro3.vue';
@@ -201,6 +203,16 @@ const routes = [
     path: '/evaluacion-lugar/',
     name: 'place-evaluation',
     component: PlaceEvaluation,
+  },
+  {
+    path: '/evaluacion-lugar/confirmacion',
+    name: 'place-evaluation-confirmation',
+    component: PlaceEvaluationConfirmation,
+  },
+  {
+    path: '/evaluacion-lugar/completa',
+    name: 'place-evaluation-complete',
+    component: PlaceEvaluationComplete,
   },
   {
     path: '/evaluacion-lugar/intro',
