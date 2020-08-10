@@ -93,6 +93,7 @@ import Pictos from 'pictos/public/es/manifest.json';
 import PictogramSelect from '@/components/PictogramSelect.vue';
 import Pictogram from '@/components/Pictogram.vue';
 import IconCheckRounded from '../../public/img/app-icons/check-rounded.svg?inline';
+import store from '../store';
 
 export default {
   name: 'NewAidStep',
@@ -105,17 +106,7 @@ export default {
   data() {
     return {
       state: {
-        layers: {
-          subject: {
-            img: null,
-          },
-          landmark: {
-            img: null,
-          },
-          context: {
-            img: null,
-          },
-        },
+        layers: this.$store.state.pictogram,
         canPreview: false,
         canConfirm: false,
       },
@@ -201,7 +192,12 @@ export default {
     savePictogram() {
       this.$data.task.steps
         .find(step => step.id === parseInt(this.$route.params.stepId, 10))
-        .layers = state.layers;
+        .layers = this.$data.state.layers;
+      // Esto debería suceder en beforeRouteLeave si se envía a la pantalla de confirmación
+      this.$data.state.layers.landmark.img = null;
+      this.$data.state.layers.context.img = null;
+      this.$data.state.layers.subject.img = null;
+      this.$forceUpdate();
       this.goTo();
     },
     goTo() {
