@@ -146,6 +146,6 @@ export default {
     height: 1.1875rem;
     margin-right: .15rem;
     line-height: 1.1875rem;
-    color: var(--color-text);
+    color: var(--color-brand-darker);
   }
 </style>
