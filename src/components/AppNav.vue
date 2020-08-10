@@ -101,6 +101,7 @@ export default {
   padding: var(--spacer-sm) var(--spacer);
   background: var(--color-brand-lighter);
   z-index: var(--z-index-navbar);
+  align-items: center;
   @media screen and ( min-width: 640px ) {
     padding-top: var(--spacer);
     padding-bottom: var(--spacer);
@@ -137,9 +138,13 @@ export default {
 .app-nav__logo {
   width: 55px;
   height: 11px;
-  .app-nav--dark & path {
-    transition: var(--transition-nav-dark);
-    fill: var(--color-background);
+  // .app-nav--dark & path {
+  //   transition: var(--transition-nav-dark);
+  //   fill: var(--color-background);
+  // }
+  @media screen and ( min-width: 640px ) {
+    width: 86px;
+    height: 17px;
   }
 }
 .app-nav__toggle-icon {
@@ -147,8 +152,8 @@ export default {
   height: 12px;
   margin-left: .2rem;
   @media screen and ( min-width: 640px ) {
-    width: 20px;
-    height: 14px;
+    width: 24px;
+    height: 17px;
   }
   .app-nav--dark & path {
     transition: fill .3s ease .2s;

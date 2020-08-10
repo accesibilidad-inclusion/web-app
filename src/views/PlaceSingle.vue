@@ -23,7 +23,7 @@
         <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
         <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
       </div>
-      <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
+      <router-link to="/nueva-tarea/intro" class="btn btn--primary btn--large btn--block" tag="button">
         &plus; Agregar una tarea nueva
       </router-link>
     </aside>
@@ -36,7 +36,7 @@
       </router-link>
       <div class="place__evaluation-actions">
         <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
-        <router-link tag="button" to="/lugar/1/evaluar" class="btn btn--ghost btn--large btn--block">
+        <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--ghost btn--large btn--block">
           Evaluar este lugar
         </router-link>
       </div>

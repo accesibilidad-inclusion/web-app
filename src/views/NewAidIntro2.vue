@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding onboarding--inside">
+  <div class="onboarding--inside">
     <div class="container">
       <page-image alt="Persona siguiendo indicaciones de un pictograma" class="onboarding__welcome-image"></page-image>
       <h2 class="onboarding__title">
@@ -44,31 +44,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import '@/assets/scss/rfs.scss';
-.onboarding__list {
-  margin-bottom: var(--spacer);
-  line-height: 1.5;
-  list-style: none;
-  counter-reset: list-item;
-}
-.onboarding__list-item {
-  counter-increment: list-item;
-  margin-bottom: var(--spacer-sm);
-  padding-left: var(--spacer);
-  position: relative;
-  @media screen and ( min-width: 640px ) {
-    padding-left: calc(var(--spacer) + var(--spacer-xs));
-  }
-  @media screen and ( min-width: 1288px ) {
-    padding-left: calc(var(--spacer) + var(--spacer-xs));
-  }
-  &:before {
-    content: counter(list-item) ". ";
-    color: var(--color-brand-darkest);
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-  }
-}
-</style>
