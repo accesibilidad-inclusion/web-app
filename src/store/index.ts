@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios'
+import axios from 'axios';
 
 const mutations = require('./mutations');
 
@@ -15,13 +15,13 @@ const state = {
     monthBirth: '',
     yearBirth: '',
     birthday: '',
-    gender: null
+    gender: null,
   },
   selected: {
     category: null,
     service: null,
-    venue: null ,
-    task: null 
+    venue: null,
+    task: null,
   },
   data: [],
   evaluations: [
@@ -74,55 +74,62 @@ const state = {
         + ' ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
   ],
-  questions: []
+  questions: [],
+  pictos: [],
 };
 
 export default new Vuex.Store({
   state,
   mutations,
   actions: {
-    loadData( { commit } ){
-      return new Promise( ( resolve, reject ) => {
-        navigator.geolocation.getCurrentPosition(position => {
-          axios( {
-              url: process.env.VUE_APP_API_DOMAIN + 'api/categories/load',
-              method: 'POST',
-              data: {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              }
-          } ).then( response => {
-              localStorage.setItem('data', JSON.stringify(response.data))
-              commit('setData', response.data)
-              resolve()
-          })
-        })
-      })
+    loadData({ commit }) {
+      return new Promise((resolve) => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          axios({
+            url: `${process.env.VUE_APP_API_DOMAIN}api/categories/load`,
+            method: 'POST',
+            data: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+          }).then((response) => {
+            localStorage.setItem('data', JSON.stringify(response.data));
+            commit('setData', response.data);
+            resolve();
+          });
+        });
+      });
     },
-    loadQuestions( { commit } ){
-      return new Promise( ( resolve, reject ) => {
-        axios( {
-            url: process.env.VUE_APP_API_DOMAIN + 'api/questions',
-            method: 'GET',
-        } ).then( response => {
-            localStorage.setItem('questions', JSON.stringify(response.data))
-            commit('setQuestions', response.data)
-            resolve()
-        })
-      })
+    loadQuestions({ commit }) {
+      return new Promise((resolve) => {
+        axios({
+          url: `${process.env.VUE_APP_API_DOMAIN}api/questions`,
+          method: 'GET',
+        }).then((response) => {
+          localStorage.setItem('questions', JSON.stringify(response.data));
+          commit('setQuestions', response.data);
+          resolve();
+        });
+      });
     },
-    setSelectedItem( { commit }, payload ){
-      return new Promise( ( resolve, reject ) => {
-          commit('setSelectedItem', payload)
-          resolve()
-      })
+    loadPictos({ commit }) {
+      return new Promise((resolve) => {
+        axios({
+          url: `${process.env.VUE_APP_API_DOMAIN}api/images`,
+          method: 'GET',
+        }).then((response) => {
+          localStorage.setItem('pictos', JSON.stringify(response.data));
+          commit('setPictos', response.data);
+          resolve();
+        });
+      });
     },
-    setUserId( { commit }, payload ){
-      return new Promise( ( resolve, reject ) => {
-          commit('setUserId', payload)
-          resolve()
-      })
-    }
+    setSelectedItem({ commit }, payload) {
+      return new Promise((resolve) => {
+        commit('setSelectedItem', payload);
+        resolve();
+      });
+    },
   },
   modules: {
   },

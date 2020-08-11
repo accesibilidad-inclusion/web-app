@@ -36,12 +36,12 @@
 </template>
 
 <script>
+import Category from '@/models/Category';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
 import IconHealth from '../../public/img/app-icons/health.svg?inline';
 import IconTransport from '../../public/img/app-icons/transport.svg?inline';
 import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
-import Category from '@/models/Category';
 
 export default {
   name: 'categoryArchive',
@@ -50,15 +50,16 @@ export default {
     IconTransport,
     IconHealth,
     IconFormalities,
-    IconLeisure
+    IconLeisure,
   },
   beforeMount() {
-    this.$store.dispatch("setSelectedItem",{ 
-      'object': 'category', 
-      'item': this.$store.state.data.find(d => d.slug == this.$route.params.categorySlug) 
+    this.$store.dispatch('setSelectedItem', {
+      object: 'category',
+      item: this.$store.state.data
+        .find(d => d.slug === this.$route.params.categorySlug),
     }).then(() => {
-      this.category.set(this.$store.state.selected.category)
-      this.services = this.category.near_services
+      this.category.set(this.$store.state.selected.category);
+      this.services = this.category.near_services;
     });
   },
   data() {

@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import Venue from '@/models/Venue';
 import IconDelete from '../../public/img/app-icons/error.svg?inline';
@@ -94,7 +93,6 @@ import IconCheck from '../../public/img/app-icons/check.svg?inline';
 export default {
   name: 'NewTask',
   components: {
-    OnboardingNext,
     TextToSpeech,
     IconDelete,
     IconAdd,
@@ -104,11 +102,11 @@ export default {
   },
   computed: {
     addStep() {
-      return this.steps.length < 9 && !this.steps.filter( s => s.trim() == '').length
-    }
+      return this.steps.length < 9 && !this.steps.filter(s => s.trim() === '').length;
+    },
   },
   beforeMount() {
-    this.venue.set(this.$store.state.selected.venue)
+    this.venue.set(this.$store.state.selected.venue);
   },
   data() {
     return {
@@ -119,24 +117,24 @@ export default {
       editing: null,
       venue: new Venue(),
       showEmailConfirm: false,
-      emailConfirm: ''
-    }
+      emailConfirm: '',
+    };
   },
   methods: {
     sendTask() {
-      this.$http.post(process.env.VUE_APP_API_DOMAIN + 'api/tasks/contribution', {
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/contribution`, {
         task: this.task,
         steps: this.steps,
-        venue: this.venue.id
-      }).then( result => {
+        venue: this.venue.id,
+      }).then((result) => {
         this.showStep = 4;
       });
     },
     editStep(i) {
-      this.editing = i
-      this.stepEdit = this.steps[i]
-    }
-  }
+      this.editing = i;
+      this.stepEdit = this.steps[i];
+    },
+  },
 };
 </script>
 <style lang="scss">

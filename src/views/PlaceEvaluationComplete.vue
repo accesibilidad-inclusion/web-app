@@ -34,19 +34,18 @@ export default {
     };
   },
   beforeMount() {
-    if(!this.$route.params.answers) {
-      this.$router.push('/lugares/' + this.$store.state.selected.venue.id);
-    }
-    else {
-      this.$http.post(process.env.VUE_APP_API_DOMAIN + 'api/evaluations/store', {
+    if (!this.$route.params.answers) {
+      this.$router.push(`/lugares/${this.$store.state.selected.venue.id}`);
+    } else {
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/evaluations/store`, {
         answers: this.$route.params.answers,
         user: this.$store.state.user,
-        venue: this.$store.state.selected.venue
-      }).then( result => {
-        this.submitting = false
+        venue: this.$store.state.selected.venue,
+      }).then((result) => {
+        this.submitting = false;
       });
     }
-  }
+  },
 };
 </script>
 

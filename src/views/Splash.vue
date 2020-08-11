@@ -37,8 +37,9 @@ export default {
         this.$router.push('/onboarding/');
       }, 2000);
     } else {
-      this.$store.dispatch("loadQuestions")
-      this.$store.dispatch("loadData").then(() => {
+      this.$store.dispatch('loadQuestions');
+      this.$store.dispatch('loadPictos');
+      this.$store.dispatch('loadData').then(() => {
         this.showOnboarding = true;
         this.$router.push('/home');
       });
