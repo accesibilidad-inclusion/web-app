@@ -1,11 +1,12 @@
 class Venue {
-  constructor() {
-    this.id = null;
-    this.name = '';
-    this.position = null;
-    this.evaluation = null;
-    this.tasks = [];
-    this.evaluations = [];
+  constructor(venue) {
+    this.id = venue.id;
+    this.name = venue.name;
+    this.url = venue.url;
+    this.position = venue.position;
+    this.evaluation = venue.evaluation;
+    this.tasks = venue.tasks;
+    this.evaluations = venue.evaluations;
   }
 
   set(venue) {
