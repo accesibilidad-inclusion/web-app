@@ -75,6 +75,7 @@ const state = {
     },
   ],
   questions: [],
+  pictos: [],
 };
 
 export default new Vuex.Store({
@@ -111,15 +112,21 @@ export default new Vuex.Store({
         });
       });
     },
+    loadPictos({ commit }) {
+      return new Promise((resolve) => {
+        axios({
+          url: `${process.env.VUE_APP_API_DOMAIN}api/images`,
+          method: 'GET',
+        }).then((response) => {
+          localStorage.setItem('pictos', JSON.stringify(response.data));
+          commit('setPictos', response.data);
+          resolve();
+        });
+      });
+    },
     setSelectedItem({ commit }, payload) {
       return new Promise((resolve) => {
         commit('setSelectedItem', payload);
-        resolve();
-      });
-    },
-    setUserId({ commit }, payload) {
-      return new Promise((resolve) => {
-        commit('setUserId', payload);
         resolve();
       });
     },

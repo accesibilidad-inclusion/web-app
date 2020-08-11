@@ -38,6 +38,15 @@
               <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
             </button>
           </div>
+          <template v-if="!task.steps.filter( s => s.pictogram ).length">
+            <p>Esta tarea aún no tiene apoyo gráfico</p>
+            <router-link
+              to="/nuevo-apoyo/intro"
+              class="btn btn--large btn--block btn--ghost"
+            >
+              Crear el apoyo gráfico
+            </router-link>
+          </template>
           <router-link
             :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
             class="btn btn--large btn--block btn--ghost"
@@ -106,6 +115,7 @@
 <script>
 import Service from '@/models/Service';
 import Venue from '@/models/Venue';
+// eslint-disable-next-line import/no-named-as-default-member
 import Task from '@/models/Task';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
@@ -185,7 +195,8 @@ export default {
         submitted_feedback: false,
         error_feedback: false,
       },
-      task: new Task(),
+      task: new Task(this.$store.state.selected.venue.the_tasks
+        .find(t => t.id === parseInt(this.$route.params.taskId, 10))),
       service: new Service(),
       venue: new Venue(),
       // task: {

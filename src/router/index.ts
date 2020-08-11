@@ -296,12 +296,12 @@ const routes = [
     component: NewAidComplete,
   },
   {
-    path: '/nuevo-apoyo/:stepId/',
+    path: '/nuevo-apoyo/',
     name: 'new-aid-step',
     component: NewAidStep,
   },
   {
-    path: '/nuevo-apoyo/:stepId/confirmacion/',
+    path: '/nuevo-apoyo/confirmacion/',
     name: 'new-aid-step-confirmation',
     component: NewAidStepConfirmation,
   },
