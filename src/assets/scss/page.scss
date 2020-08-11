@@ -20,7 +20,7 @@
 }
 
 .page__title {
-    @include rfs($font-size-21);
+    @include rfs($font-size-18);
     color: var(--color-brand-darkest);
     margin-bottom: var(--spacer);
     display: grid;
@@ -28,7 +28,11 @@
     grid-gap: var(--spacer);
     align-items: flex-start;
     @media screen and ( min-width: 640px ) {
-      margin-bottom: var(--spacer-lg);
+        margin-bottom: var(--spacer-lg);
+    }
+    .tts {
+        position: relative;
+        top: var(--spacer-xs);
     }
 }
 .page__subtitle {

@@ -162,7 +162,7 @@ export default {
     padding: var(--spacer-sm) var(--spacer);
   }
 
-  .page__new-steps {
+  .page .page__new-steps {
     @include rfs($font-size-16);
     font-weight: 700;
     display: grid;
