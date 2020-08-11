@@ -83,9 +83,9 @@ export default {
     IconNoInformation,
   },
   beforeMount() {
-    this.$store.dispatch("setSelectedItem",{ 
-      'object': 'venue', 
-      'item': this.$store.state.selected.service.near_venues.find(v => v.id == this.$route.params.placeId) 
+    this.$store.dispatch("setSelectedItem",{
+      'object': 'venue',
+      'item': this.$store.state.selected.service.near_venues.find(v => v.id == this.$route.params.placeId)
     }).then(() => {
       this.service.set(this.$store.state.selected.service)
       this.place.set(this.$store.state.selected.venue)
@@ -307,7 +307,7 @@ export default {
     margin-right: auto;
     font-size: 2rem;
     line-height: 3.125rem;
-    color: var(--color-text);
+    color: var(--color-brand-darker);
     @media screen and ( min-width: 640px ) {
       width: 3.5rem;
       height: 3.5rem;

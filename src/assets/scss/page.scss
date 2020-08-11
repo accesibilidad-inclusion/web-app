@@ -26,6 +26,7 @@
     display: grid;
     grid-template-columns: 1fr auto;
     grid-gap: var(--spacer);
+    align-items: flex-start;
     @media screen and ( min-width: 640px ) {
       margin-bottom: var(--spacer-lg);
     }

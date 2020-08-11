@@ -51,9 +51,9 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    this.$store.dispatch("setSelectedItem",{ 
-      'object': 'service', 
-      'item': this.$store.state.selected.category.near_services.find(s => s.id == this.$route.params.serviceId) 
+    this.$store.dispatch("setSelectedItem",{
+      'object': 'service',
+      'item': this.$store.state.selected.category.near_services.find(s => s.id == this.$route.params.serviceId)
     }).then(() => {
       this.category.set(this.$store.state.selected.category)
       this.service.set(this.$store.state.selected.service)
@@ -146,6 +146,6 @@ export default {
     height: 1.1875rem;
     margin-right: .15rem;
     line-height: 1.1875rem;
-    color: var(--color-text);
+    color: var(--color-brand-darker);
   }
 </style>
