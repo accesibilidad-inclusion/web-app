@@ -1,12 +1,12 @@
 <template>
   <div class="step-block">
     <div class="step-block__header">
-      <span class="step-block__number">Paso {{ step.id }}</span>
+      <span class="step-block__number">Paso {{ proposal.step.id }}</span>
       <button class="step-block__edit"><icon-edit class="step-block__edit-icon" />Editar</button>
     </div>
     <div class="step-block__body">
-      <pictogram v-bind:layers="step.layers"></pictogram>
-      <p>{{ step.legend }}</p>
+      <pictogram v-bind:layers="proposal.layers"></pictogram>
+      <p>{{ proposal.step.label }}</p>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@ import IconEdit from '../../public/img/app-icons/edit.svg?inline';
 export default {
   name: 'StepBlock',
   props: {
-    step: {
+    proposal: {
       type: Object,
     },
   },

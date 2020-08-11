@@ -38,6 +38,15 @@
               <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
             </button>
           </div>
+          <template v-if="!task.steps.filter( s => s.pictogram ).length">
+            <p>Esta tarea aún no tiene apoyo gráfico</p>
+            <router-link
+              to="/nuevo-apoyo/intro"
+              class="btn btn--large btn--block btn--ghost"
+            >
+              Crear el apoyo gráfico
+            </router-link>
+          </template>
           <router-link
             :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
             class="btn btn--large btn--block btn--ghost"
@@ -168,9 +177,7 @@ export default {
     this.$store.dispatch("setSelectedItem",{ 
       'object': 'task', 
       'item': this.venue.tasks.find(t => t.id == this.$route.params.taskId) 
-    }).then(() => {
-      this.task.set(this.$store.state.selected.task)
-    });
+    })
   },
   data() {
     return {
@@ -185,7 +192,7 @@ export default {
         submitted_feedback: false,
         error_feedback: false,
       },
-      task: new Task(),
+      task: new Task(this.$store.state.selected.venue.the_tasks.find(t => t.id == this.$route.params.taskId)),
       service: new Service(),
       venue: new Venue(),
       // task: {

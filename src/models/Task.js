@@ -1,9 +1,9 @@
 class Task {
 
-    constructor() {
-        this.id = null
-        this.title = ''
-        this.steps = []
+    constructor(task) {
+        this.id = task.id
+        this.title = task.title
+        this.steps = task.the_steps
     }
 
     set(task) {

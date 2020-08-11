@@ -74,7 +74,8 @@ const state = {
         + ' ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
   ],
-  questions: []
+  questions: [],
+  pictos: []
 };
 
 export default new Vuex.Store({
@@ -107,6 +108,18 @@ export default new Vuex.Store({
         } ).then( response => {
             localStorage.setItem('questions', JSON.stringify(response.data))
             commit('setQuestions', response.data)
+            resolve()
+        })
+      })
+    },
+    loadPictos( { commit } ){
+      return new Promise( ( resolve, reject ) => {
+        axios( {
+            url: process.env.VUE_APP_API_DOMAIN + 'api/images',
+            method: 'GET',
+        } ).then( response => {
+            localStorage.setItem('pictos', JSON.stringify(response.data))
+            commit('setPictos', response.data)
             resolve()
         })
       })
