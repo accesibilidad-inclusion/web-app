@@ -130,6 +130,12 @@ export default new Vuex.Store({
         resolve();
       });
     },
+    setUserId({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        commit('setUserId', payload);
+        resolve();
+      });
+    },
   },
   modules: {
   },
