@@ -138,7 +138,9 @@ export default {
       if (this.state.layers.findIndex(l => l.layout === type) !== -1) {
         this.state.layers.splice(this.state.layers.findIndex(l => l.layout === type), 1);
       }
-      this.state.layers.push(this.$store.state.pictos.find(picto => picto.id === event));
+      if (event !== null) {
+        this.state.layers.push(this.$store.state.pictos.find(picto => picto.id === event));
+      }
       this.checkActions();
     },
     checkActions() {
