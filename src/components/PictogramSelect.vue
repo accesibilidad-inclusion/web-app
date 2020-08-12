@@ -72,19 +72,16 @@ export default {
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
 
-.pictogram-select {
-  margin-bottom: var(--spacer);
-}
 .pictogram-select__title {
   @include rfs($font-size-14);
-  margin-bottom: var(--spacer-sm);
+  margin-bottom: -.25rem;
   color: var(--color-brand-darkest);
 }
 .pictogram-wrapper {
   position: relative;
   height: 100%;
-  padding-left: .4rem;
-  padding-right: .4rem;
+  margin: .35rem;
+  padding: .5rem .25rem;
 }
 .pictogram-button {
   @include rfs($font-size-14);
@@ -93,7 +90,7 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: .75rem;
+  padding: .75rem .75rem var(--spacer-xs) .75rem;
   font-weight: bold;
   background-color: var(--color-background);
   border: none;
@@ -110,7 +107,7 @@ export default {
 .pictogram-button__image {
   display: block;
   width: 100%;
-  margin-bottom: var(--spacer-sm);
+  margin-bottom: var(--spacer-xs);
   box-shadow: inset 0 0 0 1px var(--color-neutral-light);
 }
 .pictogram-button__name {
@@ -118,7 +115,7 @@ export default {
   height: 100%;
   align-items: center;
   align-self: center;
-  line-height: 1.25;
+  line-height: 1.133;
   text-align: center;
   overflow: hidden;
 }

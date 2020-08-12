@@ -1,11 +1,15 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding onboarding--dark">
+  <div class="onboarding onboarding__background-image">
     <div class="container">
       <template v-if="state.submitting">
         <clip-loader :loading="state.submitting" :color="'#fff'" :size="'1rem'" class="mt-auto mb-auto"></clip-loader>
       </template>
       <template v-else>
+        <text-to-speech :text-audio="'Gracias por tu aporte\n\n\n\n\n\n'
+          + 'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n'
+          + 'Volver\n\n\n\n\n\n'
+          + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
         <h2 class="onboarding__title">Gracias por tu aporte</h2>
         <p class="onboarding__description">Estás ayudando al mundo a ser un lugar más accesible</p>
         <router-link :to="'/lugar/' + venue.id" class="onboarding__link">
@@ -40,11 +44,13 @@
 <script>
 import Venue from '@/models/Venue';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
+import TextToSpeech from '@/components/TextToSpeech.vue';
 
 export default {
   name: 'NewAidConfirmation',
   components: {
     ClipLoader,
+    TextToSpeech,
   },
   data() {
     return {
@@ -81,6 +87,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
+.onboarding__background-image {
+  background-image: url('../../public/img/illustrations/background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  .tts {
+    text-align: right;
+  }
+  .tts ::v-deep path {
+    fill: var(--color-brand-light);
+  }
+}
 .onboarding__title {
   text-transform: uppercase;
 }
