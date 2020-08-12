@@ -39,7 +39,7 @@
             </button>
           </div>
           <template v-if="!task.steps.filter( s => s.pictogram ).length">
-            <p>Esta tarea aún no tiene apoyo gráfico</p>
+            <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
             <router-link
               to="/nuevo-apoyo/intro"
               class="btn btn--large btn--block btn--ghost"
@@ -47,12 +47,14 @@
               Crear el apoyo gráfico
             </router-link>
           </template>
-          <router-link
-            :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
-            class="btn btn--large btn--block btn--ghost"
-          >
-            Volver a {{ venue.name }}
-          </router-link>
+          <template v-else>
+            <router-link
+              :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
+              class="btn btn--large btn--block btn--ghost"
+            >
+              Volver a {{ venue.name }}
+            </router-link>
+          </template>
           <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
         </li>
       </ol>
@@ -201,8 +203,8 @@ export default {
       },
       task: new Task(this.$store.state.selected.venue.the_tasks
         .find(t => t.id === parseInt(this.$route.params.taskId, 10))),
-      service: new Service(),
-      venue: new Venue(),
+      service: new Service(this.$store.state.selected.service),
+      venue: new Venue(this.$store.state.selected.venue),
       feedback: {
         body: '',
       },
@@ -408,6 +410,11 @@ export default {
       background-color: var(--color-highlight);
       border-color: var(--color-highlight);
     }
+  }
+  .task-helpful__label {
+    @include rfs(14px);
+    margin-bottom: var(--spacer);
+    font-weight: bold;
   }
   [class^="task-helpful__answer__icon"] {
     width: 25px;

@@ -93,6 +93,7 @@ import TextToSpeech from '@/components/TextToSpeech.vue';
 import PictogramSelect from '@/components/PictogramSelect.vue';
 import Pictogram from '@/components/Pictogram.vue';
 import IconCheckRounded from '../../public/img/app-icons/check-rounded.svg?inline';
+import store from '../store';
 
 export default {
   name: 'NewAidStep',
