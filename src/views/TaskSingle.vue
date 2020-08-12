@@ -197,8 +197,8 @@ export default {
       },
       task: new Task(this.$store.state.selected.venue.the_tasks
         .find(t => t.id === parseInt(this.$route.params.taskId, 10))),
-      service: new Service(),
-      venue: new Venue(),
+      service: new Service(this.$store.state.selected.service),
+      venue: new Venue(this.$store.state.selected.venue),
       // task: {
       //   id: 1,
       //   title: 'Viajar de un punto a otro',

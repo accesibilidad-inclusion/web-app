@@ -95,8 +95,8 @@ export default {
   },
   data() {
     return {
-      service: new Service(),
-      place: new Venue(),
+      service: new Service(this.$store.state.selected.service),
+      place: new Venue(this.$store.state.selected.venue),
       tasks: [],
     };
   },
