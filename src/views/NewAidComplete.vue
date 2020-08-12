@@ -100,12 +100,13 @@ export default {
   flex-wrap: nowrap;
 }
 .subscription-form__description {
+  margin-bottom: .75rem;
   color: var(--color-highlight);
 }
 .subscription-form__control {
   min-width: 100px;
   max-width: 100%;
-  margin-right: var(--spacer);
+  margin-right: .75rem;
   padding-right: 0;
   border: none;
 }
