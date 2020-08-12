@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
 import Task from '@/models/Task';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import PictogramSelect from '@/components/PictogramSelect.vue';
@@ -112,6 +114,8 @@ export default {
         canConfirm: false,
         proposal: [],
       },
+      service: new Service(this.$store.state.selected.service),
+      venue: new Venue(this.$store.state.selected.venue),
       task: new Task(this.$store.state.selected.task),
     };
   },

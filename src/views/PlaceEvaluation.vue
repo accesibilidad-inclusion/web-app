@@ -3,8 +3,8 @@
   <div class="page">
     <div class="container">
       <header class="place__header">
-        <router-link :to="'/servicios/'" class="place__service">service.name</router-link>
-        <h1 class="place__name">place.name</h1>
+        <router-link :to="'/servicios/' + service.id" class="place__service">{{ service.name }}</router-link>
+        <h1 class="place__name">{{ place.name }}</h1>
         <text-to-speech :text-audio="''" />
       </header>
       <h2 class="page__title">
@@ -80,6 +80,8 @@
 </template>
 
 <script>
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconCamera from '../../public/img/app-icons/camera.svg?inline';
 import IconDelete from '../../public/img/app-icons/error.svg?inline';
@@ -98,6 +100,8 @@ export default {
       questions: this.$store.state.questions,
       answers: [],
       factor: 0,
+      service: new Service(this.$store.state.selected.service),
+      place: new Venue(this.$store.state.selected.venue),
     };
   },
   computed: {

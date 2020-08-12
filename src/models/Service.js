@@ -1,8 +1,8 @@
 class Service {
-  constructor() {
-    this.id = null;
-    this.name = '';
-    this.near_venues = null;
+  constructor(service = {}) {
+    this.id = Number.isInteger(service.id) ? service.id : null;
+    this.name = typeof service.name === 'string' ? service.name : '';
+    this.steps = Array.isArray(service.steps) ? service.steps : [];
   }
 
   set(service) {
