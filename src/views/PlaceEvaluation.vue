@@ -219,7 +219,7 @@ export default {
         });
       };
       reader.onerror = (error) => {
-        console.log(error);
+        // console.log(error);
       };
       reader.readAsDataURL(file);
     },

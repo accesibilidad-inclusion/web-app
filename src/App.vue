@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import AppNav from '@/components/AppNav.vue';
 
 export default {
