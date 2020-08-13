@@ -3,8 +3,8 @@
   <div class="page">
     <div class="container">
       <header class="place__header">
-        <router-link :to="'/servicios/'" class="place__service">service.name</router-link>
-        <h1 class="place__name">place.name</h1>
+        <router-link :to="'/servicios/' + $store.state.selected.service.id" class="place__service">{{ $store.state.selected.service.name }}</router-link>
+        <h1 class="place__name">{{ $store.state.selected.venue.name }}</h1>
         <text-to-speech :text-audio="''" />
         <span class="page__tag">Evaluando</span>
       </header>
@@ -15,7 +15,7 @@
       <p class="page__evaluation-subtitle">Promedio de evaluación</p>
       <div class="place__evaluation-grade place__evaluation-grade--xl" v-bind:data-grade="score">
         <span>{{ score }}</span>
-        <h3 class="page__evaluation-name">Excelente</h3>
+        <h3 class="page__evaluation-name">{{ $store.state.evaluations.find(e => e.grade == score ).title }}</h3>
       </div>
       <p class="page__evaluation-description">{{ $store.state.evaluations.find(e => e.grade == score ).desc }}</p>
       <footer class="page__footer">
