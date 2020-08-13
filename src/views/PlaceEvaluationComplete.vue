@@ -8,9 +8,9 @@
         <clip-loader :loading="submitting" :color="'#fff'" :size="'1rem'" class="mt-auto mb-auto"></clip-loader>
       </template>
       <template v-else>
-        <h2 class="onboarding__title">Gracias por tu aporte</h2>
-        <p>Estás ayudando al mundo a ser un lugar más accesible</p>
-        <router-link :to="'/lugares/' + $store.state.selected.venue.id">
+        <h2 class="onboarding__title">Gracias por<br> tu aporte</h2>
+        <p class="onboarding__description">Estás ayudando al mundo a<br> ser un lugar más accesible</p>
+        <router-link :to="'/lugares/' + $store.state.selected.venue.id" class="onboarding__link">
           Volver a {{ $store.state.selected.venue.name }}
         </router-link>
         <footer class="onboarding__footer">
@@ -50,13 +50,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/rfs.scss';
+
 .onboarding ::v-deep .onboarding__title {
-  justify-content: center;
-  align-items: center;
-  max-width: 15rem;
+  @include rfs($font-size-21);
   margin-top: auto;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  text-transform: uppercase;
+}
+.onboarding__description {
+  @include rfs($font-size-16);
+  font-weight: bold;
+  line-height: calc(22/16);
+  color: var(--color-background);
+  max-width: 15rem;
+}
+.onboarding__link {
+  @include rfs($font-size-16);
+  font-weight: bold;
+  color: var(--color-highlight);
 }
 </style>
