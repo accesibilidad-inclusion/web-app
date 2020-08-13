@@ -41,14 +41,13 @@ export default {
   data() {
     return {
       task: new Task(this.$store.state.selected.task),
-      proposal: this.$route.params.proposal,
+      proposal: this.$store.state.proposalPictos,
     };
   },
   methods: {
     createAid() {
-      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/proposal_tasks/store`, {
-        task: this.task,
-        proposal: this.proposal,
+      this.$router.push({
+        name: 'new-aid-complete',
       });
     },
   },

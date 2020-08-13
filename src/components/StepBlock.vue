@@ -1,8 +1,11 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="step-block">
     <div class="step-block__header">
       <span class="step-block__number">Paso {{ proposal.step.id }}</span>
-      <button class="step-block__edit"><icon-edit class="step-block__edit-icon" />Editar</button>
+      <router-link tag="button" class="step-block__edit" :to="'/nuevo-apoyo/' + parseInt(proposal.step.id, 10)">
+        <icon-edit class="step-block__edit-icon" />Editar
+      </router-link>
     </div>
     <div class="step-block__body">
       <pictogram v-bind:layers="proposal.layers"></pictogram>

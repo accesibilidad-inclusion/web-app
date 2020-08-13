@@ -76,6 +76,7 @@ const state = {
   ],
   questions: [],
   pictos: [],
+  proposalPictos: [],
 };
 
 export default new Vuex.Store({

@@ -35,6 +35,10 @@ export const setPictos = (state, payload) => {
   state.pictos = payload;
 };
 
+export const setProposalPictos = (state, payload) => {
+  state.proposalPictos = payload;
+};
+
 export const setSelectedItem = (state, payload) => {
   state.selected[payload.object] = payload.item;
   localStorage.setItem('selected', JSON.stringify(state.selected));

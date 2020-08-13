@@ -1,6 +1,6 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding onboarding__background-image">
+  <div class="onboarding onboarding--dark onboarding__background-image">
     <div class="container">
       <template v-if="state.submitting">
         <clip-loader :loading="state.submitting" :color="'#fff'" :size="'1rem'" class="mt-auto mb-auto"></clip-loader>
@@ -12,7 +12,7 @@
           + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
         <h2 class="onboarding__title">Gracias por tu aporte</h2>
         <p class="onboarding__description">Estás ayudando al mundo a ser un lugar más accesible</p>
-        <router-link :to="'/lugar/' + venue.id" class="onboarding__link">
+        <router-link :to="'/lugares/' + venue.id" class="onboarding__link">
           Volver a {{ venue.name }}
         </router-link>
         <footer class="onboarding__footer">
@@ -43,6 +43,7 @@
 
 <script>
 import Venue from '@/models/Venue';
+import Task from '@/models/Task';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 
@@ -61,6 +62,8 @@ export default {
       },
       subscription_email: null,
       venue: new Venue(this.$store.state.selected.venue),
+      task: new Task(this.$store.state.selected.task),
+      proposal: this.$store.state.proposalPictos,
     };
   },
   methods: {
@@ -76,11 +79,13 @@ export default {
     },
   },
   created() {
-    this.$data.state.submitting = false;
-    // this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/`, {
-    // }).then((result) => {
-    //   this.$data.state.submitting = false;
-    // });
+    this.$data.state.submitting = true;
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/proposal_tasks/store`, {
+      task: this.task,
+      proposal: this.proposal,
+    }).then((result) => {
+      this.$data.state.submitting = false;
+    });
   },
 };
 </script>

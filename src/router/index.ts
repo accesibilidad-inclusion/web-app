@@ -302,7 +302,7 @@ const routes = [
     component: NewAidComplete,
   },
   {
-    path: '/nuevo-apoyo/',
+    path: '/nuevo-apoyo/:stepId/',
     name: 'new-aid-step',
     component: NewAidStep,
   },

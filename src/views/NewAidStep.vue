@@ -105,14 +105,18 @@ export default {
     Pictogram,
     IconCheckRounded,
   },
+  beforeMount() {
+    this.getState();
+  },
+  beforeUpdate() {
+    this.getState();
+  },
   data() {
     return {
       state: {
-        stepIndex: 0,
         layers: [],
         canPreview: false,
         canConfirm: false,
-        proposal: [],
       },
       service: new Service(this.$store.state.selected.service),
       venue: new Venue(this.$store.state.selected.venue),
@@ -121,7 +125,7 @@ export default {
   },
   computed: {
     step() {
-      return this.task.steps[this.state.stepIndex];
+      return this.task.steps.find(step => step.id === parseInt(this.$route.params.stepId, 10));
     },
     subjects() {
       return this.$store.state.pictos.filter(picto => picto.layout === 1);
@@ -134,6 +138,21 @@ export default {
     },
   },
   methods: {
+    getState() {
+      if (this.$store.state.proposalPictos.length > 0) {
+        let proposalStep = null;
+        this.$store.state.proposalPictos.forEach((p) => {
+          if (p.step.id === parseInt(this.$route.params.stepId, 10)) {
+            proposalStep = p;
+          }
+        });
+        if (proposalStep !== null) {
+          this.state.layers = proposalStep.layers;
+          this.state.canPreview = true;
+          this.state.canConfirm = true;
+        }
+      }
+    },
     handleLayerChange(event, type) {
       if (this.state.layers.findIndex(l => l.layout === type) !== -1) {
         this.state.layers.splice(this.state.layers.findIndex(l => l.layout === type), 1);
@@ -158,19 +177,31 @@ export default {
       this.$modal.hide('new-aid-preview');
     },
     savePictogram() {
-      this.state.proposal.push({
-        step: this.task.steps[this.state.stepIndex],
-        layers: this.state.layers,
+      let proposalIndex = null;
+      const proposal = this.$store.state.proposalPictos;
+      proposal.forEach((p, index) => {
+        if (p.step.id === parseInt(this.$route.params.stepId, 10)) {
+          proposalIndex = index;
+        }
       });
+      if (proposalIndex !== null) {
+        proposal[proposalIndex].layers = this.state.layers;
+      } else {
+        proposal.push({
+          step: this.task.steps[parseInt(this.$route.params.stepId, 10) - 1],
+          layers: this.state.layers,
+        });
+      }
+      this.$store.commit('setProposalPictos', proposal);
       this.state.layers = [];
       this.checkActions();
-      if (this.task.steps.length - 1 === parseInt(this.state.stepIndex, 10)) {
+      this.$forceUpdate();
+      if (this.task.steps.length === parseInt(this.$route.params.stepId, 10)) {
         this.$router.push({
           name: 'new-aid-summary',
-          params: { proposal: this.state.proposal },
         });
       } else {
-        this.state.stepIndex += 1;
+        this.$router.push({ name: 'new-aid-step', params: { stepId: parseInt(this.$route.params.stepId, 10) + 1 } });
       }
     },
   },
