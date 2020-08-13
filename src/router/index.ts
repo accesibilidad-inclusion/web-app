@@ -23,6 +23,7 @@ import PlaceScore from '../views/PlaceScore.vue';
 import TaskSingle from '../views/TaskSingle.vue';
 
 import NewPlace from '../views/NewPlace.vue';
+import NewPlaceComplete from '../views/NewPlaceComplete.vue';
 import NewPlaceIntro from '../views/NewPlaceIntro.vue';
 import NewPlaceIntro2 from '../views/NewPlaceIntro2.vue';
 import NewPlaceIntro3 from '../views/NewPlaceIntro3.vue';
@@ -180,6 +181,11 @@ const routes = [
     path: '/nuevo-lugar/',
     name: 'new-place',
     component: NewPlace,
+  },
+  {
+    path: '/nuevo-lugar/completo',
+    name: 'new-place-complete',
+    component: NewPlaceComplete,
   },
   {
     path: '/nueva-tarea/',
