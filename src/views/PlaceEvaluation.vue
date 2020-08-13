@@ -46,23 +46,23 @@
       </template>
       <template v-if="question.answer_type == 'Indicador'">
         <ul class="page__evaluation">
-          <li @click="setIndicator(5)" class="page__evaluation-grade">
+          <li @click="setIndicator(5)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(5) ? 'active' : ''">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="5">5</span>
             <span class="place-block__evaluation-description"><strong>Excelente:</strong> No necesita mejoras.</span>
           </li>
-          <li @click="setIndicator(4)" class="page__evaluation-grade">
+          <li @click="setIndicator(4)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(4) ? 'active' : ''">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="4">4</span>
             <span class="place-block__evaluation-description"><strong>Bueno:</strong> Necesita pocas mejoras.</span>
           </li>
-          <li @click="setIndicator(3)" class="page__evaluation-grade">
+          <li @click="setIndicator(3)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(3) ? 'active' : ''">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="3">3</span>
             <span class="place-block__evaluation-description"><strong>Regular:</strong> Ni bueno Ni malo.</span>
           </li>
-          <li @click="setIndicator(2)" class="page__evaluation-grade">
+          <li @click="setIndicator(2)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(2) ? 'active' : ''">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="2">2</span>
             <span class="place-block__evaluation-description"><strong>Malo:</strong> Necesita muchas mejoras.</span>
           </li>
-          <li @click="setIndicator(1)" class="page__evaluation-grade">
+          <li @click="setIndicator(1)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(1) ? 'active' : ''">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="1">1</span>
             <span class="place-block__evaluation-description"><strong>Pésimo:</strong> Tiene que mejorar todo.</span>
           </li>
@@ -161,10 +161,10 @@ export default {
           params: { answers: this.answers },
         });
       } else {
+        // eslint-disable-next-line no-lonely-if
         if (this.question.answer_type === 'Dicotomico' && this.answers.find(a => a.question_id === this.question.id).answer === 'Si') {
           this.subn = 0;
-        }
-        if (this.subn !== null) {
+        } else if (this.subn !== null) {
           if (this.subn === this.questions[this.n].questions.length - 1) {
             this.subn = null;
             this.n += 1;
@@ -226,6 +226,10 @@ export default {
     deletePicture() {
       this.answers.splice(this.answers.findIndex(a => a.question_id === this.question.id), 1);
       document.querySelector('#photo').src = '';
+    },
+    isActiveIndicator(i) {
+      // eslint-disable-next-line max-len
+      return this.answers.find(a => a.question_id === this.question.id) && this.answers.find(a => a.question_id === this.question.id).answer === i;
     },
   },
 };
