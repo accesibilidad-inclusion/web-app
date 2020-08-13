@@ -6,6 +6,7 @@
         <router-link :to="'/servicios/' + service.id" class="place__service">{{ service.name }}</router-link>
         <h1 class="place__name">{{ place.name }}</h1>
         <text-to-speech :text-audio="''" />
+        <span class="page__tag">Evaluando</span>
       </header>
       <h2 class="page__title">
       {{ question.text }}
@@ -29,7 +30,7 @@
       </template>
       <template v-if="question.answer_type == 'Texto'">
         <div class="custom-control custom-control--text">
-          <input type="text" @change="setAnswer" />
+          <input type="text" @change="setAnswer" placeholder="Escribe aquí tu respuesta" class="custom-control__answer" />
         </div>
       </template>
       <template v-if="question.answer_type == 'Fotografía'">
@@ -233,11 +234,11 @@ export default {
 @import '@/assets/scss/rfs.scss';
 
   .page {
-    input {
+    .custom-control__answer {
       @include rfs($font-size-16);
       width: 100%;
-      padding: var(--spacer-sm) var(--spacer-lg) var(--spacer-sm) var(--spacer-sm);
-      border: 1px solid var(--color-neutral-light);
+      padding: var(--spacer-sm);
+      border: 1px solid var(--color-neutral-lighter);
       border-radius: var(--border-radius);
       &::placeholder {
         color: #848484;
@@ -278,6 +279,16 @@ export default {
         fill: var(--color-brand-darkest);
       }
     }
+  }
+  .page__tag {
+    @include rfs($font-size-14);
+    color: var(--color-highlight);
+    font-weight: 800;
+    text-align: center;
+    display: block;
+    padding-bottom: var(--spacer-xs);
+    z-index: 10;
+    position: relative;
   }
   //Imagen
   #camera {

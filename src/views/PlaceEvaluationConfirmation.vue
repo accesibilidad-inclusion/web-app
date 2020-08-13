@@ -6,6 +6,7 @@
         <router-link :to="'/servicios/'" class="place__service">service.name</router-link>
         <h1 class="place__name">place.name</h1>
         <text-to-speech :text-audio="''" />
+        <span class="page__tag">Evaluando</span>
       </header>
       <h2 class="page__evaluation-title">
         Has evaluado este servicio
@@ -82,20 +83,20 @@ export default {
   @import '@/assets/scss/rfs.scss';
 
   .page__evaluation-title {
-    @include rfs($font-size-18);
+    @include rfs($font-size-21);
     color: var(--color-text);
     margin-bottom: var(--spacer);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-gap: var(--spacer);
-    align-items: flex-start;
     text-align: center;
+    position: relative;
+    padding-right: var(--spacer);
+    padding-left: var(--spacer);
     @media screen and ( min-width: 640px ) {
         margin-bottom: var(--spacer-lg);
     }
     .tts {
-        position: relative;
+        position: absolute;
         top: var(--spacer-xs);
+        right: 0;
     }
   }
   .page__evaluation-subtitle {
@@ -103,7 +104,7 @@ export default {
     color: var(--color-neutral);
     text-align: center;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: bold;
     padding-bottom: var(--spacer);
   }
   .place__evaluation-grade--xl {
