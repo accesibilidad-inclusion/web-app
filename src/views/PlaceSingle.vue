@@ -219,7 +219,6 @@ export default {
     }
   }
   .actions--place {
-    margin-bottom: var(--spacer-lg);
     padding-top: var(--spacer-lg);
     padding-bottom: var(--spacer-lg);
     background-color: var(--color-brand-lighter);
