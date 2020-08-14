@@ -2,24 +2,22 @@ class Venue {
   constructor(venue = {}) {
     this.id = Number.isInteger(venue.id) ? venue.id : null;
     this.name = typeof venue.name === 'string' ? venue.name : '';
-    this.url = typeof venue.url === 'string' ? venue.url : '';
-    this.position = Array.isArray(venue.position) ? venue.position : [];
+    this.position = typeof venue.position === 'object' && venue.position !== null
+      ? {
+        lat: parseFloat(venue.position.lat),
+        lng: parseFloat(venue.position.lng),
+      }
+      : {};
     this.evaluation = typeof venue.evaluation === 'object' && venue.evaluation !== null ? venue.evaluation : null;
-    this.tasks = Array.isArray(venue.tasks) ? venue.tasks : [];
+    this.tasks = Array.isArray(venue.the_tasks) ? venue.the_tasks : [];
     this.evaluations = venue.evaluations;
+    this.url = typeof venue.url === 'string' ? venue.url : '';
   }
 
-  set(venue) {
-    this.id = venue.id;
-    this.name = venue.name;
-    this.url = venue.ur;
-    this.position = {
-      lat: parseFloat(venue.position.lat),
-      lng: parseFloat(venue.position.lng),
-    };
-    this.evaluation = venue.evaluation;
-    this.tasks = venue.the_tasks;
-    this.evaluations = venue.evaluations;
+  get mapLink() {
+    return typeof this.position === 'object' && this.position !== null
+      ? `https://www.google.com/maps/search/?api=1&query=${this.position.lat},${this.position.lng}`
+      : '';
   }
 }
 

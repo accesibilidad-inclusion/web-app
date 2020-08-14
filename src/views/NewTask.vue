@@ -105,9 +105,6 @@ export default {
       return this.steps.length < 9 && !this.steps.filter(s => s.trim() === '').length;
     },
   },
-  beforeMount() {
-    this.venue.set(this.$store.state.selected.venue);
-  },
   data() {
     return {
       task: '',
@@ -115,7 +112,7 @@ export default {
       showStep: 1,
       stepEdit: '',
       editing: null,
-      venue: new Venue(),
+      venue: new Venue(this.$store.state.selected.venue),
       showEmailConfirm: false,
       emailConfirm: '',
     };

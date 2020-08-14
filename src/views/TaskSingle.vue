@@ -179,8 +179,6 @@ export default {
     },
   },
   beforeMount() {
-    this.service.set(this.$store.state.selected.service);
-    this.venue.set(this.$store.state.selected.venue);
     this.$store.dispatch('setSelectedItem', {
       object: 'task',
       item: this.venue.tasks.find(t => t.id === parseInt(this.$route.params.taskId, 10)),

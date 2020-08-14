@@ -4,7 +4,7 @@
     <header class="place__header">
       <router-link :to="'/servicios/' + service.id" class="place__service">{{ service.name }}</router-link>
       <h1 class="place__name">{{ place.name }}</h1>
-      <a href="#" class="place__map-link">
+      <a :href="place.mapLink" class="place__map-link" target="_blank" v-if="place.mapLink">
         <icon-location-pin />
         Abrir en mapa
       </a>
@@ -89,7 +89,7 @@ export default {
         .find(v => v.id === parseInt(this.$route.params.placeId, 10)),
     }).then(() => {
       this.service.set(this.$store.state.selected.service);
-      this.place.set(this.$store.state.selected.venue);
+      this.place = new Venue(this.$store.state.selected.venue);
       this.tasks = this.place.tasks;
     });
   },
