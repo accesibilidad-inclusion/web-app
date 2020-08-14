@@ -8,7 +8,7 @@
         <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
       </p>
       <h1 class="task__title entries-list__title">{{ task.title }}</h1>
-      <text-to-speech :text-audio="`${this.task.title}. ${this.task.place}, en ${this.task.service}`" />
+      <text-to-speech :text-audio="`${this.task.title}.\n\n\n\n\n ${this.venue.name}, en ${this.service.name}`" />
     </header>
     <main class="task__main">
       <ol class="task__steps"

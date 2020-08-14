@@ -8,12 +8,12 @@
       <icon-formalities class="service__icon" v-if="category.slug == 'tramites'" />
       <h1 class="service__title entries-list__title">{{ service.name }}</h1>
       <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer en este servicio.</p>
-      <text-to-speech :text-audio="'Metro de Valparaíso.\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
+      <text-to-speech :text-audio="service.name + '.\n\n\n\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
     </header>
     <main class="service__items service__items places">
       <template v-for="place in places" v-bind:place="place">
         <router-link class="place-block entry-block" tag="article" v-bind:key="place.id" v-bind:to="'/lugares/' + place.id">
-          <text-to-speech :text-audio="`${place.name}: a ${place.distance} metros de distancia.`" />
+          <text-to-speech :text-audio="place.name + ': a' + $options.filters.distance(place.distance) + ' de distancia.'" />
           <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
           <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
           <p class="place-block__distance">a {{ place.distance | distance }} de distancia</p>

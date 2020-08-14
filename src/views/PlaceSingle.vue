@@ -8,7 +8,7 @@
         <icon-location-pin />
         Abrir en mapa
       </a>
-      <text-to-speech :text-audio="`${place.name}, en ${place.service}`" />
+      <text-to-speech :text-audio="`${place.name}, en ${service.name}`" />
     </header>
     <template v-if="tasks.length">
       <main class="place__tasks">
