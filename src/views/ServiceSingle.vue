@@ -13,7 +13,7 @@
     <main class="service__items service__items places">
       <template v-for="place in places" v-bind:place="place">
         <router-link class="place-block entry-block" tag="article" v-bind:key="place.id" v-bind:to="'/lugares/' + place.id">
-          <text-to-speech :text-audio="place.name + ': a' + $options.filters.distance(place.distance) + ' de distancia.'" />
+          <text-to-speech :text-audio="place.name + ': a' + $options.filters.distance(place.distance).replace('.', ' punto ') + ' de distancia.'" />
           <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
           <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
           <p class="place-block__distance">a {{ place.distance | distance }} de distancia</p>
