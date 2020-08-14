@@ -384,6 +384,7 @@ export default {
     border-top: 1px solid var(--color-neutral-lightest);
     padding-top: var(--spacer-sm);
     padding-bottom: var(--spacer-sm);
+    transition: var(--transition-base);
     &:last-child {
       border-bottom: 1px solid var(--color-neutral-lightest);
     }
