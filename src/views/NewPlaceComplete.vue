@@ -62,7 +62,6 @@ export default {
   font-weight: bold;
   line-height: calc(22/16);
   color: var(--color-background);
-  max-width: 15rem;
 }
 .onboarding__link {
   @include rfs($font-size-16);
