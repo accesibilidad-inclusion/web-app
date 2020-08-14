@@ -73,7 +73,7 @@
           <li v-for="(step, index) in task.steps" v-bind:step="step" v-bind:key="step.id"
             v-bind:class="state.active_step >= index ?
               'task__step-indicator--active' : 'task__step-indicator'">
-            {{ step.order }}
+            {{ index }}
           </li>
           <li v-bind:class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
             {{ task.steps.length }}
