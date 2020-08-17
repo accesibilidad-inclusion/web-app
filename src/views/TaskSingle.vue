@@ -8,7 +8,7 @@
         <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
       </p>
       <h1 class="task__title entries-list__title">{{ task.title }}</h1>
-      <text-to-speech :text-audio="`${this.task.title}. ${this.task.place}, en ${this.task.service}`" />
+      <text-to-speech :text-audio="`${this.task.title}.\n\n\n\n\n ${this.venue.name}, en ${this.service.name}`" />
     </header>
     <main class="task__main">
       <ol class="task__steps"
@@ -73,7 +73,7 @@
           <li v-for="(step, index) in task.steps" v-bind:step="step" v-bind:key="step.id"
             v-bind:class="state.active_step >= index ?
               'task__step-indicator--active' : 'task__step-indicator'">
-            {{ step.order }}
+            {{ index }}
           </li>
           <li v-bind:class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
             {{ task.steps.length }}
@@ -85,7 +85,7 @@
     <button @click="openFeedback" v-bind:class="'task__step-feedback' +
       ( state.active_helpful === true || state.opened_modal === true ?
         ' task__step-feedback--hidden' : '' )">
-      Reportar un problema con este paso
+      Reportar un problema con esta tarea
     </button>
     <!-- Bloque y formulario para feedback -->
     <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
@@ -93,7 +93,7 @@
         <div v-bind:class="'task-feedback' + ( state.submitted_feedback ? ' task-feedback--submitted' : '' )">
           <button type="button" class="modal__close" @click="closeFeedback"><icon-error></icon-error></button>
           <form class="task-feedback__form" @submit.prevent="submitFeedback" v-if="!state.submitted_feedback">
-            <h2 class="task-feedback__title">Reportar un problema con este paso</h2>
+            <h2 class="task-feedback__title">Reportar un problema con esta tarea</h2>
             <textarea class="task-feedback__control" v-model="feedback.body"
               placeholder="Ejemplo: El pictograma no coincide con la instrucción" required></textarea>
             <button v-bind:class="'task-feedback__submit btn btn--large btn--block' +
