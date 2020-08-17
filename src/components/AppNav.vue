@@ -1,7 +1,7 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="app-nav" v-bind:class="{ 'app-nav--dark': state.dark }" id="nav">
-    <back-button></back-button>
+    <back-button v-on:comeback="$emit('comeback')"></back-button>
     <router-link to="/home" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
     </router-link>

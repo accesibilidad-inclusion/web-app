@@ -153,7 +153,35 @@ export default {
     });
     this.factor = countIndicator;
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (from.name === 'place-evaluation-confirmation') {
+        this.n = this.questions.length - 1;
+      }
+    });
+  },
   methods: {
+    comeback() {
+      if (this.n === 0) {
+        this.$router.go(-1);
+      } else {
+        // eslint-disable-next-line max-len
+        const preQuestion = this.questions[this.questions.findIndex(q => q.id === this.question.id) - 1];
+        // eslint-disable-next-line no-lonely-if
+        if (this.subn !== null) {
+          if (this.subn > 0) {
+            this.subn -= 1;
+          } else {
+            this.subn = null;
+          }
+        } else if (preQuestion.answer_type === 'Dicotomico' && this.answers.find(a => a.question_id === preQuestion.id).answer === 'Si') {
+          this.subn = preQuestion.questions.length - 1;
+          this.n -= 1;
+        } else {
+          this.n -= 1;
+        }
+      }
+    },
     next() {
       if (this.isLast) {
         this.$router.push({

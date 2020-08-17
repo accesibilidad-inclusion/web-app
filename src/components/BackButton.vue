@@ -1,5 +1,5 @@
 <template>
-  <a href="javascript:history.go(-1)" class="btn-prev">
+  <a @click="comeback" class="btn-prev">
     <IconChevronLeft /> Volver
   </a>
 </template>
@@ -11,6 +11,15 @@ export default {
   name: 'BackButton',
   components: {
     IconChevronLeft,
+  },
+  methods: {
+    comeback() {
+      if (this.$route.name === 'place-evaluation') {
+        this.$emit('comeback');
+      } else {
+        this.$router.go(-1);
+      }
+    },
   },
 };
 </script>
