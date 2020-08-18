@@ -102,7 +102,6 @@ export default {
     @include rfs($font-size-12);
     grid-column: 1/3;
     grid-row: 2/3;
-    margin-bottom: var(--spacer-sm);
     line-height: 1.33333;
     color: var(--color-neutral);
   }
