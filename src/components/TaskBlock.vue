@@ -74,7 +74,7 @@ export default {
       padding: var(--spacer);
     }
     @media screen and ( min-width: 1280px ) {
-      padding: var(--spacer-xl);
+      padding: var(--spacer-lg);
     }
     &:hover {
       cursor: pointer;
@@ -104,7 +104,7 @@ export default {
       right: var(--spacer);
     }
     @media screen and ( min-width: 1280px ) {
-      right: var(--spacer-xl);
+      right: var(--spacer-lg);
     }
   }
   .task-block__aids {
