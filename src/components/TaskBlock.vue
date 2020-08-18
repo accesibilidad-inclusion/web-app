@@ -1,6 +1,8 @@
 <template>
-  <router-link class="task task-block" tag="article" v-bind:to="'/tareas/' + task.id">
+  <div class="task task-block" tag="article" @click="selectTask(task)">
     <p class="task-block__title">{{ task.title }}</p>
+    <p class="task-block__title" v-if="task.venue">{{ task.venue.name }}</p>
+    <p class="task-block__title" v-if="task.service">{{ task.service.name }}</p>
     <text-to-speech :text-audio="`${task.title}.\n\n`" />
     <div class="task-block__aids" v-if="task.aids">
       <span>Apoyo:</span>
@@ -12,7 +14,7 @@
         </template>
       </ul>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -26,6 +28,33 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
+    selectTask(task) {
+      if (task.category) {
+        this.$store.dispatch('setSelectedItem', {
+          object: 'category',
+          item: this.$store.state.data
+            .find(d => d.id === task.category.id),
+        }).then(() => {
+          this.$store.dispatch('setSelectedItem', {
+            object: 'service',
+            item: this.$store.state.selected.category.near_services
+              .find(s => s.id === task.service.id),
+          }).then(() => {
+            this.$store.dispatch('setSelectedItem', {
+              object: 'venue',
+              item: this.$store.state.selected.service.near_venues
+                .find(v => v.id === task.venue.id),
+            }).then(() => {
+              this.$router.push({ name: 'task-single', params: { taskId: task.id } });
+            });
+          });
+        });
+      } else {
+        this.$router.push({ name: 'task-single', params: { taskId: task.id } });
+      }
+    },
   },
 };
 </script>
