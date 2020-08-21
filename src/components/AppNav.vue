@@ -21,7 +21,7 @@
             <nav class="app-menu__body">
               <ul class="app-menu__items">
                 <li>
-                  <router-link to="/" @click.native="closeMenu">PICTOS</router-link>
+                  <router-link to="/" @click.native="closeMenu">Inicio</router-link>
                 </li>
                 <li>
                   <router-link to="/acerca-de" @click.native="closeMenu">Acerca de</router-link>
