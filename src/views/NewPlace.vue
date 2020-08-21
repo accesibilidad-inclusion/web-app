@@ -3,8 +3,8 @@
   <div class="page">
     <div class="container">
       <h2 class="page__title">
-        Agrega un lugar nuevo
-        <text-to-speech :text-audio="'Agrega un lugar nuevo'" />
+        Busca un lugar para agregarlo a Pictos
+        <text-to-speech :text-audio="'Busca un lugar para agregarlo a Pictos'" />
       </h2>
       <div v-if="place" class="page__place-name">
       {{ place.name }}
