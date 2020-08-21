@@ -12,7 +12,7 @@
       </h2>
       <p>Queremos entregar a la comunidad las herramientas para apoyarnos entre todos.</p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'/onboarding/permissions'" />
+        <OnboardingNext :linkTo="'/onboarding/registration'" />
       </footer>
     </div>
   </div>
