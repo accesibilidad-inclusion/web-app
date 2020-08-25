@@ -491,7 +491,7 @@ export default {
   .task-feedback {
     position: absolute;
     width: calc(100vw - var(--spacer) );
-    height: calc(100vh - var(--spacer-lg) );
+    height: 100%;
     top: 100%;
     left: 0;
     right: 0;
@@ -572,6 +572,7 @@ export default {
   }
   .task-feedback__submit {
     margin-top: auto;
+    margin-bottom: var(--spacer-lg);
   }
   .task-feedback__response {
     display: flex;
