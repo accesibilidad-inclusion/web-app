@@ -65,7 +65,6 @@ export default {
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
-      column-gap: var(--spacer-sm);
     }
     .place__evaluation-grade--lg {
       margin: 0;
@@ -76,6 +75,7 @@ export default {
     }
     .place-block__evaluation-description {
       @include rfs($font-size-16);
+      margin-left: var(--spacer-sm);
     }
   }
 </style>

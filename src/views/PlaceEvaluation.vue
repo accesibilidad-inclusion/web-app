@@ -329,16 +329,28 @@ export default {
   .page__photo-block {
     display: grid;
     grid-template-columns: 45% 55%;
-    max-height: 8.5rem;
+    height: 8.5rem;
+    overflow: hidden;
+    align-items: center;
+    @media screen and ( min-width: 640px ) {
+      height: 10rem;
+    }
   }
   .page__photo-wrapper {
     overflow: hidden;
+    img {
+      width: 100%;
+    }
   }
   .page__photo-edit {
     background-color: var(--color-neutral-lightest);
-    padding: var(--spacer-sm) 0;
+    padding: 0 var(--spacer-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 8.5rem;
     @media screen and ( min-width: 640px ) {
-      padding: var(--spacer-sm);
+      height: 10rem;
     }
     span {
       @include rfs($font-size-16);
@@ -398,6 +410,7 @@ export default {
     .place-block__evaluation-description {
       @include rfs($font-size-16);
       color: var(--color-neutral);
+      margin-left: var(--spacer-sm);
       strong {
         text-transform: uppercase;
         display: block;
@@ -408,7 +421,6 @@ export default {
   .page__evaluation-grade{
     display: flex;
     align-items: center;
-    column-gap: var(--spacer-sm);
     border-top: 1px solid var(--color-neutral-lightest);
     padding-top: var(--spacer-sm);
     padding-bottom: var(--spacer-sm);
