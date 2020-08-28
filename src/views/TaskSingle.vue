@@ -272,6 +272,7 @@ export default {
     flex-flow: column nowrap;
     flex-grow: 1;
     background: var(--color-brand-lightest);
+    max-height: 55vh;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
