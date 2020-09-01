@@ -119,6 +119,7 @@ export default {
   font-weight: 600;
   background: none;
   border: 0;
+  margin-left: auto;
   .app-nav--dark & {
     transition: var(--transition-nav-dark);
     color: var(--color-background);
@@ -133,8 +134,12 @@ export default {
   }
 }
 .app-nav__logo-wrapper {
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  right: 0;
+  left: 0;
+  text-align: center;
+  width: 86px;
+  margin: 0 auto;
 }
 .app-nav__logo {
   width: 55px;
