@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push('/onboarding/permissions');
+      this.$router.push('/');
     },
   },
   created() {
