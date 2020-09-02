@@ -594,5 +594,6 @@ export default {
   }
   .task-feedback__response-close {
     margin-top: auto;
+    margin-bottom: var(--spacer-lg);
   }
 </style>
