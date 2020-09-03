@@ -2,7 +2,7 @@
 <template>
   <div class="new-aid new-aid--fullheight">
     <header class="new-aid__header entries-list__header">
-      <span class="new-aid__description">Paso {{ step.id }} de {{ task.steps.length }}:</span>
+      <span class="new-aid__description">Paso {{ stepIndex + 1 }} de {{ task.steps.length }}:</span>
       <h1 class="new-aid__title entries-list__title">{{ step.label }}</h1>
       <text-to-speech :text-audio="
         `Paso ${ step.id } de ${ task.steps.length }:\n\n\n\n\n`
@@ -114,6 +114,7 @@ export default {
   data() {
     return {
       state: {
+        proposal: this.$store.state.proposalPictos,
         layers: [],
         canPreview: false,
         canConfirm: false,
@@ -124,8 +125,16 @@ export default {
     };
   },
   computed: {
+    stepIndex() {
+      return this.task.steps.findIndex(
+        p => p.id === parseInt(this.$route.params.stepId, 10),
+      );
+    },
     step() {
-      return this.task.steps.find(step => step.id === parseInt(this.$route.params.stepId, 10));
+      return this.task.steps[this.stepIndex];
+    },
+    next() {
+      return this.task.steps[this.stepIndex];
     },
     subjects() {
       return this.$store.state.pictos.filter(picto => picto.layout === 1);
@@ -140,14 +149,8 @@ export default {
   methods: {
     getState() {
       if (this.$store.state.proposalPictos.length > 0) {
-        let proposalStep = null;
-        this.$store.state.proposalPictos.forEach((p) => {
-          if (p.step.id === parseInt(this.$route.params.stepId, 10)) {
-            proposalStep = p;
-          }
-        });
-        if (proposalStep !== null) {
-          this.state.layers = proposalStep.layers;
+        if (typeof this.$store.state.proposalPictos[this.stepIndex] !== 'undefined') {
+          this.state.layers = this.$store.state.proposalPictos[this.stepIndex].layers;
           this.state.canPreview = true;
           this.state.canConfirm = true;
         }
@@ -177,31 +180,29 @@ export default {
       this.$modal.hide('new-aid-preview');
     },
     savePictogram() {
-      let proposalIndex = null;
-      const proposal = this.$store.state.proposalPictos;
-      proposal.forEach((p, index) => {
-        if (p.step.id === parseInt(this.$route.params.stepId, 10)) {
-          proposalIndex = index;
-        }
-      });
-      if (proposalIndex !== null) {
-        proposal[proposalIndex].layers = this.state.layers;
+      if (typeof this.state.proposal[this.stepIndex] !== 'undefined') {
+        this.state.proposal[this.stepIndex].layers = this.state.layers;
       } else {
-        proposal.push({
-          step: this.task.steps[parseInt(this.$route.params.stepId, 10) - 1],
+        this.state.proposal.push({
+          step: this.step,
           layers: this.state.layers,
         });
       }
-      this.$store.commit('setProposalPictos', proposal);
+      this.$store.commit('setProposalPictos', this.state.proposal);
       this.state.layers = [];
       this.checkActions();
       this.$forceUpdate();
-      if (this.task.steps.length === parseInt(this.$route.params.stepId, 10)) {
+      if (this.task.steps.length === this.stepIndex + 1) {
         this.$router.push({
           name: 'new-aid-summary',
         });
       } else {
-        this.$router.push({ name: 'new-aid-step', params: { stepId: parseInt(this.$route.params.stepId, 10) + 1 } });
+        this.$router.push({
+          name: 'new-aid-step',
+          params: {
+            stepId: this.task.steps[this.stepIndex + 1].id,
+          },
+        });
       }
     },
   },
