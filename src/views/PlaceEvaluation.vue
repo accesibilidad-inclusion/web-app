@@ -14,11 +14,11 @@
       </h2>
       <template v-if="question.answer_type == 'Dicotomico'">
         <div class="custom-control custom-control--radio">
-          <input type="radio" name="dicotomico_si" id="dicotomico_si" value="Si" class="custom-control__input" @change="setAnswer">
+          <input type="radio" name="dicotomico" id="dicotomico_si" value="Si" class="custom-control__input" @change="setAnswer">
           <label for="dicotomico_si" class="custom-control__label">Si</label>
         </div>
         <div class="custom-control custom-control--radio">
-          <input type="radio" name="dicotomico_no" id="dicotomico_no" value="No" class="custom-control__input" @change="setAnswer">
+          <input type="radio" name="dicotomico" id="dicotomico_no" value="No" class="custom-control__input" @change="setAnswer">
           <label for="dicotomico_no" class="custom-control__label">No</label>
         </div>
       </template>

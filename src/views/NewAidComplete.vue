@@ -16,24 +16,31 @@
           Volver a {{ venue.name }}
         </router-link>
         <footer class="onboarding__footer">
-          <p class="onboarding__description subscription-form__description">
-            ¿Quieres que te avisemos cuando publiquemos tu aporte?
-          </p>
-          <template v-if="!state.show_subscription_form">
-            <button type="button" @click="state.show_subscription_form = true" class="btn btn--block btn--ghost subscription-form__submit">
-              Sí, avísame
-            </button>
+          <template v-if="submited">
+            <p class="onboarding__description subscription-form__description">
+              Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            </p>
           </template>
           <template v-else>
-            <form class="subscription-form" @submit="submitSubscription">
-              <input type="email" v-model="subscription_email" class="subscription-form__control" placeholder="Escribe tu email aquí">
-              <button type="submit" class="btn btn--ghost subscription-form__submit" :disabled="state.submitting_subscription">
-                Enviar
-                <template v-if="state.submitting_subscription">
-                  <clip-loader :loading="state.submitting_subscription" :color="'#fff'" :size="'1rem'"></clip-loader>
-                </template>
+            <p class="onboarding__description subscription-form__description">
+              ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            </p>
+            <template v-if="!show_subscription_form">
+              <button type="button" @click="show_subscription_form = true" class="btn btn--block btn--ghost subscription-form__submit">
+                Sí, avísame
               </button>
-            </form>
+            </template>
+            <template v-else>
+              <form class="subscription-form" @submit="submitSubscription">
+                <input type="email" v-model="subscription_email" class="subscription-form__control" placeholder="Escribe tu email aquí">
+                <button type="submit" class="btn btn--ghost subscription-form__submit" :disabled="submitting_subscription">
+                  Enviar
+                  <template v-if="submitting_subscription">
+                    <clip-loader :loading="submitting_subscription" :color="'#fff'" :size="'1rem'"></clip-loader>
+                  </template>
+                </button>
+              </form>
+            </template>
           </template>
         </footer>
       </template>
@@ -57,10 +64,12 @@ export default {
     return {
       state: {
         submitting: false,
-        show_subscription_form: false,
-        submitting_subscription: false,
       },
-      subscription_email: null,
+      show_subscription_form: false,
+      submitting_subscription: false,
+      submited: false,
+      id: null,
+      subscription_email: '',
       venue: new Venue(this.$store.state.selected.venue),
       task: new Task(this.$store.state.selected.task),
       proposal: this.$store.state.proposalPictos,
@@ -69,13 +78,14 @@ export default {
   methods: {
     submitSubscription(event) {
       event.preventDefault();
-      this.$data.state.submitting_subscription = true;
-      // console.log(this.$data.subscription_email);
-      // this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/`, {
-      //   email: this.$data.state.submitting_subscription,
-      // }).then((result) => {
-      //   this.$data.state.submitting = false;
-      // });
+      this.submitting_subscription = true;
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/proposal_tasks/addNotification`, {
+        id: this.id,
+        email: this.subscription_email,
+      }).then((result) => {
+        this.submited = true;
+        this.submitting_subscription = false;
+      });
     },
   },
   created() {
@@ -85,7 +95,7 @@ export default {
       proposal: this.proposal,
     }).then((result) => {
       this.$data.state.submitting = false;
-      console.log(result);
+      this.id = result.data.id;
     });
   },
 };
