@@ -14,6 +14,32 @@
           Volver
         </router-link>
         <footer class="onboarding__footer">
+          <template v-if="submited">
+            <p class="onboarding__description subscription-form__description">
+              Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            </p>
+          </template>
+          <template v-else>
+            <p class="onboarding__description subscription-form__description">
+              ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            </p>
+            <template v-if="!show_subscription_form">
+              <button type="button" @click="show_subscription_form = true" class="btn btn--block btn--ghost subscription-form__submit">
+                Sí, avísame
+              </button>
+            </template>
+            <template v-else>
+              <form class="subscription-form" @submit="submitSubscription">
+                <input type="email" v-model="subscription_email" class="subscription-form__control" placeholder="Escribe tu email aquí">
+                <button type="submit" class="btn btn--ghost subscription-form__submit" :disabled="submitting_subscription">
+                  Enviar
+                  <template v-if="submitting_subscription">
+                    <clip-loader :loading="submitting_subscription" :color="'#fff'" :size="'1rem'"></clip-loader>
+                  </template>
+                </button>
+              </form>
+            </template>
+          </template>
         </footer>
       </template>
     </div>
@@ -31,6 +57,11 @@ export default {
   data() {
     return {
       submitting: true,
+      submited: false,
+      show_subscription_form: false,
+      submitting_subscription: false,
+      id: null,
+      subscription_email: '',
     };
   },
   beforeMount() {
@@ -43,8 +74,22 @@ export default {
         lng: this.$route.params.place.geometry.location.lng(),
       }).then((result) => {
         this.submitting = false;
+        this.id = result.data.id;
       });
     }
+  },
+  methods: {
+    submitSubscription(event) {
+      event.preventDefault();
+      this.submitting_subscription = true;
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/venues/addNotification`, {
+        id: this.id,
+        email: this.subscription_email,
+      }).then((result) => {
+        this.submited = true;
+        this.submitting_subscription = false;
+      });
+    },
   },
 };
 </script>
@@ -67,5 +112,28 @@ export default {
   @include rfs($font-size-16);
   font-weight: bold;
   color: var(--color-highlight);
+}
+.subscription-form {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.subscription-form__description {
+  margin-bottom: .75rem;
+  color: var(--color-highlight);
+}
+.subscription-form__control {
+  min-width: 100px;
+  max-width: 100%;
+  margin-right: .75rem;
+  padding-right: 0;
+  border: none;
+}
+.subscription-form__submit {
+  @include rfs($font-size-14);
+  padding-top: var(--spacer-sm);
+  padding-bottom: var(--spacer-sm);
+  .v-spinner {
+    margin-left: var(--spacer-sm);
+  }
 }
 </style>

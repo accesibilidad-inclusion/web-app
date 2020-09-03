@@ -153,9 +153,27 @@ export default {
     },
     likedStep() {
       this.$data.state.was_helpful = true;
+      if (!this.$data.state.was_liked) {
+        this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/liked`, {
+          id: this.$store.state.selected.task.id,
+          was_disliked: this.$data.state.was_disliked,
+        }).then((result) => {
+          this.$data.state.was_liked = true;
+          this.$data.state.was_disliked = null;
+        });
+      }
     },
     dislikedStep() {
       this.$data.state.was_helpful = false;
+      if (!this.$data.state.was_disliked) {
+        this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/disliked`, {
+          id: this.$store.state.selected.task.id,
+          was_liked: this.$data.state.was_liked,
+        }).then((result) => {
+          this.$data.state.was_disliked = true;
+          this.$data.state.was_liked = null;
+        });
+      }
     },
     openFeedback() {
       this.$data.state.shown_modal = true;
@@ -192,6 +210,8 @@ export default {
         active_step: 0,
         active_helpful: false,
         was_helpful: null,
+        was_liked: null,
+        was_disliked: null,
         shown_modal: false,
         opened_modal: false,
         closed_modal: null,

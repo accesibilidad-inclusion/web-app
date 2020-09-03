@@ -85,6 +85,7 @@ export default {
       proposal: this.proposal,
     }).then((result) => {
       this.$data.state.submitting = false;
+      console.log(result);
     });
   },
 };

@@ -64,14 +64,30 @@
         </template>
       </form>
       <footer class="page__footer">
-        <div v-if="showStep == 4" class="thanks-message__footer">
-          <p class="thanks-message__footer-description">¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
-          <button v-if="!showEmailConfirm" class="btn btn--large btn--block btn--ghost" @click="showEmailConfirm = true">Sí, avísame</button>
-          <div v-else class="thanks-message__form">
-            <input type="text" value="" v-model="emailConfirm" placeholder="Escribe tu e-mail aquí" class="thanks-message__email" />
-            <button class="btn btn--large btn--ghost">Enviar</button>
+        <template v-if="showStep == 4">
+          <div class="thanks-message__footer">
+            <template v-if="submited">
+              <p class="thanks-message__footer-description">
+                Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+              </p>
+            </template>
+            <template v-else>
+              <p class="thanks-message__footer-description">¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
+              <button v-if="!show_subscription_form" class="btn btn--large btn--block btn--ghost" @click="show_subscription_form = true">Sí, avísame</button>
+              <div v-else class="thanks-message__form">
+                <form class="subscription-form" @submit="submitSubscription">
+                  <input type="email" v-model="subscription_email" class="thanks-message__email" placeholder="Escribe tu email aquí">
+                  <button type="submit" class="btn btn--large btn--ghost" :disabled="submitting_subscription">
+                    Enviar
+                    <template v-if="submitting_subscription">
+                      <clip-loader :loading="submitting_subscription" :color="'#fff'" :size="'1rem'"></clip-loader>
+                    </template>
+                  </button>
+                </form>
+              </div>
+            </template>
           </div>
-        </div>
+        </template>
         <button v-else :tag="'button'" class="btn btn--large btn--block btn--primary page__footer" @click="showStep < 3 ? showStep = 3 : sendTask()" :disabled="!addStep">
           <span v-if="showStep < 3">Listo</span>
           <span v-else>Confirmar</span>
@@ -82,6 +98,7 @@
 </template>
 
 <script>
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import Venue from '@/models/Venue';
 import IconDelete from '../../public/img/app-icons/error.svg?inline';
@@ -99,6 +116,7 @@ export default {
     IconPlus,
     IconMenu,
     IconCheck,
+    ClipLoader,
   },
   computed: {
     addStep() {
@@ -113,8 +131,11 @@ export default {
       stepEdit: '',
       editing: null,
       venue: new Venue(this.$store.state.selected.venue),
-      showEmailConfirm: false,
-      emailConfirm: '',
+      submited: false,
+      show_subscription_form: false,
+      submitting_subscription: false,
+      id: null,
+      subscription_email: '',
     };
   },
   methods: {
@@ -124,12 +145,24 @@ export default {
         steps: this.steps,
         venue: this.venue.id,
       }).then((result) => {
+        this.id = result.data.id;
         this.showStep = 4;
       });
     },
     editStep(i) {
       this.editing = i;
       this.stepEdit = this.steps[i];
+    },
+    submitSubscription(event) {
+      event.preventDefault();
+      this.submitting_subscription = true;
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/addNotification`, {
+        id: this.id,
+        email: this.subscription_email,
+      }).then((result) => {
+        this.submited = true;
+        this.submitting_subscription = false;
+      });
     },
   },
 };
