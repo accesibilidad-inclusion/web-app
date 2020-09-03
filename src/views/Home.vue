@@ -100,8 +100,28 @@ export default {
     grid-template-columns: 1fr 1fr;
     margin-top: var(--spacer);
     margin-bottom: var(--spacer-lg);
+    @media screen and ( max-width: 400px ) {
+    // Hack Safari
+      @media not all and (min-resolution:.001dpcm) {
+        @supports (-webkit-appearance:none) {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: normal;
+        }
+      }
+    }
     > li {
       list-style: none;
+      @media screen and ( max-width: 400px ) {
+        // Hack Safari
+        @media not all and (min-resolution:.001dpcm) {
+          @supports (-webkit-appearance:none) {
+            margin-bottom: var(--spacer);
+            flex: 0 1 47%;
+          }
+        }
+      }
       > a {
         @include rfs($font-size-14);
         display: block;
