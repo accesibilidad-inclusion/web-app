@@ -2,8 +2,8 @@
 <template>
   <div class="step-block">
     <div class="step-block__header">
-      <span class="step-block__number">Paso {{ proposal.step.id }}</span>
-      <router-link tag="button" class="step-block__edit" :to="'/nuevo-apoyo/' + parseInt(proposal.step.id, 10)">
+      <span class="step-block__number">Paso {{ index + 1 }}</span>
+      <router-link tag="button" class="step-block__edit" :to="'/nuevo-apoyo/' + proposal.step.id">
         <icon-edit class="step-block__edit-icon" />Editar
       </router-link>
     </div>
@@ -23,6 +23,9 @@ export default {
   props: {
     proposal: {
       type: Object,
+    },
+    index: {
+      type: Number,
     },
   },
   components: {

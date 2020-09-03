@@ -11,8 +11,8 @@
         <text-to-speech :text-audio="'Revisa que los pictogramas estén correctos'" />
       </header>
       <!-- Loop de pasos -->
-      <template v-for="proposal in proposal">
-        <step-block v-bind:key="proposal.step.id" v-bind:proposal="proposal"></step-block>
+      <template v-for="(step, index) in proposal">
+        <step-block v-bind:key="step.id" v-bind:proposal="step" v-bind:index="index"></step-block>
       </template>
     </form>
     <div class="new-aid__actions">
