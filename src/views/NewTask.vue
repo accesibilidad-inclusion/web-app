@@ -366,6 +366,8 @@ export default {
   .thanks-message__footer {
     z-index: 100000;
     position: relative;
+    padding-top: var(--spacer);
+    background-color: var(--color-brand-darkest);
   }
   .thanks-message__footer-description {
     @include rfs($font-size-16);
