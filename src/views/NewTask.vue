@@ -224,6 +224,7 @@ export default {
     padding-top: var(--spacer-sm);
     font-weight: 600;
     color: var(--color-brand-darkest);
+    padding-bottom: var(--spacer);
     svg {
       width: 20px;
       height: 20px;
@@ -376,9 +377,14 @@ export default {
     margin-bottom: var(--spacer);
   }
   .thanks-message__form {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-gap: var(--spacer-sm);
+    .subscription-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-gap: var(--spacer-sm);
+    }
+    .btn {
+      display: flex;
+    }
   }
   .thanks-message__email {
     @include rfs($font-size-14);
