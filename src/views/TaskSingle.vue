@@ -410,6 +410,16 @@ export default {
     gap: var(--spacer);
     width: 100%;
     margin-bottom: var(--spacer-lg);
+    @media screen and ( max-width: 400px ) {
+    // Hack Safari
+      @media not all and (min-resolution:.001dpcm) {
+        @supports (-webkit-appearance:none) {
+          display: flex;
+          justify-content: space-between;
+          gap: normal;
+        }
+      }
+    }
   }
   .task-helpful__answer {
     cursor: pointer;
@@ -428,6 +438,14 @@ export default {
     &.task-helpful__answer--active {
       background-color: var(--color-highlight);
       border-color: var(--color-highlight);
+    }
+    @media screen and ( max-width: 400px ) {
+    // Hack Safari
+      @media not all and (min-resolution:.001dpcm) {
+        @supports (-webkit-appearance:none) {
+          flex: 0 1 47%;
+        }
+      }
     }
   }
   .task-helpful__label {
