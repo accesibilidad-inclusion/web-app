@@ -339,9 +339,9 @@ export default {
       }
       .tts {
         margin-left: auto;
-        path {
-          fill: var(--color-brand-light);
-        }
+      }
+      .tts ::v-deep path {
+        fill: var(--color-brand-light);
       }
     }
   }
@@ -384,6 +384,10 @@ export default {
     }
     .btn {
       display: flex;
+      align-items: center;
+      .v-spinner {
+        margin-left: var(--spacer-sm);
+      }
     }
   }
   .thanks-message__email {

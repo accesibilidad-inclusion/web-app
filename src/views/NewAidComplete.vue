@@ -129,24 +129,31 @@ export default {
   color: var(--color-highlight);
 }
 .subscription-form {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: var(--spacer-sm);
 }
 .subscription-form__description {
-  margin-bottom: .75rem;
+  margin-bottom: var(--spacer);
   color: var(--color-highlight);
 }
 .subscription-form__control {
-  min-width: 100px;
-  max-width: 100%;
-  margin-right: .75rem;
-  padding-right: 0;
-  border: none;
+  @include rfs($font-size-14);
+  padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
+  border: 2px solid var(--color-background);
+  border-radius: var(--border-radius);
+  &::placeholder {
+    color: #848484;
+    opacity: 1;
+    font-style: italic;
+    font-family: var(--font-family);
+  }
 }
 .subscription-form__submit {
   @include rfs($font-size-14);
-  padding-top: var(--spacer-sm);
-  padding-bottom: var(--spacer-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .v-spinner {
     margin-left: var(--spacer-sm);
   }
