@@ -203,8 +203,8 @@ export default {
           this.n += 1;
         }
       }
-      if (document.querySelector('input[name="dicotomico_no"]:checked')) {
-        document.querySelector('input[name="dicotomico_no"]:checked').checked = false;
+      if (document.querySelector('input[id="dicotomico_no"]:checked')) {
+        document.querySelector('input[id="dicotomico_no"]:checked').checked = false;
       }
     },
     setAnswer(event) {
