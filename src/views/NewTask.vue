@@ -224,6 +224,7 @@ export default {
     padding-top: var(--spacer-sm);
     font-weight: 600;
     color: var(--color-brand-darkest);
+    padding-bottom: var(--spacer);
     svg {
       width: 20px;
       height: 20px;
@@ -338,9 +339,9 @@ export default {
       }
       .tts {
         margin-left: auto;
-        path {
-          fill: var(--color-brand-light);
-        }
+      }
+      .tts ::v-deep path {
+        fill: var(--color-brand-light);
       }
     }
   }
@@ -366,6 +367,8 @@ export default {
   .thanks-message__footer {
     z-index: 100000;
     position: relative;
+    padding-top: var(--spacer);
+    background-color: var(--color-brand-darkest);
   }
   .thanks-message__footer-description {
     @include rfs($font-size-16);
@@ -374,9 +377,18 @@ export default {
     margin-bottom: var(--spacer);
   }
   .thanks-message__form {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-gap: var(--spacer-sm);
+    .subscription-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-gap: var(--spacer-sm);
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      .v-spinner {
+        margin-left: var(--spacer-sm);
+      }
+    }
   }
   .thanks-message__email {
     @include rfs($font-size-14);
