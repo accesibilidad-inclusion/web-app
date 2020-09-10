@@ -108,7 +108,7 @@ export default {
   .place-block__evaluation {
     @include rfs($font-size-12);
     grid-column: 1/4;
-    margin-top: var(--sapcer-sm);
+    margin-top: var(--spacer-sm);
     line-height: 1.33333;
     text-transform: uppercase;
     color: var(--color-text);

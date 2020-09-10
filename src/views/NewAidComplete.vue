@@ -10,8 +10,8 @@
           + 'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n'
           + 'Volver\n\n\n\n\n\n'
           + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
-        <h2 class="onboarding__title">Gracias por tu aporte</h2>
-        <p class="onboarding__description">Estás ayudando al mundo a ser un lugar más accesible</p>
+        <h2 class="onboarding__title">Gracias por<br> tu aporte</h2>
+        <p class="onboarding__description">Estás ayudando al mundo a<br> ser un lugar más accesible</p>
         <router-link :to="'/lugares/' + venue.id" class="onboarding__link">
           Volver a {{ venue.name }}
         </router-link>

@@ -55,9 +55,9 @@
                 + 'Volver\n\n\n\n\n\n'
                 + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
               <h2 class="thanks-message__title">
-                Gracias por tu aporte
+                Gracias por<br> tu aporte
               </h2>
-              <p class="thanks-message__description">Estás ayudando al mundo a ser un lugar más accesible</p>
+              <p class="thanks-message__description">Estás ayudando al mundo a<br> ser un lugar más accesible</p>
               <router-link :to="'/lugares/' + venue.id" class="thanks-message__back">Volver a {{ venue.name }}</router-link>
             </div>
           </div>
@@ -348,14 +348,12 @@ export default {
   .thanks-message__title {
     margin-top: var(--spacer);
     text-transform: uppercase;
-    max-width: 190px;
     color: var(--color-highlight);
   }
   .thanks-message__description {
     @include rfs($font-size-16);
     font-weight: bold;
     color: var(--color-background);
-    max-width: 15rem;
     margin-top: var(--spacer);
   }
   .thanks-message__back {

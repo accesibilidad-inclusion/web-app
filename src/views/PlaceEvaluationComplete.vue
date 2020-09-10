@@ -53,7 +53,7 @@ export default {
 @import '@/assets/scss/rfs.scss';
 
 .onboarding ::v-deep .onboarding__title {
-  @include rfs($font-size-21);
+  @include rfs($font-size-18);
   margin-top: auto;
   text-transform: uppercase;
 }
