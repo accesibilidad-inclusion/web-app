@@ -11,109 +11,51 @@
       </p>
     </header>
     <main class="search-results__hits">
-      <h2 class="search-results__hits__title">Ir de un punto a otro</h2>
-      <task-block v-for="task in tasks"
-        v-bind:key="task.id" v-bind:task="task" v-bind:title="task.place">
-      </task-block>
+      <template v-if="loading">
+        <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
+      </template>
+      <template v-else>
+        <template v-if="!tasks.length">
+        </template>
+        <template v-else>
+          <task-block v-for="task in tasks"
+            v-bind:key="task.id" v-bind:task="task" v-bind:title="task.place">
+          </task-block>
+        </template>
+      </template>
     </main>
   </div>
 </template>
 
 <script>
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import TaskBlock from '@/components/TaskBlock.vue';
 
 export default {
   name: 'searchResults',
   components: {
+    ClipLoader,
     TextToSpeech,
     TaskBlock,
   },
   data() {
     return {
-      tasks: [
-        {
-          id: 1,
-          title: 'Ir de un punto a otro',
-          place: 'Estación Metro Miramar',
-          service: 'Metro de Valparaíso',
-          aids: [
-            {
-              type: 'graphic',
-              enabled: true,
-            },
-            {
-              type: 'written',
-              enabled: true,
-            },
-            {
-              type: 'aural',
-              enabled: true,
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: 'Ir de un punto a otro',
-          place: 'Terminal de buses de Viña del Mar',
-          service: 'Terminal de buses Rodoviario',
-          aids: [
-            {
-              type: 'graphic',
-              enabled: false,
-            },
-            {
-              type: 'written',
-              enabled: true,
-            },
-            {
-              type: 'aural',
-              enabled: false,
-            },
-          ],
-        },
-        {
-          id: 3,
-          title: 'Ir de un punto a otro',
-          place: 'Estación Viña del Mar',
-          service: 'Metro de Valparaíso',
-          aids: [
-            {
-              type: 'graphic',
-              enabled: true,
-            },
-            {
-              type: 'written',
-              enabled: false,
-            },
-            {
-              type: 'aural',
-              enabled: true,
-            },
-          ],
-        },
-        {
-          id: 4,
-          title: 'Ir de un punto a otro',
-          place: 'Estación Hospital',
-          service: 'Metro de Valparaíso',
-          aids: [
-            {
-              type: 'graphic',
-              enabled: false,
-            },
-            {
-              type: 'written',
-              enabled: true,
-            },
-            {
-              type: 'aural',
-              enabled: true,
-            },
-          ],
-        },
-      ],
+      tasks: [],
+      loading: true,
     };
+  },
+  beforeMount() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/search`, {
+        query: this.$route.query.s,
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      }).then((result) => {
+        this.tasks = result.data;
+        this.loading = false;
+      });
+    });
   },
 };
 </script>

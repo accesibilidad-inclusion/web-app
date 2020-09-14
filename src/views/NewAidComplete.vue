@@ -1,24 +1,47 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="onboarding onboarding--dark">
-    <div class="container onboarding__background-image">
-      <template>
+  <div class="onboarding onboarding--dark onboarding__background-image">
+    <div class="container">
+      <template v-if="state.submitting">
+        <clip-loader :loading="state.submitting" :color="'#fff'" :size="'1rem'" class="mt-auto mb-auto"></clip-loader>
+      </template>
+      <template v-else>
         <text-to-speech :text-audio="'Gracias por tu aporte\n\n\n\n\n\n'
           + 'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n'
           + 'Volver\n\n\n\n\n\n'
           + '¿Quieres que te avisemos cuando publiquemos tu aporte?'" />
-        <h2 class="onboarding__title-complete">Gracias por<br> tu aporte</h2>
-        <p class="onboarding__description-complete">Estas ayudando al mundo a ser un lugar más accesible</p>
-        <router-link to="/lugares/:placeId/" class="onboarding__back">Volver a la Estación del Mar</router-link>
+        <h2 class="onboarding__title">Gracias por<br> tu aporte</h2>
+        <p class="onboarding__description">Estás ayudando al mundo a<br> ser un lugar más accesible</p>
+        <router-link :to="'/lugares/' + venue.id" class="onboarding__link">
+          Volver a {{ venue.name }}
+        </router-link>
         <footer class="onboarding__footer">
-          <p class="onboarding__footer-description-complete">¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
-          <button class="btn btn--large btn--block btn--ghost" @click="openEmail">
-            Sí, avísame
-          </button>
-          <form class="onboarding__form" v-bind:class="'complete' + ( state.shown_modal ? ' complete--fade' : '' ) + ( state.closed_modal ? ' complete--fade-out' : '' )">
-            <input class="onboarding__email" type="email" placeholder="Escribe tu mail aquí">
-            <button type="submit" class="btn btn--large btn--ghost" @click="closeEmail">Enviar</button>
-          </form>
+          <template v-if="submited">
+            <p class="onboarding__description subscription-form__description">
+              Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            </p>
+          </template>
+          <template v-else>
+            <p class="onboarding__description subscription-form__description">
+              ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            </p>
+            <template v-if="!show_subscription_form">
+              <button type="button" @click="show_subscription_form = true" class="btn btn--block btn--ghost subscription-form__submit">
+                Sí, avísame
+              </button>
+            </template>
+            <template v-else>
+              <form class="subscription-form" @submit="submitSubscription">
+                <input type="email" v-model="subscription_email" class="subscription-form__control" placeholder="Escribe tu email aquí">
+                <button type="submit" class="btn btn--ghost subscription-form__submit" :disabled="submitting_subscription">
+                  Enviar
+                  <template v-if="submitting_subscription">
+                    <clip-loader :loading="submitting_subscription" :color="'#fff'" :size="'1rem'"></clip-loader>
+                  </template>
+                </button>
+              </form>
+            </template>
+          </template>
         </footer>
       </template>
     </div>
@@ -26,39 +49,60 @@
 </template>
 
 <script>
+import Venue from '@/models/Venue';
+import Task from '@/models/Task';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 
 export default {
-  name: 'NewAidComplete',
+  name: 'NewAidConfirmation',
   components: {
+    ClipLoader,
     TextToSpeech,
   },
   data() {
     return {
       state: {
-        shown_modal: false,
-        closed_modal: null,
+        submitting: false,
       },
+      show_subscription_form: false,
+      submitting_subscription: false,
+      submited: false,
+      id: null,
+      subscription_email: '',
+      venue: new Venue(this.$store.state.selected.venue),
+      task: new Task(this.$store.state.selected.task),
+      proposal: this.$store.state.proposalPictos,
     };
   },
   methods: {
-    openEmail() {
-      this.$data.state.shown_modal = true;
-      this.$data.state.closed_modal = false;
+    submitSubscription(event) {
+      event.preventDefault();
+      this.submitting_subscription = true;
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/proposal_tasks/addNotification`, {
+        id: this.id,
+        email: this.subscription_email,
+      }).then((result) => {
+        this.submited = true;
+        this.submitting_subscription = false;
+      });
     },
-    closeEmail() {
-      this.$data.state.closed_modal = true;
-    },
+  },
+  created() {
+    this.$data.state.submitting = true;
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/proposal_tasks/store`, {
+      task: this.task,
+      proposal: this.proposal,
+    }).then((result) => {
+      this.$data.state.submitting = false;
+      this.id = result.data.id;
+    });
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
-.onboarding ::v-deep .onboarding__title-complete {
-  margin-top: var(--spacer);
-  text-transform: uppercase;
-}
 .onboarding__background-image {
   background-image: url('../../public/img/illustrations/background.svg');
   background-size: cover;
@@ -70,26 +114,30 @@ export default {
     fill: var(--color-brand-light);
   }
 }
-.onboarding__description-complete {
+.onboarding__title {
+  text-transform: uppercase;
+}
+.onboarding__description {
   @include rfs($font-size-16);
   font-weight: bold;
-  color: var(--color-background);
-  max-width: 15rem;
-  margin-top: var(--spacer);
+  line-height: calc(22/16);
+  color: #fff;
 }
-.onboarding__back {
+.onboarding__link {
+  @include rfs($font-size-16);
+  font-weight: bold;
   color: var(--color-highlight);
 }
-.onboarding__footer-description-complete {
-  @include rfs($font-size-16);
-  font-weight: bold;
-}
-.onboarding__form {
+.subscription-form {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-gap: var(--spacer-sm);
 }
-.onboarding__email {
+.subscription-form__description {
+  margin-bottom: var(--spacer);
+  color: var(--color-highlight);
+}
+.subscription-form__control {
   @include rfs($font-size-14);
   padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
   border: 2px solid var(--color-background);
@@ -101,20 +149,13 @@ export default {
     font-family: var(--font-family);
   }
 }
-.complete {
-  position: absolute;
-  top: 100%;
-  overflow: hidden;
-  transition: top .35s ease;
-}
-.complete--fade {
-  transition: var(--transition-base);
-  position: relative;
-  overflow: initial;
-  top: initial;
-  animation: quickScaleUp 0s .5s linear forwards;
-}
-.complete--fade-out {
-  animation: quickScaleDown 0s .5s linear forwards;
+.subscription-form__submit {
+  @include rfs($font-size-14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .v-spinner {
+    margin-left: var(--spacer-sm);
+  }
 }
 </style>

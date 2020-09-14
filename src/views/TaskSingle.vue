@@ -3,29 +3,29 @@
   <div class="task__single">
     <header class="task__header entries-list__header">
       <p class="entries-list__description task__description">
-        <router-link :to="{ name: 'place-single', params: { 'placeId': task.place_id } }">{{ task.place }}</router-link>
+        <router-link :to="{ name: 'place-single', params: { 'placeId': venue.id } }">{{ venue.name }}</router-link>
         en
-        <router-link :to="{ name: 'service-single', params: { 'serviceId': task.service_id } }">{{ task.service }}</router-link>
+        <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
       </p>
       <h1 class="task__title entries-list__title">{{ task.title }}</h1>
-      <text-to-speech :text-audio="`${this.task.title}. ${this.task.place}, en ${this.task.service}`" />
+      <text-to-speech :text-audio="`${this.task.title}.\n\n\n\n\n ${this.venue.name}, en ${this.service.name}`" />
     </header>
     <main class="task__main">
       <ol class="task__steps"
         v-touch:swipe.left="advanceStep"
         v-touch:swipe.right="rewindStep"
       >
-        <li v-for="step in task.steps"
+        <li v-for="(step, index) in task.steps"
           v-bind:step="step"
           v-bind:key="step.id"
-          v-bind:class="'task-step'+ ( step.order === state.active_step ?
+          v-bind:class="'task-step'+ ( index === state.active_step ?
           ' task-step--active' : '')"
         >
           <figure class="task-step__figure">
             <div class="step-canvas">
-              <pictogram :layers="step.layers"></pictogram>
+              <pictogram v-if="step.pictogram" :layers="step.pictogram.images"></pictogram>
             </div>
-            <figcaption class="task-step__legend">{{ step.legend }}</figcaption>
+            <figcaption class="task-step__legend">{{ step.label }}</figcaption>
           </figure>
         </li>
         <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
@@ -38,11 +38,10 @@
               <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
             </button>
           </div>
-          <!-- Invertir condiciones -->
-          <template v-if="task.aids.length > 0">
+          <template v-if="!task.steps.filter( s => s.pictogram ).length">
             <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
             <router-link
-              :to="{ path: '/nuevo-apoyo/intro' }"
+              to="/nuevo-apoyo/intro"
               class="btn btn--large btn--block btn--ghost"
             >
               Crear el apoyo gráfico
@@ -50,10 +49,10 @@
           </template>
           <template v-else>
             <router-link
-              :to="{ name: 'place-single', params: { 'placeId': task.place_id } }"
+              :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
               class="btn btn--large btn--block btn--ghost"
             >
-              Volver a {{ task.place }}
+              Volver a {{ venue.name }}
             </router-link>
           </template>
           <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
@@ -71,10 +70,10 @@
           Siguiente
         </button>
         <ol class="task__steps-indicator">
-          <li v-for="step in task.steps" v-bind:step="step" v-bind:key="step.id"
-            v-bind:class="state.active_step >= step.order ?
+          <li v-for="(step, index) in task.steps" v-bind:step="step" v-bind:key="step.id"
+            v-bind:class="state.active_step >= index ?
               'task__step-indicator--active' : 'task__step-indicator'">
-            {{ step.order }}
+            {{ index }}
           </li>
           <li v-bind:class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
             {{ task.steps.length }}
@@ -86,7 +85,7 @@
     <button @click="openFeedback" v-bind:class="'task__step-feedback' +
       ( state.active_helpful === true || state.opened_modal === true ?
         ' task__step-feedback--hidden' : '' )">
-      Reportar un problema con este paso
+      Reportar un problema con esta tarea
     </button>
     <!-- Bloque y formulario para feedback -->
     <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
@@ -94,7 +93,7 @@
         <div v-bind:class="'task-feedback' + ( state.submitted_feedback ? ' task-feedback--submitted' : '' )">
           <button type="button" class="modal__close" @click="closeFeedback"><icon-error></icon-error></button>
           <form class="task-feedback__form" @submit.prevent="submitFeedback" v-if="!state.submitted_feedback">
-            <h2 class="task-feedback__title">Reportar un problema con este paso</h2>
+            <h2 class="task-feedback__title">Reportar un problema con esta tarea</h2>
             <textarea class="task-feedback__control" v-model="feedback.body"
               placeholder="Ejemplo: El pictograma no coincide con la instrucción" required></textarea>
             <button v-bind:class="'task-feedback__submit btn btn--large btn--block' +
@@ -116,6 +115,10 @@
 </template>
 
 <script>
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
+// eslint-disable-next-line import/no-named-as-default-member
+import Task from '@/models/Task';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import Pictogram from '@/components/Pictogram.vue';
@@ -150,9 +153,27 @@ export default {
     },
     likedStep() {
       this.$data.state.was_helpful = true;
+      if (!this.$data.state.was_liked) {
+        this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/liked`, {
+          id: this.$store.state.selected.task.id,
+          was_disliked: this.$data.state.was_disliked,
+        }).then((result) => {
+          this.$data.state.was_liked = true;
+          this.$data.state.was_disliked = null;
+        });
+      }
     },
     dislikedStep() {
       this.$data.state.was_helpful = false;
+      if (!this.$data.state.was_disliked) {
+        this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/disliked`, {
+          id: this.$store.state.selected.task.id,
+          was_liked: this.$data.state.was_liked,
+        }).then((result) => {
+          this.$data.state.was_disliked = true;
+          this.$data.state.was_liked = null;
+        });
+      }
     },
     openFeedback() {
       this.$data.state.shown_modal = true;
@@ -165,11 +186,23 @@ export default {
     },
     submitFeedback() {
       this.$data.state.submitting_feedback = true;
-      setTimeout(() => {
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/reports/store`, {
+        report: this.feedback.body,
+        user: this.$store.state.user,
+        task: this.$store.state.selected.task,
+      }).then((result) => {
         this.$data.state.submitted_feedback = true;
         this.$data.state.submitting_feedback = false;
-      }, 2000);
+      });
     },
+  },
+  beforeMount() {
+    this.$store.dispatch('setSelectedItem', {
+      object: 'task',
+      item: this.venue.tasks.find(t => t.id === parseInt(this.$route.params.taskId, 10)),
+    }).then(() => {
+      this.task.set(this.$store.state.selected.task);
+    });
   },
   data() {
     return {
@@ -177,6 +210,8 @@ export default {
         active_step: 0,
         active_helpful: false,
         was_helpful: null,
+        was_liked: null,
+        was_disliked: null,
         shown_modal: false,
         opened_modal: false,
         closed_modal: null,
@@ -184,72 +219,10 @@ export default {
         submitted_feedback: false,
         error_feedback: false,
       },
-      task: {
-        id: 1,
-        title: 'Viajar de un punto a otro',
-        place: 'Estación Viña del Mar',
-        place_id: 1,
-        service: 'Metro de Valparaíso',
-        service_id: 1,
-        aids: [
-          {
-            type: 'graphic',
-            enabled: true,
-          },
-          {
-            type: 'written',
-            enabled: true,
-          },
-          {
-            type: 'aural',
-            enabled: true,
-          },
-        ],
-        steps: [
-          {
-            id: 1,
-            order: 0,
-            legend: 'Pasa tu tarjeta por el sensor del torniquete',
-            layers: {
-              subject: {
-                img: '1-subject/handle--third-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/turnstile.svg',
-              },
-              context: {
-                img: '3-context/sign-center.svg',
-              },
-            },
-          },
-          {
-            id: 2,
-            order: 1,
-            legend: 'Baja al andén correspondiente',
-            layers: {
-              subject: {
-                img: '1-subject/go-down--third-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/exit.svg',
-              },
-            },
-          },
-          {
-            id: 3,
-            order: 2,
-            legend: 'Espera el metro detrás de la línea',
-            layers: {
-              subject: {
-                img: '1-subject/wait-side--first-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/metro--front.svg',
-              },
-            },
-          },
-        ],
-      },
+      task: new Task(this.$store.state.selected.venue.the_tasks
+        .find(t => t.id === parseInt(this.$route.params.taskId, 10))),
+      service: new Service(this.$store.state.selected.service),
+      venue: new Venue(this.$store.state.selected.venue),
       feedback: {
         body: '',
       },
@@ -319,6 +292,7 @@ export default {
     flex-flow: column nowrap;
     flex-grow: 1;
     background: var(--color-brand-lightest);
+    max-height: 55vh;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
@@ -436,6 +410,16 @@ export default {
     gap: var(--spacer);
     width: 100%;
     margin-bottom: var(--spacer-lg);
+    @media screen and ( max-width: 400px ) {
+    // Hack Safari
+      @media not all and (min-resolution:.001dpcm) {
+        @supports (-webkit-appearance:none) {
+          display: flex;
+          justify-content: space-between;
+          gap: normal;
+        }
+      }
+    }
   }
   .task-helpful__answer {
     cursor: pointer;
@@ -454,6 +438,14 @@ export default {
     &.task-helpful__answer--active {
       background-color: var(--color-highlight);
       border-color: var(--color-highlight);
+    }
+    @media screen and ( max-width: 400px ) {
+    // Hack Safari
+      @media not all and (min-resolution:.001dpcm) {
+        @supports (-webkit-appearance:none) {
+          flex: 0 1 47%;
+        }
+      }
     }
   }
   .task-helpful__label {
@@ -538,7 +530,7 @@ export default {
   .task-feedback {
     position: absolute;
     width: calc(100vw - var(--spacer) );
-    height: calc(100vh - var(--spacer-lg) );
+    height: 100%;
     top: 100%;
     left: 0;
     right: 0;
@@ -619,6 +611,7 @@ export default {
   }
   .task-feedback__submit {
     margin-top: auto;
+    margin-bottom: var(--spacer-lg);
   }
   .task-feedback__response {
     display: flex;
@@ -639,5 +632,6 @@ export default {
   }
   .task-feedback__response-close {
     margin-top: auto;
+    margin-bottom: var(--spacer-lg);
   }
 </style>

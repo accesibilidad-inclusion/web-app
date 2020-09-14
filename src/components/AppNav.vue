@@ -1,7 +1,7 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="app-nav" v-bind:class="{ 'app-nav--dark': state.dark }" id="nav">
-    <back-button></back-button>
+    <back-button v-if="$route.name !== 'home'" v-on:comeback="$emit('comeback')"></back-button>
     <router-link to="/home" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
     </router-link>
@@ -21,7 +21,7 @@
             <nav class="app-menu__body">
               <ul class="app-menu__items">
                 <li>
-                  <router-link to="/" @click.native="closeMenu">PICTOS</router-link>
+                  <router-link to="/" @click.native="closeMenu">Inicio</router-link>
                 </li>
                 <li>
                   <router-link to="/acerca-de" @click.native="closeMenu">Acerca de</router-link>
@@ -33,7 +33,7 @@
                   <router-link to="/colabora-con-nosotros" @click.native="closeMenu">Colabora con nosotros</router-link>
                 </li>
                 <li>
-                  <router-link to="/" @click.native="closeMenu">Reactivar tutoriales</router-link>
+                  <router-link to="/onboarding" @click.native="closeMenu">Reactivar tutoriales</router-link>
                 </li>
               </ul>
             </nav>
@@ -77,7 +77,8 @@ export default {
     },
     isDark() {
       this.$data.state.dark = this.$route.path.indexOf('nuevo-apoyo') !== -1
-        || this.$route.path.indexOf('lugares') !== -1;
+        || this.$route.path.indexOf('lugares') !== -1
+        || this.$route.path.indexOf('evaluacion-lugar') !== -1;
     },
   },
   watch: {
@@ -118,6 +119,7 @@ export default {
   font-weight: 600;
   background: none;
   border: 0;
+  margin-left: auto;
   .app-nav--dark & {
     transition: var(--transition-nav-dark);
     color: var(--color-background);
@@ -132,16 +134,20 @@ export default {
   }
 }
 .app-nav__logo-wrapper {
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  right: 0;
+  left: 0;
+  text-align: center;
+  width: 86px;
+  margin: 0 auto;
 }
 .app-nav__logo {
   width: 55px;
   height: 11px;
-  // .app-nav--dark & path {
-  //   transition: var(--transition-nav-dark);
-  //   fill: var(--color-background);
-  // }
+  .app-nav--dark & path {
+    transition: var(--transition-nav-dark);
+    fill: var(--color-background);
+  }
   @media screen and ( min-width: 640px ) {
     width: 86px;
     height: 17px;

@@ -5,7 +5,7 @@
       <IconPermissions class="onboarding__permissions-image" />
       <p class="text-center">Necesitamos que nos permitas acceder a la cámara de tu dispositivo para que puedas tomar fotos durante la evaluación</p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'/evaluacion-lugar/intro'" />
+        <OnboardingNext :linkTo="'/evaluacion-lugar/'" />
       </footer>
     </div>
   </div>

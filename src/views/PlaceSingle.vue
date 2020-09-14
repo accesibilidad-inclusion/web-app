@@ -2,52 +2,77 @@
 <template>
   <div class="place">
     <header class="place__header">
-      <router-link :to="'/servicios/1'" class="place__service">{{ place.service }}</router-link>
+      <router-link :to="'/servicios/' + service.id" class="place__service">{{ service.name }}</router-link>
       <h1 class="place__name">{{ place.name }}</h1>
-      <a href="#" class="place__map-link">
+      <a :href="place.mapLink" class="place__map-link" target="_blank" v-if="place.mapLink">
         <icon-location-pin />
         Abrir en mapa
       </a>
-      <text-to-speech :text-audio="`${place.name}, en ${place.service}`" />
+      <text-to-speech :text-audio="`${place.name}, en ${service.name}`" />
     </header>
-    <main class="place__tasks">
-      <p class="place__tasks-description">
-        <span>Selecciona lo que necesites hacer en este lugar</span>
-        <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
-      </p>
-      <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
-    </main>
-    <aside class="actions actions--place">
-      <div class="actions__header">
-        <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
-        <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
-        <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
-      </div>
-      <router-link to="/nueva-tarea/intro" class="btn btn--primary btn--large btn--block" tag="button">
-        &plus; Agregar una tarea nueva
-      </router-link>
-    </aside>
-    <footer class="place__footer">
-      <router-link :to="'/evaluacion/5'" class="place__evaluation">
-        <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
-        <div class="place__evaluation-title">{{ evaluation.title }}</div>
-        <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">{{ evaluation.grade }}</div>
-        <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
-      </router-link>
-      <div class="place__evaluation-actions">
-        <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
-        <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--ghost btn--large btn--block">
-          Evaluar este lugar
+    <template v-if="tasks.length">
+      <main class="place__tasks">
+        <p class="place__tasks-description">
+          <span>Selecciona lo que necesites hacer en este lugar</span>
+          <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
+        </p>
+        <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
+      </main>
+      <aside class="actions actions--place">
+        <div class="actions__header">
+          <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
+          <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
+          <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
+        </div>
+        <router-link to="/nueva-tarea/intro" class="btn btn--primary btn--large btn--block" tag="button">
+          &plus; Agregar una tarea nueva
         </router-link>
-      </div>
-    </footer>
+      </aside>
+      <footer class="place__footer">
+        <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
+          <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
+          <div class="place__evaluation-title">{{ evaluation.title }}</div>
+          <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+            <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
+            <span v-else>!</span>
+          </div>
+          <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
+        </router-link>
+        <div class="place__evaluation-actions">
+          <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
+          <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--ghost btn--large btn--block">
+            Evaluar este lugar
+          </router-link>
+        </div>
+      </footer>
+    </template>
+    <template v-else>
+      <main class="place__tasks">
+        <p class="place__tasks-description">
+          <icon-no-information />
+          <span>Este lugar no tiene información</span>
+        </p>
+      </main>
+      <aside class="actions actions--place">
+        <div class="actions__header">
+          <text-to-speech :text-audio="'Ayudanos a mejorar'" />
+          <p class="actions__title">Ayudanos a mejorar</p>
+        </div>
+        <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
+          &plus; Agregar tareas a este lugar
+        </router-link>
+      </aside>
+    </template>
   </div>
 </template>
 
 <script>
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
 import TaskBlock from '@/components/TaskBlock.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
+import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
 
 export default {
   name: 'placeSingle',
@@ -55,69 +80,30 @@ export default {
     TaskBlock,
     TextToSpeech,
     IconLocationPin,
+    IconNoInformation,
+  },
+  beforeMount() {
+    this.$store.dispatch('setSelectedItem', {
+      object: 'venue',
+      item: this.$store.state.selected.service.near_venues
+        .find(v => v.id === parseInt(this.$route.params.placeId, 10)),
+    }).then(() => {
+      this.service.set(this.$store.state.selected.service);
+      this.place = new Venue(this.$store.state.selected.venue);
+      this.tasks = this.place.tasks;
+    });
   },
   data() {
     return {
-      place: {
-        name: 'Estación Viña del Mar',
-        service: 'Metro de Valparaíso',
-        evaluation: 5,
-      },
-      tasks: [
-        // objetos de tipo "tarea"
-        {
-          id: 1,
-          title: 'Viajar de un punto a otro',
-          place: 'Estación Metro Miramar',
-          service: 'Metro de Valparaíso',
-          aids: [
-            {
-              type: 'graphic',
-              name: 'Gráfico',
-              enabled: true,
-            },
-            {
-              type: 'written',
-              name: 'Escrito',
-              enabled: true,
-            },
-            {
-              type: 'aural',
-              name: 'Auditivo',
-              enabled: true,
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: 'Ir de un punto a otro',
-          place: 'Terminal de buses de Viña del Mar',
-          service: 'Terminal de buses Rodoviario',
-          aids: [
-            {
-              type: 'graphic',
-              name: 'Gráfico',
-              enabled: false,
-            },
-            {
-              type: 'written',
-              name: 'Escrito',
-              enabled: false,
-            },
-            {
-              type: 'aural',
-              name: 'Auditivo',
-              enabled: true,
-            },
-          ],
-        },
-      ],
+      service: new Service(this.$store.state.selected.service),
+      place: new Venue(this.$store.state.selected.venue),
+      tasks: [],
     };
   },
   computed: {
     evaluation() {
-      return this.$store.state.evaluations
-        .find(evaluation => evaluation.grade === this.place.evaluation);
+      const score = this.place.evaluation ? this.place.evaluation.score : 0;
+      return this.$store.state.evaluations.find(evaluation => evaluation.grade === score);
     },
   },
 };
@@ -233,7 +219,6 @@ export default {
     }
   }
   .actions--place {
-    margin-bottom: var(--spacer-lg);
     padding-top: var(--spacer-lg);
     padding-bottom: var(--spacer-lg);
     background-color: var(--color-brand-lighter);
@@ -322,7 +307,7 @@ export default {
     margin-right: auto;
     font-size: 2rem;
     line-height: 3.125rem;
-    color: var(--color-text);
+    color: var(--color-brand-darker);
     @media screen and ( min-width: 640px ) {
       width: 3.5rem;
       height: 3.5rem;

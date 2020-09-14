@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@vue/composition-api": "^0.5.0",
+    "axios": "^0.19.2",
     "core-js": "^3.4.4",
     "opensans-npm-webfont": "^1.0.0",
     "pictos": "^0.6.1",

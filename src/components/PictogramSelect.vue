@@ -11,18 +11,18 @@
       <slide
         class="pictogram-select__item"
         v-for="picto in pictos"
-        v-bind:key="picto.path"
-        v-bind:data-name="picto.path"
+        v-bind:key="picto.id"
+        v-bind:data-name="picto.label"
         data-index="0"
       >
         <div class="pictogram-wrapper">
           <label
             class="pictogram-button"
-            v-bind:class="[ selected === picto.path ? 'pictogram-button--active' : '' ]"
+            v-bind:class="[ selected === picto.id ? 'pictogram-button--active' : '' ]"
           >
-            <img v-bind:src="`/pictos/src/${picto.path}`" class="pictogram-button__image">
+            <img v-bind:src="`${picto.path + picto.filename}`" class="pictogram-button__image">
             <span class="pictogram-button__name">{{ picto.label }}</span>
-            <input type="radio" v-bind:value="picto.path" v-model="selected">
+            <input type="radio" v-bind:value="picto.id" v-model="selected">
           </label>
           <button type="button" class="pictogram-cancel" v-on:click="reset"></button>
         </div>
@@ -44,7 +44,7 @@ export default {
       type: String,
     },
     value: {
-      type: String,
+      type: Number,
     },
   },
   components: {

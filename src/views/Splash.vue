@@ -31,16 +31,18 @@ export default {
     };
   },
   mounted() {
-    if (localStorage.onboarding === undefined) {
+    if (!this.$store.state.user.id) {
       setTimeout(() => {
         this.showOnboarding = true;
         this.$router.push('/onboarding/');
       }, 2000);
     } else {
-      setTimeout(() => {
+      this.$store.dispatch('loadQuestions');
+      this.$store.dispatch('loadPictos');
+      this.$store.dispatch('loadData').then(() => {
         this.showOnboarding = true;
         this.$router.push('/home');
-      }, 2000);
+      });
     }
   },
 };

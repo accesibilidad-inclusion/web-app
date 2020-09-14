@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <app-nav></app-nav>
+    <app-nav v-on:comeback="backEvaluation"></app-nav>
     <transition name="slide">
-      <router-view/>
+      <router-view ref="view"/>
     </transition>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import AppNav from '@/components/AppNav.vue';
 
 export default {
@@ -16,10 +16,16 @@ export default {
     AppNav,
   },
   beforeCreate() {
+    this.$store.commit('initializeStore');
     const speech = new SpeechSynthesisUtterance('');
     speech.pitch = 0;
     speech.rate = 100;
     window.speechSynthesis.speak(speech);
+  },
+  methods: {
+    backEvaluation() {
+      this.$refs.view.comeback();
+    },
   },
 };
 </script>

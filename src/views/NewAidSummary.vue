@@ -11,8 +11,8 @@
         <text-to-speech :text-audio="'Revisa que los pictogramas estén correctos'" />
       </header>
       <!-- Loop de pasos -->
-      <template v-for="step in task.steps">
-        <step-block v-bind:key="step.id" v-bind:step="step"></step-block>
+      <template v-for="(step, index) in proposal">
+        <step-block v-bind:key="step.id" v-bind:proposal="step" v-bind:index="index"></step-block>
       </template>
     </form>
     <div class="new-aid__actions">
@@ -30,6 +30,7 @@
 <script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import StepBlock from '@/components/StepBlock.vue';
+import Task from '@/models/Task';
 
 export default {
   name: 'NewAidSummary',
@@ -39,76 +40,15 @@ export default {
   },
   data() {
     return {
-      task: {
-        id: 1,
-        title: 'Viajar de un punto a otro',
-        place: 'Estación Viña del Mar',
-        place_id: 1,
-        service: 'Metro de Valparaíso',
-        service_id: 1,
-        aids: [
-          {
-            type: 'graphic',
-            enabled: true,
-          },
-          {
-            type: 'written',
-            enabled: true,
-          },
-          {
-            type: 'aural',
-            enabled: true,
-          },
-        ],
-        steps: [
-          {
-            id: 1,
-            order: 0,
-            legend: 'Pasa tu tarjeta por el sensor del torniquete',
-            layers: {
-              subject: {
-                img: '1-subject/handle--third-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/turnstile.svg',
-              },
-              context: {
-                img: '3-context/sign-center.svg',
-              },
-            },
-          },
-          {
-            id: 2,
-            order: 1,
-            legend: 'Baja al andén correspondiente',
-            layers: {
-              subject: {
-                img: '1-subject/go-down--third-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/exit.svg',
-              },
-            },
-          },
-          {
-            id: 3,
-            order: 2,
-            legend: 'Espera el metro detrás de la línea',
-            layers: {
-              subject: {
-                img: '1-subject/wait-side--first-quadrant.svg',
-              },
-              landmark: {
-                img: '2-landmarks/metro--front.svg',
-              },
-            },
-          },
-        ],
-      },
+      task: new Task(this.$store.state.selected.task),
+      proposal: this.$store.state.proposalPictos,
     };
   },
   methods: {
     createAid() {
+      this.$router.push({
+        name: 'new-aid-complete',
+      });
     },
   },
 };

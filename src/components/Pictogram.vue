@@ -1,10 +1,9 @@
 <template>
   <div class="pictogram">
-    <template v-for="(layer, type) in layers">
-      <img v-bind:src="`/pictos/src/${layer.img}`"
-        v-if="layer.img"
+    <template v-for="layer in images">
+      <img v-bind:src="`${layer.path}${layer.filename}`"
         v-bind:key="layer.id"
-        v-bind:class="'pictogram__layer pictogram__layer--' + type"
+        class="pictogram__layer"
       >
     </template>
   </div>
@@ -16,6 +15,12 @@ export default {
   data() {
     return {
     };
+  },
+  computed: {
+    images() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.layers.sort((a, b) => b.layout - a.layout);
+    },
   },
 };
 </script>

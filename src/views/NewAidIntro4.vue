@@ -18,13 +18,14 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <OnboardingNext :linkTo="'/nuevo-apoyo/1'" />
+        <OnboardingNext :linkTo="'/nuevo-apoyo/' + step.id" />
       </footer>
     </div>
   </div>
 </template>
 
 <script>
+import Task from '@/models/Task';
 import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import PageImage from '../../public/img/illustrations/epica-9-avisame.svg?inline';
@@ -35,6 +36,16 @@ export default {
     OnboardingNext,
     TextToSpeech,
     PageImage,
+  },
+  data() {
+    return {
+      task: new Task(this.$store.state.selected.task),
+    };
+  },
+  computed: {
+    step() {
+      return this.task.steps[0];
+    },
   },
 };
 </script>

@@ -17,28 +17,28 @@
         " />
       </h2>
       <div class="custom-control custom-control--checkbox">
-        <input type="checkbox" name="disabilities" id="intelectual" value="intelectual" class="custom-control__input"
-          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('intelectual')">
+        <input type="checkbox" name="disabilities" id="intelectual" value="Intelectual" class="custom-control__input"
+          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('Intelectual')">
         <label for="intelectual" class="custom-control__label">Intelectual</label>
       </div>
       <div class="custom-control custom-control--checkbox">
-        <input type="checkbox" name="disabilities" id="fisica" value="fisica" class="custom-control__input"
-          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('fisica')">
+        <input type="checkbox" name="disabilities" id="fisica" value="Fisica" class="custom-control__input"
+          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('Fisica')">
         <label for="fisica" class="custom-control__label">Física</label>
       </div>
       <div class="custom-control custom-control--checkbox">
-        <input type="checkbox" name="disabilities" id="visual" value="visual" class="custom-control__input"
-          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('visual')">
+        <input type="checkbox" name="disabilities" id="visual" value="Visual" class="custom-control__input"
+          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('Visual')">
         <label for="visual" class="custom-control__label">Visual</label>
       </div>
       <div class="custom-control custom-control--checkbox">
-        <input type="checkbox" name="disabilities" id="auditiva" value="auditiva" class="custom-control__input"
-          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('auditiva')">
+        <input type="checkbox" name="disabilities" id="auditiva" value="Auditiva" class="custom-control__input"
+          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('Auditiva')">
         <label for="auditiva" class="custom-control__label">Auditiva</label>
       </div>
       <div class="custom-control custom-control--checkbox">
-        <input type="checkbox" name="disabilities" id="otra" value="otra" class="custom-control__input"
-          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('otra')">
+        <input type="checkbox" name="disabilities" id="otra" value="Otra" class="custom-control__input"
+          v-model="disabilities" @change="disabilitiesChange" :checked="disabilities.includes('Otra')">
         <label for="otra" class="custom-control__label">Otra</label>
       </div>
       <footer class="onboarding__footer">

@@ -19,9 +19,11 @@ import SearchResults from '../views/SearchResults.vue';
 import CategoryArchive from '../views/CategoryArchive.vue';
 import ServiceSingle from '../views/ServiceSingle.vue';
 import PlaceSingle from '../views/PlaceSingle.vue';
-import PlaceEvaluation from '../views/PlaceEvaluation.vue';
+import PlaceScore from '../views/PlaceScore.vue';
 import TaskSingle from '../views/TaskSingle.vue';
 
+import NewPlace from '../views/NewPlace.vue';
+import NewPlaceComplete from '../views/NewPlaceComplete.vue';
 import NewPlaceIntro from '../views/NewPlaceIntro.vue';
 import NewPlaceIntro2 from '../views/NewPlaceIntro2.vue';
 import NewPlaceIntro3 from '../views/NewPlaceIntro3.vue';
@@ -31,7 +33,17 @@ import NewTaskIntro2 from '../views/NewTaskIntro2.vue';
 import NewTaskIntro3 from '../views/NewTaskIntro3.vue';
 import NewTaskIntro4 from '../views/NewTaskIntro4.vue';
 import NewTaskIntro5 from '../views/NewTaskIntro5.vue';
+import NewTask from '../views/NewTask.vue';
 
+import AddTasksIntro from '../views/AddTasksIntro.vue';
+import AddTasksIntro2 from '../views/AddTasksIntro2.vue';
+import AddTasksIntro3 from '../views/AddTasksIntro3.vue';
+import AddTasksIntro4 from '../views/AddTasksIntro4.vue';
+import AddTasksIntro5 from '../views/AddTasksIntro5.vue';
+
+import PlaceEvaluation from '../views/PlaceEvaluation.vue';
+import PlaceEvaluationConfirmation from '../views/PlaceEvaluationConfirmation.vue';
+import PlaceEvaluationComplete from '../views/PlaceEvaluationComplete.vue';
 import PlaceEvaluationIntro from '../views/PlaceEvaluationIntro.vue';
 import PlaceEvaluationIntro2 from '../views/PlaceEvaluationIntro2.vue';
 import PlaceEvaluationIntro3 from '../views/PlaceEvaluationIntro3.vue';
@@ -142,8 +154,8 @@ const routes = [
   },
   {
     path: '/evaluacion/:grade/',
-    name: 'place-evaluation',
-    component: PlaceEvaluation,
+    name: 'place-score',
+    component: PlaceScore,
   },
   {
     path: '/tareas/:taskId/',
@@ -164,6 +176,21 @@ const routes = [
     path: '/nuevo-lugar/intro3',
     name: 'new-place-intro3',
     component: NewPlaceIntro3,
+  },
+  {
+    path: '/nuevo-lugar/',
+    name: 'new-place',
+    component: NewPlace,
+  },
+  {
+    path: '/nuevo-lugar/completo',
+    name: 'new-place-complete',
+    component: NewPlaceComplete,
+  },
+  {
+    path: '/nueva-tarea/',
+    name: 'new-task',
+    component: NewTask,
   },
   {
     path: '/nueva-tarea/intro',
@@ -189,6 +216,46 @@ const routes = [
     path: '/nueva-tarea/intro5',
     name: 'new-task-intro5',
     component: NewTaskIntro5,
+  },
+  {
+    path: '/agregar-tareas-intro',
+    name: 'add-tasks-intro',
+    component: AddTasksIntro,
+  },
+  {
+    path: '/agregar-tareas-intro2',
+    name: 'add-tasks-intro2',
+    component: AddTasksIntro2,
+  },
+  {
+    path: '/agregar-tareas-intro3',
+    name: 'add-tasks-intro3',
+    component: AddTasksIntro3,
+  },
+  {
+    path: '/agregar-tareas-intro4',
+    name: 'add-tasks-intro4',
+    component: AddTasksIntro4,
+  },
+  {
+    path: '/agregar-tareas-intro5',
+    name: 'add-tasks-intro5',
+    component: AddTasksIntro5,
+  },
+  {
+    path: '/evaluacion-lugar/',
+    name: 'place-evaluation',
+    component: PlaceEvaluation,
+  },
+  {
+    path: '/evaluacion-lugar/confirmacion',
+    name: 'place-evaluation-confirmation',
+    component: PlaceEvaluationConfirmation,
+  },
+  {
+    path: '/evaluacion-lugar/completa',
+    name: 'place-evaluation-complete',
+    component: PlaceEvaluationComplete,
   },
   {
     path: '/evaluacion-lugar/intro',
@@ -246,7 +313,7 @@ const routes = [
     component: NewAidStep,
   },
   {
-    path: '/nuevo-apoyo/:stepId/confirmacion/',
+    path: '/nuevo-apoyo/confirmacion/',
     name: 'new-aid-step-confirmation',
     component: NewAidStepConfirmation,
   },

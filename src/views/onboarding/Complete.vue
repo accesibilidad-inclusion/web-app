@@ -37,16 +37,21 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push('/home');
+      this.$router.push('/');
     },
   },
   created() {
     this.$data.state.submitting_user = true;
-    setTimeout(() => {
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/app_users/store`, {
+      birthday: this.$store.state.user.birthday,
+      sex: this.$store.state.user.gender,
+      impairments: JSON.stringify(this.$store.state.user.disabilities),
+    }).then((result) => {
+      this.$store.dispatch('setUserId', result.data.id);
       this.$data.state.user_submitted = true;
       this.$data.state.submitting_user = false;
       localStorage.onboarding = true;
-    }, 2000);
+    });
   },
 };
 </script>

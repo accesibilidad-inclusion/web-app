@@ -16,19 +16,19 @@
         " />
       </h2>
       <div class="custom-control custom-control--radio">
-        <input type="radio" name="gender" id="man" value="man" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'man'">
+        <input type="radio" name="gender" id="man" value="Masculino" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'Masculino'">
         <label for="man" class="custom-control__label">Masculino</label>
       </div>
       <div class="custom-control custom-control--radio">
-        <input type="radio" name="gender" id="woman" value="woman" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'woman'">
+        <input type="radio" name="gender" id="woman" value="Femenino" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'Femenino'">
         <label for="woman" class="custom-control__label">Femenino</label>
       </div>
       <div class="custom-control custom-control--radio">
-        <input type="radio" name="gender" id="non-binary" value="non-binary" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'non-binary'">
+        <input type="radio" name="gender" id="non-binary" value="No binario" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'No binario'">
         <label for="non-binary" class="custom-control__label">No binario</label>
       </div>
       <div class="custom-control custom-control--radio">
-        <input type="radio" name="gender" id="prefer-not-to-say" value="prefer-not-to-say" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'prefer-not-to-say'">
+        <input type="radio" name="gender" id="prefer-not-to-say" value="Prefiero no decirlo" class="custom-control__input" v-model="gender" @change="genderChange" :checked="gender == 'Prefiero no decirlo'">
         <label for="prefer-not-to-say" class="custom-control__label">Prefiero no decirlo</label>
       </div>
       <footer class="onboarding__footer">

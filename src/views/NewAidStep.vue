@@ -2,11 +2,11 @@
 <template>
   <div class="new-aid new-aid--fullheight">
     <header class="new-aid__header entries-list__header">
-      <span class="new-aid__description">Paso {{ step.id }} de {{ task.steps.length }}:</span>
-      <h1 class="new-aid__title entries-list__title">{{ step.legend }}</h1>
+      <span class="new-aid__description">Paso {{ stepIndex + 1 }} de {{ task.steps.length }}:</span>
+      <h1 class="new-aid__title entries-list__title">{{ step.label }}</h1>
       <text-to-speech :text-audio="
         `Paso ${ step.id } de ${ task.steps.length }:\n\n\n\n\n`
-        + `${ step.legend }`
+        + `${ step.label }`
         " />
     </header>
     <form class="new-aid__main">
@@ -20,20 +20,20 @@
       <pictogram-select
         v-bind:title="'Espacio'"
         v-bind:pictos="landmarks"
-        v-bind:value="state.layers.landmark.img"
-        v-on:change="handleLayerChange($event, 'landmark')"
+        v-bind:value="state.layers.find( l => l.layout == 2 ) ? state.layers.find( l => l.layout == 2 ).id : null"
+        v-on:change="handleLayerChange($event, 2)"
       ></pictogram-select>
       <pictogram-select
         v-bind:title="'Objeto'"
         v-bind:pictos="contexts"
-        v-bind:value="state.layers.context.img"
-        v-on:change="handleLayerChange($event, 'context')"
+        v-bind:value="state.layers.find( l => l.layout == 3 ) ? state.layers.find( l => l.layout == 3 ).id : null"
+        v-on:change="handleLayerChange($event, 3)"
       ></pictogram-select>
       <pictogram-select
         v-bind:title="'Persona'"
         v-bind:pictos="subjects"
-        v-bind:value="state.layers.subject.img"
-        v-on:change="handleLayerChange($event, 'subject')"
+        v-bind:value="state.layers.find( l => l.layout == 1 ) ? state.layers.find( l => l.layout == 1 ).id : null"
+        v-on:change="handleLayerChange($event, 1)"
       ></pictogram-select>
     </form>
     <div class="new-aid__actions">
@@ -60,19 +60,19 @@
       <div class="vm--modal-wrapper">
         <div class="pictogram-preview">
           <header class="pictogram-preview__header">
-            <h1 class="pictogram-preview__title entries-list__title">{{ step.legend }}</h1>
-            <text-to-speech :text-audio="step.legend" />
+            <h1 class="pictogram-preview__title entries-list__title">{{ step.label }}</h1>
+            <text-to-speech :text-audio="step.label" />
             <ul class="layers-status">
               <li class="layers-status__item">
-                <icon-check-rounded v-bind:class="state.layers.landmark.img ? '--checked' : ''"></icon-check-rounded>
+                <icon-check-rounded v-bind:class="state.layers.find( l => l.layout == 2 ) ? '--checked' : ''"></icon-check-rounded>
                 Espacio
               </li>
               <li class="layers-status__item">
-                <icon-check-rounded v-bind:class="state.layers.context.img ? '--checked' : ''"></icon-check-rounded>
+                <icon-check-rounded v-bind:class="state.layers.find( l => l.layout == 3 ) ? '--checked' : ''"></icon-check-rounded>
                 Objeto
               </li>
               <li class="layers-status__item">
-                <icon-check-rounded v-bind:class="state.layers.subject.img ? '--checked' : ''"></icon-check-rounded>
+                <icon-check-rounded v-bind:class="state.layers.find( l => l.layout == 1 ) ? '--checked' : ''"></icon-check-rounded>
                 Persona
               </li>
             </ul>
@@ -88,11 +88,14 @@
 </template>
 
 <script>
+import Service from '@/models/Service';
+import Venue from '@/models/Venue';
+import Task from '@/models/Task';
 import TextToSpeech from '@/components/TextToSpeech.vue';
-import Pictos from 'pictos/public/es/manifest.json';
 import PictogramSelect from '@/components/PictogramSelect.vue';
 import Pictogram from '@/components/Pictogram.vue';
 import IconCheckRounded from '../../public/img/app-icons/check-rounded.svg?inline';
+import store from '../store';
 
 export default {
   name: 'NewAidStep',
@@ -102,94 +105,72 @@ export default {
     Pictogram,
     IconCheckRounded,
   },
+  beforeMount() {
+    this.getState();
+  },
+  beforeUpdate() {
+    this.getState();
+  },
   data() {
     return {
       state: {
-        layers: {
-          subject: {
-            img: null,
-          },
-          landmark: {
-            img: null,
-          },
-          context: {
-            img: null,
-          },
-        },
+        proposal: this.$store.state.proposalPictos,
+        layers: [],
         canPreview: false,
         canConfirm: false,
       },
-      task: {
-        id: 1,
-        title: 'Viajar de un punto a otro',
-        place: 'Estación Viña del Mar',
-        place_id: 1,
-        service: 'Metro de Valparaíso',
-        service_id: 1,
-        aids: [
-          {
-            type: 'graphic',
-            enabled: true,
-          },
-          {
-            type: 'written',
-            enabled: true,
-          },
-          {
-            type: 'aural',
-            enabled: true,
-          },
-        ],
-        steps: [
-          {
-            id: 1,
-            order: 0,
-            legend: 'Pasa tu tarjeta por el sensor del torniquete',
-          },
-          {
-            id: 2,
-            order: 1,
-            legend: 'Baja al andén correspondiente',
-          },
-          {
-            id: 3,
-            order: 2,
-            legend: 'Espera el metro detrás de la línea',
-          },
-        ],
-      },
+      service: new Service(this.$store.state.selected.service),
+      venue: new Venue(this.$store.state.selected.venue),
+      task: new Task(this.$store.state.selected.task),
     };
   },
   computed: {
+    stepIndex() {
+      return this.task.steps.findIndex(
+        p => p.id === parseInt(this.$route.params.stepId, 10),
+      );
+    },
     step() {
-      return this.$data.task.steps
-        .find(step => step.id === parseInt(this.$route.params.stepId, 10));
+      return this.task.steps[this.stepIndex];
+    },
+    next() {
+      return this.task.steps[this.stepIndex];
     },
     subjects() {
-      return Pictos.properties.pictos.filter(picto => picto.layer === 1);
+      return this.$store.state.pictos.filter(picto => picto.layout === 1);
     },
     landmarks() {
-      return Pictos.properties.pictos.filter(picto => picto.layer === 2);
+      return this.$store.state.pictos.filter(picto => picto.layout === 2);
     },
     contexts() {
-      return Pictos.properties.pictos.filter(picto => picto.layer === 3);
+      return this.$store.state.pictos.filter(picto => picto.layout === 3);
     },
   },
   methods: {
+    getState() {
+      if (this.$store.state.proposalPictos.length > 0) {
+        if (typeof this.$store.state.proposalPictos[this.stepIndex] !== 'undefined') {
+          this.state.layers = this.$store.state.proposalPictos[this.stepIndex].layers;
+          this.state.canPreview = true;
+          this.state.canConfirm = true;
+        }
+      }
+    },
     handleLayerChange(event, type) {
-      this.$data.state.layers[type].img = event;
+      if (this.state.layers.findIndex(l => l.layout === type) !== -1) {
+        this.state.layers.splice(this.state.layers.findIndex(l => l.layout === type), 1);
+      }
+      if (event !== null) {
+        this.state.layers.push(this.$store.state.pictos.find(picto => picto.id === event));
+      }
       this.checkActions();
     },
     checkActions() {
-      this.$data.state.canPreview = (
-        this.$data.state.layers.landmark.img !== null
-        || this.$data.state.layers.context.img !== null
-        || this.$data.state.layers.subject.img !== null
+      this.state.canPreview = (
+        this.state.layers.length > 0
       );
-      this.$data.state.canConfirm = (
-        this.$data.state.layers.landmark.img !== null
-        && this.$data.state.layers.context.img !== null
-        && this.$data.state.layers.subject.img !== null
+      this.state.canConfirm = (
+        this.state.layers.length === 3
       );
     },
     showPreview() {
@@ -199,18 +180,35 @@ export default {
       this.$modal.hide('new-aid-preview');
     },
     savePictogram() {
-      this.$data.task.steps
-        .find(step => step.id === parseInt(this.$route.params.stepId, 10))
-        .layers = state.layers;
-      this.goTo();
-    },
-    goTo() {
-      this.$router.push({ name: 'new-aid-step', params: { stepId: parseInt(this.$route.params.stepId, 10) + 1 } });
+      if (typeof this.state.proposal[this.stepIndex] !== 'undefined') {
+        this.state.proposal[this.stepIndex].layers = this.state.layers;
+      } else {
+        this.state.proposal.push({
+          step: this.step,
+          layers: this.state.layers,
+        });
+      }
+      this.$store.commit('setProposalPictos', this.state.proposal);
+      this.state.layers = [];
+      this.checkActions();
+      this.$forceUpdate();
+      if (this.task.steps.length === this.stepIndex + 1) {
+        this.$router.push({
+          name: 'new-aid-summary',
+        });
+      } else {
+        this.$router.push({
+          name: 'new-aid-step',
+          params: {
+            stepId: this.task.steps[this.stepIndex + 1].id,
+          },
+        });
+      }
     },
   },
   beforeRouteLeave(to, from, next) {
-    // Antes de salir, se deben reestablecer los valores de this.$data.state.layers
-    // Sino, se puede trabajar directamente sobre el objeto this.$data.task.steps[:stepId].layers
+    // Antes de salir, se deben reestablecer los valores de this.state.layers
+    // Sino, se puede trabajar directamente sobre el objeto this.task.steps[:stepId].layers
     // O bien, usar el store
     next();
   },
