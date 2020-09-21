@@ -15,7 +15,10 @@
         <router-link class="category__item category__item--service service-block entry-block" tag="article" v-bind:key="service.id" v-bind:to="'/servicios/' + service.id">
           <span class="service-block__icon">
             <span class="sr-only">{{ $route.params.categorySlug }}</span>
-            <icon-transport></icon-transport>
+            <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
+            <icon-health class="category__icon" v-if="category.slug == 'salud'" />
+            <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
+            <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
           </span>
           <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
           <text-to-speech :text-audio="`${service.name}`" />
