@@ -20,7 +20,9 @@
       <text-to-speech :text-audio="`¿Qué significa esto?.\n\n${evaluation.longdesc}`" />
     </div>
     <div class="actions">
-      <button class="btn btn--large btn--block btn--primary">Evaluar este lugar</button>
+      <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--large btn--block btn--primary">
+        Evaluar este lugar
+      </router-link>
     </div>
   </div>
 </template>

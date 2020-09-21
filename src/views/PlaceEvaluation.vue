@@ -9,7 +9,7 @@
         <span class="page__tag">Evaluando</span>
       </header>
       <h2 class="page__title">
-      {{ question.text }}
+      {{ question.text | replace(place.name) }}
         <text-to-speech :text-audio="question" />
       </h2>
       <template v-if="question.answer_type == 'Dicotomico'">
@@ -44,7 +44,7 @@
           </div>
         </div>
       </template>
-      <template v-if="question.answer_type == 'Indicador'">
+      <template v-if="question.answer_type == 'Indicador' || question.answer_type == 'Global'">
         <ul class="page__evaluation">
           <li @click="setIndicator(5)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(5) ? 'active' : ''">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="5">5</span>
@@ -113,7 +113,6 @@ export default {
       } else {
         q = this.questions[this.n];
       }
-      q.text = q.text.replace(/{{ service\.name }}/g, this.$store.state.selected.venue.name);
       return q;
     },
     btnPicture() {
@@ -144,6 +143,11 @@ export default {
         }
       }
       return score;
+    },
+  },
+  filters: {
+    replace(value, venue) {
+      return value.replace(/{{ service\.name }}/g, venue);
     },
   },
   mounted() {
