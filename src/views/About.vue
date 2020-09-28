@@ -10,7 +10,6 @@
           + 'PICTOS es una aplicación para hacer el mundo inclusivo y accesible.\n\n\n\n\n'
           + 'PICTOS es una aplicación de uso gratuito.\n\n\n\n\n'
           + 'Todos pueden aportar en PICTOS.\n\n\n\n\n'
-          + 'identical to box height\n\n\n\n\n'
           + 'Tú participación es importante, ayuda a construir PICTOS.\n\n\n\n\n'
           + 'Para hacer esta app, trabajó mucha gente. Investigadores, diseñadores y desarrolladores con y sin discapacidad.\n\n\n\n\n'
           + 'Este es un proyecto del Núcleo de Accesibilidad e Inclusión de la Pontificia Universidad Católica de Valparaíso.\n\n\n\n\n'
@@ -20,7 +19,6 @@
       <p>PICTOS es una aplicación para hacer el mundo inclusivo y accesible.</p>
       <p>PICTOS es una aplicación de uso gratuito.</p>
       <p>Todos pueden aportar en PICTOS.</p>
-      <p>identical to box height</p>
       <p>Tú participación es importante, ayuda a construir PICTOS.</p>
       <p>Para hacer esta app, trabajó mucha gente. Investigadores, diseñadores y desarrolladores con y sin discapacidad.</p>
       <p>Este es un proyecto del Núcleo de Accesibilidad e Inclusión de la Pontificia Universidad Católica de Valparaíso.</p>
