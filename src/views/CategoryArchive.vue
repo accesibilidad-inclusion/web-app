@@ -10,36 +10,42 @@
       <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de tí.</p>
       <text-to-speech :text-audio="'Transporte.\n\n Revisa los servicios disponibles que están cerca de tí'" />
     </header>
-    <main class="category__items category__items--services">
-      <template v-for="service in services" v-bind:service="service">
-        <router-link class="category__item category__item--service service-block entry-block" tag="article" v-bind:key="service.id" v-bind:to="'/servicios/' + service.id">
-          <span class="service-block__icon">
-            <span class="sr-only">{{ $route.params.categorySlug }}</span>
-            <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
-            <icon-health class="category__icon" v-if="category.slug == 'salud'" />
-            <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
-            <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
-          </span>
-          <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
-          <text-to-speech :text-audio="`${service.name}`" />
+    <template v-if="loading">
+      <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
+    </template>
+    <template v-else>
+      <main class="category__items category__items--services">
+        <template v-for="service in services" v-bind:service="service">
+          <a class="category__item category__item--service service-block entry-block" tag="article" v-bind:key="service.id" @click="setService(service)">
+            <span class="service-block__icon">
+              <span class="sr-only">{{ $route.params.categorySlug }}</span>
+              <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
+              <icon-health class="category__icon" v-if="category.slug == 'salud'" />
+              <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
+              <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
+            </span>
+            <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
+            <text-to-speech :text-audio="`${service.name}`" />
+          </a>
+        </template>
+      </main>
+      <!-- Visualmente es 'footer', pero semánticamente es 'aside' -->
+      <aside class="actions actions--category">
+        <p class="actions__title">
+          ¿No encuentras el lugar que estás buscando?
+          <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
+        </p>
+        <router-link to="/nuevo-lugar/intro" class="btn btn--primary btn--large btn--block" tag="button">
+          &plus; Agregar un lugar nuevo
         </router-link>
-      </template>
-    </main>
-    <!-- Visualmente es 'footer', pero semánticamente es 'aside' -->
-    <aside class="actions actions--category">
-      <p class="actions__title">
-        ¿No encuentras el lugar que estás buscando?
-        <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
-      </p>
-      <router-link to="/nuevo-lugar/intro" class="btn btn--primary btn--large btn--block" tag="button">
-        &plus; Agregar un lugar nuevo
-      </router-link>
-    </aside>
+      </aside>
+    </template>
   </div>
 </template>
 
 <script>
 import Category from '@/models/Category';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
 import IconHealth from '../../public/img/app-icons/health.svg?inline';
@@ -49,6 +55,7 @@ import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
 export default {
   name: 'categoryArchive',
   components: {
+    ClipLoader,
     TextToSpeech,
     IconTransport,
     IconHealth,
@@ -56,20 +63,34 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    this.$store.dispatch('setSelectedItem', {
-      object: 'category',
-      item: this.$store.state.data
-        .find(d => d.slug === this.$route.params.categorySlug),
-    }).then(() => {
-      this.category.set(this.$store.state.selected.category);
-      this.services = this.category.near_services;
+    this.category.set(this.$store.state.selected.category);
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/categories/nearServices`, {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        id: this.category.id,
+      }).then((response) => {
+        this.services = response.data;
+        this.loading = false;
+      });
     });
   },
   data() {
     return {
       category: new Category(),
       services: [],
+      loading: true,
     };
+  },
+  methods: {
+    setService(service) {
+      this.$store.dispatch('setSelectedItem', {
+        object: 'service',
+        item: service,
+      }).then(() => {
+        this.$router.push(`/servicios/${service.id}`);
+      });
+    },
   },
 };
 </script>
@@ -117,6 +138,7 @@ export default {
     flex-grow: 1;
   }
   .entry-block {
+    cursor: pointer;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;

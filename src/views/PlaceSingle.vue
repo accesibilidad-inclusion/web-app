@@ -83,15 +83,9 @@ export default {
     IconNoInformation,
   },
   beforeMount() {
-    this.$store.dispatch('setSelectedItem', {
-      object: 'venue',
-      item: this.$store.state.selected.service.near_venues
-        .find(v => v.id === parseInt(this.$route.params.placeId, 10)),
-    }).then(() => {
-      this.service.set(this.$store.state.selected.service);
-      this.place = new Venue(this.$store.state.selected.venue);
-      this.tasks = this.place.tasks;
-    });
+    this.service.set(this.$store.state.selected.service);
+    this.place = new Venue(this.$store.state.selected.venue);
+    this.tasks = this.place.tasks;
   },
   data() {
     return {

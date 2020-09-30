@@ -74,6 +74,7 @@ const state = {
         + ' ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
   ],
+  categories: [],
   questions: [],
   pictos: [],
   proposalPictos: [],
@@ -83,44 +84,18 @@ export default new Vuex.Store({
   state,
   mutations,
   actions: {
-    loadData({ commit }) {
-      return new Promise((resolve) => {
-        navigator.geolocation.getCurrentPosition((position) => {
-          axios({
-            url: `${process.env.VUE_APP_API_DOMAIN}api/categories/load`,
-            method: 'POST',
-            data: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            },
-          }).then((response) => {
-            localStorage.setItem('data', JSON.stringify(response.data));
-            commit('setData', response.data);
-            resolve();
-          });
-        });
-      });
-    },
-    loadQuestions({ commit }) {
+    init({ commit }) {
       return new Promise((resolve) => {
         axios({
-          url: `${process.env.VUE_APP_API_DOMAIN}api/questions`,
+          url: `${process.env.VUE_APP_API_DOMAIN}api/init`,
           method: 'GET',
         }).then((response) => {
-          localStorage.setItem('questions', JSON.stringify(response.data));
-          commit('setQuestions', response.data);
-          resolve();
-        });
-      });
-    },
-    loadPictos({ commit }) {
-      return new Promise((resolve) => {
-        axios({
-          url: `${process.env.VUE_APP_API_DOMAIN}api/images`,
-          method: 'GET',
-        }).then((response) => {
-          localStorage.setItem('pictos', JSON.stringify(response.data));
-          commit('setPictos', response.data);
+          localStorage.setItem('categories', JSON.stringify(response.data.categories));
+          localStorage.setItem('questions', JSON.stringify(response.data.questions));
+          localStorage.setItem('pictos', JSON.stringify(response.data.images));
+          commit('setCategories', response.data.categories);
+          commit('setQuestions', response.data.questions);
+          commit('setPictos', response.data.images);
           resolve();
         });
       });

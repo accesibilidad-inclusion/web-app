@@ -9,29 +9,14 @@
         <text-to-speech :text-audio="'¿Buscas un lugar específico?. Selecciona un tipo de lugar'" />
       </div>
       <ul class="main-categories__list">
-        <li>
-          <router-link to="categoria/tramites">
-            <icon-formalities />
-            Trámites
-          </router-link>
-        </li>
-        <li>
-          <router-link to="categoria/salud">
-            <icon-health />
-            Salud
-          </router-link>
-        </li>
-        <li>
-          <router-link to="categoria/transporte">
-            <icon-transport />
-            Transporte
-          </router-link>
-        </li>
-        <li>
-          <router-link to="categoria/ocio">
-            <icon-leisure />
-            Ocio
-          </router-link>
+        <li v-for="category in $store.state.categories" :key="category.id">
+          <a @click="setCategory(category)">
+            <icon-transport v-if="category.slug == 'transporte'" />
+            <icon-health v-if="category.slug == 'salud'" />
+            <icon-leisure v-if="category.slug == 'ocio'" />
+            <icon-formalities v-if="category.slug == 'tramites'" />
+            {{ category.name }}
+          </a>
         </li>
       </ul>
     </section>
@@ -55,6 +40,16 @@ export default {
     IconHealth,
     IconTransport,
     IconLeisure,
+  },
+  methods: {
+    setCategory(category: any) {
+      this.$store.dispatch('setSelectedItem', {
+        object: 'category',
+        item: category,
+      }).then(() => {
+        this.$router.push(`/categoria/${category.slug}`);
+      });
+    },
   },
 };
 </script>
@@ -124,6 +119,7 @@ export default {
       }
       > a {
         @include rfs($font-size-14);
+        cursor: pointer;
         display: block;
         padding: var(--spacer);
         font-weight: bold;
