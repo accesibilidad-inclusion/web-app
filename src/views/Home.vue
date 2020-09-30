@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import MainSearch from '@/components/MainSearch.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
@@ -41,8 +41,12 @@ export default {
     IconTransport,
     IconLeisure,
   },
+  data() {
+    return {
+    };
+  },
   methods: {
-    setCategory(category: any) {
+    setCategory(category) {
       this.$store.dispatch('setSelectedItem', {
         object: 'category',
         item: category,
