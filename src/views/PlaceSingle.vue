@@ -47,21 +47,23 @@
       </footer>
     </template>
     <template v-else>
-      <main class="place__tasks">
-        <p class="place__tasks-description">
-          <icon-no-information />
-          <span>Este lugar no tiene información</span>
-        </p>
-      </main>
-      <aside class="actions actions--place">
-        <div class="actions__header">
-          <text-to-speech :text-audio="'Ayudanos a mejorar'" />
-          <p class="actions__title">Ayudanos a mejorar</p>
-        </div>
-        <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
-          &plus; Agregar tareas a este lugar
-        </router-link>
-      </aside>
+      <div class="place__no-information">
+        <main class="place__no-information-content">
+          <p class="place__no-information-desc">
+            <icon-no-information />
+            <span>Este lugar no tiene información</span>
+          </p>
+        </main>
+        <aside class="actions actions--place">
+          <div class="actions__header">
+            <text-to-speech :text-audio="'Ayudanos a mejorar'" />
+            <p class="actions__title">Ayudanos a mejorar</p>
+          </div>
+          <router-link to="/tareas/nueva" class="btn btn--light btn--large btn--block" tag="button">
+            &plus; Agregar tareas a este lugar
+          </router-link>
+        </aside>
+      </div>
     </template>
   </div>
 </template>
@@ -114,8 +116,8 @@ export default {
     color: var(--color-background);
     background: var(--color-brand-darkest);
     @media screen and ( min-width: 640px ) {
-      margin-left: calc( var(--spacer-lg) * -1);
-      margin-right: calc( var(--spacer-lg) * -1);
+      margin-left: 0;
+      margin-right: 0;
       padding: var(--spacer-lg);
     }
     @media screen and ( min-width: 1280px ) {
@@ -158,6 +160,8 @@ export default {
     margin-bottom: var(--spacer-sm);
     font-weight: bold;
     line-height: calc( 25 / 18 );
+    z-index: 2;
+    position: relative;
   }
   .place__map-link {
     @include rfs($font-size-12);
@@ -182,10 +186,10 @@ export default {
     z-index: 10;
     @media screen and ( min-width: 640px ) {
       top: calc( var(--spacer-lg) + ( var(--spacer) / 2 ) );
-      right: calc( var(--spacer-xl) * 1.35 );
+      right: var(--spacer-lg);
     }
     @media screen and ( min-width: 1280px ) {
-      right: calc( var(--spacer-xl) * 1.75 );
+      right: var(--spacer-xl);
     }
     svg path {
       fill: #fff;
@@ -329,5 +333,67 @@ export default {
   }
   .btn--large {
     display: block;
+  }
+  .place__no-information {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    top: 150px;
+    background-color: var(--color-brand-darkest);
+    z-index: 1;
+    min-height: 400px;
+    @media screen and ( min-width: 640px ) {
+      max-width: 640px;
+      top: 200px;
+      min-height: 500px;
+    }
+    @media screen and ( min-width: 1280px ) {
+      max-width: 750px;
+    }
+    .actions--place {
+      background-color: var(--color-brand-darkest);
+      .actions__header {
+        margin-bottom: var(--spacer-sm);
+        .tts {
+          path {
+            fill: var(--color-background);
+          }
+        }
+      }
+      .actions__title {
+        color: var(--color-background);
+      }
+    }
+  }
+  .place__no-information-content {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .place__no-information-desc {
+    padding: 0 var(--spacer);
+    display: flex;
+    flex-direction: column;
+    span {
+      @include rfs($font-size-18);
+      color: var(--color-highlight);
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    svg {
+      width: var(--spacer-lg);
+      height: var(--spacer-lg);
+      margin: var(--spacer-sm) auto;
+      path {
+        fill: var(--color-highlight);
+      }
+    }
   }
 </style>
