@@ -37,9 +37,9 @@
             <span v-else>!</span>
           </div>
           <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
+          <p class="place__evaluation-question">¿Qué significa esto?</p>
         </router-link>
         <div class="place__evaluation-actions">
-          <p class="place__evaluation-actions-title">¿Quieres colaborar con nosotros?</p>
           <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--ghost btn--large btn--block">
             Evaluar este lugar
           </router-link>
@@ -315,21 +315,17 @@ export default {
     max-width: 15rem;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: var(--spacer-lg);
     font-weight: 600;
     line-height: calc( 19/14 );
-    @media screen and ( min-width: 640px ) {
-      margin-bottom: var(--spacer-xl);
-    }
   }
-  .place__evaluation-actions-title {
+  .place__evaluation-question {
     @include rfs($font-size-16);
-    margin-bottom: var(--spacer-sm);
-    font-weight: bold;
+    padding: calc(var(--spacer) + var(--spacer-sm));
+    font-weight: 600;
     line-height: 1.33333;
-    @media screen and ( min-width: 640px ) {
-      margin-bottom: var(--spacer);
-    }
+    color: var(--color-background);
+    display: block;
+    text-decoration: underline;
   }
   .btn--large {
     display: block;
