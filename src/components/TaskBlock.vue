@@ -30,21 +30,19 @@ export default {
   },
   methods: {
     selectTask(task) {
+      // console.log(task);
       if (task.category) {
         this.$store.dispatch('setSelectedItem', {
           object: 'category',
-          item: this.$store.state.data
-            .find(d => d.id === task.category.id),
+          item: task.category,
         }).then(() => {
           this.$store.dispatch('setSelectedItem', {
             object: 'service',
-            item: this.$store.state.selected.category.near_services
-              .find(s => s.id === task.service.id),
+            item: task.service,
           }).then(() => {
             this.$store.dispatch('setSelectedItem', {
               object: 'venue',
-              item: this.$store.state.selected.service.near_venues
-                .find(v => v.id === task.venue.id),
+              item: task.venue,
             }).then(() => {
               this.$router.push({ name: 'task-single', params: { taskId: task.id } });
             });
