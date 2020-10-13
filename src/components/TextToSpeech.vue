@@ -27,7 +27,7 @@ export default class TextToSpeech extends Vue {
     const voices = window.speechSynthesis.getVoices();
     // eslint-disable-next-line prefer-destructuring
     speech.voice = voices.filter(voice => voice.name === 'Paulina')[0];
-    speech.lang = 'es-MX';
+    speech.lang = 'es-005';
     speech.pitch = 1;
     speech.rate = 1;
     window.speechSynthesis.cancel();
