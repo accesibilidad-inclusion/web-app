@@ -47,7 +47,7 @@ export default {
       this.greetingSpeech.pitch = 1;
       this.greetingSpeech.rate = 1;
       this.greetingSpeech.localService = true;
-      this.greetingSpeech.voice = this.voiceList.find(voice => voice.name === 'Paulina');
+      this.greetingSpeech.voice = this.voiceList.find(voice => voice.lang === 'es-MX');
       this.synth.cancel();
       this.synth.speak(this.greetingSpeech);
     },
