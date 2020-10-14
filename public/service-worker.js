@@ -6,6 +6,7 @@ const FILES_TO_CACHE = [
 ];
 
 self.addEventListener('install', (event) => {
+  console.log(event);
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
@@ -16,6 +17,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  console.log(event);
   event.waitUntil(
     caches.keys().then(keyList => Promise.all(keyList.map((key) => {
       if (key !== CACHE_NAME) {
@@ -28,6 +30,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  console.log(event);
   if (event.request.mode !== 'navigate') {
     return;
   }
