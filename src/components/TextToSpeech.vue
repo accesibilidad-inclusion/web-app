@@ -23,6 +23,7 @@ export default {
       this.text.lang = 'es-MX';
       this.text.pitch = 1;
       this.text.rate = 1;
+      this.text.localService = true;
       this.text.voice = this.voices.find(voice => voice.name === 'Paulina');
     };
   },
