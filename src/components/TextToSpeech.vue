@@ -5,39 +5,41 @@
   </button>
 </template>
 
-<script lang="ts">
+<script>
 import {
   Component, Prop, Vue, Ref,
 } from 'vue-property-decorator';
-
 import IconAudio from '../../public/img/app-icons/audio.svg?inline';
 
-@Component({
+export default {
+  props: ['textAudio'],
   components: {
     IconAudio,
   },
-})
-export default class TextToSpeech extends Vue {
-  @Prop() public textAudio: string | undefined;
-
-  speak = () => {
-    const phrase = typeof this.textAudio === 'undefined'
-      ? 'Añade la propiedad textAudio' : this.textAudio;
-    const speech = new SpeechSynthesisUtterance(phrase);
-    const voices = window.speechSynthesis.getVoices();
-    // eslint-disable-next-line prefer-destructuring
-    speech.voice = voices.filter(voice => voice.name === 'Paulina')[0];
-    speech.lang = 'es-005';
-    speech.pitch = 1;
-    speech.rate = 1;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(speech);
-  }
-
-  data = () => ({
-    publicPath: process.env.BASE_URL,
-  })
-}
+  created() {
+    window.speechSynthesis.onvoiceschanged = () => {
+      this.text = new SpeechSynthesisUtterance();
+      this.voices = window.speechSynthesis.getVoices();
+      this.text.lang = 'es-MX';
+      this.text.pitch = 1;
+      this.text.rate = 1;
+      this.text.voice = this.voices.find(voice => voice.name === 'Paulina');
+    };
+  },
+  data() {
+    return {
+      text: new SpeechSynthesisUtterance(),
+      voices: window.speechSynthesis.getVoices(),
+    };
+  },
+  methods: {
+    speak() {
+      this.text.text = this.textAudio;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(this.text);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
