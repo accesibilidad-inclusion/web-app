@@ -4,7 +4,7 @@ import VModal from 'vue-js-modal';
 import Vue from 'vue';
 import Axios from 'axios';
 import App from './App.vue';
-// import './registerServiceWorker';
+import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
