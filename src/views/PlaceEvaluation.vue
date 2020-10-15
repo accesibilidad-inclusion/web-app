@@ -243,7 +243,10 @@ export default {
         if (this.answers.find(a => a.question_id === this.question.id)) {
           this.answers.splice(this.answers.findIndex(a => a.question_id === this.question.id), 1);
         }
-        document.querySelector('#photo').src = e.target.result;
+        const isoImg = new Image();
+        isoImg.src = e.target.result;
+        isoImg.crossOrigin = 'Anonymous';
+        document.querySelector('.page__photo-wrapper').append(isoImg);
         this.answers.push({
           question_id: this.question.id,
           type: this.question.answer_type,
