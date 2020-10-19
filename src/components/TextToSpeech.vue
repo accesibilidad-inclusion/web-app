@@ -16,17 +16,6 @@ export default {
   components: {
     IconAudio,
   },
-  // created() {
-  //   window.speechSynthesis.onvoiceschanged = () => {
-  //     this.text = new SpeechSynthesisUtterance();
-  //     this.voices = window.speechSynthesis.getVoices();
-  //     this.text.lang = 'es-MX';
-  //     this.text.pitch = 1;
-  //     this.text.rate = 1;
-  //     this.text.localService = true;
-  //     this.text.voice = this.voices.find(voice => voice.name === 'Paulina');
-  //   };
-  // },
   mounted() {
     this.voiceList = this.synth.getVoices();
     this.synth.onvoiceschanged = () => {
@@ -47,7 +36,7 @@ export default {
       this.greetingSpeech.pitch = 1;
       this.greetingSpeech.rate = 1;
       this.greetingSpeech.localService = true;
-      this.greetingSpeech.voice = this.voiceList.find(voice => voice.lang === 'es-MX');
+      this.greetingSpeech.voice = this.voiceList.find(voice => voice.lang === 'es-MX' || voice.lang === 'spa-MEX');
       this.synth.cancel();
       this.synth.speak(this.greetingSpeech);
     },

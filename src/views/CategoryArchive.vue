@@ -8,7 +8,7 @@
       <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
       <h1 class="category__title entries-list__title">{{ category.name }}</h1>
       <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de tí.</p>
-      <text-to-speech :text-audio="'Transporte.\n\n Revisa los servicios disponibles que están cerca de tí'" />
+      <text-to-speech :text-audio="category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'" />
     </header>
     <template v-if="loading">
       <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
