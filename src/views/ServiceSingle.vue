@@ -10,30 +10,36 @@
       <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer en este servicio.</p>
       <text-to-speech :text-audio="service.name + '.\n\n\n\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
     </header>
-    <main class="service__items service__items places">
-      <template v-for="place in places" v-bind:place="place">
-        <router-link class="place-block entry-block" tag="article" v-bind:key="place.id" v-bind:to="'/lugares/' + place.id">
-          <text-to-speech :text-audio="place.name + ': a' + $options.filters.distance(place.distance).replace('.', ' punto ') + ' de distancia.'" />
-          <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
-          <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
-          <p class="place-block__distance">a {{ place.distance | distance }} de distancia</p>
-          <div class="place-block__evaluation" v-if="place.evaluation">
-            <span class="place__evaluation-grade place-block__evaluation-grade" v-bind:data-grade="place.evaluation.score">
-              {{ place.evaluation.score }}
-            </span>
-            <span class="place-block__evaluation-description">
-              {{ place.evaluation.calification }}
-            </span>
-          </div>
-        </router-link>
-      </template>
-    </main>
+    <template v-if="loading">
+      <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
+    </template>
+    <template v-else>
+      <main class="service__items service__items places">
+        <template v-for="place in places" v-bind:place="place">
+          <a class="place-block entry-block" tag="article" v-bind:key="place.id" @click="setPlace(place)">
+            <text-to-speech :text-audio="place.name + ': a' + $options.filters.distance(place.distance).replace('.', ' punto ') + ' de distancia.'" />
+            <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
+            <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
+            <p class="place-block__distance">a {{ place.distance | distance }} de distancia</p>
+            <div class="place-block__evaluation" v-if="place.evaluation">
+              <span class="place__evaluation-grade place-block__evaluation-grade" v-bind:data-grade="place.evaluation.score">
+                {{ place.evaluation.score }}
+              </span>
+              <span class="place-block__evaluation-description">
+                {{ place.evaluation.calification }}
+              </span>
+            </div>
+          </a>
+        </template>
+      </main>
+    </template>
   </div>
 </template>
 
 <script>
 import Category from '@/models/Category';
 import Service from '@/models/Service';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
 import IconHealth from '../../public/img/app-icons/health.svg?inline';
@@ -43,6 +49,7 @@ import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
 export default {
   name: 'serviceSingle',
   components: {
+    ClipLoader,
     TextToSpeech,
     IconTransport,
     IconHealth,
@@ -50,14 +57,17 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    this.$store.dispatch('setSelectedItem', {
-      object: 'service',
-      item: this.$store.state.selected.category.near_services
-        .find(s => s.id === parseInt(this.$route.params.serviceId, 10)),
-    }).then(() => {
-      this.category.set(this.$store.state.selected.category);
-      this.service.set(this.$store.state.selected.service);
-      this.places = this.service.near_venues;
+    this.category.set(this.$store.state.selected.category);
+    this.service.set(this.$store.state.selected.service);
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/services/nearVenues`, {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        id: this.service.id,
+      }).then((response) => {
+        this.places = response.data;
+        this.loading = false;
+      });
     });
   },
   data() {
@@ -65,7 +75,18 @@ export default {
       category: new Category(),
       service: new Service(),
       places: [],
+      loading: true,
     };
+  },
+  methods: {
+    setPlace(place) {
+      this.$store.dispatch('setSelectedItem', {
+        object: 'venue',
+        item: place,
+      }).then(() => {
+        this.$router.push(`/lugares/${place.id}`);
+      });
+    },
   },
 };
 </script>
@@ -89,6 +110,7 @@ export default {
     flex-grow: 1;
   }
   .place-block {
+    cursor: pointer;
     .tts {
       grid-column: 3/4;
       grid-row: 1/3;

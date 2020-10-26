@@ -17,7 +17,13 @@
     <div class="evaluation__body">
       <h3 class="evaluation__explanation">¿Qué significa esto?</h3>
       <p class="evaluation__longdesc">{{ evaluation.longdesc }}</p>
-      <text-to-speech :text-audio="`¿Qué significa esto?.\n\n${evaluation.longdesc}`" />
+      <p class="evaluation__longdesc">{{ evaluation.change }}</p>
+      <p class="evaluation__feature"><span class="evaluation__feature-name">{{ evaluation.feature1 }}</span>{{ evaluation.visibility }}</p>
+      <p class="evaluation__feature"><span class="evaluation__feature-name">{{ evaluation.feature2 }}</span>{{ evaluation.understanding }}</p>
+      <p class="evaluation__feature"><span class="evaluation__feature-name">{{ evaluation.feature3 }}</span>{{ evaluation.spatiality }}</p>
+      <text-to-speech :text-audio="`¿Qué significa esto?.\n\n${evaluation.longdesc}\n\n${evaluation.change}
+      \n\n${evaluation.feature1}\n\n${evaluation.visibility}\n\n${evaluation.feature2}\n\n${evaluation.understanding}
+      \n\n${evaluation.feature3}\n\n${evaluation.spatiality}`" />
     </div>
     <div class="actions">
       <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--large btn--block btn--primary">
@@ -122,12 +128,14 @@ export default {
     }
   }
   .evaluation__explanation {
-    @include rfs($font-size-16);
+    @include rfs($font-size-18);
     margin-bottom: var(--spacer);
+    color: var(--color-brand-darkest);
   }
   .evaluation__longdesc {
-    @include rfs($font-size-14);
+    @include rfs($font-size-16);
     line-height: 1.45;
+    margin-bottom: var(--spacer);
   }
   .evaluation__body .tts {
     position: absolute;
@@ -140,5 +148,14 @@ export default {
     @media screen and ( min-width: 1280px ) {
       right: var(--spacer-xl);
     }
+  }
+  .evaluation__feature {
+    @include rfs($font-size-16);
+    line-height: 1.45;
+    margin-bottom: var(--spacer);
+  }
+  .evaluation__feature-name {
+    color: var(--color-brand-darkest);
+    font-weight: 700;
   }
 </style>

@@ -243,7 +243,16 @@ export default {
         if (this.answers.find(a => a.question_id === this.question.id)) {
           this.answers.splice(this.answers.findIndex(a => a.question_id === this.question.id), 1);
         }
-        document.querySelector('#photo').src = e.target.result;
+        const byteString = atob(e.target.result.split(',')[1]);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: 'image/jpeg' });
+        document.querySelector('#photo').src = URL.createObjectURL(blob);
         this.answers.push({
           question_id: this.question.id,
           type: this.question.answer_type,

@@ -1,5 +1,12 @@
 // Vue Cli
 module.exports = {
+  pwa: {
+    workboxPluginMode: 'InjectManifest',
+    workboxOptions: {
+      swSrc: 'src/service-worker.js',
+    },
+    themeColor: '#4990CD',
+  },
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg');
     svgRule.uses.clear();

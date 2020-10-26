@@ -5,39 +5,43 @@
   </button>
 </template>
 
-<script lang="ts">
+<script>
 import {
   Component, Prop, Vue, Ref,
 } from 'vue-property-decorator';
-
 import IconAudio from '../../public/img/app-icons/audio.svg?inline';
 
-@Component({
+export default {
+  props: ['textAudio'],
   components: {
     IconAudio,
   },
-})
-export default class TextToSpeech extends Vue {
-  @Prop() public textAudio: string | undefined;
-
-  speak = () => {
-    const phrase = typeof this.textAudio === 'undefined'
-      ? 'Añade la propiedad textAudio' : this.textAudio;
-    const speech = new SpeechSynthesisUtterance(phrase);
-    const voices = window.speechSynthesis.getVoices();
-    // eslint-disable-next-line prefer-destructuring
-    speech.voice = voices.filter(voice => voice.name === 'Paulina')[0];
-    speech.lang = 'es-MX';
-    speech.pitch = 1;
-    speech.rate = 1;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(speech);
-  }
-
-  data = () => ({
-    publicPath: process.env.BASE_URL,
-  })
-}
+  mounted() {
+    this.voiceList = this.synth.getVoices();
+    this.synth.onvoiceschanged = () => {
+      this.voiceList = this.synth.getVoices();
+    };
+  },
+  data() {
+    return {
+      synth: window.speechSynthesis,
+      voiceList: [],
+      greetingSpeech: new window.SpeechSynthesisUtterance(),
+    };
+  },
+  methods: {
+    speak() {
+      this.greetingSpeech.text = this.textAudio;
+      this.greetingSpeech.lang = 'es-MX';
+      this.greetingSpeech.pitch = 1;
+      this.greetingSpeech.rate = 1;
+      this.greetingSpeech.localService = true;
+      this.greetingSpeech.voice = this.voiceList.find(voice => voice.lang === 'es-MX' || voice.lang === 'spa-MEX');
+      this.synth.cancel();
+      this.synth.speak(this.greetingSpeech);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

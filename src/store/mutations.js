@@ -27,6 +27,10 @@ export const setData = (state, payload) => {
   state.data = payload;
 };
 
+export const setCategories = (state, payload) => {
+  state.categories = payload;
+};
+
 export const setQuestions = (state, payload) => {
   state.questions = payload;
 };
@@ -62,7 +66,7 @@ export const initializeStore = (state) => {
   if (localStorage.getItem('pictos')) {
     state.pictos = JSON.parse(localStorage.getItem('pictos'));
   }
-  if (localStorage.getItem('data')) {
-    state.data = JSON.parse(localStorage.getItem('data'));
+  if (localStorage.getItem('categories')) {
+    state.categories = JSON.parse(localStorage.getItem('categories'));
   }
 };
