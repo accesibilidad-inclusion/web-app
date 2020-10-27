@@ -4,28 +4,57 @@
     <transition name="slide">
       <router-view ref="view"/>
     </transition>
+    <div class="notification-install">
+      <p>
+        Te recomendamos instalar esta aplicacion para una mejor experiencia
+      </p>
+      <button v-if="deferredPrompt" class="btn btn--ghost">Cancelar</button>
+      <button class="install-button btn btn--ghost" @click="promptInstall">Instalar</button>
+    </div>
   </div>
 </template>
 
 <script>
 import AppNav from '@/components/AppNav.vue';
+import { VuePwaInstallMixin } from 'vue-pwa-install';
 
 export default {
   name: 'App',
   components: {
     AppNav,
   },
-  beforeCreate() {
-    this.$store.commit('initializeStore');
-    // const speech = new SpeechSynthesisUtterance('');
-    // speech.pitch = 0;
-    // speech.rate = 100;
-    // speech.lang = 'es-005';
-    // window.speechSynthesis.speak(speech);
+  data() {
+    return {
+      deferredPrompt: null,
+    };
+  },
+  created() {
+    this.$on('canInstall', (event) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt:
+      event.preventDefault();
+
+      // Stash the event so it can be triggered later:
+      this.deferredPrompt = event;
+    });
   },
   methods: {
     backEvaluation() {
       this.$refs.view.comeback();
+    },
+    promptInstall() {
+      // Show the prompt:
+      this.deferredPrompt.prompt();
+
+      // Wait for the user to respond to the prompt:
+      this.deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+
+        this.deferredPrompt = null;
+      });
     },
   },
 };
@@ -65,5 +94,25 @@ export default {
 .slide-enter, .slide-leave-to {
   transform: translateX(-10px);
   opacity: 0;
+}
+.notification-install {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  bottom: 0px;
+  width: 100%;
+  height: 70px;
+  padding: 10px;
+  background: var(--color-brand-dark);
+  border-radius: 7px 7px 0px 0px;
+  button {
+    margin-left: 5px ;
+  }
+  p {
+    margin: 10px;
+    color: #fff;
+    font-size: 14px;
+    align-self: center;
+  }
 }
 </style>
