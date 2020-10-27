@@ -4,11 +4,11 @@
     <transition name="slide">
       <router-view ref="view"/>
     </transition>
-    <div class="notification-install">
+    <div v-if="deferredPrompt" class="notification-install">
       <p>
         Te recomendamos instalar esta aplicacion para una mejor experiencia
       </p>
-      <button v-if="deferredPrompt" class="btn btn--ghost">Cancelar</button>
+      <button class="btn btn--ghost">Cancelar</button>
       <button class="install-button btn btn--ghost" @click="promptInstall">Instalar</button>
     </div>
   </div>
