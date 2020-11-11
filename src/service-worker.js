@@ -32,7 +32,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
   event.respondWith(
-    fetch(evt.request)
+    fetch(event.request)
       .catch(() => caches.open(CACHE_NAME)
         .then(cache => cache.match('offline.html'))),
   );

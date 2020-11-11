@@ -605,7 +605,6 @@ export default {
     margin-bottom: var(--spacer);
     padding: var(--spacer);
     font-family: var(--font-family);
-    font-style: italic;
     border: none;
     border-radius: var(--border-radius);
   }

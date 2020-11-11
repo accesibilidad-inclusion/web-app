@@ -36,8 +36,9 @@ const state = {
       grade: 1,
       title: 'Pésimo',
       desc: 'El servicio evaluado tiene que mejorar todo',
-      longdesc: 'Diferentes personas han calificado la accesibilidad se este servicio con nivel de PÉSIMO'
+      longdesc: 'Diferentes personas han calificado la accesibilidad de este servicio con nivel de PÉSIMO'
       + ' debido a que presenta problemas graves de accesibilidad en uno o varios de los siguientes aspectos:',
+      change: '',
       feature1: 'Visibilidad: ',
       feature2: 'Comprensión: ',
       feature3: 'Espacialidad: ',
