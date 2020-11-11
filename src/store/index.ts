@@ -29,9 +29,8 @@ const state = {
       grade: 0,
       title: 'Sin evaluaciones',
       desc: '',
-      longdesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
-        + ' ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation'
-        + ' ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      longdesc: 'Todavía nadie ha evaluado la accesibilidad de este lugar. Si te encuentras aquí y tienes tiempo'
+      + ' para ayudar a la comunidad con tu evaluación, por favor hazlo.',
     },
     {
       grade: 1,

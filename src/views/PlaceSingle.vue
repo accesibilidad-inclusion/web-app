@@ -34,7 +34,7 @@
           <div class="place__evaluation-title">{{ evaluation.title }}</div>
           <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
             <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
-            <span v-else>!</span>
+            <span v-else>?</span>
           </div>
           <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
           <p class="place__evaluation-question">¿Qué significa esto?</p>
