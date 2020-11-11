@@ -9,7 +9,7 @@
     <div class="evaluation__summary">
       <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
         <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
-        <span v-else>!</span>
+        <span v-else>?</span>
       </div>
       <p class="evaluation__text">Nivel de accesibilidad</p>
       <h2 class="place__evaluation-title">{{ evaluation.title }}</h2>
