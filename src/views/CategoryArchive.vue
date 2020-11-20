@@ -7,7 +7,7 @@
       <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
       <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
       <h1 class="category__title entries-list__title">{{ category.name }}</h1>
-      <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de tí.</p>
+      <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de ti.</p>
       <text-to-speech :text-audio="category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'" />
     </header>
     <template v-if="loading">
