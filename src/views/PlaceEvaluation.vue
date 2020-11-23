@@ -5,12 +5,12 @@
       <header class="place__header">
         <router-link :to="'/servicios/' + service.id" class="place__service">{{ service.name }}</router-link>
         <h1 class="place__name">{{ place.name }}</h1>
-        <text-to-speech :text-audio="''" />
+        <text-to-speech :text-audio="`Evaluando ${ place.name } de ${ service.name }`" />
         <span class="page__tag">Evaluando</span>
       </header>
       <h2 class="page__title">
       {{ question.text | replace(place.name) }}
-        <text-to-speech :text-audio="question" />
+        <text-to-speech :text-audio="$options.filters.replace(question.text, place.name)" />
       </h2>
       <template v-if="question.answer_type == 'Dicotomico'">
         <div class="custom-control custom-control--radio">
