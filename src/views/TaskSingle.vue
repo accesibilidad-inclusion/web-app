@@ -25,7 +25,7 @@
             <div class="step-canvas">
               <pictogram v-if="step.pictogram" :layers="step.pictogram.images"></pictogram>
             </div>
-            <figcaption class="task-step__legend">{{ step.label }}</figcaption>
+            <figcaption class="task-step__legend">{{ step.label }} <text-to-speech :text-audio="step.label" /></figcaption>
           </figure>
         </li>
         <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
@@ -368,6 +368,7 @@ export default {
     line-height: calc( 22/16 );
     font-weight: bold;
     background: var(--color-background);
+    justify-content: space-between;
     @media screen and ( min-width: 640px ) {
       padding: calc( var(--spacer-lg) * .75 ) var(--spacer-lg);
     }
@@ -380,6 +381,11 @@ export default {
       @supports (-webkit-appearance:none) {
         height: 100%;
       }
+    }
+    .tts {
+      margin-top: var(--spacer);
+      margin-left: var(--spacer);
+      align-self: flex-start;
     }
   }
   // Último paso, donde se pregunta si fue de ayuda
