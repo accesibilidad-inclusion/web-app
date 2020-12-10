@@ -7,6 +7,7 @@ const mutations = require('./mutations');
 Vue.use(Vuex);
 
 const state = {
+  showOnboarding: true,
   user: {
     id: null,
     disability: null,

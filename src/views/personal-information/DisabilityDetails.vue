@@ -42,7 +42,7 @@
         <label for="otra" class="custom-control__label">Otra</label>
       </div>
       <footer class="onboarding__footer">
-        <onboarding-next :linkTo="'/onboarding/complete'" :isDisabled="!canContinue"></onboarding-next>
+        <onboarding-next :linkTo="'/personal-information/complete'" :isDisabled="!canContinue"></onboarding-next>
       </footer>
     </div>
   </div>

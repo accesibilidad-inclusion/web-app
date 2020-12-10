@@ -21,7 +21,7 @@
         </div>
       </form>
       <footer class="onboarding__footer">
-        <onboarding-next :linkTo="'/onboarding/gender'" :isDisabled="!canContinue"></onboarding-next>
+        <onboarding-next :linkTo="'/personal-information/gender'" :isDisabled="!canContinue"></onboarding-next>
       </footer>
     </div>
   </div>

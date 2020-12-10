@@ -32,7 +32,7 @@
         <label for="prefer-not-to-say" class="custom-control__label">Prefiero no decirlo</label>
       </div>
       <footer class="onboarding__footer">
-        <onboarding-next :linkTo="'/onboarding/disability'" :isDisabled="!canContinue"></onboarding-next>
+        <onboarding-next :linkTo="'/personal-information/disability'" :isDisabled="!canContinue"></onboarding-next>
       </footer>
     </div>
   </div>

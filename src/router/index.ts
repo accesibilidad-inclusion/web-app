@@ -7,12 +7,13 @@ import OnboardingAbout from '../views/onboarding/About.vue';
 import OnboardingHowItWorks from '../views/onboarding/HowItWorks.vue';
 import OnboardingHelpUs from '../views/onboarding/HelpUs.vue';
 import Permissions from '../views/onboarding/Permissions.vue';
-import Registration from '../views/onboarding/Registration.vue';
-import Birthday from '../views/onboarding/Birthday.vue';
-import Gender from '../views/onboarding/Gender.vue';
-import Disability from '../views/onboarding/Disability.vue';
-import DisabilityDetails from '../views/onboarding/DisabilityDetails.vue';
-import Complete from '../views/onboarding/Complete.vue';
+
+import Registration from '../views/personal-information/Registration.vue';
+import Birthday from '../views/personal-information/Birthday.vue';
+import Gender from '../views/personal-information/Gender.vue';
+import Disability from '../views/personal-information/Disability.vue';
+import DisabilityDetails from '../views/personal-information/DisabilityDetails.vue';
+import Complete from '../views/personal-information/Complete.vue';
 
 import Home from '../views/Home.vue';
 import SearchResults from '../views/SearchResults.vue';
@@ -92,33 +93,33 @@ const routes = [
     component: Permissions,
   },
   {
-    path: '/onboarding/registration',
-    name: 'onboarding-registration',
+    path: '/personal-information/registration',
+    name: 'personal-information-registration',
     component: Registration,
   },
   {
-    path: '/onboarding/birthday',
-    name: 'onboarding-birthday',
+    path: '/personal-information/birthday',
+    name: 'personal-information-birthday',
     component: Birthday,
   },
   {
-    path: '/onboarding/gender',
-    name: 'onboarding-gender',
+    path: '/personal-information/gender',
+    name: 'personal-information-gender',
     component: Gender,
   },
   {
-    path: '/onboarding/disability',
-    name: 'onboarding-disability',
+    path: '/personal-information/disability',
+    name: 'personal-information-disability',
     component: Disability,
   },
   {
-    path: '/onboarding/disability-details',
-    name: 'onboarding-disability-details',
+    path: '/personal-information/disability-details',
+    name: 'personal-information-disability-details',
     component: DisabilityDetails,
   },
   {
-    path: '/onboarding/complete',
-    name: 'onboarding-complete',
+    path: '/personal-information/complete',
+    name: 'personal-information-complete',
     component: Complete,
   },
   {
