@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     linkTo() {
-      return this.disability === 'yes' ? '/onboarding/disability-details' : '/onboarding/complete';
+      return this.disability === 'yes' ? '/personal-information/disability-details' : '/personal-information/complete';
     },
     canContinue() {
       return this.disability !== null;

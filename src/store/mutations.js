@@ -53,9 +53,17 @@ export const setUserId = (state, payload) => {
   localStorage.setItem('app_user', JSON.stringify(state.user));
 };
 
+export const tutorialComplete = (state, payload) => {
+  state.showOnboarding = false;
+  localStorage.setItem('showOnboarding', JSON.stringify(state.showOnboarding));
+};
+
 export const initializeStore = (state) => {
   if (localStorage.getItem('app_user')) {
     state.user = JSON.parse(localStorage.getItem('app_user'));
+  }
+  if (localStorage.getItem('showOnboarding')) {
+    state.showOnboarding = JSON.parse(localStorage.getItem('showOnboarding'));
   }
   if (localStorage.getItem('selected')) {
     state.selected = JSON.parse(localStorage.getItem('selected'));

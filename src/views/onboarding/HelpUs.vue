@@ -12,23 +12,29 @@
       </h2>
       <p>Queremos entregar a la comunidad las herramientas para apoyarnos entre todos.</p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="'/onboarding/registration'" />
+        <button @click="tutorialComplete()" class="btn btn--large btn--block btn--primary">
+          Emprezar
+        </button>
       </footer>
     </div>
   </div>
 </template>
 
 <script>
-import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import PageImage from '../../../public/img/illustrations/onboarding-tu-puedes-ayudar.svg?inline';
 
 export default {
   name: 'HelpUs',
   components: {
-    OnboardingNext,
     TextToSpeech,
     PageImage,
+  },
+  methods: {
+    tutorialComplete() {
+      this.$store.commit('tutorialComplete');
+      this.$router.push('/');
+    },
   },
 };
 </script>

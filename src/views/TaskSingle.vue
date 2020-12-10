@@ -188,7 +188,6 @@ export default {
       this.$data.state.submitting_feedback = true;
       this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/reports/store`, {
         report: this.feedback.body,
-        user: this.$store.state.user,
         task: this.$store.state.selected.task,
       }).then((result) => {
         this.$data.state.submitted_feedback = true;
