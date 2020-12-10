@@ -79,6 +79,12 @@
             {{ task.steps.length }}
           </li>
         </ol>
+        <!-- Mensaje tarea sin pictograma
+         <div v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
+          <strong class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</strong>
+          <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
+        </div>
+        -->
       </div>
     </main>
     <!-- Pestaña inferior para feedback -->
@@ -638,5 +644,48 @@ export default {
   .task-feedback__response-close {
     margin-top: auto;
     margin-bottom: var(--spacer-lg);
+  }
+  .without-pictogram {
+    @include rfs($font-size-14);
+    color: var(--color-neutral);
+    grid-column: 1/3;
+    text-align: center;
+    padding-top: var(--spacer-lg);
+    padding-bottom: var(--spacer);
+    @media screen and ( max-width: 640px ) {
+      padding: var(--spacer-sm) 0;
+    }
+  }
+  .without-pictogram__title {
+    display: block;
+    padding-bottom: var(--spacer-sm);
+  }
+  .without-pictogram--hidden {
+    display: none;
+  }
+  .task-steps--without-pictogram {
+    max-height: 100%;
+    flex-grow: initial;
+    .task-step {
+      min-height: 40vh;
+      @media screen and ( max-width: 320px ) {
+        min-height: 25vh;
+      }
+    }
+    .task-helpful {
+      min-height: 55vh;
+    }
+    .task-step__figure {
+      grid-template-rows: 1fr;
+    }
+    .step-canvas {
+      display: none;
+    }
+    .task-step__legend {
+      .tts {
+        margin-top: 0;
+        align-self: center;
+      }
+    }
   }
 </style>
