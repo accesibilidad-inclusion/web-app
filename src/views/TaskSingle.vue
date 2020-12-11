@@ -14,6 +14,7 @@
       <ol class="task__steps"
         v-touch:swipe.left="advanceStep"
         v-touch:swipe.right="rewindStep"
+         v-bind:class="!task.steps.filter( s => s.pictogram ).length ? 'task-steps--without-pictogram' : ''"
       >
         <li v-for="(step, index) in task.steps"
           v-bind:step="step"
@@ -79,12 +80,10 @@
             {{ task.steps.length }}
           </li>
         </ol>
-        <!-- Mensaje tarea sin pictograma
-         <div v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
+        <div v-if="!task.steps.filter( s => s.pictogram ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
           <strong class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</strong>
           <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
         </div>
-        -->
       </div>
     </main>
     <!-- Pestaña inferior para feedback -->
