@@ -24,21 +24,18 @@ export default {
   },
   data() {
     return {
-      showOnboarding: null,
       loading: true,
       color: '#fff',
       size: '20px',
     };
   },
   mounted() {
-    if (this.$store.state.showOnboarding) {
+    if (this.$store.state.tutorial.onboarding) {
       setTimeout(() => {
-        this.showOnboarding = true;
         this.$router.push('/onboarding/');
       }, 2000);
     } else {
       this.$store.dispatch('init').then(() => {
-        this.showOnboarding = true;
         this.$router.push('/home');
       });
     }

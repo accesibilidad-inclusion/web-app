@@ -42,7 +42,7 @@
           <template v-if="!task.steps.filter( s => s.pictogram ).length">
             <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
             <router-link
-              to="/nuevo-apoyo/intro"
+              :to="$store.state.tutorial.pictogram ? '/nuevo-apoyo/intro' : '/nuevo-apoyo/' + task.steps[0].id"
               class="btn btn--large btn--block btn--ghost"
             >
               Crear el apoyo gráfico

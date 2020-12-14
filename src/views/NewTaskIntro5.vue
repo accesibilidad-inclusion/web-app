@@ -19,23 +19,29 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <OnboardingNext :linkTo="'/nueva-tarea/'" />
+        <button @click="next()" class="btn btn--large btn--block btn--primary">
+          Siguiente
+        </button>
       </footer>
     </div>
   </div>
 </template>
 
 <script>
-import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import PageImage from '../../public/img/illustrations/epica-10-avisame.svg?inline';
 
 export default {
   name: 'NewTaskIntro5',
   components: {
-    OnboardingNext,
     TextToSpeech,
     PageImage,
+  },
+  methods: {
+    next() {
+      this.$store.commit('tutorialTask');
+      this.$router.push('/nueva-tarea');
+    },
   },
 };
 </script>

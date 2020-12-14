@@ -15,23 +15,29 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <OnboardingNext :linkTo="'/nuevo-lugar/'" />
+        <button @click="next()" class="btn btn--large btn--block btn--primary">
+          Siguiente
+        </button>
       </footer>
     </div>
   </div>
 </template>
 
 <script>
-import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import PageImage from '../../public/img/illustrations/epica-11-muy-facil.svg?inline';
 
 export default {
   name: 'NewPlaceIntro3',
   components: {
-    OnboardingNext,
     TextToSpeech,
     PageImage,
+  },
+  methods: {
+    next() {
+      this.$store.commit('tutorialPlace');
+      this.$router.push('/nuevo-lugar');
+    },
   },
 };
 </script>

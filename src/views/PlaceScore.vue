@@ -26,7 +26,7 @@
       \n\n${evaluation.feature3}\n\n${evaluation.spatiality}`" />
     </div>
     <div class="actions">
-      <router-link tag="button" to="/evaluacion-lugar/intro" class="btn btn--large btn--block btn--primary">
+      <router-link tag="button" :to="$store.state.tutorial.evaluation ? '/evaluacion-lugar/intro' : ($store.state.user.id ? '/evaluacion-lugar' : '/personal-information/registration')" class="btn btn--large btn--block btn--primary">
         Evaluar este lugar
       </router-link>
     </div>

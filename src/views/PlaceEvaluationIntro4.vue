@@ -5,21 +5,31 @@
       <IconPermissions class="onboarding__permissions-image" />
       <p class="text-center">Necesitamos que nos permitas acceder a la cámara de tu dispositivo para que puedas tomar fotos durante la evaluación</p>
       <footer class="onboarding__footer">
-        <OnboardingNext :linkTo="$store.state.user.id ? '/evaluacion-lugar' : '/personal-information/registration'" />
+        <button @click="next()" class="btn btn--large btn--block btn--primary">
+          Siguiente
+        </button>
       </footer>
     </div>
   </div>
 </template>
 
 <script>
-import OnboardingNext from '@/components/OnboardingNext.vue';
 import IconPermissions from '../../public/img/app-icons/camera-permissions.svg?inline';
 
 export default {
   name: 'PlaceEvaluationIntro4',
   components: {
-    OnboardingNext,
     IconPermissions,
+  },
+  methods: {
+    next() {
+      this.$store.commit('tutorialEvaluation');
+      if (!this.$store.state.user.id) {
+        this.$router.push('/personal-information/registration');
+      } else {
+        this.$router.push('/evaluacion-lugar');
+      }
+    },
   },
 };
 </script>

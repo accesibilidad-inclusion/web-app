@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     tutorialComplete() {
-      this.$store.commit('tutorialComplete');
+      this.$store.commit('tutorialOnboarding');
       this.$router.push('/');
     },
   },
