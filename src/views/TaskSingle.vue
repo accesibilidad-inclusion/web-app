@@ -201,12 +201,16 @@ export default {
     },
   },
   beforeMount() {
-    this.$store.dispatch('setSelectedItem', {
-      object: 'task',
-      item: this.venue.tasks.find(t => t.id === parseInt(this.$route.params.taskId, 10)),
-    }).then(() => {
-      this.task.set(this.$store.state.selected.task);
-    });
+    if (!this.venue.tasks.find(t => t.id === parseInt(this.$route.params.taskId, 10))) {
+      this.$router.push('/');
+    } else {
+      this.$store.dispatch('setSelectedItem', {
+        object: 'task',
+        item: this.venue.tasks.find(t => t.id === parseInt(this.$route.params.taskId, 10)),
+      }).then(() => {
+        this.task.set(this.$store.state.selected.task);
+      });
+    }
   },
   data() {
     return {
