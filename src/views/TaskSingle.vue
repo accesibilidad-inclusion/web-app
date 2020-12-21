@@ -26,6 +26,11 @@
             <div class="step-canvas">
               <pictogram v-if="step.pictogram" :layers="step.pictogram.images"></pictogram>
             </div>
+            <div v-if="!task.steps.filter( s => s.pictogram ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
+              <icon-no-results class="without-pictogram__icon" />
+              <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
+              <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
+            </div>
             <figcaption class="task-step__legend">{{ step.label }} <text-to-speech :text-audio="step.label" /></figcaption>
           </figure>
         </li>
@@ -59,6 +64,15 @@
           <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
         </li>
       </ol>
+      <div v-if="!task.steps.filter( s => s.label ).length" v-bind:class="'task-empty'
+          + ( state.active_step < 0 ? '' : ' task-step--active')">
+        <icon-no-information class="task-empty__icon" />
+        <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
+        <p class="task-empty__description">Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y apoyos.</p>
+        <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
+          &plus; Crear una tarea nueva
+        </router-link>
+      </div>
       <div class="task__nav">
         <button v-bind:class="'btn btn--large btn--primary'
           + ( state.active_step > 0 ? '' : ' btn--hidden' )
@@ -80,10 +94,6 @@
             {{ task.steps.length }}
           </li>
         </ol>
-        <div v-if="!task.steps.filter( s => s.pictogram ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
-          <strong class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</strong>
-          <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
-        </div>
       </div>
     </main>
     <!-- Pestaña inferior para feedback -->
@@ -130,6 +140,8 @@ import Pictogram from '@/components/Pictogram.vue';
 import IconLike from '../../public/img/app-icons/like.svg?inline';
 import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
 import IconError from '../../public/img/app-icons/error.svg?inline';
+import IconNoResults from '../../public/img/app-icons/no-results.svg?inline';
+import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
 
 export default {
   name: 'taskSingle',
@@ -140,6 +152,8 @@ export default {
     IconLike,
     IconDislike,
     IconError,
+    IconNoResults,
+    IconNoInformation,
   },
   methods: {
     advanceStep() {
@@ -391,7 +405,6 @@ export default {
       }
     }
     .tts {
-      margin-top: var(--spacer);
       margin-left: var(--spacer);
       align-self: flex-start;
     }
@@ -647,47 +660,100 @@ export default {
     margin-top: auto;
     margin-bottom: var(--spacer-lg);
   }
+
+  /*Tarea sin pictogramas*/
   .without-pictogram {
-    @include rfs($font-size-14);
-    color: var(--color-neutral);
+    grid-row: 1/3;
     grid-column: 1/3;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    padding-top: var(--spacer-lg);
-    padding-bottom: var(--spacer);
-    @media screen and ( max-width: 640px ) {
-      padding: var(--spacer-sm) 0;
+    padding: var(--spacer);
+    background-color: rgba(241, 247, 255, 0.8);
+    & + .task-step__legend {
+      grid-column: 1/3;
     }
   }
-  .without-pictogram__title {
+  .without-pictogram__icon {
+    width: var(--spacer-lg);
+    height: var(--spacer-lg);
+    margin: var(--spacer-sm) auto var(--spacer);
     display: block;
-    padding-bottom: var(--spacer-sm);
+  }
+  .without-pictogram__title {
+    @include rfs($font-size-16);
+    color: var(--color-brand);
+    margin-bottom: var(--spacer-sm);
+    text-transform: uppercase;
+  }
+  .without-pictogram__description {
+    @include rfs($font-size-14);
+    max-width: 300px;
+    margin: 0 auto;
+    @media screen and ( min-width: 640px ) {
+      max-width: 400px;
+    }
   }
   .without-pictogram--hidden {
     display: none;
   }
   .task-steps--without-pictogram {
-    max-height: 100%;
-    flex-grow: initial;
-    .task-step {
-      min-height: 40vh;
-      @media screen and ( max-width: 320px ) {
-        min-height: 25vh;
-      }
-    }
-    .task-helpful {
-      min-height: 55vh;
-    }
-    .task-step__figure {
-      grid-template-rows: 1fr;
-    }
     .step-canvas {
-      display: none;
+    display: none;
     }
-    .task-step__legend {
-      .tts {
-        margin-top: 0;
-        align-self: center;
-      }
+  }
+
+  /*Tarea sin pasos*/
+  .task-empty--hidden {
+    display: none;
+  }
+  .task-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--spacer);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    background-color: var(--color-background);
+    .btn {
+      max-width: 500px;
     }
+  }
+  .task-empty__icon {
+    width: var(--spacer-lg);
+    height: var(--spacer-lg);
+    margin: var(--spacer-sm) auto var(--spacer);
+    path {
+      fill: var(--color-brand);
+    }
+  }
+  .task-empty__title {
+    @include rfs($font-size-16);
+    color: var(--color-brand);
+    margin-bottom: var(--spacer-sm);
+    padding: 0 var(--spacer-sm);
+    text-transform: uppercase;
+    font-weight: 800;
+    text-align: center;
+    max-width: 400px;
+    @media screen and ( min-width: 640px ) {
+      margin-bottom: var(--spacer);
+    }
+  }
+  .task-empty__description {
+    @include rfs($font-size-14);
+    text-align: center;
+    margin-bottom: var(--spacer-xl);
+    max-width: 400px;
+  }
+  .task-empty + .task__nav {
+    display: none;
   }
 </style>
