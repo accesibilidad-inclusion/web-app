@@ -69,7 +69,7 @@
         <icon-no-information class="task-empty__icon" />
         <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
         <p class="task-empty__description">Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y apoyos.</p>
-        <router-link to="/tareas/nueva" class="btn btn--primary btn--large btn--block" tag="button">
+        <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--primary btn--large btn--block" tag="button">
           &plus; Crear una tarea nueva
         </router-link>
       </div>
