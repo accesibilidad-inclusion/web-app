@@ -11,7 +11,7 @@
         <h2 class="onboarding__title">Gracias por tu información</h2>
         <footer class="onboarding__footer">
           <button @click="goHome()" class="btn btn--large btn--block btn--light">
-            Empezar a usar PICTOS
+            Empezar a evaluar
           </button>
         </footer>
       </template>
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push('/');
+      this.$router.push('/evaluacion-lugar');
     },
   },
   created() {

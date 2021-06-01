@@ -18,7 +18,9 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <OnboardingNext :linkTo="'/nuevo-apoyo/' + step.id" />
+        <button @click="next()" class="btn btn--large btn--block btn--primary">
+          Siguiente
+        </button>
       </footer>
     </div>
   </div>
@@ -26,14 +28,12 @@
 
 <script>
 import Task from '@/models/Task';
-import OnboardingNext from '@/components/OnboardingNext.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import PageImage from '../../public/img/illustrations/epica-9-avisame.svg?inline';
 
 export default {
   name: 'NewAidIntro4',
   components: {
-    OnboardingNext,
     TextToSpeech,
     PageImage,
   },
@@ -45,6 +45,12 @@ export default {
   computed: {
     step() {
       return this.task.steps[0];
+    },
+  },
+  methods: {
+    next() {
+      this.$store.commit('tutorialPictogram');
+      this.$router.push(`/nuevo-apoyo/${this.step.id}`);
     },
   },
 };

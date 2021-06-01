@@ -146,4 +146,13 @@ export default {
       }
     }
   }
+  @media screen and ( max-width: 640px ) {
+    input[type="email"],
+    input[type="search"],
+    input[type="text"],
+    select:focus,
+    textarea {
+      font-size: 16px;
+    }
+  }
 </style>

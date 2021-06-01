@@ -14,7 +14,7 @@
       <p>Registra tu <strong>fecha</strong> de <strong>nacimiento</strong>, <strong>sexo</strong> y si tienes algún <strong>tipo de discapacidad</strong>.</p>
       <p>Toda la información será <strong>estrictamente confidencial</strong>.</p>
       <footer class="onboarding__footer">
-        <onboarding-next :linkTo="'/onboarding/birthday'"></onboarding-next>
+        <onboarding-next :linkTo="'/personal-information/birthday'"></onboarding-next>
       </footer>
     </div>
   </div>

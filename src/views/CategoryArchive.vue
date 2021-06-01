@@ -7,7 +7,7 @@
       <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
       <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
       <h1 class="category__title entries-list__title">{{ category.name }}</h1>
-      <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de tí.</p>
+      <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de ti.</p>
       <text-to-speech :text-audio="category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'" />
     </header>
     <template v-if="loading">
@@ -35,7 +35,7 @@
           ¿No encuentras el lugar que estás buscando?
           <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
         </p>
-        <router-link to="/nuevo-lugar/intro" class="btn btn--primary btn--large btn--block" tag="button">
+        <router-link :to="$store.state.tutorial.place ? '/nuevo-lugar/intro' : '/nuevo-lugar'" class="btn btn--primary btn--large btn--block" tag="button">
           &plus; Agregar un lugar nuevo
         </router-link>
       </aside>

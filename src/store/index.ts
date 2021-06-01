@@ -7,6 +7,13 @@ const mutations = require('./mutations');
 Vue.use(Vuex);
 
 const state = {
+  tutorial: {
+    onboarding: true,
+    evaluation: true,
+    place: true,
+    task: true,
+    pictogram: true,
+  },
   user: {
     id: null,
     disability: null,
