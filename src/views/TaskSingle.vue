@@ -344,9 +344,8 @@ export default {
     position: relative;
     width: 100%;
     background: var(--color-brand-lightest);
-    height: 77vw;
     min-height: 13rem;
-    max-height: 40vh;
+    max-height: 41vh;
   }
   .task-step {
     position: absolute;
@@ -391,6 +390,7 @@ export default {
     font-weight: bold;
     background: var(--color-background);
     justify-content: space-between;
+    min-height: 14vh;
     @media screen and ( min-width: 640px ) {
       padding: calc( var(--spacer-lg) * .75 ) var(--spacer-lg);
     }
@@ -671,8 +671,16 @@ export default {
     text-align: center;
     padding: var(--spacer);
     background-color: rgba(241, 247, 255, 0.8);
+    min-height: 41vh;
+    height: 100%;
     & + .task-step__legend {
       grid-column: 1/3;
+    }
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        height: 100%;
+      }
     }
   }
   .without-pictogram__icon {

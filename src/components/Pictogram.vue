@@ -32,6 +32,12 @@ export default {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     height: 100%;
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        height: 100%;
+      }
+    }
   }
   .pictogram__layer {
     position: relative;
@@ -39,6 +45,14 @@ export default {
     grid-row: 1/1;
     width: 100%;
     height: 100%;
+    min-height: 13rem;
+    max-height: 40vh;
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        height: 100%;
+      }
+    }
   }
   .pictogram__layer--subject {
     z-index: 3;
