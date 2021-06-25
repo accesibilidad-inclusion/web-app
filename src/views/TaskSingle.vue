@@ -346,6 +346,18 @@ export default {
     background: var(--color-brand-lightest);
     min-height: 13rem;
     max-height: 41vh;
+    // Hack Safari
+    @media not all and (min-resolution:.001dpcm) {
+      @supports (-webkit-appearance:none) {
+        max-height: 41vh;
+        width: 100%;
+      }
+    }
+    // Hack Firefox Chrome
+    _:-webkit-any-link, :root .selector {
+      max-height: 41vh;
+      width: 100%;
+    }
   }
   .task-step {
     position: absolute;
