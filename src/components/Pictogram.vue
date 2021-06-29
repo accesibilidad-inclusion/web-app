@@ -33,17 +33,14 @@ export default {
     grid-template-rows: 1fr;
     height: 100%;
     max-height: 41vh;
+    min-height: 13rem;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
         height: 100%;
         max-height: 41vh;
+        min-height: 13rem;
       }
-    }
-    // Hack Firefox Chrome
-    _:-webkit-any-link, :root .selector {
-      height: 100%;
-      max-height: 41vh;
     }
   }
   .pictogram__layer {
@@ -60,13 +57,8 @@ export default {
         height: 100%;
         width: 100%;
         max-height: 41vh;
+        min-height: 13rem;
       }
-    }
-    // Hack Firefox Chrome
-    _:-webkit-any-link, :root .selector {
-      height: 100%;
-      width: 100%;
-      max-height: 41vh;
     }
   }
   .pictogram__layer--subject {
