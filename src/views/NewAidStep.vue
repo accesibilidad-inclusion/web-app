@@ -106,7 +106,9 @@ export default {
     IconCheckRounded,
   },
   beforeMount() {
-    this.getState();
+    this.$store.dispatch('setImages').then(() => {
+      this.getState();
+    });
   },
   beforeUpdate() {
     this.getState();

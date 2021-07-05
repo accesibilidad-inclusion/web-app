@@ -124,10 +124,20 @@ export default new Vuex.Store({
         }).then((response) => {
           localStorage.setItem('categories', JSON.stringify(response.data.categories));
           localStorage.setItem('questions', JSON.stringify(response.data.questions));
-          localStorage.setItem('pictos', JSON.stringify(response.data.images));
           commit('setCategories', response.data.categories);
           commit('setQuestions', response.data.questions);
-          commit('setPictos', response.data.images);
+          resolve();
+        });
+      });
+    },
+    setImages({ commit }) {
+      return new Promise((resolve) => {
+        axios({
+          url: `${process.env.VUE_APP_API_DOMAIN}api/images`,
+          method: 'GET',
+        }).then((response) => {
+          localStorage.setItem('pictos', JSON.stringify(response.data));
+          commit('setPictos', response.data);
           resolve();
         });
       });
