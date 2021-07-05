@@ -32,10 +32,14 @@ export default {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     height: 100%;
+    max-height: 41vh;
+    min-height: 13rem;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
         height: 100%;
+        max-height: 41vh;
+        min-height: 13rem;
       }
     }
   }
@@ -46,11 +50,14 @@ export default {
     width: 100%;
     height: 100%;
     min-height: 13rem;
-    max-height: 40vh;
+    max-height: 41vh;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
         height: 100%;
+        width: 100%;
+        max-height: 41vh;
+        min-height: 13rem;
       }
     }
   }
