@@ -1,7 +1,7 @@
 <template>
   <div class="task task-block" tag="article" @click="selectTask(task)">
     <p class="task-block__title">{{ task.title }}</p>
-    <p class="task-block__service" v-if="task.service">{{ task.service.name }}</p>
+    <p class="task-block__service">{{ task.venue.name }}, {{ task.service.name }}</p>
     <text-to-speech :text-audio="`${task.title}.\n\n`" />
     <div class="task-block__aids" v-if="task.aids">
       <span>Apoyo:</span>
