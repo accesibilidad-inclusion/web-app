@@ -44,7 +44,7 @@
               <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
             </button>
           </div>
-          <template v-if="!task.steps.filter( s => s.pictogram ).length">
+          <template v-if="task.steps.length && !task.steps.filter( s => s.pictogram ).length">
             <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
             <router-link
               :to="$store.state.tutorial.pictogram ? '/nuevo-apoyo/intro' : '/nuevo-apoyo/' + task.steps[0].id"
