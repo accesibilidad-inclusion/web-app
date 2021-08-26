@@ -10,7 +10,7 @@
       <template v-else>
         <h2 class="onboarding__title">Gracias por<br> tu aporte</h2>
         <p class="onboarding__description">Estás ayudando al mundo a<br> ser un lugar más accesible</p>
-        <router-link :to="'/lugares/' + $store.state.selected.venue.id" class="onboarding__link">
+        <router-link :to="'/'+ $store.state.selected.category.slug +'/'+ $store.state.selected.service.slug +'/' + $store.state.selected.venue.slug" class="onboarding__link">
           Volver a {{ $store.state.selected.venue.name }}
         </router-link>
         <footer class="onboarding__footer">

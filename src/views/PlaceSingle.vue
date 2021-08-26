@@ -1,69 +1,74 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="place">
-    <header class="place__header">
-      <router-link :to="'/servicios/' + service.id" class="place__service">{{ service.name }}</router-link>
-      <h1 class="place__name">{{ place.name }}</h1>
-      <a :href="place.mapLink" class="place__map-link" target="_blank" v-if="place.mapLink">
-        <icon-location-pin />
-        Abrir en mapa
-      </a>
-      <text-to-speech :text-audio="`${place.name}, en ${service.name}`" />
-    </header>
-    <template v-if="tasks.length">
-      <main class="place__tasks">
-        <p class="place__tasks-description">
-          <span>Selecciona lo que necesites hacer en este lugar</span>
-          <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
-        </p>
-        <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
-      </main>
-      <aside class="actions actions--place">
-        <div class="actions__header">
-          <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
-          <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
-          <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
-        </div>
-        <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--primary btn--large btn--block" tag="button">
-          &plus; Agregar una tarea nueva
-        </router-link>
-      </aside>
-      <footer class="place__footer">
-        <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
-          <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
-          <div class="place__evaluation-title">{{ evaluation.title }}</div>
-          <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
-            <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
-            <span v-else>?</span>
-          </div>
-          <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
-          <p class="place__evaluation-question">¿Qué significa esto?</p>
-        </router-link>
-        <div class="place__evaluation-actions">
-          <router-link tag="button" :to="$store.state.tutorial.evaluation ? '/evaluacion-lugar/intro' : ($store.state.user.id ? '/evaluacion-lugar' : '/personal-information/registration')" class="btn btn--ghost btn--large btn--block">
-            Evaluar este lugar
-          </router-link>
-        </div>
-      </footer>
+    <template v-if="loading">
+      <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
     </template>
     <template v-else>
-      <div class="place__no-information">
-        <main class="place__no-information-content">
-          <p class="place__no-information-desc">
-            <icon-no-information />
-            <span>Este lugar no tiene información</span>
+      <header class="place__header">
+        <router-link :to="'/' + $route.params.categorySlug + '/' + $route.params.serviceSlug" class="place__service">{{ service.name }}</router-link>
+        <h1 class="place__name">{{ place.name }}</h1>
+        <a :href="place.mapLink" class="place__map-link" target="_blank" v-if="place.mapLink">
+          <icon-location-pin />
+          Abrir en mapa
+        </a>
+        <text-to-speech :text-audio="`${place.name}, en ${service.name}`" />
+      </header>
+      <template v-if="tasks.length">
+        <main class="place__tasks">
+          <p class="place__tasks-description">
+            <span>Selecciona lo que necesites hacer en este lugar</span>
+            <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
           </p>
+          <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
         </main>
         <aside class="actions actions--place">
           <div class="actions__header">
-            <text-to-speech :text-audio="'Ayudanos a mejorar'" />
-            <p class="actions__title">Ayudanos a mejorar</p>
+            <text-to-speech :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
+            <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
+            <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
           </div>
-          <router-link to="/tareas/nueva" class="btn btn--light btn--large btn--block" tag="button">
-            &plus; Agregar tareas a este lugar
+          <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--primary btn--large btn--block" tag="button">
+            &plus; Agregar una tarea nueva
           </router-link>
         </aside>
-      </div>
+        <footer class="place__footer">
+          <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
+            <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
+            <div class="place__evaluation-title">{{ evaluation.title }}</div>
+            <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+              <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
+              <span v-else>?</span>
+            </div>
+            <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
+            <p class="place__evaluation-question">¿Qué significa esto?</p>
+          </router-link>
+          <div class="place__evaluation-actions">
+            <router-link tag="button" :to="$store.state.tutorial.evaluation ? '/evaluacion-lugar/intro' : ($store.state.user.id ? '/evaluacion-lugar' : '/personal-information/registration')" class="btn btn--ghost btn--large btn--block">
+              Evaluar este lugar
+            </router-link>
+          </div>
+        </footer>
+      </template>
+      <template v-else>
+        <div class="place__no-information">
+          <main class="place__no-information-content">
+            <p class="place__no-information-desc">
+              <icon-no-information />
+              <span>Este lugar no tiene información</span>
+            </p>
+          </main>
+          <aside class="actions actions--place">
+            <div class="actions__header">
+              <text-to-speech :text-audio="'Ayudanos a mejorar'" />
+              <p class="actions__title">Ayudanos a mejorar</p>
+            </div>
+            <router-link to="/tareas/nueva" class="btn btn--light btn--large btn--block" tag="button">
+              &plus; Agregar tareas a este lugar
+            </router-link>
+          </aside>
+        </div>
+      </template>
     </template>
   </div>
 </template>
@@ -72,6 +77,7 @@
 import Service from '@/models/Service';
 import Venue from '@/models/Venue';
 import TaskBlock from '@/components/TaskBlock.vue';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
 import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
@@ -83,17 +89,42 @@ export default {
     TextToSpeech,
     IconLocationPin,
     IconNoInformation,
+    ClipLoader,
   },
   beforeMount() {
-    this.service.set(this.$store.state.selected.service);
-    this.place = new Venue(this.$store.state.selected.venue);
-    this.tasks = this.place.tasks;
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/venues/getVenue`, {
+      category: this.$route.params.categorySlug,
+      service: this.$route.params.serviceSlug,
+      venue: this.$route.params.venueSlug,
+    }).then((response) => {
+      this.tasks = response.data.tasks;
+      this.service.set(response.data.service);
+      this.place.set(response.data.venue);
+      this.$store.dispatch('setSelectedItem', {
+        object: 'category',
+        item: response.data.category,
+      });
+      this.$store.dispatch('setSelectedItem', {
+        object: 'service',
+        item: response.data.service,
+      });
+      this.$store.dispatch('setSelectedItem', {
+        object: 'venue',
+        item: response.data.venue,
+      });
+      this.loading = false;
+    }).catch((err) => {
+      if (err.response.status === 404) {
+        this.$router.push('/');
+      }
+    });
   },
   data() {
     return {
-      service: new Service(this.$store.state.selected.service),
-      place: new Venue(this.$store.state.selected.venue),
+      service: new Service(),
+      place: new Venue(),
       tasks: [],
+      loading: true,
     };
   },
   computed: {

@@ -132,11 +132,6 @@ const routes = [
     name: 'search',
     component: SearchResults,
   },
-  {
-    path: '/categoria/:categorySlug/',
-    name: 'category',
-    component: CategoryArchive,
-  },
   // @todo
   // {
   //   path: '/lugares/nuevo',
@@ -144,24 +139,9 @@ const routes = [
   //   component: PlacesNew,
   // },
   {
-    path: '/servicios/:serviceId/',
-    name: 'service-single',
-    component: ServiceSingle,
-  },
-  {
-    path: '/lugares/:placeId/',
-    name: 'place-single',
-    component: PlaceSingle,
-  },
-  {
     path: '/evaluacion/:grade/',
     name: 'place-score',
     component: PlaceScore,
-  },
-  {
-    path: '/tareas/:taskId/',
-    name: 'task-single',
-    component: TaskSingle,
   },
   {
     path: '/nuevo-lugar/intro',
@@ -330,6 +310,26 @@ const routes = [
     path: '/colabora-con-nosotros/',
     name: 'colaborate',
     component: () => import(/* webpackChunkName: "about" */ '../views/Colaborate.vue'),
+  },
+  {
+    path: '/:categorySlug/',
+    name: 'category',
+    component: CategoryArchive,
+  },
+  {
+    path: '/:categorySlug/:serviceSlug/',
+    name: 'service-single',
+    component: ServiceSingle,
+  },
+  {
+    path: '/:categorySlug/:serviceSlug/:venueSlug/',
+    name: 'place-single',
+    component: PlaceSingle,
+  },
+  {
+    path: '/:categorySlug/:serviceSlug/:venueSlug/:taskSlug/',
+    name: 'task-single',
+    component: TaskSingle,
   },
 ];
 

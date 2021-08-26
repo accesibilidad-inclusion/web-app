@@ -58,7 +58,7 @@
                 Gracias por<br> tu aporte
               </h2>
               <p class="thanks-message__description">Estás ayudando al mundo a<br> ser un lugar más accesible</p>
-              <router-link :to="'/lugares/' + venue.id" class="thanks-message__back">Volver a {{ venue.name }}</router-link>
+              <router-link :to="'/'+ $store.state.selected.category.slug +'/'+ $store.state.selected.service.slug +'/' + $store.state.selected.venue.slug" class="thanks-message__back">Volver a {{ venue.name }}</router-link>
             </div>
           </div>
         </template>

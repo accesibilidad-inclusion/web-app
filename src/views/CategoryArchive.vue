@@ -1,19 +1,19 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="category entries-list">
-    <header class="category__header entries-list__header">
-      <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
-      <icon-health class="category__icon" v-if="category.slug == 'salud'" />
-      <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
-      <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
-      <h1 class="category__title entries-list__title">{{ category.name }}</h1>
-      <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de ti.</p>
-      <text-to-speech :text-audio="category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'" />
-    </header>
     <template v-if="loading">
       <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
     </template>
     <template v-else>
+      <header class="category__header entries-list__header">
+        <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
+        <icon-health class="category__icon" v-if="category.slug == 'salud'" />
+        <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
+        <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
+        <h1 class="category__title entries-list__title">{{ category.name }}</h1>
+        <p class="category__description entries-list__description">Revisa los servicios disponibles que están cerca de ti.</p>
+        <text-to-speech :text-audio="category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'" />
+      </header>
       <main class="category__items category__items--services">
         <template v-for="service in services" v-bind:service="service">
           <a class="category__item category__item--service service-block entry-block" tag="article" v-bind:key="service.id" @click="setService(service)">
@@ -63,15 +63,23 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    this.category.set(this.$store.state.selected.category);
     navigator.geolocation.getCurrentPosition((position) => {
       this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/categories/nearServices`, {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-        id: this.category.id,
+        category: this.$route.params.categorySlug,
       }).then((response) => {
-        this.services = response.data;
+        this.services = response.data.services;
+        this.category.set(response.data.category);
+        this.$store.dispatch('setSelectedItem', {
+          object: 'category',
+          item: response.data.category,
+        });
         this.loading = false;
+      }).catch((err) => {
+        if (err.response.status === 404) {
+          this.$router.push('/');
+        }
       });
     });
   },
@@ -84,12 +92,7 @@ export default {
   },
   methods: {
     setService(service) {
-      this.$store.dispatch('setSelectedItem', {
-        object: 'service',
-        item: service,
-      }).then(() => {
-        this.$router.push(`/servicios/${service.id}`);
-      });
+      this.$router.push(`/${this.$route.params.categorySlug}/${service.slug}`);
     },
   },
 };

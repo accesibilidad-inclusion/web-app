@@ -1,19 +1,19 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="service">
-    <header class="service__header entries-list__header">
-      <icon-transport class="service__icon" v-if="category.slug == 'transporte'" />
-      <icon-health class="service__icon" v-if="category.slug == 'salud'" />
-      <icon-leisure class="service__icon" v-if="category.slug == 'ocio'" />
-      <icon-formalities class="service__icon" v-if="category.slug == 'tramites'" />
-      <h1 class="service__title entries-list__title">{{ service.name }}</h1>
-      <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer en este servicio.</p>
-      <text-to-speech :text-audio="service.name + '.\n\n\n\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
-    </header>
     <template v-if="loading">
       <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
     </template>
     <template v-else>
+      <header class="service__header entries-list__header">
+        <icon-transport class="service__icon" v-if="category.slug == 'transporte'" />
+        <icon-health class="service__icon" v-if="category.slug == 'salud'" />
+        <icon-leisure class="service__icon" v-if="category.slug == 'ocio'" />
+        <icon-formalities class="service__icon" v-if="category.slug == 'tramites'" />
+        <h1 class="service__title entries-list__title">{{ service.name }}</h1>
+        <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer en este servicio.</p>
+        <text-to-speech :text-audio="service.name + '.\n\n\n\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
+      </header>
       <main class="service__items service__items places">
         <template v-for="place in places" v-bind:place="place">
           <a class="place-block entry-block" tag="article" v-bind:key="place.id" @click="setPlace(place)">
@@ -57,16 +57,29 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    this.category.set(this.$store.state.selected.category);
-    this.service.set(this.$store.state.selected.service);
     navigator.geolocation.getCurrentPosition((position) => {
       this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/services/nearVenues`, {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-        id: this.service.id,
+        category: this.$route.params.categorySlug,
+        service: this.$route.params.serviceSlug,
       }).then((response) => {
-        this.places = response.data;
+        this.places = response.data.venues;
+        this.category.set(response.data.category);
+        this.service.set(response.data.service);
+        this.$store.dispatch('setSelectedItem', {
+          object: 'category',
+          item: response.data.category,
+        });
+        this.$store.dispatch('setSelectedItem', {
+          object: 'service',
+          item: response.data.service,
+        });
         this.loading = false;
+      }).catch((err) => {
+        if (err.response.status === 404) {
+          this.$router.push('/');
+        }
       });
     });
   },
@@ -80,12 +93,7 @@ export default {
   },
   methods: {
     setPlace(place) {
-      this.$store.dispatch('setSelectedItem', {
-        object: 'venue',
-        item: place,
-      }).then(() => {
-        this.$router.push(`/lugares/${place.id}`);
-      });
+      this.$router.push(`/${this.$route.params.categorySlug}/${this.$route.params.serviceSlug}/${place.slug}`);
     },
   },
 };

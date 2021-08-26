@@ -81,7 +81,7 @@ export default {
     },
     isDark() {
       this.$data.state.dark = this.$route.path.indexOf('nuevo-apoyo') !== -1
-        || this.$route.path.indexOf('lugares') !== -1
+        || this.$route.name === 'place-single'
         || this.$route.path.indexOf('evaluacion-lugar') !== -1;
     },
   },

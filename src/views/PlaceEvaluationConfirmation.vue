@@ -3,7 +3,7 @@
   <div class="page">
     <div class="container">
       <header class="place__header">
-        <router-link :to="'/servicios/' + $store.state.selected.service.id" class="place__service">{{ $store.state.selected.service.name }}</router-link>
+        <router-link :to="'/'+ $store.state.selected.category.slug +'/'+ $store.state.selected.service.slug" class="place__service">{{ $store.state.selected.service.name }}</router-link>
         <h1 class="place__name">{{ $store.state.selected.venue.name }}</h1>
         <text-to-speech :text-audio="''" />
         <span class="page__tag">Evaluando</span>

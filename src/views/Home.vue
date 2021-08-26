@@ -47,12 +47,7 @@ export default {
   },
   methods: {
     setCategory(category) {
-      this.$store.dispatch('setSelectedItem', {
-        object: 'category',
-        item: category,
-      }).then(() => {
-        this.$router.push(`/categoria/${category.slug}`);
-      });
+      this.$router.push(`/${category.slug}`);
     },
   },
 };

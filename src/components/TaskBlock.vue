@@ -32,26 +32,10 @@ export default {
   },
   methods: {
     selectTask(task) {
-      // console.log(task);
-      if (task.category) {
-        this.$store.dispatch('setSelectedItem', {
-          object: 'category',
-          item: task.category,
-        }).then(() => {
-          this.$store.dispatch('setSelectedItem', {
-            object: 'service',
-            item: task.service,
-          }).then(() => {
-            this.$store.dispatch('setSelectedItem', {
-              object: 'venue',
-              item: task.venue,
-            }).then(() => {
-              this.$router.push({ name: 'task-single', params: { taskId: task.id } });
-            });
-          });
-        });
+      if (this.$route.params.categorySlug) {
+        this.$router.push(`/${this.$route.params.categorySlug}/${this.$route.params.serviceSlug}/${this.$route.params.venueSlug}/${task.slug}`);
       } else {
-        this.$router.push({ name: 'task-single', params: { taskId: task.id } });
+        this.$router.push(`/${this.task.category.slug}/${this.task.service.slug}/${this.task.venue.slug}/${task.slug}`);
       }
     },
   },
