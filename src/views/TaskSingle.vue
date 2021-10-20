@@ -26,16 +26,19 @@
             v-bind:class="'task-step'+ ( index === state.active_step ?
             ' task-step--active' : '')"
           >
-            <figure class="task-step__figure">
-              <div class="step-canvas">
-                <pictogram v-if="step.pictogram" :layers="step.pictogram.images"></pictogram>
+            <figure class="task-step__figure" v-bind:class="{'task-step__figure--without-pictogram' : !step.pictogram || !step.pictogram.images.filter( i => i.layout <= 3).length}">
+              <div class="step-canvas" v-if="step.pictogram && step.pictogram.images.filter( i => i.layout <= 3).length">
+                <pictogram :layers="step.pictogram.images.filter( i => i.layout <= 3)"></pictogram>
               </div>
-              <div v-if="!steps.filter( s => s.pictogram ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
-                <icon-no-results class="without-pictogram__icon" />
-                <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
-                <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
-              </div>
-              <figcaption class="task-step__legend">{{ step.label }} <text-to-speech :text-audio="step.label" /></figcaption>
+              <figcaption class="task-step__legend">
+                <div class="task-step__legend-text">
+                  <span v-if="step.pictogram && step.pictogram.images.find( i => i.layout == 4)">
+                    <img v-bind:src="`${step.pictogram.images.find( i => i.layout == 4).path}${step.pictogram.images.find( i => i.layout == 4).filename}`" class="pictogram__layer--action">
+                  </span>
+                  {{ step.label }}
+                </div>
+                <text-to-speech :text-audio="step.label" />
+              </figcaption>
             </figure>
           </li>
           <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
@@ -48,7 +51,7 @@
                 <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
               </button>
             </div>
-            <template v-if="steps.length && !steps.filter( s => s.pictogram ).length">
+            <template v-if="steps.length && !steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length">
               <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
               <router-link
                 :to="$store.state.tutorial.pictogram ? '/nuevo-apoyo/intro' : '/nuevo-apoyo/' + steps[0].id"
@@ -99,6 +102,10 @@
             </li>
           </ol>
         </div>
+        <div v-if="!steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
+          <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
+          <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
+        </div>
       </main>
       <!-- Pestaña inferior para feedback -->
       <button @click="openFeedback" v-bind:class="'task__step-feedback' +
@@ -145,7 +152,6 @@ import Pictogram from '@/components/Pictogram.vue';
 import IconLike from '../../public/img/app-icons/like.svg?inline';
 import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
 import IconError from '../../public/img/app-icons/error.svg?inline';
-import IconNoResults from '../../public/img/app-icons/no-results.svg?inline';
 import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
 
 export default {
@@ -157,7 +163,6 @@ export default {
     IconLike,
     IconDislike,
     IconError,
-    IconNoResults,
     IconNoInformation,
   },
   methods: {
@@ -340,9 +345,9 @@ export default {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
-    flex-grow: 1;
+    // flex-grow: 1;
     background: var(--color-brand-lightest);
-    max-height: 55vh;
+    // max-height: 55vh;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
@@ -365,6 +370,16 @@ export default {
         flex-grow: unset;
         width: 100%;
         height: 100%;
+      }
+    }
+  }
+  .task-step__figure--without-pictogram {
+    .task-step__legend {
+      height: 30vh;
+      @include rfs($font-size-18);
+      .pictogram__layer--action {
+        height: 75px;
+        margin-right: var(--spacer-sm);
       }
     }
   }
@@ -447,6 +462,11 @@ export default {
       align-self: flex-start;
     }
   }
+  .task-step__legend-text {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
   // Último paso, donde se pregunta si fue de ayuda
   .task-helpful {
     display: flex;
@@ -456,6 +476,7 @@ export default {
     padding: var(--spacer);
     color: #fff;
     background-color: var(--color-brand-darker);
+    height: 55vh;
     @media screen and ( min-width: 640px ) {
       padding-left: var(--spacer-lg);
       padding-right: var(--spacer-lg);
@@ -701,16 +722,14 @@ export default {
 
   /*Tarea sin pictogramas*/
   .without-pictogram {
+    color: #727272;
     grid-row: 1/3;
     grid-column: 1/3;
     justify-content: center;
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: var(--spacer);
-    background-color: rgba(241, 247, 255, 0.8);
-    min-height: 41vh;
-    height: 100%;
+    margin-bottom: 5rem;
     & + .task-step__legend {
       grid-column: 1/3;
     }
@@ -722,17 +741,9 @@ export default {
       }
     }
   }
-  .without-pictogram__icon {
-    width: var(--spacer-lg);
-    height: var(--spacer-lg);
-    margin: var(--spacer-sm) auto var(--spacer);
-    display: block;
-  }
   .without-pictogram__title {
     @include rfs($font-size-16);
-    color: var(--color-brand);
     margin-bottom: var(--spacer-sm);
-    text-transform: uppercase;
   }
   .without-pictogram__description {
     @include rfs($font-size-14);
@@ -802,5 +813,10 @@ export default {
   }
   .task-empty + .task__nav {
     display: none;
+  }
+  .pictogram__layer--action {
+    height: 44px;
+    margin-right: var(--spacer-sm)/2;
+    padding: 0 var(--spacer-sm);
   }
 </style>
