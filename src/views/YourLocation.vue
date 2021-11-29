@@ -3,34 +3,40 @@
   <div>
     <div v-if="!showCommune" class="your-location location-container">
       <template v-if="activatedGps">
-        <h2>Estamos utilizando tu ubicacion GPS</h2>
-        <button @click="$router.push('/home')" class="btn btn--large btn--block btn--primary">
-          Continuar
-        </button>
-        <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
-          Seleccionando una comuna
-        </button>
+        <div class="activate-location">
+          <h2 class="activate-location__title">Estamos utilizando <span class="font-weight-medium">tu ubicacion GPS</span></h2>
+          <button @click="$router.push('/home')" class="btn btn--large btn--block btn--primary">
+            Continuar
+          </button>
+          <button @click="selectCommune()" class="btn btn--large btn--block btn--as-link">
+            Seleccionando una comuna
+          </button>
+        </div>
       </template>
       <template v-else-if="communeSelected">
-        <h2>Actualmente estás ubicado en {{ $store.state.location.name }}</h2>
-        <p>Puedes cambiar tu ubicación de dos formas:</p>
-        <button @click="activateGps()" class="btn btn--large btn--block btn--primary">
-          Activar GPS
-        </button>
-        <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
-          Seleccionando una comuna
-        </button>
+        <div class="activate-location">
+          <h2 class="activate-location__title">Actualmente estás ubicado en <span class="font-weight-medium">{{ $store.state.location.name }}</span></h2>
+          <p class="activate-location__description">Puedes cambiar tu ubicación de dos formas:</p>
+          <button @click="activateGps()" class="btn btn--large btn--block btn--primary">
+            Activar GPS
+          </button>
+          <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
+            Seleccionando una comuna
+          </button>
+        </div>
       </template>
       <template v-else>
-        <h2>Tu ubicación</h2>
-        <p>Activa el GPS o ingresa una comuna manualmente
-          para ver los servicios disponibles cerca tuyo.</p>
-        <button @click="activateGps()" class="btn btn--large btn--block btn--primary">
-          Activar GPS
-        </button>
-        <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
-          Seleccionando una comuna
-        </button>
+        <div class="activate-location">
+          <h2 class="activate-location__title">Tu ubicación</h2>
+          <p class="activate-location__description"><span class="font-weight-medium">Activa el GPS</span> o <span class="font-weight-medium">ingresa una comuna</span> manualmente
+            para ver los servicios disponibles cerca tuyo.</p>
+          <button @click="activateGps()" class="btn btn--large btn--block btn--primary">
+            Activar GPS
+          </button>
+          <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
+            Seleccionando una comuna
+          </button>
+          </div>
       </template>
     </div>
     <div v-else>
@@ -65,7 +71,7 @@
         </template>
       </main>
       <footer class="footer-communes">
-        <button class="btn btn--large btn--block btn--primary" @click="cancelCommune()">
+        <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
           Cancelar
         </button>
         <button class="btn btn--large btn--block btn--primary" :disabled="!commune" @click="confirmCommune()">
@@ -77,8 +83,8 @@
 </template>
 
 <script>
-import IconSearch from '../../public/img/app-icons/search.svg?inline';
 import TextToSpeech from '@/components/TextToSpeech.vue';
+import IconSearch from '../../public/img/app-icons/search.svg?inline';
 
 export default {
   name: 'YourLocation',
@@ -143,35 +149,75 @@ export default {
 @import '@/assets/scss/rfs.scss';
 
 .your-location {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-brand-darkest);
-  z-index: 100000;
+  border-radius: 0;
+  div {
+    display: initial;
+    width: auto;
+    gap: initial;
+  }
 }
-
 .location-container {
-  @include rfs( $font-size-16 );
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 100%;
   width: 100%;
-  height: 52vh;
-  padding: 5vh 10vw 0;
-  font-weight: 600;
-  line-height: calc(26/18);
-  color: #fff;
-  text-align: center;
+  margin: 0 auto;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
   background-color: var(--color-brand-darkest);
-
-  p {
-    max-width: 400px;
+  max-width: 750px;
+  padding: 0 var(--spacer);
+  z-index: 100000;
+  @media screen and ( min-width: 640px ) {
+    padding-left: var(--spacer-xl);
+    padding-right: var(--spacer-xl);
+  }
+}
+.activate-location {
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-lg);
+  padding: calc(var(--spacer-lg) / 1.5) var(--spacer);
+  @media screen and ( min-width: 640px ) {
+        max-width: 450px;
+  }
+  .btn--primary {
+    @include rfs($font-size-16);
+    @media screen and ( min-width: 640px ) {
+      @include rfs($font-size-14);
+    }
+    & + .btn--primary {
+      margin-top: calc(var(--spacer-lg) / 3);
+    }
+  }
+  .btn--as-link {
+    color: var(--color-text);
+    margin: 0
+  }
+}
+.activate-location__title {
+  @include rfs($font-size-18);
+  color: var(--color-brand-darkest);
+  margin-bottom: var(--spacer-sm);
+  @media screen and ( min-width: 640px ) {
+    @include rfs($font-size-16);
+  }
+  & + .btn {
+    margin-top: calc(var(--spacer-lg) / 1.5);
+  }
+}
+.activate-location__description {
+  @include rfs($font-size-16);
+  color: var(--color-text);
+  margin-bottom: calc(var(--spacer-lg) / 1.5);
+  @media screen and ( min-width: 640px ) {
+    @include rfs($font-size-14);
+  }
+  .font-weight-medium {
+    font-weight: 600;
   }
 }
 
@@ -183,6 +229,33 @@ export default {
   position: fixed;
   width:100%;
   bottom: 0;
+  margin: 0 auto;
+  padding: var(--spacer);
+  display: flex;
+  box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100000;
+  background-color: var(--color-background);
+  @media screen and ( min-width: 640px ) {
+    max-width: 640px;
+  }
+  @media screen and ( min-width: 1280px ) {
+    max-width: 750px;
+    padding-left: var(--spacer-xl);
+    padding-right: var(--spacer-xl);
+  }
+  .btn--as-link {
+    color: var(--color-text);
+    margin: 0;
+  }
+  .btn--primary {
+    &:disabled {
+      pointer-events: none;
+      background: transparent;
+      border: 1px solid var(--color-neutral-lighter);
+      color: var(--color-neutral-lighter);
+    }
+  }
 }
+
 
 </style>
