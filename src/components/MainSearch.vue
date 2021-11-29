@@ -1,6 +1,14 @@
 <!-- eslint-disable max-len -->
 <template>
   <form class="main-search" @submit.prevent="doSearch">
+    <div class="your-location">
+      <div>
+        <icon-location-pin />
+        <span v-if="$store.state.location.name">{{ $store.state.location.name }}</span>
+        <span v-else>Tu ubicación</span>
+      </div>
+      <a @click="changeLocation()" class="btn">Cambiar</a>
+    </div>
     <label class="main-search__label" for="s">
       <span>¿Qué necesitas hacer?</span>
       <text-to-speech :text-audio="'¿Qué necesitas hacer?'" />
@@ -17,11 +25,13 @@
 <script lang="js">
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconSearch from '../../public/img/app-icons/search.svg?inline';
+import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
 
 export default {
   components: {
     TextToSpeech,
     IconSearch,
+    IconLocationPin,
   },
   data() {
     return {
@@ -39,6 +49,9 @@ export default {
           s: this.query,
         },
       });
+    },
+    changeLocation() {
+      this.$router.push('/tu-ubicacion');
     },
   },
 };
@@ -126,5 +139,27 @@ export default {
     margin-bottom: var(--spacer);
     line-height: calc( 25 / 18 );
     font-weight: bold;
+  }
+  .your-location {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--spacer);
+    border-radius: 5px;
+    background-color: var(--color-illustration-bg);
+    margin-bottom: var(--spacer-lg);
+    color: #1A4571;
+    div {
+      display: flex;
+      width: 100%;
+      gap: var(--spacer-sm);
+      svg {
+        width: 20px;
+        height: 20px;
+        path {
+          fill: var(--color-brand-dark);
+        }
+      }
+    }
   }
 </style>

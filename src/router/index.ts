@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 // On Boarding
 import Splash from '../views/Splash.vue';
+import YourLocation from '../views/YourLocation.vue';
 import Onboarding from '../views/onboarding/Welcome.vue';
 import OnboardingAbout from '../views/onboarding/About.vue';
 import OnboardingHowItWorks from '../views/onboarding/HowItWorks.vue';
@@ -59,6 +60,8 @@ import NewAidSummary from '../views/NewAidSummary.vue';
 import NewAidStepConfirmation from '../views/NewAidStepConfirmation.vue';
 import NewAidComplete from '../views/NewAidComplete.vue';
 
+import store from '../store';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -66,6 +69,11 @@ const routes = [
     path: '/',
     name: 'splash',
     component: Splash,
+  },
+  {
+    path: '/tu-ubicacion',
+    name: 'your-location',
+    component: YourLocation,
   },
   {
     path: '/onboarding/',
@@ -337,6 +345,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if ((!to.path.includes('/onboarding') && to.name !== 'splash' && !to.path.includes('/tu-ubicacion')) && !store.getters.location) {
+    next({ name: 'your-location' });
+  } else {
+    next();
+  }
 });
 
 export default router;

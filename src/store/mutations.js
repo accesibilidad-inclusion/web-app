@@ -31,6 +31,10 @@ export const setCategories = (state, payload) => {
   state.categories = payload;
 };
 
+export const setRegions = (state, payload) => {
+  state.regions = payload;
+};
+
 export const setQuestions = (state, payload) => {
   state.questions = payload;
 };
@@ -51,6 +55,11 @@ export const setSelectedItem = (state, payload) => {
 export const setUserId = (state, payload) => {
   state.user.id = payload;
   localStorage.setItem('app_user', JSON.stringify(state.user));
+};
+
+export const setLocation = (state, payload) => {
+  state.location = payload;
+  localStorage.setItem('location', JSON.stringify(state.location));
 };
 
 export const tutorialOnboarding = (state, payload) => {
@@ -121,5 +130,8 @@ export const initializeStore = (state) => {
   }
   if (localStorage.getItem('categories')) {
     state.categories = JSON.parse(localStorage.getItem('categories'));
+  }
+  if (localStorage.getItem('regions')) {
+    state.regions = JSON.parse(localStorage.getItem('regions'));
   }
 };

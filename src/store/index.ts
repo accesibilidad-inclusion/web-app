@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
@@ -24,6 +25,7 @@ const state = {
     birthday: '',
     gender: null,
   },
+  location: null,
   selected: {
     category: null,
     service: null,
@@ -107,6 +109,7 @@ const state = {
     },
   ],
   categories: [],
+  regions: [],
   questions: [],
   pictos: [],
   proposalPictos: [],
@@ -117,13 +120,15 @@ export default new Vuex.Store({
   mutations,
   actions: {
     init({ commit }) {
-      return new Promise((resolve) => {
+      return new Promise<void>((resolve) => {
         axios({
           url: `${process.env.VUE_APP_API_DOMAIN}api/init`,
           method: 'GET',
         }).then((response) => {
+          localStorage.setItem('regions', JSON.stringify(response.data.regions));
           localStorage.setItem('categories', JSON.stringify(response.data.categories));
           localStorage.setItem('questions', JSON.stringify(response.data.questions));
+          commit('setRegions', response.data.regions);
           commit('setCategories', response.data.categories);
           commit('setQuestions', response.data.questions);
           resolve();
@@ -131,7 +136,7 @@ export default new Vuex.Store({
       });
     },
     setImages({ commit }) {
-      return new Promise((resolve) => {
+      return new Promise<void>((resolve) => {
         axios({
           url: `${process.env.VUE_APP_API_DOMAIN}api/images`,
           method: 'GET',
@@ -143,18 +148,27 @@ export default new Vuex.Store({
       });
     },
     setSelectedItem({ commit }, payload) {
-      return new Promise((resolve) => {
+      return new Promise<void>((resolve) => {
         commit('setSelectedItem', payload);
         resolve();
       });
     },
     setUserId({ commit }, payload) {
-      return new Promise((resolve, reject) => {
+      return new Promise<void>((resolve, reject) => {
         commit('setUserId', payload);
+        resolve();
+      });
+    },
+    setLocation({ commit }, payload) {
+      return new Promise<void>((resolve, reject) => {
+        commit('setLocation', payload);
         resolve();
       });
     },
   },
   modules: {
+  },
+  getters: {
+    location: state => state.location,
   },
 });
