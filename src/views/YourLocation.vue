@@ -13,6 +13,18 @@
           </button>
         </div>
       </template>
+      <template v-else-if="permissionDenied">
+        <div class="activate-location">
+          <h2 class="activate-location__title">No podemos acceder a <span class="font-weight-medium">tu ubicacion GPS</span></h2>
+          <p>Asegurate de activar los permisos y</p>
+          <button @click="permissionDenied = false" class="btn btn--large btn--block btn--as-link">
+            Volver a intentarlo
+          </button>
+          <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
+            Seleccionando una comuna
+          </button>
+        </div>
+      </template>
       <template v-else-if="communeSelected">
         <div class="activate-location">
           <h2 class="activate-location__title">Actualmente estás ubicado en <span class="font-weight-medium">{{ $store.state.location.name }}</span></h2>
@@ -110,6 +122,7 @@ export default {
       query: '',
       expandRegions: [],
       commune: null,
+      permissionDenied: false,
       activatedGps: this.$store.state.location && !this.$store.state.location.id,
       communeSelected: this.$store.state.location && this.$store.state.location.id,
     };
@@ -125,7 +138,7 @@ export default {
       }).then(() => { this.activatedGps = true; });
     },
     errorGps(error) {
-      console.log(error);
+      this.permissionDenied = true;
     },
     selectCommune() {
       this.showCommune = true;

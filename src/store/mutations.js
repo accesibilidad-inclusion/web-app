@@ -134,4 +134,7 @@ export const initializeStore = (state) => {
   if (localStorage.getItem('regions')) {
     state.regions = JSON.parse(localStorage.getItem('regions'));
   }
+  if (localStorage.getItem('location')) {
+    state.location = JSON.parse(localStorage.getItem('location'));
+  }
 };

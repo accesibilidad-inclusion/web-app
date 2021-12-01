@@ -348,7 +348,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if ((!to.path.includes('/onboarding') && to.name !== 'splash' && !to.path.includes('/tu-ubicacion')) && !store.getters.location) {
+  if ((!to.path.includes('/onboarding') && to.name !== 'splash' && !to.path.includes('/tu-ubicacion')) && !JSON.parse(localStorage.getItem('location') || '{}')) {
     next({ name: 'your-location' });
   } else {
     next();
