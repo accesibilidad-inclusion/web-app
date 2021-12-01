@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-nav v-if="$route.name !== 'your-location'" v-on:comeback="backEvaluation"></app-nav>
+    <app-nav v-on:comeback="backEvaluation"></app-nav>
     <transition name="slide">
       <router-view ref="view"/>
     </transition>
