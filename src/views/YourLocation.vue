@@ -55,18 +55,26 @@
         <template v-for="region in $store.state.regions">
           <div v-bind:key="region.id" v-if="region.communes.filter(c => c.name.toLowerCase().includes(query.toLowerCase())).length">
             <a class="place-block entry-block" tag="article" @click="toggle(region.id)">
-              <text-to-speech :text-audio="region.name" />
               <h2 class="place-block__name entry-block__name">{{ region.name }}</h2>
+              <chevron-up v-if="query.trim() !== '' || expandRegions.includes(region.id)"/>
+              <chevron-down v-else/>
             </a>
             <template v-if="query.trim() !== '' || expandRegions.includes(region.id)">
               <template v-for="comm in region.communes">
                 <div v-bind:key="comm.id" v-if="comm.name.toLowerCase().includes(query.toLowerCase())" v-bind:class="{ 'selected-commune' : commune && commune.id === comm.id }">
                   <a class="place-block entry-block" tag="article" @click="setCommune(comm)">
+                    <text-to-speech :text-audio="comm.name" />
                     {{ comm.name }}
                   </a>
                 </div>
               </template>
             </template>
+          </div>
+        </template>
+        <template v-if="!$store.state.regions.filter( r => r.communes.filter(c => c.name.toLowerCase().includes(query.toLowerCase())).length).length">
+          <div>
+            <h2>No se han encontrado comunas con ese nombre</h2>
+            <p>Prueba escribiendo otras palabras o buscando por las regiones disponibles</p>
           </div>
         </template>
       </main>
@@ -85,11 +93,15 @@
 <script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconSearch from '../../public/img/app-icons/search.svg?inline';
+import ChevronDown from '../../public/img/app-icons/chevron-down.svg?inline';
+import ChevronUp from '../../public/img/app-icons/chevron-up.svg?inline';
 
 export default {
   name: 'YourLocation',
   components: {
     IconSearch,
+    ChevronDown,
+    ChevronUp,
     TextToSpeech,
   },
   data() {
@@ -253,6 +265,16 @@ export default {
       background: transparent;
       border: 1px solid var(--color-neutral-lighter);
       color: var(--color-neutral-lighter);
+    }
+  }
+}
+.place-block {
+  svg {
+    width: 1rem;
+    height: 1rem;
+    path {
+      fill: #004079;
+
     }
   }
 }
