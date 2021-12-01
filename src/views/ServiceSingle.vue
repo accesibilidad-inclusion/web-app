@@ -37,9 +37,9 @@
 </template>
 
 <script>
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import Category from '@/models/Category';
 import Service from '@/models/Service';
-import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
 import IconHealth from '../../public/img/app-icons/health.svg?inline';
@@ -57,30 +57,28 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/services/nearVenues`, {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        category: this.$route.params.categorySlug,
-        service: this.$route.params.serviceSlug,
-      }).then((response) => {
-        this.places = response.data.venues;
-        this.category.set(response.data.category);
-        this.service.set(response.data.service);
-        this.$store.dispatch('setSelectedItem', {
-          object: 'category',
-          item: response.data.category,
-        });
-        this.$store.dispatch('setSelectedItem', {
-          object: 'service',
-          item: response.data.service,
-        });
-        this.loading = false;
-      }).catch((err) => {
-        if (err.response.status === 404) {
-          this.$router.push('/');
-        }
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/services/nearVenues`, {
+      lat: parseFloat(this.$store.state.location.lat),
+      lng: parseFloat(this.$store.state.location.lng),
+      category: this.$route.params.categorySlug,
+      service: this.$route.params.serviceSlug,
+    }).then((response) => {
+      this.places = response.data.venues;
+      this.category.set(response.data.category);
+      this.service.set(response.data.service);
+      this.$store.dispatch('setSelectedItem', {
+        object: 'category',
+        item: response.data.category,
       });
+      this.$store.dispatch('setSelectedItem', {
+        object: 'service',
+        item: response.data.service,
+      });
+      this.loading = false;
+    }).catch((err) => {
+      if (err.response.status === 404) {
+        this.$router.push('/');
+      }
     });
   },
   data() {

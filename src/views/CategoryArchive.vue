@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import Category from '@/models/Category';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
+import Category from '@/models/Category';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
 import IconHealth from '../../public/img/app-icons/health.svg?inline';
@@ -63,24 +63,22 @@ export default {
     IconLeisure,
   },
   beforeMount() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/categories/nearServices`, {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        category: this.$route.params.categorySlug,
-      }).then((response) => {
-        this.services = response.data.services;
-        this.category.set(response.data.category);
-        this.$store.dispatch('setSelectedItem', {
-          object: 'category',
-          item: response.data.category,
-        });
-        this.loading = false;
-      }).catch((err) => {
-        if (err.response.status === 404) {
-          this.$router.push('/');
-        }
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/categories/nearServices`, {
+      lat: parseFloat(this.$store.state.location.lat),
+      lng: parseFloat(this.$store.state.location.lng),
+      category: this.$route.params.categorySlug,
+    }).then((response) => {
+      this.services = response.data.services;
+      this.category.set(response.data.category);
+      this.$store.dispatch('setSelectedItem', {
+        object: 'category',
+        item: response.data.category,
       });
+      this.loading = false;
+    }).catch((err) => {
+      if (err.response.status === 404) {
+        this.$router.push('/');
+      }
     });
   },
   data() {

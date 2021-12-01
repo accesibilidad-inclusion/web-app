@@ -56,15 +56,13 @@ export default {
     };
   },
   beforeMount() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/search`, {
-        query: this.$route.query.s,
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      }).then((result) => {
-        this.tasks = result.data;
-        this.loading = false;
-      });
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/search`, {
+      query: this.$route.query.s,
+      lat: parseFloat(this.$store.state.location.lat),
+      lng: parseFloat(this.$store.state.location.lng),
+    }).then((result) => {
+      this.tasks = result.data;
+      this.loading = false;
     });
   },
 };
