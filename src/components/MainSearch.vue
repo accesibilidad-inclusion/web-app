@@ -64,7 +64,7 @@ export default {
     margin-left: calc( var(--spacer) * -1 );
     margin-right: calc( var(--spacer) * -1 );
     margin-bottom: var(--spacer-lg);
-    padding: var(--spacer) var(--spacer) var(--spacer-xl);
+    padding: calc( var(--spacer) / 2 ) var(--spacer) var(--spacer-xl);
     background: var(--color-brand-lighter);
     @media screen and ( min-width: 640px ) {
       margin-left: calc( var(--spacer-lg) * -1);
@@ -104,8 +104,8 @@ export default {
   .main-search__input {
     @include rfs($font-size-14);
     width: 100%;
-    padding: var(--spacer-sm) var(--spacer-lg) var(--spacer-sm) var(--spacer-sm);
-    border: 2px solid var(--color-background);
+    padding: var(--spacer-sm) var(--spacer-lg) var(--spacer-sm) calc(var(--spacer-lg) / 3);
+    border: none;
     border-radius: var(--border-radius);
     &::placeholder {
       color: #848484;
@@ -117,17 +117,20 @@ export default {
   .main-search__button {
     cursor: pointer;
     position: absolute;
-    top: 50%;
-    right: var(--spacer-sm);
+    top: 55%;
+    right: calc(var(--spacer-lg) / 3);
     margin-top: -.625rem;
     background: none;
     border: none;
     z-index: 10;
+    width: 1rem;
+    height: 1rem;
     svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 1rem;
+      height: 1rem;
       path {
         fill: var(--color-brand);
+        opacity: .7;
       }
     }
   }
@@ -147,7 +150,7 @@ export default {
     padding-left: calc(var(--spacer-lg) / 3);
     border-radius: 5px;
     background-color: var(--color-illustration-bg);
-    margin-bottom: var(--spacer-lg);
+    margin-bottom: var(--spacer);
     color: #1A4571;
     .your-location__change {
       @include rfs($font-size-14);

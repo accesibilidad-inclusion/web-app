@@ -303,6 +303,7 @@ export default {
     }
     .entries-list__title {
       text-align: left;
+      margin-bottom: calc(var(--spacer-lg) / 3);
     }
   }
 }
@@ -341,10 +342,30 @@ export default {
   }
 }
 .service__items.places {
+  & > div {
+    padding-bottom: var(--spacer);
+    border-bottom: 1px solid #A0B6CB;
+  }
   .entry-block {
     font-weight: 700;
     background-color: var(--color-background);
     transition: all .3s linear;
+    padding-bottom: calc(var(--spacer) / 2);
+  }
+  .name-place {
+    border: none;
+    svg {
+      width: 12px;
+      height: 7px;
+      @media screen and( min-width: 640px ) {
+        width: 1rem;
+        height: 1rem;
+      }
+      path {
+        fill: var(--color-brand-dark);
+        transition: all .15s linear;
+      }
+    }
   }
   .name-commune {
     @include rfs($font-size-14);
@@ -378,23 +399,6 @@ export default {
     }
   }
 }
-.places {
-  .name-place {
-    border-color: #A0B6CB;
-    svg {
-      width: 12px;
-      height: 7px;
-      @media screen and( min-width: 640px ) {
-        width: 1rem;
-        height: 1rem;
-      }
-      path {
-        fill: var(--color-brand-dark);
-        transition: all .15s linear;
-      }
-    }
-  }
-}
 .place-active {
   .name-place {
     border-bottom: none;
@@ -403,11 +407,17 @@ export default {
   }
   .selected-commune {
     border-bottom: none;
-    background-color: var(--color-brand-lightest);
     .name-commune {
+      transition: all .15s linear;
+      background-color: var(--color-brand-lightest);
       &::before {
         content: none;
       }
+    }
+  }
+  div:last-child {
+    .name-commune::before {
+      content: none;
     }
   }
 }
