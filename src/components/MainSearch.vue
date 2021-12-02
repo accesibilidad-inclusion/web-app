@@ -5,7 +5,7 @@
       <div class="your-location__content">
         <icon-location-pin />
         <span v-if="$store.state.location.name">{{ $store.state.location.name }}</span>
-        <span v-else>Tu ubicación</span>
+        <span v-else>Tu ubicación actual</span>
       </div>
       <a @click="changeLocation()" class="btn your-location__change">Cambiar</a>
     </div>
@@ -69,7 +69,7 @@ export default {
     @media screen and ( min-width: 640px ) {
       margin-left: calc( var(--spacer-lg) * -1);
       margin-right: calc( var(--spacer-lg) * -1);
-      padding: var(--spacer-lg) var(--spacer-lg) var(--spacer-xl);
+      padding: calc( var(--spacer-lg) / 2 ) var(--spacer-lg) var(--spacer-xl);
     }
     @media screen and ( min-width: 1280px ) {
       margin-left: calc( var(--spacer-xl) * -1);
