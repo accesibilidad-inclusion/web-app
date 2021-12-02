@@ -67,8 +67,7 @@
       </header>
       <main class="service__items service__items places">
         <template v-for="region in $store.state.regions">
-          <!-- Al <div> siguiente agregar clase place-active cuando se selecciona la región -->
-          <div v-bind:key="region.id" v-if="region.communes.filter(c => c.name.toLowerCase().includes(query.toLowerCase())).length">
+          <div v-bind:key="region.id" v-if="region.communes.filter(c => c.name.toLowerCase().includes(query.toLowerCase())).length" v-bind:class="query.trim() !== '' || expandRegions.includes(region.id) ? 'place-active' : ''">
             <a class="place-block entry-block name-place" tag="article" @click="toggle(region.id)">
               <h2 class="place-block__name entry-block__name">{{ region.name }}</h2>
               <chevron-up v-if="query.trim() !== '' || expandRegions.includes(region.id)"/>
