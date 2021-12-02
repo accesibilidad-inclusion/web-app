@@ -10,7 +10,7 @@
             Continuar
           </button>
           <button @click="selectCommune()" class="btn btn--large btn--block btn--as-link">
-            Seleccionando una comuna
+            Seleccionar una comuna
           </button>
         </div>
       </template>
@@ -32,8 +32,9 @@
           <h2 class="activate-location__title">Actualmente estás ubicado en <strong>{{ $store.state.location.name }}</strong></h2>
           <p class="activate-location__description">Puedes cambiar tu ubicación de dos formas:</p>
           <button @click="activateGps()" class="btn btn--large btn--block btn--primary">
-            Activar GPS
+            Activando tu GPS
           </button>
+          <span class="activate-location__or">ó</span>
           <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
             Seleccionando una comuna
           </button>
@@ -48,9 +49,10 @@
             Activar GPS
           </button>
           <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
-            Seleccionando una comuna
+            Selecciona una comuna
           </button>
           </div>
+          <a href="#" class="close-app">Salir de la aplicación</a>
       </template>
     </div>
     <div v-else class="select-commune">
@@ -98,7 +100,7 @@
           Cancelar
         </button>
         <button class="btn btn--large btn--block btn--primary" :disabled="!commune" @click="confirmCommune()">
-          Confirmar
+          Listo
         </button>
       </footer>
     </div>
@@ -268,10 +270,17 @@ export default {
   .activate-location__title {
     text-align: center;
     font-weight: 600;
+    margin-bottom: calc(var(--spacer-lg) / 1.5);
   }
   .activate-location__description {
     margin-bottom: calc(var(--spacer-lg) / 3);
   }
+}
+.activate-location__or {
+  @include rfs($font-size-14);
+  display: block;
+  padding: calc(var(--spacer-sm) * 1.5);
+  text-align: center;
 }
 //elige una comuna
 .select-commune {
@@ -405,11 +414,12 @@ export default {
   margin: auto calc(var(--spacer-lg) / 1.5);
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  height: 60vh;
   justify-content: center;
   align-items: center;
   @media screen and ( min-width: 640px ) {
     max-width: 560px;
+    margin: 0 auto;
   }
   @media screen and ( min-width: 1280px ) {
     max-width: 630px;
@@ -432,5 +442,16 @@ export default {
 .no-results-commune__description {
   @include rfs($font-size-14);
   text-align: center;
+}
+.close-app {
+  @include rfs($font-size-14);
+  color: var(--color-background);
+  font-weight: 600;
+  position: absolute;
+  bottom: var(--spacer-sm);
+  right: 0;
+  left: 0;
+  text-align: center;
+  padding: var(--spacer);
 }
 </style>
