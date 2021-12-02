@@ -2,7 +2,7 @@
 <template>
   <form class="main-search" @submit.prevent="doSearch">
     <div class="your-location">
-      <div>
+      <div class="your-location__content">
         <icon-location-pin />
         <span v-if="$store.state.location.name">{{ $store.state.location.name }}</span>
         <span v-else>Tu ubicación</span>
@@ -144,18 +144,34 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 var(--spacer);
+    padding-left: calc(var(--spacer-lg) / 3);
     border-radius: 5px;
     background-color: var(--color-illustration-bg);
     margin-bottom: var(--spacer-lg);
     color: #1A4571;
-    div {
+    .btn {
+      @include rfs($font-size-14);
+      font-weight: 700;
+      color: var(--color-brand-dark);
+      padding: calc(var(--spacer-lg) / 3);
+    }
+    .your-location__content {
       display: flex;
+      align-items: center;
       width: 100%;
       gap: var(--spacer-sm);
+      padding-right: var(--spacer-sm);
+      border-right: 1px solid var(--color-brand-lighter);
+      span {
+        @include rfs($font-size-14);
+      }
       svg {
-        width: 20px;
-        height: 20px;
+        width: 11px;
+        height: 15px;
+        @media screen and ( min-width: 640px ) {
+          width: var(--spacer);
+          height: var(--spacer);
+        }
         path {
           fill: var(--color-brand-dark);
         }
