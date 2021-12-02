@@ -110,11 +110,27 @@ export default {
   @media screen and ( min-width: 640px ) {
     padding-top: var(--spacer);
     padding-bottom: var(--spacer);
+    padding-right: var(--spacer-lg);
+    padding-left: var(--spacer-lg);
+  }
+  @media screen and ( min-width: 1280px ) {
+    padding-right: var(--spacer-xl);
+    padding-left: var(--spacer-xl);
   }
   &.app-nav--dark {
     transition: var(--transition-nav-dark);
     color: var(--color-background);
     background-color: var(--color-brand-darkest);
+  }
+}
+.app-nav > .router-link-active {
+  margin-left: var(--spacer);
+  text-align: left;
+  @media screen and ( min-width: 640px ) {
+    margin-left: var(--spacer-lg);
+  }
+  @media screen and ( min-width: 1280px ) {
+    margin-left: var(--spacer-xl);
   }
 }
 .app-nav__toggle {

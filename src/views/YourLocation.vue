@@ -343,6 +343,8 @@ export default {
 .service__items.places {
   .entry-block {
     font-weight: 700;
+    background-color: var(--color-background);
+    transition: all .3s linear;
   }
   .name-commune {
     @include rfs($font-size-14);

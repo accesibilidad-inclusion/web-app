@@ -7,7 +7,7 @@
         <span v-if="$store.state.location.name">{{ $store.state.location.name }}</span>
         <span v-else>Tu ubicación</span>
       </div>
-      <a @click="changeLocation()" class="btn">Cambiar</a>
+      <a @click="changeLocation()" class="btn your-location__change">Cambiar</a>
     </div>
     <label class="main-search__label" for="s">
       <span>¿Qué necesitas hacer?</span>
@@ -149,7 +149,7 @@ export default {
     background-color: var(--color-illustration-bg);
     margin-bottom: var(--spacer-lg);
     color: #1A4571;
-    .btn {
+    .your-location__change {
       @include rfs($font-size-14);
       font-weight: 700;
       color: var(--color-brand-dark);
