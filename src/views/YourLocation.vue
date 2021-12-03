@@ -17,12 +17,13 @@
       <template v-else-if="permissionDenied">
         <div class="activate-location">
           <h2 class="activate-location__title">No podemos acceder a <span class="font-weight-medium">tu ubicacion GPS</span></h2>
-          <p>Asegurate de activar los permisos y</p>
-          <button @click="permissionDenied = false" class="btn btn--large btn--block btn--as-link">
+          <p class="activate-location__description">Asegurate de activar los permisos y</p>
+          <button @click="permissionDenied = false" class="btn btn--large btn--block btn--primary">
             Volver a intentarlo
           </button>
+          <span class="activate-location__or">ó</span>
           <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
-            Seleccionando una comuna
+            Seleccionar una comuna
           </button>
         </div>
       </template>
