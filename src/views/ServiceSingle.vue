@@ -107,6 +107,12 @@ export default {
     position: absolute;
     top: var(--spacer);
     right: var(--spacer);
+    @media screen and ( min-width: 640px ) {
+      right: var(--spacer-lg);
+    }
+    @media screen and ( min-width: 1280px ) {
+      right: var(--spacer-xl);
+    }
   }
   .service__icon {
     width: 1rem;
