@@ -17,7 +17,7 @@
       <template v-else-if="permissionDenied">
         <div class="activate-location">
           <h2 class="activate-location__title">No podemos acceder a <span class="font-weight-medium">tu ubicacion GPS</span></h2>
-          <p class="activate-location__description">Asegurate de activar los permisos y</p>
+          <p class="activate-location__description">Activa los permisos de ubicación en tu dispositivo</p>
           <button @click="permissionDenied = false" class="btn btn--large btn--block btn--primary">
             Volver a intentarlo
           </button>
@@ -40,6 +40,7 @@
             Seleccionando una comuna
           </button>
         </div>
+        <a href="#" @click="$router.push('/home')" class="close-app">Volver al menú principal</a>
       </template>
       <template v-else>
         <div class="activate-location">
@@ -53,7 +54,7 @@
             Selecciona una comuna
           </button>
           </div>
-          <a href="#" class="close-app">Salir de la aplicación</a>
+          <a href="https://pictos.cl" class="close-app">Visita nuestro sitio web</a>
       </template>
     </div>
     <div v-else class="select-commune">
