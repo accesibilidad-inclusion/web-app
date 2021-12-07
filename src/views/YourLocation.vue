@@ -430,6 +430,8 @@ export default {
   height: 60vh;
   justify-content: center;
   align-items: center;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
   @media screen and ( min-width: 640px ) {
     max-width: 560px;
     margin: 0 auto;
