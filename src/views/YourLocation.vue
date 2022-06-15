@@ -344,6 +344,9 @@ export default {
   }
 }
 .service__items.places {
+
+  margin-bottom: calc(var(--spacer-lg)*2);
+
   & > div {
     padding-bottom: var(--spacer);
     border-bottom: 1px solid #A0B6CB;
