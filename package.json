@@ -43,7 +43,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^9.5.0",
     "node-sass": "6.0",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^11.1.1",
     "typescript": "~3.5.3",
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.12"
