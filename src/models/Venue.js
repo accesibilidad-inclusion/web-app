@@ -11,6 +11,7 @@ class Venue {
     this.evaluation = typeof venue.evaluation === 'object' && venue.evaluation !== null ? venue.evaluation : null;
     this.tasks = Array.isArray(venue.the_tasks) ? venue.the_tasks : [];
     this.evaluations = venue.evaluations;
+    this.show_evaluation = venue.show_evaluation;
     this.url = typeof venue.url === 'string' ? venue.url : '';
   }
 
@@ -32,6 +33,7 @@ class Venue {
     this.evaluation = typeof venue.evaluation === 'object' && venue.evaluation !== null ? venue.evaluation : null;
     this.tasks = Array.isArray(venue.the_tasks) ? venue.the_tasks : [];
     this.evaluations = venue.evaluations;
+    this.show_evaluation = venue.show_evaluation;
     this.url = typeof venue.url === 'string' ? venue.url : '';
   }
 }

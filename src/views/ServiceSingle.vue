@@ -21,7 +21,7 @@
             <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
             <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
             <p class="place-block__distance">a {{ place.distance | distance }} de distancia</p>
-            <div class="place-block__evaluation" v-if="place.evaluation">
+            <div class="place-block__evaluation" v-if="place.evaluation && place.show_evaluation">
               <span class="place__evaluation-grade place-block__evaluation-grade" v-bind:data-grade="place.evaluation.score">
                 {{ place.evaluation.score }}
               </span>

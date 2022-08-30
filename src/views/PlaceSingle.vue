@@ -129,7 +129,8 @@ export default {
   },
   computed: {
     evaluation() {
-      const score = this.place.evaluation ? this.place.evaluation.score : 0;
+      let score = this.place.evaluation ? this.place.evaluation.score : 0;
+      score = this.place.show_evaluation ? score : 0;
       return this.$store.state.evaluations.find(evaluation => evaluation.grade === score);
     },
   },
