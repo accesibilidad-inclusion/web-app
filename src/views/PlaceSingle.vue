@@ -63,7 +63,7 @@
               <text-to-speech :text-audio="'Ayudanos a mejorar'" />
               <p class="actions__title">Ayudanos a mejorar</p>
             </div>
-            <router-link to="/tareas/nueva" class="btn btn--light btn--large btn--block" tag="button">
+            <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--light btn--large btn--block" tag="button">
               &plus; Agregar tareas a este lugar
             </router-link>
           </aside>
