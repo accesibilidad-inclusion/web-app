@@ -1,142 +1,155 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="task__single">
+  <div :class="show_prerequisites ? 'page' : 'task__single'">
     <template v-if="loading">
       <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
     </template>
     <template v-else>
-      <header class="task__header entries-list__header">
-        <p class="entries-list__description task__description">
-          <router-link :to="{ name: 'place-single', params: { 'placeId': venue.id } }">{{ venue.name }}</router-link>
-          en
-          <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
-        </p>
-        <h1 class="task__title entries-list__title">{{ task.title }}</h1>
-        <text-to-speech :text-audio="`${this.task.title}.\n\n\n\n\n ${this.venue.name}, en ${this.service.name}`" />
-      </header>
-      <main class="task__main">
-        <ol class="task__steps"
-          v-touch:swipe.left="advanceStep"
-          v-touch:swipe.right="rewindStep"
-          v-bind:class="!steps.filter( s => s.pictogram ).length ? 'task-steps--without-pictogram' : ''"
-        >
-          <li v-for="(step, index) in steps"
-            v-bind:step="step"
-            v-bind:key="step.id"
-            v-bind:class="'task-step'+ ( index === state.active_step ?
-            ' task-step--active' : '')"
-          >
-            <figure class="task-step__figure" v-bind:class="{'task-step__figure--without-pictogram' : !step.pictogram || !step.pictogram.images.filter( i => i.layout <= 3).length}">
-              <div class="step-canvas" v-if="step.pictogram && step.pictogram.images.filter( i => i.layout <= 3).length">
-                <pictogram :layers="step.pictogram.images.filter( i => i.layout <= 3)"></pictogram>
-              </div>
-              <figcaption class="task-step__legend">
-                <div class="task-step__legend-text">
-                  <span v-if="step.pictogram && step.pictogram.images.find( i => i.layout == 4)">
-                    <img v-bind:src="`${step.pictogram.images.find( i => i.layout == 4).path}${step.pictogram.images.find( i => i.layout == 4).filename}`" class="pictogram__layer--action">
-                  </span>
-                  {{ step.label }}
-                </div>
-                <text-to-speech :text-audio="step.label" />
-              </figcaption>
-            </figure>
-          </li>
-          <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
-            <h2 class="task-helpful__title">¿Te ha servido este apoyo?</h2>
-            <div class="task-helpful__answers">
-              <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
-                <icon-like class="task-helpful__answer__icon--like"></icon-like>
-              </button>
-              <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
-                <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
-              </button>
-            </div>
-            <template v-if="steps.length && !steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length">
-              <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
-              <router-link
-                :to="$store.state.tutorial.pictogram ? '/nuevo-apoyo/intro' : '/nuevo-apoyo/' + steps[0].id"
-                class="btn btn--large btn--block btn--ghost"
-              >
-                Crear el apoyo gráfico
-              </router-link>
-            </template>
-            <template v-else>
-              <router-link
-                :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
-                class="btn btn--large btn--block btn--ghost"
-              >
-                Volver a {{ venue.name }}
-              </router-link>
-            </template>
-            <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
-          </li>
-        </ol>
-        <div v-if="!steps.filter( s => s.label ).length" v-bind:class="'task-empty'
-            + ( state.active_step < 0 ? '' : ' task-step--active')">
-          <icon-no-information class="task-empty__icon" />
-          <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
-          <p class="task-empty__description">Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y apoyos.</p>
-          <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--primary btn--large btn--block" tag="button">
-            &plus; Crear una tarea nueva
-          </router-link>
+      <template v-if="show_prerequisites">
+        <div class="container">
+          <div class="task__header">
+            <text-to-speech :text-audio="`${this.prerequisitesText}`" />
+            <div class="text-formatted" v-html="task.prerequisites"></div>
+          </div>
+          <footer class="page__footer">
+            <button class="btn btn--large btn--block btn--primary page__footer" @click="show_prerequisites = false">
+              Siguiente
+            </button>
+          </footer>
         </div>
-        <div class="task__nav">
-          <button v-bind:class="'btn btn--large btn--primary'
-            + ( state.active_step > 0 ? '' : ' btn--hidden' )
-            " @click="rewindStep">
-            Anterior
-          </button>
-          <button v-bind:class="'btn btn--large btn--primary'
-            + ( state.active_step + 1 < steps.length + 1 ? '' : ' btn--hidden' )"
-            @click="advanceStep">
-            Siguiente
-          </button>
-          <ol class="task__steps-indicator">
-            <li v-for="(step, index) in steps" v-bind:step="step" v-bind:key="step.id"
-              v-bind:class="state.active_step >= index ?
-                'task__step-indicator--active' : 'task__step-indicator'">
-              {{ index }}
+      </template>
+      <template v-else>
+        <header class="task__header entries-list__header">
+          <p class="entries-list__description task__description">
+            <router-link :to="{ name: 'place-single', params: { 'placeId': venue.id } }">{{ venue.name }}</router-link>
+            en
+            <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
+          </p>
+          <h1 class="task__title entries-list__title">{{ task.title }}</h1>
+          <text-to-speech :text-audio="`${this.task.title}.\n\n\n\n\n ${this.venue.name}, en ${this.service.name}`" />
+        </header>
+        <main class="task__main">
+          <ol class="task__steps"
+            v-touch:swipe.left="advanceStep"
+            v-touch:swipe.right="rewindStep"
+            v-bind:class="!steps.filter( s => s.pictogram ).length ? 'task-steps--without-pictogram' : ''"
+          >
+            <li v-for="(step, index) in steps"
+              v-bind:step="step"
+              v-bind:key="step.id"
+              v-bind:class="'task-step'+ ( index === state.active_step ?
+              ' task-step--active' : '')"
+            >
+              <figure class="task-step__figure" v-bind:class="{'task-step__figure--without-pictogram' : !step.pictogram || !step.pictogram.images.filter( i => i.layout <= 3).length}">
+                <div class="step-canvas" v-if="step.pictogram && step.pictogram.images.filter( i => i.layout <= 3).length">
+                  <pictogram :layers="step.pictogram.images.filter( i => i.layout <= 3)"></pictogram>
+                </div>
+                <figcaption class="task-step__legend">
+                  <div class="task-step__legend-text">
+                    <span v-if="step.pictogram && step.pictogram.images.find( i => i.layout == 4)">
+                      <img v-bind:src="`${step.pictogram.images.find( i => i.layout == 4).path}${step.pictogram.images.find( i => i.layout == 4).filename}`" class="pictogram__layer--action">
+                    </span>
+                    {{ step.label }}
+                  </div>
+                  <text-to-speech :text-audio="step.label" />
+                </figcaption>
+              </figure>
             </li>
-            <li v-bind:class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
-              {{ steps.length }}
+            <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
+              <h2 class="task-helpful__title">¿Te ha servido este apoyo?</h2>
+              <div class="task-helpful__answers">
+                <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
+                  <icon-like class="task-helpful__answer__icon--like"></icon-like>
+                </button>
+                <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
+                  <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
+                </button>
+              </div>
+              <template v-if="steps.length && !steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length">
+                <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
+                <router-link
+                  :to="$store.state.tutorial.pictogram ? '/nuevo-apoyo/intro' : '/nuevo-apoyo/' + steps[0].id"
+                  class="btn btn--large btn--block btn--ghost"
+                >
+                  Crear el apoyo gráfico
+                </router-link>
+              </template>
+              <template v-else>
+                <router-link
+                  :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
+                  class="btn btn--large btn--block btn--ghost"
+                >
+                  Volver a {{ venue.name }}
+                </router-link>
+              </template>
+              <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
             </li>
           </ol>
-        </div>
-        <div v-if="!steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
-          <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
-          <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
-        </div>
-      </main>
-      <!-- Pestaña inferior para feedback -->
-      <button @click="openFeedback" v-bind:class="'task__step-feedback' +
-        ( state.active_helpful === true || state.opened_modal === true ?
-          ' task__step-feedback--hidden' : '' )">
-        Reportar un problema con esta tarea
-      </button>
-      <!-- Bloque y formulario para feedback -->
-      <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
-        <div class="modal__backdrop">
-          <div v-bind:class="'task-feedback' + ( state.submitted_feedback ? ' task-feedback--submitted' : '' )">
-            <button type="button" class="modal__close" @click="closeFeedback"><icon-error></icon-error></button>
-            <form class="task-feedback__form" @submit.prevent="submitFeedback" v-if="!state.submitted_feedback">
-              <h2 class="task-feedback__title">Reportar un problema con esta tarea</h2>
-              <textarea class="task-feedback__control" v-model="feedback.body"
-                placeholder="Ejemplo: El pictograma no coincide con la instrucción" required></textarea>
-              <button v-bind:class="'task-feedback__submit btn btn--large btn--block' +
-                ( feedback.body === '' ? ' btn--ghost' : ' btn--primary' ) +
-                ( state.submitting_feedback ? ' btn--loading' : '' )"
-              >
-                Enviar
-                <clip-loader :loading="false" :color="'#fff'" :size="'1rem'"></clip-loader>
-              </button>
-            </form>
-            <div class="task-feedback__response" v-if="state.submitted_feedback">
-              <p class="task-feedback__response-message">¡Gracias!<br> tu comentario ha sido enviado</p>
-              <button type="button" class="task-feedback__response-close btn btn--large btn--block btn--light" @click="closeFeedback">Cerrar</button>
+          <div v-if="!steps.filter( s => s.label ).length" v-bind:class="'task-empty'
+              + ( state.active_step < 0 ? '' : ' task-step--active')">
+            <icon-no-information class="task-empty__icon" />
+            <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
+            <p class="task-empty__description">Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y apoyos.</p>
+            <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--primary btn--large btn--block" tag="button">
+              &plus; Crear una tarea nueva
+            </router-link>
+          </div>
+          <div class="task__nav">
+            <button class="btn btn--large btn--primary" :class="{'btn--hidden': state.active_step === 0 && task.prerequisites.trim() === '' && !show_prerequisites}" @click="rewindStep">
+              Anterior
+            </button>
+            <button v-bind:class="'btn btn--large btn--primary'
+              + ( state.active_step + 1 < steps.length + 1 ? '' : ' btn--hidden' )"
+              @click="advanceStep">
+              Siguiente
+            </button>
+            <ol class="task__steps-indicator">
+              <li v-for="(step, index) in steps" v-bind:step="step" v-bind:key="step.id"
+                v-bind:class="state.active_step >= index ?
+                  'task__step-indicator--active' : 'task__step-indicator'">
+                {{ index }}
+              </li>
+              <li v-bind:class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
+                {{ steps.length }}
+              </li>
+            </ol>
+          </div>
+          <div v-if="!steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
+            <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
+            <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
+          </div>
+        </main>
+        <!-- Pestaña inferior para feedback -->
+        <button @click="openFeedback" v-bind:class="'task__step-feedback' +
+          ( state.active_helpful === true || state.opened_modal === true ?
+            ' task__step-feedback--hidden' : '' )">
+          Reportar un problema con esta tarea
+        </button>
+        <!-- Bloque y formulario para feedback -->
+        <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
+          <div class="modal__backdrop">
+            <div v-bind:class="'task-feedback' + ( state.submitted_feedback ? ' task-feedback--submitted' : '' )">
+              <button type="button" class="modal__close" @click="closeFeedback"><icon-error></icon-error></button>
+              <form class="task-feedback__form" @submit.prevent="submitFeedback" v-if="!state.submitted_feedback">
+                <h2 class="task-feedback__title">Reportar un problema con esta tarea</h2>
+                <textarea class="task-feedback__control" v-model="feedback.body"
+                  placeholder="Ejemplo: El pictograma no coincide con la instrucción" required></textarea>
+                <button v-bind:class="'task-feedback__submit btn btn--large btn--block' +
+                  ( feedback.body === '' ? ' btn--ghost' : ' btn--primary' ) +
+                  ( state.submitting_feedback ? ' btn--loading' : '' )"
+                >
+                  Enviar
+                  <clip-loader :loading="false" :color="'#fff'" :size="'1rem'"></clip-loader>
+                </button>
+              </form>
+              <div class="task-feedback__response" v-if="state.submitted_feedback">
+                <p class="task-feedback__response-message">¡Gracias!<br> tu comentario ha sido enviado</p>
+                <button type="button" class="task-feedback__response-close btn btn--large btn--block btn--light" @click="closeFeedback">Cerrar</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </template>
   </div>
 </template>
@@ -165,6 +178,11 @@ export default {
     IconError,
     IconNoInformation,
   },
+  computed: {
+    prerequisitesText() {
+      return this.task.prerequisites.replace(/(<([^>]+)>)/gi, '!');
+    },
+  },
   methods: {
     advanceStep() {
       // eslint-disable-next-line no-plusplus
@@ -174,10 +192,14 @@ export default {
       }
     },
     rewindStep() {
+      if (this.$data.state.active_step === 0) {
+        this.show_prerequisites = true;
+      } else {
       // eslint-disable-next-line no-plusplus
-      this.$data.state.active_step--;
-      if (this.$data.state.active_step < this.$data.steps.length) {
-        this.$data.state.active_helpful = false;
+        this.$data.state.active_step--;
+        if (this.$data.state.active_step < this.$data.steps.length) {
+          this.$data.state.active_helpful = false;
+        }
       }
     },
     likedStep() {
@@ -251,6 +273,9 @@ export default {
         item: response.data.task,
       });
       this.steps = response.data.task.the_steps;
+      if (response.data.task.prerequisites.trim() !== '') {
+        this.show_prerequisites = true;
+      }
       this.loading = false;
     }).catch((err) => {
       if (err.response.status === 404) {
@@ -273,6 +298,7 @@ export default {
         submitted_feedback: false,
         error_feedback: false,
       },
+      show_prerequisites: false,
       loading: true,
       task: new Task(),
       service: new Service(),
@@ -818,5 +844,9 @@ export default {
     height: 44px;
     margin-right: var(--spacer-sm)/2;
     padding: 0 var(--spacer-sm);
+  }
+
+  .text-formatted * {
+    all: revert !important;
   }
 </style>
