@@ -1,33 +1,33 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div :class="show_prerequisites ? 'page' : 'task__single'">
+  <div class="task__single">
     <template v-if="loading">
       <clip-loader :loading="loading" :color="'#CAE0FF'" :size="'3rem'" class="mt-auto mb-auto"></clip-loader>
     </template>
     <template v-else>
+      <header :class="{'header--prerequisites': show_prerequisites}" class="task__header entries-list__header">
+        <p class="entries-list__description task__description">
+          <router-link :to="{ name: 'place-single', params: { 'placeId': venue.id } }">{{ venue.name }}</router-link>
+          en
+          <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
+        </p>
+        <h1 class="task__title entries-list__title">{{ task.title }}</h1>
+        <text-to-speech :text-audio="`${this.task.title}.\n\n\n\n\n ${this.venue.name}, en ${this.service.name}`" />
+      </header>
       <template v-if="show_prerequisites">
-        <div class="container">
+        <div class="task__prerequisites">
           <div class="task__header">
             <text-to-speech :text-audio="`${this.prerequisitesText}`" />
             <div class="text-formatted" v-html="task.prerequisites"></div>
           </div>
+        </div>
           <footer class="page__footer">
-            <button class="btn btn--large btn--block btn--primary page__footer" @click="show_prerequisites = false">
+            <button class="btn btn--large btn--block btn--primary" @click="show_prerequisites = false">
               Siguiente
             </button>
           </footer>
-        </div>
       </template>
       <template v-else>
-        <header class="task__header entries-list__header">
-          <p class="entries-list__description task__description">
-            <router-link :to="{ name: 'place-single', params: { 'placeId': venue.id } }">{{ venue.name }}</router-link>
-            en
-            <router-link :to="{ name: 'service-single', params: { 'serviceId': service.id } }">{{ service.name }}</router-link>
-          </p>
-          <h1 class="task__title entries-list__title">{{ task.title }}</h1>
-          <text-to-speech :text-audio="`${this.task.title}.\n\n\n\n\n ${this.venue.name}, en ${this.service.name}`" />
-        </header>
         <main class="task__main">
           <ol class="task__steps"
             v-touch:swipe.left="advanceStep"
@@ -848,5 +848,17 @@ export default {
 
   .text-formatted * {
     all: revert !important;
+  }
+  .task__prerequisites {
+    padding: 0 var(--spacer);
+    @media screen and ( min-width: 640px ) {
+      padding: 0 var(--spacer-xl);
+    }
+  }
+  .task__single .page__footer {
+      padding: var(--spacer-lg);
+  }
+  .header--prerequisites {
+    padding-bottom: var(--spacer-sm) !important;
   }
 </style>
