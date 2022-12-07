@@ -23,7 +23,7 @@ Vue.filter('distance', (value: number) => {
   if (value > 999) {
     return `${Math.round((value / 1000) * 10) / 10} kilometros`;
   }
-  return `${value} metros`;
+  return `${Math.round(value)} metros`;
 });
 
 new Vue({
