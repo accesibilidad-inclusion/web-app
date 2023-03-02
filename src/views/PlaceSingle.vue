@@ -55,18 +55,32 @@
           <main class="place__no-information-content">
             <p class="place__no-information-desc">
               <icon-no-information />
-              <span>Este lugar no tiene información</span>
+              <span>Este lugar no tiene información, ayúdanos a mejorar</span>
+              <text-to-speech :text-audio="'Este lugar no tiene información, ayúdanos a mejorar'" />
             </p>
           </main>
           <aside class="actions actions--place">
-            <div class="actions__header">
-              <text-to-speech :text-audio="'Ayúdanos a mejorar'" />
-              <p class="actions__title">Ayúdanos a mejorar</p>
-            </div>
-            <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--light btn--large btn--block" tag="button">
+            <router-link :to="$store.state.tutorial.task ? '/nueva-tarea/intro' : '/nueva-tarea'" class="btn btn--white btn--large btn--block" style="color: var(--color-brand-darker);" tag="button">
               &plus; Agregar tareas a este lugar
             </router-link>
           </aside>
+          <footer class="place__footer">
+            <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
+              <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
+              <div class="place__evaluation-title">{{ evaluation.title }}</div>
+              <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+                <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
+                <span v-else>?</span>
+              </div>
+              <p class="place__evaluation-description">Nivel de accesibilidad de {{ place.name }}</p>
+              <p class="place__evaluation-question">¿Qué significa esto?</p>
+            </router-link>
+            <div class="place__evaluation-actions">
+              <router-link tag="button" :to="$store.state.tutorial.evaluation ? '/evaluacion-lugar/intro' : ($store.state.user.id ? '/evaluacion-lugar' : '/personal-information/registration')" class="btn btn--ghost btn--large btn--block">
+                Evaluar este lugar
+              </router-link>
+            </div>
+          </footer>
         </div>
       </template>
     </template>
@@ -369,44 +383,51 @@ export default {
   .place__no-information {
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: relative;
     width: 100%;
-    bottom: 0;
     left: auto;
     right: auto;
-    top: 150px;
+    margin-top: -50px;
     background-color: var(--color-brand-darkest);
     z-index: 1;
-    min-height: 400px;
     @media screen and ( min-width: 640px ) {
       max-width: 640px;
-      top: 200px;
+      margin-top: -50px;
       min-height: 500px;
     }
     @media screen and ( min-width: 1280px ) {
       max-width: 750px;
     }
     .actions--place {
+      padding-top: 0;
       background-color: var(--color-brand-darkest);
-      .actions__header {
-        margin-bottom: var(--spacer-sm);
-        .tts {
-          path {
-            fill: var(--color-background);
-          }
-        }
-      }
       .actions__title {
         color: var(--color-background);
       }
     }
   }
   .place__no-information-content {
+    padding: var(--spacer-lg) 0 var(--spacer);
     flex-grow: 1;
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
+    .tts {
+      position: absolute;
+      right: var(--spacer);
+      z-index: 10;
+      @media screen and ( min-width: 640px ) {
+        top: calc( var(--spacer-lg) + ( var(--spacer) / 2 ) );
+        right: var(--spacer-lg);
+      }
+      @media screen and ( min-width: 1280px ) {
+        right: var(--spacer-xl);
+      }
+      path {
+        fill: #fff;
+      }
+    }
   }
   .place__no-information-desc {
     padding: 0 var(--spacer);

@@ -15,7 +15,7 @@
           <li class="onboarding__step-indicator--active"></li>
           <li></li>
         </ol>
-        <OnboardingNext :linkTo="'/nuevo-lugar/intro3/'" />
+        <OnboardingNext :linkTo="'/nuevo-lugar/intro3/' + ($route.params.service_id ? $route.params.service_id : '')" />
       </footer>
     </div>
   </div>

@@ -74,7 +74,7 @@ export default {
     next() {
       this.$router.push({
         name: 'new-place-complete',
-        params: { place: this.place },
+        params: { place: this.place, service_id: this.$route.params.service_id },
       });
     },
   },

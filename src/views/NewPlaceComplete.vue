@@ -24,7 +24,7 @@
               ¿Quieres que te avisemos cuando publiquemos tu aporte?
             </p>
             <template v-if="!show_subscription_form">
-              <button type="button" @click="show_subscription_form = true" class="btn btn--block btn--ghost subscription-form__submit">
+              <button type="button" @click="show_subscription_form = true" class="btn btn--light btn--large btn--block subscription-form__submit">
                 Sí, avísame
               </button>
             </template>
@@ -70,6 +70,7 @@ export default {
     } else {
       this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/venues/store_by_user`, {
         name: this.$route.params.place.name,
+        service_id: this.$route.params.service_id,
         lat: this.$route.params.place.geometry.location.lat(),
         lng: this.$route.params.place.geometry.location.lng(),
       }).then((result) => {

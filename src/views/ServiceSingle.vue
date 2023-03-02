@@ -32,6 +32,15 @@
           </a>
         </template>
       </main>
+      <aside class="actions actions--category">
+        <p class="actions__title">
+          ¿No encuentras el lugar que estás buscando?
+          <text-to-speech :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
+        </p>
+        <router-link :to="$store.state.tutorial.place ? '/nuevo-lugar/intro/' + service.id : '/nuevo-lugar/' + service.id" class="btn btn--primary btn--large btn--block" tag="button">
+          &plus; Agregar un lugar nuevo
+        </router-link>
+      </aside>
     </template>
   </div>
 </template>

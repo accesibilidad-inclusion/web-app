@@ -152,22 +152,22 @@ const routes = [
     component: PlaceScore,
   },
   {
-    path: '/nuevo-lugar/intro',
+    path: '/nuevo-lugar/intro/:service_id?',
     name: 'new-place-intro',
     component: NewPlaceIntro,
   },
   {
-    path: '/nuevo-lugar/intro2',
+    path: '/nuevo-lugar/intro2/:service_id?',
     name: 'new-place-intro2',
     component: NewPlaceIntro2,
   },
   {
-    path: '/nuevo-lugar/intro3',
+    path: '/nuevo-lugar/intro3/:service_id?',
     name: 'new-place-intro3',
     component: NewPlaceIntro3,
   },
   {
-    path: '/nuevo-lugar/',
+    path: '/nuevo-lugar/:service_id?',
     name: 'new-place',
     component: NewPlace,
   },

@@ -73,7 +73,7 @@
             </template>
             <template v-else>
               <p class="thanks-message__footer-description">¿Quieres que te avisemos cuando publiquemos tu aporte?</p>
-              <button v-if="!show_subscription_form" class="btn btn--large btn--block btn--ghost" @click="show_subscription_form = true">Sí, avísame</button>
+              <button v-if="!show_subscription_form" class="btn btn--white btn--large btn--block" style="color: var(--color-brand-darker);" @click="show_subscription_form = true">Sí, avísame</button>
               <div v-else class="thanks-message__form">
                 <form class="subscription-form" @submit="submitSubscription">
                   <input type="email" v-model="subscription_email" class="thanks-message__email" placeholder="Escribe tu email aquí">

@@ -36,7 +36,7 @@ export default {
   methods: {
     next() {
       this.$store.commit('tutorialPlace');
-      this.$router.push('/nuevo-lugar');
+      this.$router.push(`/nuevo-lugar/${this.$route.params.service_id ? this.$route.params.service_id : ''}`);
     },
   },
 };

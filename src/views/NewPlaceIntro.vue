@@ -17,7 +17,7 @@
           <li></li>
           <li></li>
         </ol>
-        <OnboardingNext :linkTo="'/nuevo-lugar/intro2/'" />
+        <OnboardingNext :linkTo="'/nuevo-lugar/intro2/' + ($route.params.service_id ? $route.params.service_id : '')" />
       </footer>
     </div>
   </div>
