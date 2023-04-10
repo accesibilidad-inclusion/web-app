@@ -276,6 +276,7 @@ export default {
       if (response.data.task.prerequisites.trim() !== '') {
         this.show_prerequisites = true;
       }
+      document.title = `${this.service.name} | ${this.venue.name} | ${this.task.title} | Pictos`;
       this.loading = false;
     }).catch((err) => {
       if (err.response.status === 404) {

@@ -348,11 +348,18 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  window.speechSynthesis.cancel();
   if ((!to.path.includes('/onboarding') && to.name !== 'splash' && !to.path.includes('/tu-ubicacion')) && Object.keys(JSON.parse(localStorage.getItem('location') || '{}')).length === 0) {
     next({ name: 'your-location' });
   } else {
     next();
   }
+});
+
+router.afterEach((to, from) => {
+  Vue.nextTick(() => {
+    document.title = 'Pictos';
+  });
 });
 
 export default router;

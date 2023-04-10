@@ -126,6 +126,7 @@ export default {
         object: 'venue',
         item: response.data.venue,
       });
+      document.title = `${this.service.name} | ${this.place.name} | Pictos`;
       this.loading = false;
     }).catch((err) => {
       if (err.response.status === 404) {
