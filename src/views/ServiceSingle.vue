@@ -83,7 +83,7 @@ export default {
         object: 'service',
         item: response.data.service,
       });
-      document.title = `${this.service.name} | Pictos`;
+      document.title = `Lugares de ${this.service.name} | Pictos`;
       this.loading = false;
     }).catch((err) => {
       if (err.response.status === 404) {

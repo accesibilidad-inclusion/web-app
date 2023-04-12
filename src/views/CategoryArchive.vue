@@ -74,6 +74,7 @@ export default {
         object: 'category',
         item: response.data.category,
       });
+      document.title = `Servicios de ${this.category.name} | Pictos`;
       this.loading = false;
     }).catch((err) => {
       if (err.response.status === 404) {

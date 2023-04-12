@@ -74,11 +74,13 @@ const routes = [
     path: '/tu-ubicacion',
     name: 'your-location',
     component: YourLocation,
+    meta: { title: 'Tu ubicación' },
   },
   {
     path: '/onboarding/',
     name: 'onboarding',
     component: Onboarding,
+    meta: { title: 'Busca ayudas para realizar tareas' },
   },
   {
     path: '/onboarding/about',
@@ -104,41 +106,49 @@ const routes = [
     path: '/personal-information/registration',
     name: 'personal-information-registration',
     component: Registration,
+    meta: { title: 'Tu información personal' },
   },
   {
     path: '/personal-information/birthday',
     name: 'personal-information-birthday',
     component: Birthday,
+    meta: { title: 'Tu información personal' },
   },
   {
     path: '/personal-information/gender',
     name: 'personal-information-gender',
     component: Gender,
+    meta: { title: 'Tu información personal' },
   },
   {
     path: '/personal-information/disability',
     name: 'personal-information-disability',
     component: Disability,
+    meta: { title: 'Tu información personal' },
   },
   {
     path: '/personal-information/disability-details',
     name: 'personal-information-disability-details',
     component: DisabilityDetails,
+    meta: { title: 'Tu información personal' },
   },
   {
     path: '/personal-information/complete',
     name: 'personal-information-complete',
     component: Complete,
+    meta: { title: 'Tu información personal' },
   },
   {
     path: '/home',
     name: 'home',
     component: Home,
+    meta: { title: 'Busca ayudas para realizar tareas' },
   },
   {
     path: '/buscar/',
     name: 'search',
     component: SearchResults,
+    meta: { title: 'Resultados de tu búsqueda' },
   },
   // @todo
   // {
@@ -150,61 +160,73 @@ const routes = [
     path: '/evaluacion/:grade/',
     name: 'place-score',
     component: PlaceScore,
+    meta: { title: 'Significado de evaluación' },
   },
   {
     path: '/nuevo-lugar/intro/:service_id?',
     name: 'new-place-intro',
     component: NewPlaceIntro,
+    meta: { title: '¿Como agregar un nuevo lugar?' },
   },
   {
     path: '/nuevo-lugar/intro2/:service_id?',
     name: 'new-place-intro2',
     component: NewPlaceIntro2,
+    meta: { title: '¿Como agregar un nuevo lugar?' },
   },
   {
     path: '/nuevo-lugar/intro3/:service_id?',
     name: 'new-place-intro3',
     component: NewPlaceIntro3,
+    meta: { title: '¿Como agregar un nuevo lugar?' },
   },
   {
     path: '/nuevo-lugar/:service_id?',
     name: 'new-place',
     component: NewPlace,
+    meta: { title: 'Agregar un nuevo lugar' },
   },
   {
     path: '/nuevo-lugar/completo',
     name: 'new-place-complete',
     component: NewPlaceComplete,
+    meta: { title: 'Agregar un nuevo lugar' },
   },
   {
     path: '/nueva-tarea/',
     name: 'new-task',
     component: NewTask,
+    meta: { title: 'Agregar nueva tarea' },
   },
   {
     path: '/nueva-tarea/intro',
     name: 'new-task-intro',
     component: NewTaskIntro,
+    meta: { title: '¿Como agregar una nueva tarea?' },
   },
   {
     path: '/nueva-tarea/intro2',
     name: 'new-task-intro2',
     component: NewTaskIntro2,
+    meta: { title: '¿Como agregar una nueva tarea?' },
   },
   {
     path: '/nueva-tarea/intro3',
     name: 'new-task-intro3',
     component: NewTaskIntro3,
+    meta: { title: '¿Como agregar una nueva tarea?' },
   },
   {
     path: '/nueva-tarea/intro4',
     name: 'new-task-intro4',
     component: NewTaskIntro4,
+    meta: { title: '¿Como agregar una nueva tarea?' },
   },
   {
     path: '/nueva-tarea/intro5',
     name: 'new-task-intro5',
     component: NewTaskIntro5,
+    meta: { title: '¿Como agregar una nueva tarea?' },
   },
   {
     path: '/agregar-tareas-intro',
@@ -250,41 +272,49 @@ const routes = [
     path: '/evaluacion-lugar/intro',
     name: 'place-evaluation-intro',
     component: PlaceEvaluationIntro,
+    meta: { title: '¿Como evaluar un lugar?' },
   },
   {
     path: '/evaluacion-lugar/intro2',
     name: 'place-evaluation-intro2',
     component: PlaceEvaluationIntro2,
+    meta: { title: '¿Como evaluar un lugar?' },
   },
   {
     path: '/evaluacion-lugar/intro3',
     name: 'place-evaluation-intro3',
     component: PlaceEvaluationIntro3,
+    meta: { title: '¿Como evaluar un lugar?' },
   },
   {
     path: '/evaluacion-lugar/intro4',
     name: 'place-evaluation-intro4',
     component: PlaceEvaluationIntro4,
+    meta: { title: '¿Como evaluar un lugar?' },
   },
   {
     path: '/nuevo-apoyo/intro',
     name: 'new-aid-intro',
     component: NewAidIntro,
+    meta: { title: '¿Como armar pictogramas?' },
   },
   {
     path: '/nuevo-apoyo/como-funciona',
     name: 'new-aid-intro2',
     component: NewAidIntro2,
+    meta: { title: '¿Como armar pictogramas?' },
   },
   {
     path: '/nuevo-apoyo/como-se-construye',
     name: 'new-aid-intro3',
     component: NewAidIntro3,
+    meta: { title: '¿Como armar pictogramas?' },
   },
   {
     path: '/nuevo-apoyo/notificacion',
     name: 'new-aid-intro4',
     component: NewAidIntro4,
+    meta: { title: '¿Como armar pictogramas?' },
   },
   {
     path: '/nuevo-apoyo/resumen/',
@@ -300,6 +330,7 @@ const routes = [
     path: '/nuevo-apoyo/:stepId/',
     name: 'new-aid-step',
     component: NewAidStep,
+    meta: { title: 'Arma tu pictograma' },
   },
   {
     path: '/nuevo-apoyo/confirmacion/',
@@ -313,11 +344,13 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta: { title: 'Acerca de' },
   },
   {
     path: '/colabora-con-nosotros/',
     name: 'colaborate',
     component: () => import(/* webpackChunkName: "about" */ '../views/Colaborate.vue'),
+    meta: { title: 'Colabora con nosotros' },
   },
   {
     path: '/:categorySlug/',
@@ -357,9 +390,12 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
-  Vue.nextTick(() => {
-    document.title = 'Pictos';
-  });
+  if (to.meta !== undefined && to.meta.title) {
+    const { title } = to.meta;
+    Vue.nextTick(() => {
+      document.title = `${title} | Pictos`;
+    });
+  }
 });
 
 export default router;
