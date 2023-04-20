@@ -401,10 +401,12 @@ export default {
   }
   .task-step__figure--without-pictogram {
     .task-step__legend {
-      height: 30vh;
-      @include rfs($font-size-18);
+      min-height: 30vh;
+      // @include rfs($font-size-18);
+      font-size: var( --font-size-400 );
       .pictogram__layer--action {
-        height: 75px;
+        height: 2.5rem;
+        padding: 0;
         margin-right: var(--spacer-sm);
       }
     }
@@ -484,7 +486,7 @@ export default {
       }
     }
     .tts {
-      margin-left: var(--spacer);
+      margin-left: var(--spacer-sm);
       align-self: flex-start;
     }
   }
