@@ -332,6 +332,7 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     overflow-x: hidden;
+    padding-bottom: 5rem;
   }
   .task__header {
     display: grid;
@@ -386,7 +387,7 @@ export default {
     grid-template-rows: auto 1fr;
     flex-grow: 1;
     border-top: 1px solid var(--color-brand-light);
-    border-bottom: 1px solid var(--color-brand-light);
+    // border-bottom: 1px solid var(--color-brand-light);
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
@@ -579,18 +580,33 @@ export default {
   // Navegación
   .task__nav {
     display: grid;
-    gap: 0 var(--spacer-sm);
+    // gap: 0 var(--spacer-sm);
     grid-template-columns: 1fr 1fr;
-    padding: var(--spacer) var(--spacer) var(--spacer-lg);
+    // padding: var(--spacer) var(--spacer) var(--spacer-lg);
+
+    padding: 0;
+    gap: 0 1px;
+    position: fixed;
+    bottom: 45px;
+    width: 100%;
+    background: var( --color-brand-darkest );
+    button {
+      border-radius: 0;
+    }
+
     @media screen and ( min-width: 640px ) {
-      padding: var(--spacer-lg) var(--spacer-lg) calc( var(--spacer-lg) + 1.5rem );
+      max-width: 640px;
+      margin-left: 0;
+      margin-right: 0;
+      // padding: var(--spacer-lg) var(--spacer-lg) calc( var(--spacer-lg) + 1.5rem );
     }
     @media screen and ( min-width: 1280px ) {
-      padding-left: var(--spacer-xl);
-      padding-right: var(--spacer-xl);
+      // padding-left: var(--spacer-xl);
+      // padding-right: var(--spacer-xl);
     }
   }
   .task__steps-indicator {
+    display: none;
     margin-top: var(--spacer-xs);
     margin-bottom: var(--spacer-xs);
     text-align: center;
@@ -616,8 +632,13 @@ export default {
     cursor: pointer;
     position: fixed;
     display: block;
-    width: calc( 100% - var(--spacer) );
-    max-width: calc( 640px - var(--spacer) );
+
+    // width: calc( 100% - var(--spacer) );
+    // max-width: calc( 640px - var(--spacer) );
+
+    width: 100%;
+    max-width: 640px;
+
     bottom: 0;
     left: 0;
     right: 0;
@@ -626,13 +647,17 @@ export default {
     padding: calc( var(--spacer) * .65 );
     font-weight: 600;
     background: var( --color-brand-lighter );
-    border-top-left-radius: var( --border-radius );
-    border-top-right-radius: var( --border-radius );
+    // border-top-left-radius: var( --border-radius );
+    // border-top-right-radius: var( --border-radius );
     border: 0;
     transition: var(--transition-base);
     &.task__step-feedback--hidden {
-      bottom: -100%;
-      opacity: 0;
+      // bottom: -100%;
+      // opacity: 0;
+      // filter: grayscale( 1 );
+      // opacity: 0.5;
+      // text-indent: -9999em;
+      // color: var( --color-brand-lighter );
     }
     @media screen and ( min-width: 1280px ) {
       max-width: calc(750px - ( var(--spacer-lg) * 2 ) );
