@@ -74,6 +74,7 @@ export default {
     & + .task-block__service {
       margin-top: var(--spacer-sm);
     }
+    padding-right: calc( 1rem + 5px );
   }
   .task-block__service {
     @include rfs($font-size-14);
