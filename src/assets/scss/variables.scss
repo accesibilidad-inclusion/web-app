@@ -1,11 +1,12 @@
 :root {
   --font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   // Spacers
-  --spacer-xl: 3.75rem;
-  --spacer-lg: 2.5rem;
-  --spacer: 1.25rem;
-  --spacer-sm: .51rem;
-  --spacer-xs: .25rem;
+  --spacer-unit: 16px;
+  --spacer-xl: calc( var( --spacer-unit ) * 3.75 );
+  --spacer-lg: calc( var( --spacer-unit ) * 2.5 );
+  --spacer: calc( var( --spacer-unit ) * 1.25 );
+  --spacer-sm: calc( var( --spacer-unit ) * .51 );
+  --spacer-xs: calc( var( --spacer-unit ) * .25 );
 
   // Border radius
   --border-radius: .35rem;
@@ -41,7 +42,15 @@
   --blue-medium-light: #8dAdf1;
 
   // Font sizes and Line height
-  --subtitle-font-size: 18px;
+  --font-size-900: #{$font-size-21};
+  --font-size-800: #{$font-size-18};
+  --font-size-700: #{$font-size-17};
+  --font-size-600: #{$font-size-16};
+  --font-size-500: #{$font-size-15};
+  --font-size-400: #{$font-size-14};
+  --font-size-300: #{$font-size-13};
+  --font-size-200: #{$font-size-12};
+  --subtitle-font-size: var(--font-size-800);
   --subtitle-line-height: calc(25/18);
 
   // Transitions

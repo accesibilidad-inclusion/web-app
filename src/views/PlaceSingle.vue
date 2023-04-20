@@ -192,7 +192,7 @@ export default {
     }
   }
   .place__service {
-    @include rfs($font-size-12);
+    font-size: var( --font-size-200 );
     display: inline-block;
     padding: var(--spacer-sm);
     text-decoration: none;
@@ -202,7 +202,7 @@ export default {
     }
   }
   .place__name {
-    @include rfs($font-size-18);
+    font-size: var( --font-size-500 );
     margin-bottom: var(--spacer-sm);
     font-weight: bold;
     line-height: calc( 25 / 18 );

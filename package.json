@@ -15,7 +15,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.13.1",
     "opensans-npm-webfont": "^1.0.0",
-    "pictos": "^0.6.1",
+    "pictos": "2",
     "register-service-worker": "^1.7.2",
     "rfs": "^9.0.3",
     "vue": "^2.6.12",
