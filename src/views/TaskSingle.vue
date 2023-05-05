@@ -605,20 +605,14 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
+    max-width: var( --app-width );
     button {
       border-radius: var( --border-radius );
       cursor: pointer;
     }
-
     @media screen and ( min-width: 640px ) {
-      max-width: 640px;
       margin-left: 0;
       margin-right: 0;
-      // padding: var(--spacer-lg) var(--spacer-lg) calc( var(--spacer-lg) + 1.5rem );
-    }
-    @media screen and ( min-width: 1280px ) {
-      // padding-left: var(--spacer-xl);
-      // padding-right: var(--spacer-xl);
     }
   }
   .task__steps-indicator {

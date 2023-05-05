@@ -46,13 +46,10 @@ export default {
   grid-template-rows: auto 1fr;
   background: var(--color-background);
   overflow-x: hidden;
+  max-width: var( --app-width );
   @media screen and ( min-width: 640px ) {
-    max-width: 640px;
     margin-left: auto;
     margin-right: auto;
-  }
-  @media screen and ( min-width: 1280px ) {
-    max-width: 750px;
   }
 }
 // Transition: Slide
