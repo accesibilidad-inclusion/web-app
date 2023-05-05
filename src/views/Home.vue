@@ -26,10 +26,10 @@
 <script>
 import MainSearch from '@/components/MainSearch.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
-import IconFormalities from '../../public/img/app-icons/formalities.svg?inline';
-import IconHealth from '../../public/img/app-icons/health.svg?inline';
-import IconTransport from '../../public/img/app-icons/transport.svg?inline';
-import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
+import IconFormalities from 'pictos/src/4-icons/procedures.svg?inline';
+import IconHealth from 'pictos/src/4-icons/health.svg?inline';
+import IconTransport from 'pictos/src/4-icons/transport.svg?inline';
+import IconLeisure from 'pictos/src/4-icons/leisure.svg?inline';
 
 export default {
   name: 'home',

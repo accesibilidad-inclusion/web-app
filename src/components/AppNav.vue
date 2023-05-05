@@ -122,6 +122,13 @@ export default {
     color: var(--color-background);
     background-color: var(--color-brand-darkest);
   }
+  .btn-prev {
+    font-size: var( --font-size-300 );
+    svg {
+      position: relative;
+      top: 1px;
+    }
+  }
 }
 .app-nav > .router-link-active {
   margin-left: var(--spacer);
@@ -134,7 +141,7 @@ export default {
   }
 }
 .app-nav__toggle {
-  @include rfs($font-size-16);
+  font-size: var( --font-size-300 );
   cursor: pointer;
   font-weight: 600;
   background: none;

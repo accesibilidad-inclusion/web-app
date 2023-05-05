@@ -46,12 +46,12 @@
                 </div>
                 <figcaption class="task-step__legend">
                   <div class="task-step__legend-text">
+                    <text-to-speech :text-audio="step.label" />
                     <span v-if="step.pictogram && step.pictogram.images.find( i => i.layout == 4)">
                       <img v-bind:src="`${step.pictogram.images.find( i => i.layout == 4).path}${step.pictogram.images.find( i => i.layout == 4).filename}`" class="pictogram__layer--action">
                     </span>
                     {{ step.label }}
                   </div>
-                  <text-to-speech :text-audio="step.label" />
                 </figcaption>
               </figure>
             </li>
@@ -59,10 +59,10 @@
               <h2 class="task-helpful__title">¿Te ha servido este apoyo?</h2>
               <div class="task-helpful__answers">
                 <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
-                  <icon-like class="task-helpful__answer__icon--like"></icon-like>
+                  <icon-like class="task-helpful__answer__icon--like"></icon-like> Sí
                 </button>
                 <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
-                  <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
+                  <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike> No
                 </button>
               </div>
               <template v-if="steps.length && !steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length">
@@ -162,8 +162,8 @@ import Task from '@/models/Task';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import Pictogram from '@/components/Pictogram.vue';
-import IconLike from '../../public/img/app-icons/like.svg?inline';
-import IconDislike from '../../public/img/app-icons/dislike.svg?inline';
+import IconLike from 'pictos/src/4-icons/check.svg?inline';
+import IconDislike from 'pictos/src/4-icons/cancel.svg?inline';
 import IconError from '../../public/img/app-icons/error.svg?inline';
 import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
 
@@ -487,13 +487,24 @@ export default {
     }
     .tts {
       margin-left: var(--spacer-sm);
-      align-self: flex-start;
+      margin-bottom: var(--spacer-sm);
+      float: right;
     }
   }
   .task-step__legend-text {
-    display: flex;
     align-items: center;
-    gap: 1rem;
+    min-height: 44px;
+    position: relative;
+    padding-left: 54px;
+    width: 100%;
+    .pictogram__layer--action {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      left: 0;
+      top: 50%;
+      margin-top: -22px;
+    }
   }
   // Último paso, donde se pregunta si fue de ayuda
   .task-helpful {
@@ -537,7 +548,7 @@ export default {
   }
   .task-helpful__answer {
     cursor: pointer;
-    display: block;
+    display: flex;
     padding: var(--spacer-sm);
     text-align: center;
     color: var(--color-brand-darker);
@@ -545,6 +556,12 @@ export default {
     border: 1px solid var(--color-brand-light);
     border-radius: var(--border-radius);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, .25);
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    svg {
+      margin-right: .5em;
+    }
     &:hover {
       background-color: var(--color-brand-lighter);
       transition: var(--transition-base);
