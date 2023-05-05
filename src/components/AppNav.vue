@@ -124,6 +124,7 @@ export default {
   }
   .btn-prev {
     font-size: var( --font-size-300 );
+    cursor: pointer;
     svg {
       position: relative;
       top: 1px;
