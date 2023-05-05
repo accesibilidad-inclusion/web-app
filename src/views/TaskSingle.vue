@@ -366,7 +366,6 @@ export default {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
-    flex-grow: 1;
   }
   .task__steps {
     position: relative;
@@ -487,6 +486,7 @@ export default {
       }
     }
     .tts {
+      margin-top: 3px;
       margin-left: var(--spacer-sm);
       margin-bottom: var(--spacer-sm);
       float: right;
@@ -504,7 +504,7 @@ export default {
       padding: 0;
       left: 0;
       top: 50%;
-      margin-top: -22px;
+      margin-top: -32px;
     }
   }
   // Último paso, donde se pregunta si fue de ayuda
@@ -642,7 +642,7 @@ export default {
     cursor: pointer;
     display: block;
     max-width: 640px;
-    margin: var( --spacer ) auto var( --spacer-sm );
+    margin: var( --spacer ) var( --spacer-sm ) var( --spacer-sm );
     padding: calc( var(--spacer) * .5 ) var( --spacer );
     font-weight: 600;
     background: var( --color-brand-lighter );
