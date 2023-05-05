@@ -332,7 +332,7 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     overflow-x: hidden;
-    padding-bottom: 5rem;
+    padding-bottom: calc( ( 0.9rem * 2 ) + 2rem );
   }
   .task__header {
     display: grid;
@@ -373,7 +373,7 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     // flex-grow: 1;
-    background: var(--color-brand-lightest);
+    // background: var(--color-brand-lightest);
     // max-height: 55vh;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
@@ -599,18 +599,15 @@ export default {
   // Navegación
   .task__nav {
     display: grid;
-    // gap: 0 var(--spacer-sm);
+    gap: 0 var(--spacer-sm);
     grid-template-columns: 1fr 1fr;
-    // padding: var(--spacer) var(--spacer) var(--spacer-lg);
-
-    padding: 0;
-    gap: 0 1px;
+    padding: var(--spacer-sm);
     position: fixed;
-    bottom: 45px;
+    bottom: 0;
     width: 100%;
-    background: var( --color-brand-darkest );
     button {
-      border-radius: 0;
+      border-radius: var( --border-radius );
+      cursor: pointer;
     }
 
     @media screen and ( min-width: 640px ) {
@@ -649,35 +646,15 @@ export default {
   .task__step-feedback {
     @include rfs($font-size-12);
     cursor: pointer;
-    position: fixed;
     display: block;
-
-    // width: calc( 100% - var(--spacer) );
-    // max-width: calc( 640px - var(--spacer) );
-
-    width: 100%;
     max-width: 640px;
-
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    padding: calc( var(--spacer) * .65 );
+    margin: var( --spacer ) auto var( --spacer-sm );
+    padding: calc( var(--spacer) * .5 ) var( --spacer );
     font-weight: 600;
     background: var( --color-brand-lighter );
-    // border-top-left-radius: var( --border-radius );
-    // border-top-right-radius: var( --border-radius );
+    border-radius: var( --border-radius );
     border: 0;
     transition: var(--transition-base);
-    &.task__step-feedback--hidden {
-      // bottom: -100%;
-      // opacity: 0;
-      // filter: grayscale( 1 );
-      // opacity: 0.5;
-      // text-indent: -9999em;
-      // color: var( --color-brand-lighter );
-    }
     @media screen and ( min-width: 1280px ) {
       max-width: calc(750px - ( var(--spacer-lg) * 2 ) );
     }
