@@ -54,6 +54,7 @@ export default {
     border-radius: var( --border-radius );
     box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.25);
     transition: var(--transition-base);
+    cursor: pointer;
     @media screen and ( min-width: 640px ) {
       padding: var(--spacer);
     }
