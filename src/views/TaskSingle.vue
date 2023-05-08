@@ -636,7 +636,7 @@ export default {
     position: fixed;
     display: block;
     width: calc( 100% - var(--spacer) );
-    max-width: calc( 640px - var(--spacer) );
+    max-width: calc( var( --app-width ) - var(--spacer) );
     bottom: 0;
     left: 0;
     right: 0;
@@ -649,12 +649,9 @@ export default {
     border-top-right-radius: var( --border-radius );
     border: 0;
     transition: var(--transition-base);
-    &.task__step-feedback--hidden {
-      bottom: -100%;
-      opacity: 0;
-    }
+    color: inherit;
     @media screen and ( min-width: 1280px ) {
-      max-width: calc(750px - ( var(--spacer-lg) * 2 ) );
+      max-width: calc( var( --app-width ) - ( var(--spacer-sm) * 2 ) );
     }
   }
   // Modal de feedback

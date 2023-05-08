@@ -148,6 +148,7 @@ export default {
   background: none;
   border: 0;
   margin-left: auto;
+  color: inherit;
   .app-nav--dark & {
     transition: var(--transition-nav-dark);
     color: var(--color-background);
