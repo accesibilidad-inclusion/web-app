@@ -606,13 +606,20 @@ export default {
     bottom: 0;
     width: 100%;
     max-width: var( --app-width );
-    button {
-      border-radius: var( --border-radius );
-      cursor: pointer;
-    }
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(3px);
     @media screen and ( min-width: 640px ) {
       margin-left: 0;
       margin-right: 0;
+    }
+    @media screen and ( min-width: 1280px ) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
+    }
+    button {
+      border-radius: var( --border-radius );
+      font-size: var( --font-size-500 );
+      cursor: pointer;
     }
   }
   .task__steps-indicator {
