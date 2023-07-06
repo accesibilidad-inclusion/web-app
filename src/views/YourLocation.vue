@@ -6,7 +6,7 @@
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
           <h2 class="activate-location__title">Estamos utilizando <strong>tu ubicacion GPS</strong></h2>
-          <button @click="$router.push('/home')" class="btn btn--large btn--block btn--primary">
+          <button @click="$router.push($store.state.redirectTo).catch(() => {})" class="btn btn--large btn--block btn--primary">
             Continuar
           </button>
           <button @click="selectCommune()" class="btn btn--large btn--block btn--as-link">
@@ -40,7 +40,7 @@
             Seleccionando una comuna
           </button>
         </div>
-        <a href="#" @click="$router.push('/home')" class="close-app">Volver al menú principal</a>
+        <a href="#" @click="$router.push('/home').catch(() => {})" class="close-app">Volver al menú principal</a>
       </template>
       <template v-else>
         <div class="activate-location">
@@ -168,7 +168,7 @@ export default {
       this.query = '';
     },
     confirmCommune() {
-      this.$store.dispatch('setLocation', this.commune).then(() => this.$router.push('/home'));
+      this.$store.dispatch('setLocation', this.commune).then(() => this.$router.push(this.$store.state.redirectTo).catch(() => {}));
     },
     toggle(id) {
       if (this.expandRegions.includes(id)) {

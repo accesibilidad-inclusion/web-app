@@ -1,5 +1,5 @@
 <template>
-  <button class="tts" @click.stop="speak" type="button">
+  <button class="tts" @click.stop="speak" type="button" aria-label="Escuchar">
     <span class="sr-only">Leer texto</span>
     <icon-audio v-if="!playing" />
     <icon-stop class="stop-img" v-if="playing" />

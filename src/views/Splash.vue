@@ -30,13 +30,13 @@ export default {
     };
   },
   mounted() {
-    if (this.$store.state.tutorial.onboarding) {
+    if (this.$store.state.initialized) {
       setTimeout(() => {
-        this.$router.push('/onboarding/');
+        this.$router.push(this.$store.state.redirectTo).catch(() => {});
       }, 2000);
     } else {
       this.$store.dispatch('init').then(() => {
-        this.$router.push('/home');
+        this.$router.push(this.$store.state.redirectTo).catch(() => {});
       });
     }
   },

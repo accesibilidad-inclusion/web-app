@@ -382,8 +382,21 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   window.speechSynthesis.cancel();
-  if ((!to.path.includes('/onboarding') && to.name !== 'splash' && !to.path.includes('/tu-ubicacion')) && Object.keys(JSON.parse(localStorage.getItem('location') || '{}')).length === 0) {
-    next({ name: 'your-location' });
+
+  if ((!localStorage.getItem('initialized')) && to.fullPath !== '/') {
+    store.dispatch('setRedirectTo', to.path).then(() => {
+      next({ name: 'splash' });
+    });
+  } else if (to.name === 'place-single' || to.name === 'task-single' || to.path.includes('/nueva-tarea') || to.path.includes('/evaluacion-lugar') || to.path.includes('/personal-information') || to.path.includes('/nuevo-apoyo')) {
+    next();
+  } else if (!to.path.includes('/onboarding') && to.name !== 'splash' && store.state.tutorial.onboarding) {
+    store.dispatch('setRedirectTo', to.path).then(() => {
+      next({ name: 'onboarding' });
+    });
+  } else if ((!to.path.includes('/onboarding') && to.name !== 'splash' && !to.path.includes('/tu-ubicacion')) && !store.state.location) {
+    store.dispatch('setRedirectTo', to.path).then(() => {
+      next({ name: 'your-location' });
+    });
   } else {
     next();
   }

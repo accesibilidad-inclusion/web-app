@@ -47,6 +47,14 @@ export const setProposalPictos = (state, payload) => {
   state.proposalPictos = payload;
 };
 
+export const setRedirectTo = (state, payload) => {
+  state.redirectTo = payload;
+};
+
+export const setInitialized = (state, payload) => {
+  state.initialized = payload;
+};
+
 export const setSelectedItem = (state, payload) => {
   state.selected[payload.object] = payload.item;
   localStorage.setItem('selected', JSON.stringify(state.selected));
@@ -136,5 +144,8 @@ export const initializeStore = (state) => {
   }
   if (localStorage.getItem('location')) {
     state.location = JSON.parse(localStorage.getItem('location'));
+  }
+  if (localStorage.getItem('initialized')) {
+    state.initialized = JSON.parse(localStorage.getItem('initialized'));
   }
 };

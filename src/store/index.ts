@@ -8,6 +8,8 @@ const mutations = require('./mutations');
 Vue.use(Vuex);
 
 const state = {
+  redirectTo: '/home',
+  initialized: false,
   tutorial: {
     onboarding: true,
     evaluation: true,
@@ -128,9 +130,11 @@ export default new Vuex.Store({
           localStorage.setItem('regions', JSON.stringify(response.data.regions));
           localStorage.setItem('categories', JSON.stringify(response.data.categories));
           localStorage.setItem('questions', JSON.stringify(response.data.questions));
+          localStorage.setItem('initialized', JSON.stringify(true));
           commit('setRegions', response.data.regions);
           commit('setCategories', response.data.categories);
           commit('setQuestions', response.data.questions);
+          commit('setInitialized', true);
           resolve();
         });
       });
@@ -162,6 +166,13 @@ export default new Vuex.Store({
     setLocation({ commit }, payload) {
       return new Promise<void>((resolve, reject) => {
         commit('setLocation', payload);
+        resolve();
+      });
+    },
+
+    setRedirectTo({ commit }, payload) {
+      return new Promise<void>((resolve, reject) => {
+        commit('setRedirectTo', payload);
         resolve();
       });
     },

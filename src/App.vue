@@ -17,11 +17,6 @@ export default {
   },
   beforeCreate() {
     this.$store.commit('initializeStore');
-    // const speech = new SpeechSynthesisUtterance('');
-    // speech.pitch = 0;
-    // speech.rate = 100;
-    // speech.lang = 'es-005';
-    // window.speechSynthesis.speak(speech);
   },
   methods: {
     backEvaluation() {
