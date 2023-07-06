@@ -33,7 +33,7 @@ export default {
   methods: {
     tutorialComplete() {
       this.$store.commit('tutorialOnboarding');
-      this.$router.push(this.$store.state.redirectTo);
+      this.$router.push(this.$store.state.redirectTo).catch(() => {});
     },
   },
 };
