@@ -382,7 +382,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   window.speechSynthesis.cancel();
-  console.log(store.state);
 
   if (!store.state.initialized && to.fullPath !== '/') {
     store.dispatch('setRedirectTo', to.path).then(() => {
