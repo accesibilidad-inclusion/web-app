@@ -33,7 +33,7 @@ export default {
     if (this.$store.state.initialized) {
       setTimeout(() => {
         this.$router.push(this.$store.state.redirectTo).catch(() => {});
-      }, 2000);
+      }, 700);
     } else {
       this.$store.dispatch('init').then(() => {
         this.$router.push(this.$store.state.redirectTo).catch(() => {});

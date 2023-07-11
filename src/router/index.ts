@@ -382,8 +382,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   window.speechSynthesis.cancel();
+  console.log(store.state);
 
-  if ((!localStorage.getItem('initialized')) && to.fullPath !== '/') {
+  if (!store.state.initialized && to.fullPath !== '/') {
     store.dispatch('setRedirectTo', to.path).then(() => {
       next({ name: 'splash' });
     });

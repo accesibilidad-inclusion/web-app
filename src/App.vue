@@ -15,9 +15,6 @@ export default {
   components: {
     AppNav,
   },
-  beforeCreate() {
-    this.$store.commit('initializeStore');
-  },
   methods: {
     backEvaluation() {
       this.$refs.view.comeback();
