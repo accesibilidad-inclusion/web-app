@@ -332,6 +332,7 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     overflow-x: hidden;
+    padding-bottom: calc( ( 0.9rem * 2 ) + 2rem );
   }
   .task__header {
     display: grid;
@@ -365,14 +366,13 @@ export default {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
-    flex-grow: 1;
   }
   .task__steps {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
     // flex-grow: 1;
-    background: var(--color-brand-lightest);
+    // background: var(--color-brand-lightest);
     // max-height: 55vh;
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
@@ -386,7 +386,7 @@ export default {
     grid-template-rows: auto 1fr;
     flex-grow: 1;
     border-top: 1px solid var(--color-brand-light);
-    border-bottom: 1px solid var(--color-brand-light);
+    // border-bottom: 1px solid var(--color-brand-light);
     // Hack Safari
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
@@ -486,6 +486,7 @@ export default {
       }
     }
     .tts {
+      margin-top: 3px;
       margin-left: var(--spacer-sm);
       margin-bottom: var(--spacer-sm);
       float: right;
@@ -503,7 +504,7 @@ export default {
       padding: 0;
       left: 0;
       top: 50%;
-      margin-top: -22px;
+      margin-top: -32px;
     }
   }
   // Último paso, donde se pregunta si fue de ayuda
@@ -600,16 +601,29 @@ export default {
     display: grid;
     gap: 0 var(--spacer-sm);
     grid-template-columns: 1fr 1fr;
-    padding: var(--spacer) var(--spacer) var(--spacer-lg);
+    padding: var(--spacer-sm);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: var( --app-width );
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(3px);
     @media screen and ( min-width: 640px ) {
-      padding: var(--spacer-lg) var(--spacer-lg) calc( var(--spacer-lg) + 1.5rem );
+      margin-left: 0;
+      margin-right: 0;
     }
     @media screen and ( min-width: 1280px ) {
       padding-left: var(--spacer-xl);
       padding-right: var(--spacer-xl);
     }
+    button {
+      border-radius: var( --border-radius );
+      font-size: var( --font-size-500 );
+      cursor: pointer;
+    }
   }
   .task__steps-indicator {
+    display: none;
     margin-top: var(--spacer-xs);
     margin-bottom: var(--spacer-xs);
     text-align: center;
@@ -633,7 +647,6 @@ export default {
   .task__step-feedback {
     @include rfs($font-size-12);
     cursor: pointer;
-    position: fixed;
     display: block;
     width: calc( 100% - var(--spacer) );
     max-width: calc( var( --app-width ) - var(--spacer) );
@@ -645,8 +658,7 @@ export default {
     padding: calc( var(--spacer) * .65 );
     font-weight: 600;
     background: var( --color-brand-lighter );
-    border-top-left-radius: var( --border-radius );
-    border-top-right-radius: var( --border-radius );
+    border-radius: var( --border-radius );
     border: 0;
     transition: var(--transition-base);
     color: inherit;

@@ -169,10 +169,17 @@ export default {
   text-align: center;
   width: 86px;
   margin: 0 auto;
+  display: flex;
+  flex-flow: center;
+  align-items: center;
+  justify-content: center;
+  &:first-child {
+    justify-content: left;
+  }
 }
 .app-nav__logo {
-  width: 55px;
-  height: 11px;
+  width: 64px;
+  height: 16px;
   .app-nav--dark & path {
     transition: var(--transition-nav-dark);
     fill: var(--color-background);
