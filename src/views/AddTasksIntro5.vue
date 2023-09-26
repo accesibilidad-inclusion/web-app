@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding--inside">
     <div class="container">
@@ -19,7 +18,7 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <OnboardingNext :linkTo="'/agregar-tareas-intro/'" />
+        <OnboardingNext :link-to="'/agregar-tareas-intro/'" />
       </footer>
     </div>
   </div>

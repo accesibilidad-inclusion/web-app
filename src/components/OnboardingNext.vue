@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <router-link :tag="'button'" :to="linkTo" :class="classes()" :disabled="this.isDisabled">Siguiente</router-link>
 </template>

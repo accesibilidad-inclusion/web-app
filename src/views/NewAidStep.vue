@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="new-aid new-aid--fullheight">
     <header class="new-aid__header entries-list__header">
@@ -18,35 +17,35 @@
           " />
       </header>
       <pictogram-select
-        v-bind:title="'Espacio'"
-        v-bind:pictos="landmarks"
-        v-bind:value="state.layers.find( l => l.layout == 2 ) ? state.layers.find( l => l.layout == 2 ).id : null"
-        v-on:change="handleLayerChange($event, 2)"
+        :title="'Espacio'"
+        :pictos="landmarks"
+        :value="state.layers.find( l => l.layout == 2 ) ? state.layers.find( l => l.layout == 2 ).id : null"
+        @change="handleLayerChange($event, 2)"
       ></pictogram-select>
       <pictogram-select
-        v-bind:title="'Objeto'"
-        v-bind:pictos="contexts"
-        v-bind:value="state.layers.find( l => l.layout == 3 ) ? state.layers.find( l => l.layout == 3 ).id : null"
-        v-on:change="handleLayerChange($event, 3)"
+        :title="'Objeto'"
+        :pictos="contexts"
+        :value="state.layers.find( l => l.layout == 3 ) ? state.layers.find( l => l.layout == 3 ).id : null"
+        @change="handleLayerChange($event, 3)"
       ></pictogram-select>
       <pictogram-select
-        v-bind:title="'Persona'"
-        v-bind:pictos="subjects"
-        v-bind:value="state.layers.find( l => l.layout == 1 ) ? state.layers.find( l => l.layout == 1 ).id : null"
-        v-on:change="handleLayerChange($event, 1)"
+        :title="'Persona'"
+        :pictos="subjects"
+        :value="state.layers.find( l => l.layout == 1 ) ? state.layers.find( l => l.layout == 1 ).id : null"
+        @change="handleLayerChange($event, 1)"
       ></pictogram-select>
     </form>
     <div class="new-aid__actions">
       <button
         type="button"
-        v-bind:class="'btn btn--large btn--block' + ( state.canPreview ? ' btn--ghost-primary' : ' btn--ghost-neutral' )"
+        :class="'btn btn--large btn--block' + ( state.canPreview ? ' btn--ghost-primary' : ' btn--ghost-neutral' )"
         @click="showPreview"
       >
         Previsualizar
       </button>
       <button
         type="button"
-        v-bind:class="'btn btn--large btn--block' + ( state.canConfirm ? ' btn--primary' : ' btn--ghost-neutral' )"
+        :class="'btn btn--large btn--block' + ( state.canConfirm ? ' btn--primary' : ' btn--ghost-neutral' )"
         @click="savePictogram"
       >
         Confirmar
@@ -64,20 +63,20 @@
             <text-to-speech :text-audio="step.label" />
             <ul class="layers-status">
               <li class="layers-status__item">
-                <icon-check-rounded v-bind:class="state.layers.find( l => l.layout == 2 ) ? '--checked' : ''"></icon-check-rounded>
+                <icon-check-rounded :class="state.layers.find( l => l.layout == 2 ) ? '--checked' : ''"></icon-check-rounded>
                 Espacio
               </li>
               <li class="layers-status__item">
-                <icon-check-rounded v-bind:class="state.layers.find( l => l.layout == 3 ) ? '--checked' : ''"></icon-check-rounded>
+                <icon-check-rounded :class="state.layers.find( l => l.layout == 3 ) ? '--checked' : ''"></icon-check-rounded>
                 Objeto
               </li>
               <li class="layers-status__item">
-                <icon-check-rounded v-bind:class="state.layers.find( l => l.layout == 1 ) ? '--checked' : ''"></icon-check-rounded>
+                <icon-check-rounded :class="state.layers.find( l => l.layout == 1 ) ? '--checked' : ''"></icon-check-rounded>
                 Persona
               </li>
             </ul>
           </header>
-          <pictogram v-bind:layers="state.layers"></pictogram>
+          <pictogram :layers="state.layers"></pictogram>
           <footer class="pictogram-preview__footer">
             <button type="button" class="pictogram-preview__close" @click="hidePreview">Cerrar</button>
           </footer>
@@ -104,14 +103,6 @@ export default {
     PictogramSelect,
     Pictogram,
     IconCheckRounded,
-  },
-  beforeMount() {
-    this.$store.dispatch('setImages').then(() => {
-      this.getState();
-    });
-  },
-  beforeUpdate() {
-    this.getState();
   },
   data() {
     return {
@@ -147,6 +138,14 @@ export default {
     contexts() {
       return this.$store.state.pictos.filter(picto => picto.layout === 3);
     },
+  },
+  beforeMount() {
+    this.$store.dispatch('setImages').then(() => {
+      this.getState();
+    });
+  },
+  beforeUpdate() {
+    this.getState();
   },
   methods: {
     getState() {

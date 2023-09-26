@@ -1,22 +1,21 @@
-<!-- eslint-disable max-len -->
 <template>
-<div class="onboarding">
-    <div class="container">
-        <page-image alt="Persona activando el audio en la aplicación" class="onboarding__welcome-image"></page-image>
-        <h2 class="onboarding__title">
-            Puedes activar el audio
-            <text-to-speech :text-audio="
-          'Puedes activar el audio.\n\n\n'
-          + 'Si tienes dificultad o no quieres leer, no te preocupes. Puedes activar la opción de sonido, pulsando el ícono de altavoz.'
-        " />
-        </h2>
-        <p>Si tienes dificultad o no quieres leer, no te preocupes.</p>
-        <p>Puedes <strong>activar</strong> la opción de sonido, <strong>pulsando el ícono de altavoz.</strong></p>
-        <footer class="onboarding__footer">
-            <OnboardingNext :linkTo="'/onboarding/about'" />
-        </footer>
+    <div class="onboarding">
+        <div class="container">
+            <page-image alt="Persona activando el audio en la aplicación" class="onboarding__welcome-image"></page-image>
+            <h2 class="onboarding__title">
+                Puedes activar el audio
+                <text-to-speech :text-audio="
+            'Puedes activar el audio.\n\n\n'
+            + 'Si tienes dificultad o no quieres leer, no te preocupes. Puedes activar la opción de sonido, pulsando el ícono de altavoz.'
+            " />
+            </h2>
+            <p>Si tienes dificultad o no quieres leer, no te preocupes.</p>
+            <p>Puedes <strong>activar</strong> la opción de sonido, <strong>pulsando el ícono de altavoz.</strong></p>
+            <footer class="onboarding__footer">
+                <OnboardingNext :linkTo="'/onboarding/about'" />
+            </footer>
+        </div>
     </div>
-</div>
 </template>
 
 <script>

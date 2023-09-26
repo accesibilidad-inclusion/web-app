@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="page">
     <div class="container">
@@ -40,7 +39,7 @@ import LogoPucv from '../../public/img/app-icons/logo-pucv.svg?inline';
 import LogoSenadis from '../../public/img/app-icons/logo-senadis.svg?inline';
 
 export default {
-  name: 'about',
+  name: 'About',
   components: {
     TextToSpeech,
     LogoPictos,

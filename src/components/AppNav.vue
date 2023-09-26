@@ -1,20 +1,19 @@
-<!-- eslint-disable max-len -->
 <template>
-  <div class="app-nav" v-bind:class="{ 'app-nav--dark': state.dark }" id="nav">
-    <back-button v-if="$route.name !== 'home'" v-on:comeback="$emit('comeback')"></back-button>
+  <div id="nav" class="app-nav" :class="{ 'app-nav--dark': state.dark }">
+    <back-button v-if="$route.name !== 'home'" @comeback="$emit('comeback')"></back-button>
     <router-link to="/home" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
     </router-link>
     <button class="app-nav__toggle" @click="openMenu">
       Menú <icon-menu class="app-nav__toggle-icon" />
     </button>
-    <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
+    <div :class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
       <div class="modal__backdrop">
         <div class="app-menu">
           <div class="app-menu__wrapper">
             <header class="app-menu__header">
               <h3 class="app-menu__title">Menú</h3>
-              <button class="app-menu__toggle" @click="closeMenu" aria-label="Menu">
+              <button class="app-menu__toggle" aria-label="Menu" @click="closeMenu">
                 <icon-close class="app-menu__toggle-icon"></icon-close>
               </button>
             </header>
@@ -51,7 +50,7 @@ import IconMenu from '../../public/img/app-icons/drag.svg?inline';
 import IconClose from '../../public/img/app-icons/error.svg?inline';
 
 export default {
-  name: 'navigation',
+  name: 'Navigation',
   components: {
     LogoPictos,
     IconMenu,
@@ -66,6 +65,14 @@ export default {
         closed_modal: null,
       },
     };
+  },
+  watch: {
+    $route() {
+      this.isDark();
+    },
+  },
+  mounted() {
+    this.isDark();
   },
   methods: {
     openMenu() {
@@ -85,14 +92,6 @@ export default {
         || this.$route.name === 'place-single'
         || this.$route.path.indexOf('evaluacion-lugar') !== -1;
     },
-  },
-  watch: {
-    $route() {
-      this.isDark();
-    },
-  },
-  mounted() {
-    this.isDark();
   },
 };
 </script>

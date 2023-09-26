@@ -1,15 +1,15 @@
 <template>
   <div class="task task-block" tag="article" @click="selectTask(task)">
     <p class="task-block__title">{{ task.title }}</p>
-    <p class="task-block__service" v-if="task.service && task.venue">
-      {{ task.venue.name }}, {{ task.service.name }}
+    <p v-if="task.steps" class="task-block__service">
+      {{ task.steps.length }} pasos
     </p>
     <text-to-speech :text-audio="`${task.title}.\n\n`" />
-    <div class="task-block__aids" v-if="task.aids">
+    <div v-if="task.aids" class="task-block__aids">
       <span>Apoyo:</span>
       <ul class="task-block__aids-list">
         <template v-for="aid in task.aids">
-          <li v-if="aid.enabled" v-bind:key="aid.type">
+          <li v-if="aid.enabled" :key="aid.type">
             {{ aid.name }}
           </li>
         </template>
@@ -22,10 +22,10 @@
 import TextToSpeech from './TextToSpeech.vue';
 
 export default {
-  props: ['task', 'title'],
   components: {
     TextToSpeech,
   },
+  props: ['task', 'title'],
   data() {
     return {
     };

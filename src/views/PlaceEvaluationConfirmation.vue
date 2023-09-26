@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="page">
     <div class="container">
@@ -13,7 +12,7 @@
         <text-to-speech text-audio="Has evaluado este servicio " />
       </h2>
       <p class="page__evaluation-subtitle">Promedio de evaluación</p>
-      <div class="place__evaluation-grade place__evaluation-grade--xl" v-bind:data-grade="score">
+      <div class="place__evaluation-grade place__evaluation-grade--xl" :data-grade="score">
         <span>{{ score }}</span>
         <h3 class="page__evaluation-name">{{ $store.state.evaluations.find(e => e.grade == score ).title }}</h3>
       </div>
@@ -40,15 +39,6 @@ export default {
       answers: [],
     };
   },
-  beforeMount() {
-    if (!this.$route.params.answers) {
-      this.$router.push({
-        name: 'place-evaluation',
-      });
-    } else {
-      this.answers = this.$route.params.answers;
-    }
-  },
   computed: {
     score() {
       let countIndicator = this.$store.state.questions.filter(q => q.answer_type === 'Indicador').length;
@@ -68,6 +58,15 @@ export default {
       }
       return score;
     },
+  },
+  beforeMount() {
+    if (!this.$route.params.answers) {
+      this.$router.push({
+        name: 'place-evaluation',
+      });
+    } else {
+      this.answers = this.$route.params.answers;
+    }
   },
   methods: {
     next() {

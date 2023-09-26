@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="search-results">
     <header class="search-results__description">
@@ -27,7 +26,7 @@
         </template>
         <template v-else>
           <task-block v-for="task in tasks"
-            v-bind:key="task.id" v-bind:task="task" v-bind:title="task.place">
+            :key="task.id" :task="task" :title="task.place">
           </task-block>
         </template>
       </template>
@@ -42,7 +41,7 @@ import TaskBlock from '@/components/TaskBlock.vue';
 import IconNoResults from '../../public/img/app-icons/no-results.svg?inline';
 
 export default {
-  name: 'searchResults',
+  name: 'SearchResults',
   components: {
     ClipLoader,
     TextToSpeech,

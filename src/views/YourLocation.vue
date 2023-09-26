@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div>
     <div v-if="!showCommune" class="your-location location-container">
@@ -6,10 +5,10 @@
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
           <h2 class="activate-location__title">Estamos utilizando <strong>tu ubicacion GPS</strong></h2>
-          <button @click="$router.push($store.state.redirectTo).catch(() => {})" class="btn btn--large btn--block btn--primary">
+          <button class="btn btn--large btn--block btn--primary" @click="$router.push($store.state.redirectTo).catch(() => {})">
             Continuar
           </button>
-          <button @click="selectCommune()" class="btn btn--large btn--block btn--as-link">
+          <button class="btn btn--large btn--block btn--as-link" @click="selectCommune()">
             Seleccionar una comuna
           </button>
         </div>
@@ -18,11 +17,11 @@
         <div class="activate-location">
           <h2 class="activate-location__title">No podemos acceder a <span class="font-weight-medium">tu ubicacion GPS</span></h2>
           <p class="activate-location__description">Activa los permisos de ubicación en tu dispositivo</p>
-          <button @click="permissionDenied = false" class="btn btn--large btn--block btn--primary">
+          <button class="btn btn--large btn--block btn--primary" @click="permissionDenied = false">
             Volver a intentarlo
           </button>
           <span class="activate-location__or">ó</span>
-          <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
+          <button class="btn btn--large btn--block btn--primary" @click="selectCommune()">
             Seleccionar una comuna
           </button>
         </div>
@@ -32,25 +31,25 @@
           <icon-location-pin class="activate-location__icon" />
           <h2 class="activate-location__title">Actualmente estás ubicado en <strong>{{ $store.state.location.name }}</strong></h2>
           <p class="activate-location__description">Puedes cambiar tu ubicación de dos formas:</p>
-          <button @click="activateGps()" class="btn btn--large btn--block btn--primary">
+          <button class="btn btn--large btn--block btn--primary" @click="activateGps()">
             Activando tu GPS
           </button>
           <span class="activate-location__or">ó</span>
-          <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
+          <button class="btn btn--large btn--block btn--primary" @click="selectCommune()">
             Seleccionando una comuna
           </button>
         </div>
-        <a href="#" @click="$router.push('/home').catch(() => {})" class="close-app">Volver al menú principal</a>
+        <a href="#" class="close-app" @click="$router.push('/home').catch(() => {})">Volver al menú principal</a>
       </template>
       <template v-else>
         <div class="activate-location">
           <h2 class="activate-location__title">Tu ubicación</h2>
           <p class="activate-location__description"><span class="font-weight-medium">Activa el GPS</span> o <span class="font-weight-medium">ingresa una comuna</span> manualmente
             para ver los servicios disponibles cerca tuyo.</p>
-          <button @click="activateGps()" class="btn btn--large btn--block btn--primary">
+          <button class="btn btn--large btn--block btn--primary" @click="activateGps()">
             Activar GPS
           </button>
-          <button @click="selectCommune()" class="btn btn--large btn--block btn--primary">
+          <button class="btn btn--large btn--block btn--primary" @click="selectCommune()">
             Selecciona una comuna
           </button>
           </div>
@@ -62,8 +61,8 @@
         <h1 class="service__title entries-list__title">Elige o busca una comuna</h1>
         <text-to-speech :text-audio="'Elige o busca una comuna.'"></text-to-speech>
         <div class="main-search__group">
-          <input class="main-search__input" type="search"
-          v-model="query" placeholder="Ejemplo: Viña del mar">
+          <input v-model="query" class="main-search__input"
+          type="search" placeholder="Ejemplo: Viña del mar">
           <button type="button" class="main-search__button">
             <icon-search />
           </button>
@@ -71,7 +70,7 @@
       </header>
       <main class="service__items service__items places">
         <template v-for="region in $store.state.regions">
-          <div v-bind:key="region.id" v-if="region.communes.filter(c => c.name.toLowerCase().includes(query.toLowerCase())).length" v-bind:class="query.trim() !== '' || expandRegions.includes(region.id) ? 'place-active' : ''">
+          <div v-if="region.communes.filter(c => c.name.toLowerCase().includes(query.toLowerCase())).length" :key="region.id" :class="query.trim() !== '' || expandRegions.includes(region.id) ? 'place-active' : ''">
             <a class="place-block entry-block name-place" tag="article" @click="toggle(region.id)">
               <h2 class="place-block__name entry-block__name">{{ region.name }}</h2>
               <chevron-up v-if="query.trim() !== '' || expandRegions.includes(region.id)"/>
@@ -79,7 +78,7 @@
             </a>
             <template v-if="query.trim() !== '' || expandRegions.includes(region.id)">
               <template v-for="comm in region.communes">
-                <div v-bind:key="comm.id" v-if="comm.name.toLowerCase().includes(query.toLowerCase())" v-bind:class="{ 'selected-commune' : commune && commune.id === comm.id }">
+                <div v-if="comm.name.toLowerCase().includes(query.toLowerCase())" :key="comm.id" :class="{ 'selected-commune' : commune && commune.id === comm.id }">
                   <a class="place-block entry-block name-commune" tag="article" @click="setCommune(comm)">
                     <text-to-speech :text-audio="comm.name" />
                     {{ comm.name }}

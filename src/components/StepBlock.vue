@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="step-block">
     <div class="step-block__header">
@@ -8,7 +7,7 @@
       </router-link>
     </div>
     <div class="step-block__body">
-      <pictogram v-bind:layers="proposal.layers"></pictogram>
+      <pictogram :layers="proposal.layers"></pictogram>
       <p>{{ proposal.step.label }}</p>
     </div>
   </div>
@@ -20,6 +19,10 @@ import IconEdit from '../../public/img/app-icons/edit.svg?inline';
 
 export default {
   name: 'StepBlock',
+  components: {
+    Pictogram,
+    IconEdit,
+  },
   props: {
     proposal: {
       type: Object,
@@ -27,10 +30,6 @@ export default {
     index: {
       type: Number,
     },
-  },
-  components: {
-    Pictogram,
-    IconEdit,
   },
 };
 </script>

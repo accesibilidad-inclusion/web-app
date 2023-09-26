@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding onboarding--dark onboarding__background-image">
     <div class="container">
@@ -26,13 +25,13 @@
               ¿Quieres que te avisemos cuando publiquemos tu aporte?
             </p>
             <template v-if="!show_subscription_form">
-              <button type="button" @click="show_subscription_form = true" class="btn btn--block btn--ghost subscription-form__submit">
+              <button type="button" class="btn btn--block btn--ghost subscription-form__submit" @click="show_subscription_form = true">
                 Sí, avísame
               </button>
             </template>
             <template v-else>
               <form class="subscription-form" @submit="submitSubscription">
-                <input type="email" v-model="subscription_email" class="subscription-form__control" placeholder="Escribe tu email aquí">
+                <input v-model="subscription_email" type="email" class="subscription-form__control" placeholder="Escribe tu email aquí">
                 <button type="submit" class="btn btn--ghost subscription-form__submit" :disabled="submitting_subscription">
                   Enviar
                   <template v-if="submitting_subscription">
@@ -75,6 +74,16 @@ export default {
       proposal: this.$store.state.proposalPictos,
     };
   },
+  created() {
+    this.$data.state.submitting = true;
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/proposal_tasks/store`, {
+      task: this.task,
+      proposal: this.proposal,
+    }).then((result) => {
+      this.$data.state.submitting = false;
+      this.id = result.data.id;
+    });
+  },
   methods: {
     submitSubscription(event) {
       event.preventDefault();
@@ -87,16 +96,6 @@ export default {
         this.submitting_subscription = false;
       });
     },
-  },
-  created() {
-    this.$data.state.submitting = true;
-    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/proposal_tasks/store`, {
-      task: this.task,
-      proposal: this.proposal,
-    }).then((result) => {
-      this.$data.state.submitting = false;
-      this.id = result.data.id;
-    });
   },
 };
 </script>

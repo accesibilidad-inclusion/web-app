@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="task__single">
     <template v-if="loading">
@@ -29,25 +28,25 @@
       </template>
       <template v-else>
         <main class="task__main">
-          <ol class="task__steps"
-            v-touch:swipe.left="advanceStep"
+          <ol v-touch:swipe.left="advanceStep"
             v-touch:swipe.right="rewindStep"
-            v-bind:class="!steps.filter( s => s.pictogram ).length ? 'task-steps--without-pictogram' : ''"
+            class="task__steps"
+            :class="!steps.filter( s => s.pictogram ).length ? 'task-steps--without-pictogram' : ''"
           >
             <li v-for="(step, index) in steps"
-              v-bind:step="step"
-              v-bind:key="step.id"
-              v-bind:class="'task-step'+ ( index === state.active_step ?
+              :key="step.id"
+              :step="step"
+              :class="'task-step'+ ( index === state.active_step ?
               ' task-step--active' : '')"
             >
-              <figure class="task-step__figure" v-bind:class="{'task-step__figure--without-pictogram' : !step.pictogram || !step.pictogram.images.filter( i => i.layout <= 3).length}">
-                <div class="step-canvas" v-if="step.pictogram && step.pictogram.images.filter( i => i.layout <= 3).length">
+              <figure class="task-step__figure" :class="{'task-step__figure--without-pictogram' : !step.pictogram || !step.pictogram.images.filter( i => i.layout <= 3).length}">
+                <div v-if="step.pictogram && step.pictogram.images.filter( i => i.layout <= 3).length" class="step-canvas">
                   <pictogram :layers="step.pictogram.images.filter( i => i.layout <= 3)"></pictogram>
                 </div>
                 <figcaption class="task-step__legend">
                   <div class="task-step__legend-text">
                     <span v-if="step.pictogram && step.pictogram.images.find( i => i.layout == 4)">
-                      <img v-bind:src="`${step.pictogram.images.find( i => i.layout == 4).path}${step.pictogram.images.find( i => i.layout == 4).filename}`" class="pictogram__layer--action">
+                      <img :src="`${step.pictogram.images.find( i => i.layout == 4).path}${step.pictogram.images.find( i => i.layout == 4).filename}`" class="pictogram__layer--action">
                     </span>
                     {{ step.label }}
                   </div>
@@ -55,13 +54,13 @@
                 </figcaption>
               </figure>
             </li>
-            <li v-bind:class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
+            <li :class="'task-step task-helpful'+ ( state.active_helpful ? ' task-step--active' : '')">
               <h2 class="task-helpful__title">¿Te ha servido este apoyo?</h2>
               <div class="task-helpful__answers">
-                <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
+                <button :class="'task-helpful__answer' + ( state.was_helpful == true ? ' task-helpful__answer--active' : '' )" @click="likedStep">
                   <icon-like class="task-helpful__answer__icon--like"></icon-like>
                 </button>
-                <button v-bind:class="'task-helpful__answer' + ( state.was_helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
+                <button :class="'task-helpful__answer' + ( state.was_helpful == false ? ' task-helpful__answer--active' : '' )" @click="dislikedStep">
                   <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
                 </button>
               </div>
@@ -82,10 +81,10 @@
                   Volver a {{ venue.name }}
                 </router-link>
               </template>
-              <button v-bind:class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
+              <button :class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
             </li>
           </ol>
-          <div v-if="!steps.filter( s => s.label ).length" v-bind:class="'task-empty'
+          <div v-if="!steps.filter( s => s.label ).length" :class="'task-empty'
               + ( state.active_step < 0 ? '' : ' task-step--active')">
             <icon-no-information class="task-empty__icon" />
             <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
@@ -98,43 +97,43 @@
             <button class="btn btn--large btn--primary" :class="{'btn--hidden': state.active_step === 0 && task.prerequisites.trim() === '' && !show_prerequisites}" @click="rewindStep">
               Anterior
             </button>
-            <button v-bind:class="'btn btn--large btn--primary'
+            <button :class="'btn btn--large btn--primary'
               + ( state.active_step + 1 < steps.length + 1 ? '' : ' btn--hidden' )"
               @click="advanceStep">
               Siguiente
             </button>
             <ol class="task__steps-indicator">
-              <li v-for="(step, index) in steps" v-bind:step="step" v-bind:key="step.id"
-                v-bind:class="state.active_step >= index ?
+              <li v-for="(step, index) in steps" :key="step.id" :step="step"
+                :class="state.active_step >= index ?
                   'task__step-indicator--active' : 'task__step-indicator'">
                 {{ index }}
               </li>
-              <li v-bind:class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
+              <li :class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
                 {{ steps.length }}
               </li>
             </ol>
           </div>
-          <div v-if="!steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length" v-bind:class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
+          <div v-if="!steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length" :class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
             <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
             <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
           </div>
         </main>
         <!-- Pestaña inferior para feedback -->
-        <button @click="openFeedback" v-bind:class="'task__step-feedback' +
+        <button :class="'task__step-feedback' +
           ( state.active_helpful === true || state.opened_modal === true ?
-            ' task__step-feedback--hidden' : '' )">
+            ' task__step-feedback--hidden' : '' )" @click="openFeedback">
           Reportar un problema con esta tarea
         </button>
         <!-- Bloque y formulario para feedback -->
-        <div v-bind:class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
+        <div :class="'modal' + ( state.shown_modal ? ' modal--fade' : '' ) + ( state.closed_modal ? ' modal--fade-out' : '' )">
           <div class="modal__backdrop">
-            <div v-bind:class="'task-feedback' + ( state.submitted_feedback ? ' task-feedback--submitted' : '' )">
+            <div :class="'task-feedback' + ( state.submitted_feedback ? ' task-feedback--submitted' : '' )">
               <button type="button" class="modal__close" @click="closeFeedback"><icon-error></icon-error></button>
-              <form class="task-feedback__form" @submit.prevent="submitFeedback" v-if="!state.submitted_feedback">
+              <form v-if="!state.submitted_feedback" class="task-feedback__form" @submit.prevent="submitFeedback">
                 <h2 class="task-feedback__title">Reportar un problema con esta tarea</h2>
-                <textarea class="task-feedback__control" v-model="feedback.body"
+                <textarea v-model="feedback.body" class="task-feedback__control"
                   placeholder="Ejemplo: El pictograma no coincide con la instrucción" required></textarea>
-                <button v-bind:class="'task-feedback__submit btn btn--large btn--block' +
+                <button :class="'task-feedback__submit btn btn--large btn--block' +
                   ( feedback.body === '' ? ' btn--ghost' : ' btn--primary' ) +
                   ( state.submitting_feedback ? ' btn--loading' : '' )"
                 >
@@ -142,7 +141,7 @@
                   <clip-loader :loading="false" :color="'#fff'" :size="'1rem'"></clip-loader>
                 </button>
               </form>
-              <div class="task-feedback__response" v-if="state.submitted_feedback">
+              <div v-if="state.submitted_feedback" class="task-feedback__response">
                 <p class="task-feedback__response-message">¡Gracias!<br> tu comentario ha sido enviado</p>
                 <button type="button" class="task-feedback__response-close btn btn--large btn--block btn--light" @click="closeFeedback">Cerrar</button>
               </div>
@@ -168,7 +167,7 @@ import IconError from '../../public/img/app-icons/error.svg?inline';
 import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
 
 export default {
-  name: 'taskSingle',
+  name: 'TaskSingle',
   components: {
     TextToSpeech,
     ClipLoader,
@@ -178,10 +177,88 @@ export default {
     IconError,
     IconNoInformation,
   },
+  data() {
+    return {
+      state: {
+        active_step: 0,
+        active_helpful: false,
+        was_helpful: null,
+        was_liked: null,
+        was_disliked: null,
+        shown_modal: false,
+        opened_modal: false,
+        closed_modal: null,
+        submitting_feedback: false,
+        submitted_feedback: false,
+        error_feedback: false,
+      },
+      show_prerequisites: false,
+      loading: true,
+      task: new Task(),
+      service: new Service(),
+      venue: new Venue(),
+      steps: [],
+      feedback: {
+        body: '',
+      },
+      embedded: {
+        'pictos:place': [
+          {
+            id: 1,
+            name: 'Estación Metro Miramar',
+          },
+        ],
+        'pictos:service': [
+          {
+            id: 1,
+            name: 'Metro de Valparaíso',
+          },
+        ],
+      },
+    };
+  },
   computed: {
     prerequisitesText() {
       return this.task.prerequisites.replace(/(<([^>]+)>)/gi, '!');
     },
+  },
+  beforeMount() {
+    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/getTask`, {
+      category: this.$route.params.categorySlug,
+      service: this.$route.params.serviceSlug,
+      venue: this.$route.params.venueSlug,
+      task: this.$route.params.taskSlug,
+    }).then((response) => {
+      this.task.set(response.data.task);
+      this.service.set(response.data.service);
+      this.venue.set(response.data.venue);
+      this.$store.dispatch('setSelectedItem', {
+        object: 'category',
+        item: response.data.category,
+      });
+      this.$store.dispatch('setSelectedItem', {
+        object: 'service',
+        item: response.data.service,
+      });
+      this.$store.dispatch('setSelectedItem', {
+        object: 'venue',
+        item: response.data.venue,
+      });
+      this.$store.dispatch('setSelectedItem', {
+        object: 'task',
+        item: response.data.task,
+      });
+      this.steps = response.data.task.the_steps;
+      if (response.data.task.prerequisites.trim() !== '') {
+        this.show_prerequisites = true;
+      }
+      document.title = `${this.task.title} en ${this.venue.name} (${this.service.name}) | Pictos`;
+      this.loading = false;
+    }).catch((err) => {
+      if (err.response.status === 404) {
+        this.$router.push('/');
+      }
+    });
   },
   methods: {
     advanceStep() {
@@ -245,84 +322,6 @@ export default {
         this.$data.state.submitting_feedback = false;
       });
     },
-  },
-  beforeMount() {
-    this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/getTask`, {
-      category: this.$route.params.categorySlug,
-      service: this.$route.params.serviceSlug,
-      venue: this.$route.params.venueSlug,
-      task: this.$route.params.taskSlug,
-    }).then((response) => {
-      this.task.set(response.data.task);
-      this.service.set(response.data.service);
-      this.venue.set(response.data.venue);
-      this.$store.dispatch('setSelectedItem', {
-        object: 'category',
-        item: response.data.category,
-      });
-      this.$store.dispatch('setSelectedItem', {
-        object: 'service',
-        item: response.data.service,
-      });
-      this.$store.dispatch('setSelectedItem', {
-        object: 'venue',
-        item: response.data.venue,
-      });
-      this.$store.dispatch('setSelectedItem', {
-        object: 'task',
-        item: response.data.task,
-      });
-      this.steps = response.data.task.the_steps;
-      if (response.data.task.prerequisites.trim() !== '') {
-        this.show_prerequisites = true;
-      }
-      document.title = `${this.task.title} en ${this.venue.name} (${this.service.name}) | Pictos`;
-      this.loading = false;
-    }).catch((err) => {
-      if (err.response.status === 404) {
-        this.$router.push('/');
-      }
-    });
-  },
-  data() {
-    return {
-      state: {
-        active_step: 0,
-        active_helpful: false,
-        was_helpful: null,
-        was_liked: null,
-        was_disliked: null,
-        shown_modal: false,
-        opened_modal: false,
-        closed_modal: null,
-        submitting_feedback: false,
-        submitted_feedback: false,
-        error_feedback: false,
-      },
-      show_prerequisites: false,
-      loading: true,
-      task: new Task(),
-      service: new Service(),
-      venue: new Venue(),
-      steps: [],
-      feedback: {
-        body: '',
-      },
-      embedded: {
-        'pictos:place': [
-          {
-            id: 1,
-            name: 'Estación Metro Miramar',
-          },
-        ],
-        'pictos:service': [
-          {
-            id: 1,
-            name: 'Metro de Valparaíso',
-          },
-        ],
-      },
-    };
   },
 };
 </script>

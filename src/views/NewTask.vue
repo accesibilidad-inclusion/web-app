@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="page">
     <div class="container">
@@ -9,7 +8,7 @@
             <text-to-speech :text-audio="'Agregar una nueva tarea'" />
           </h2>
           <div class="form-group page__search">
-            <input type="text" value="" v-model="task" placeholder="Ejemplo: Comprar tarjeta" /> <span @click="showStep = 2" v-if="task.trim() != ''"><icon-plus /></span>
+            <input v-model="task" type="text" value="" placeholder="Ejemplo: Comprar tarjeta" /> <span v-if="task.trim() != ''" @click="showStep = 2"><icon-plus /></span>
           </div>
         </template>
         <template v-else-if="showStep == 2">
@@ -20,11 +19,11 @@
             <text-to-speech :text-audio="'Enumera los pasos requeridos para completar esta acción\n\n\n\n\n\n'
             + 'Mínimo 3 y máximo 9 pasos'" /></p>
           <p class="page__indication">Mínimo 3 y máximo 9 pasos</p>
-          <div class="form-group page__new-steps" v-for="(step, index) in steps" v-bind:key="index">
-            {{ index + 1 }} <input type="text" value="" v-model="steps[index]" :placeholder="'Escribe el paso ' + parseInt(index+1)" />
-            <span @click="steps.splice(index,1)" v-if="steps.length > 3" class="page__delete-new-steps"><icon-delete /></span>
+          <div v-for="(step, index) in steps" :key="index" class="form-group page__new-steps">
+            {{ index + 1 }} <input v-model="steps[index]" type="text" value="" :placeholder="'Escribe el paso ' + parseInt(index+1)" />
+            <span v-if="steps.length > 3" class="page__delete-new-steps" @click="steps.splice(index,1)"><icon-delete /></span>
           </div>
-          <div @click="steps.push('')" v-if="addStep" class="page__add-new-steps">
+          <div v-if="addStep" class="page__add-new-steps" @click="steps.push('')">
             <icon-add />Agregar otro paso
           </div>
         </template>
@@ -37,12 +36,12 @@
             + 'Edita o reordena los pasos en caso de ser necesario'" />
           </p>
           <p class="page__indication">Edita o reordena los pasos en caso de ser necesario</p>
-          <div class="step-block-inserted" v-for="(step, index) in steps" v-bind:key="index">
+          <div v-for="(step, index) in steps" :key="index" class="step-block-inserted">
             {{ index + 1 }} <template v-if="editing != index"><p class="step-block-inserted__title">{{ step }}</p> <span @click="editStep(index)"><icon-menu class="step-block-inserted__edit" /></span></template>
-            <template v-else><input type="text" v-model="stepEdit" />
+            <template v-else><input v-model="stepEdit" type="text" />
             <div class="step-block-inserted__actions">
-              <span @click="steps[index] = stepEdit; editing = null" class="step-block-inserted__btn"><icon-check class="step-block-inserted__icon-check" />Listo</span>
-              <span @click="editing = null" class="step-block-inserted__btn"><icon-delete class="step-block-inserted__icon-cancel" />Cancelar</span>
+              <span class="step-block-inserted__btn" @click="steps[index] = stepEdit; editing = null"><icon-check class="step-block-inserted__icon-check" />Listo</span>
+              <span class="step-block-inserted__btn" @click="editing = null"><icon-delete class="step-block-inserted__icon-cancel" />Cancelar</span>
             </div>
             </template>
           </div>
@@ -76,7 +75,7 @@
               <button v-if="!show_subscription_form" class="btn btn--white btn--large btn--block" style="color: var(--color-brand-darker);" @click="show_subscription_form = true">Sí, avísame</button>
               <div v-else class="thanks-message__form">
                 <form class="subscription-form" @submit="submitSubscription">
-                  <input type="email" v-model="subscription_email" class="thanks-message__email" placeholder="Escribe tu email aquí">
+                  <input v-model="subscription_email" type="email" class="thanks-message__email" placeholder="Escribe tu email aquí">
                   <button type="submit" class="btn btn--large btn--ghost" :disabled="submitting_subscription">
                     Enviar
                     <template v-if="submitting_subscription">
@@ -88,7 +87,7 @@
             </template>
           </div>
         </template>
-        <button v-else :tag="'button'" class="btn btn--large btn--block btn--primary page__footer" @click="showStep < 3 ? showStep = 3 : sendTask()" :disabled="!addStep">
+        <button v-else :tag="'button'" class="btn btn--large btn--block btn--primary page__footer" :disabled="!addStep" @click="showStep < 3 ? showStep = 3 : sendTask()">
           <span v-if="showStep < 3">Listo</span>
           <span v-else>Confirmar</span>
         </button>
@@ -118,11 +117,6 @@ export default {
     IconCheck,
     ClipLoader,
   },
-  computed: {
-    addStep() {
-      return this.steps.length < 9 && !this.steps.filter(s => s.trim() === '').length;
-    },
-  },
   data() {
     return {
       task: '',
@@ -137,6 +131,11 @@ export default {
       id: null,
       subscription_email: '',
     };
+  },
+  computed: {
+    addStep() {
+      return this.steps.length < 9 && !this.steps.filter(s => s.trim() === '').length;
+    },
   },
   methods: {
     sendTask() {

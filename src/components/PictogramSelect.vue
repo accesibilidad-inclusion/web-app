@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="pictogram-select">
     <h3 class="pictogram-select__title">{{ title }}</h3>
@@ -9,26 +8,26 @@
       class="pictogram-select__list"
     >
       <slide
-        class="pictogram-select__item"
         v-for="picto in pictos"
-        v-bind:key="picto.id"
-        v-bind:data-name="picto.label"
+        :key="picto.id"
+        class="pictogram-select__item"
+        :data-name="picto.label"
         data-index="0"
       >
         <div class="pictogram-wrapper">
           <label
             class="pictogram-button"
-            v-bind:class="[ selected === picto.id ? 'pictogram-button--active' : '' ]"
+            :class="[ selected === picto.id ? 'pictogram-button--active' : '' ]"
           >
-            <img v-bind:src="`${picto.path + picto.filename}`" class="pictogram-button__image">
+            <img :src="`${picto.path + picto.filename}`" class="pictogram-button__image">
             <span class="pictogram-button__name">{{ picto.label }}</span>
-            <input type="radio" v-bind:value="picto.id" v-model="selected">
+            <input v-model="selected" type="radio" :value="picto.id">
           </label>
-          <button type="button" class="pictogram-cancel" v-on:click="reset"></button>
+          <button type="button" class="pictogram-cancel" @click="reset"></button>
         </div>
       </slide>
     </carousel>
-    <input type="radio" ref="pictogramReset" v-bind:value="null" v-model="selected">
+    <input ref="pictogramReset" v-model="selected" type="radio" :value="null">
   </div>
 </template>
 
@@ -36,6 +35,10 @@
 import { Carousel, Slide } from 'vue-carousel';
 
 export default {
+  components: {
+    Carousel,
+    Slide,
+  },
   props: {
     pictos: {
       type: Array,
@@ -46,10 +49,6 @@ export default {
     value: {
       type: Number,
     },
-  },
-  components: {
-    Carousel,
-    Slide,
   },
   computed: {
     selected: {

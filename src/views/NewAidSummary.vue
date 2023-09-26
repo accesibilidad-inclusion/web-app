@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="new-aid">
     <header class="new-aid__header entries-list__header">
@@ -12,7 +11,7 @@
       </header>
       <!-- Loop de pasos -->
       <template v-for="(step, index) in proposal">
-        <step-block v-bind:key="step.id" v-bind:proposal="step" v-bind:index="index"></step-block>
+        <step-block :key="step.id" :proposal="step" :index="index"></step-block>
       </template>
     </form>
     <div class="new-aid__actions">

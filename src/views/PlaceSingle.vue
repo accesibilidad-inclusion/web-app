@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="place">
     <template v-if="loading">
@@ -8,7 +7,7 @@
       <header class="place__header">
         <router-link :to="'/' + $route.params.categorySlug + '/' + $route.params.serviceSlug" class="place__service">{{ service.name }}</router-link>
         <h1 class="place__name">{{ place.name }}</h1>
-        <a :href="place.mapLink" class="place__map-link" target="_blank" v-if="place.mapLink">
+        <a v-if="place.mapLink" :href="place.mapLink" class="place__map-link" target="_blank">
           <icon-location-pin />
           Abrir en mapa
         </a>
@@ -20,7 +19,7 @@
             <span>Selecciona lo que necesites hacer en este lugar</span>
             <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
           </p>
-          <task-block v-for="task in tasks" v-bind:key="task.id" v-bind:task="task"/>
+          <task-block v-for="task in tasks" :key="task.id" :task="task"/>
         </main>
         <aside class="actions actions--place">
           <div class="actions__header">
@@ -36,7 +35,7 @@
           <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
             <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
             <div class="place__evaluation-title">{{ evaluation.title }}</div>
-            <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+            <div class="place__evaluation-grade place__evaluation-grade--lg" :data-grade="evaluation.grade">
               <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
               <span v-else>?</span>
             </div>
@@ -68,7 +67,7 @@
             <router-link :to="'/evaluacion/' + evaluation.grade" class="place__evaluation">
               <text-to-speech :text-audio="`Nivel de accesibilidad de ${place.name}: ${evaluation.grade}, ${evaluation.title}`" />
               <div class="place__evaluation-title">{{ evaluation.title }}</div>
-              <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+              <div class="place__evaluation-grade place__evaluation-grade--lg" :data-grade="evaluation.grade">
                 <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
                 <span v-else>?</span>
               </div>
@@ -97,13 +96,28 @@ import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline'
 import IconNoInformation from '../../public/img/app-icons/no-information.svg?inline';
 
 export default {
-  name: 'placeSingle',
+  name: 'PlaceSingle',
   components: {
     TaskBlock,
     TextToSpeech,
     IconLocationPin,
     IconNoInformation,
     ClipLoader,
+  },
+  data() {
+    return {
+      service: new Service(),
+      place: new Venue(),
+      tasks: [],
+      loading: true,
+    };
+  },
+  computed: {
+    evaluation() {
+      let score = this.place.evaluation ? this.place.evaluation.score : 0;
+      score = this.place.show_evaluation ? score : 0;
+      return this.$store.state.evaluations.find(evaluation => evaluation.grade === score);
+    },
   },
   beforeMount() {
     this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/venues/getVenue`, {
@@ -133,21 +147,6 @@ export default {
         this.$router.push('/');
       }
     });
-  },
-  data() {
-    return {
-      service: new Service(),
-      place: new Venue(),
-      tasks: [],
-      loading: true,
-    };
-  },
-  computed: {
-    evaluation() {
-      let score = this.place.evaluation ? this.place.evaluation.score : 0;
-      score = this.place.show_evaluation ? score : 0;
-      return this.$store.state.evaluations.find(evaluation => evaluation.grade === score);
-    },
   },
 };
 </script>

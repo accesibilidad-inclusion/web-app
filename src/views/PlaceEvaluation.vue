@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="page">
     <div class="container">
@@ -14,23 +13,23 @@
       </h2>
       <template v-if="question.answer_type == 'Dicotomico'">
         <div class="custom-control custom-control--radio">
-          <input type="radio" name="dicotomico" id="dicotomico_si" value="Si" class="custom-control__input" @change="setAnswer">
+          <input id="dicotomico_si" type="radio" name="dicotomico" value="Si" class="custom-control__input" @change="setAnswer">
           <label for="dicotomico_si" class="custom-control__label">Si</label>
         </div>
         <div class="custom-control custom-control--radio">
-          <input type="radio" name="dicotomico" id="dicotomico_no" value="No" class="custom-control__input" @change="setAnswer">
+          <input id="dicotomico_no" type="radio" name="dicotomico" value="No" class="custom-control__input" @change="setAnswer">
           <label for="dicotomico_no" class="custom-control__label">No</label>
         </div>
       </template>
       <template v-if="question.answer_type == 'Opciones'">
-        <div class="custom-control custom-control--radio" v-for="option in question.options" v-bind:key="option.id">
-          <input type="radio" name="gender" :id="'opt'+option.id" :value="option.name" class="custom-control__input" @change="setAnswer">
+        <div v-for="option in question.options" :key="option.id" class="custom-control custom-control--radio">
+          <input :id="'opt'+option.id" type="radio" name="gender" :value="option.name" class="custom-control__input" @change="setAnswer">
           <label :for="'opt'+option.id" class="custom-control__label">{{ option.name }}</label>
         </div>
       </template>
       <template v-if="question.answer_type == 'Texto'">
         <div class="custom-control custom-control--text">
-          <input type="text" @change="setAnswer" placeholder="Escribe aquí tu respuesta" class="custom-control__answer" />
+          <input type="text" placeholder="Escribe aquí tu respuesta" class="custom-control__answer" @change="setAnswer" />
         </div>
       </template>
       <template v-if="question.answer_type == 'Fotografía'">
@@ -38,38 +37,38 @@
           <div class="page__photo-wrapper">
             <img id="photo" class="photo">
           </div>
-          <div class="page__photo-edit" v-if="isResponsed">
-            <span @click="takePhoto" v-if="isResponsed" class="page__photo-change"><icon-camera />Cambiar foto</span>
-            <span @click="deletePicture" v-if="isResponsed" class="page__photo-delete"><icon-delete />Eliminar foto</span>
+          <div v-if="isResponsed" class="page__photo-edit">
+            <span v-if="isResponsed" class="page__photo-change" @click="takePhoto"><icon-camera />Cambiar foto</span>
+            <span v-if="isResponsed" class="page__photo-delete" @click="deletePicture"><icon-delete />Eliminar foto</span>
           </div>
         </div>
       </template>
       <template v-if="question.answer_type == 'Indicador' || question.answer_type == 'Global'">
         <ul class="page__evaluation">
-          <li @click="setIndicator(5)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(5) ? 'active' : ''">
+          <li class="page__evaluation-grade" :class="isActiveIndicator(5) ? 'active' : ''" @click="setIndicator(5)">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="5">5</span>
             <span class="place-block__evaluation-description"><strong>Excelente:</strong> No necesita mejoras.</span>
           </li>
-          <li @click="setIndicator(4)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(4) ? 'active' : ''">
+          <li class="page__evaluation-grade" :class="isActiveIndicator(4) ? 'active' : ''" @click="setIndicator(4)">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="4">4</span>
             <span class="place-block__evaluation-description"><strong>Bueno:</strong> Necesita pocas mejoras.</span>
           </li>
-          <li @click="setIndicator(3)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(3) ? 'active' : ''">
+          <li class="page__evaluation-grade" :class="isActiveIndicator(3) ? 'active' : ''" @click="setIndicator(3)">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="3">3</span>
             <span class="place-block__evaluation-description"><strong>Regular:</strong> Ni bueno Ni malo.</span>
           </li>
-          <li @click="setIndicator(2)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(2) ? 'active' : ''">
+          <li class="page__evaluation-grade" :class="isActiveIndicator(2) ? 'active' : ''" @click="setIndicator(2)">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="2">2</span>
             <span class="place-block__evaluation-description"><strong>Malo:</strong> Necesita muchas mejoras.</span>
           </li>
-          <li @click="setIndicator(1)" class="page__evaluation-grade" v-bind:class="isActiveIndicator(1) ? 'active' : ''">
+          <li class="page__evaluation-grade" :class="isActiveIndicator(1) ? 'active' : ''" @click="setIndicator(1)">
             <span class="place__evaluation-grade place-block__evaluation-grade place__evaluation-grade--lg" data-grade="1">1</span>
             <span class="place-block__evaluation-description"><strong>Pésimo:</strong> Tiene que mejorar todo.</span>
           </li>
         </ul>
       </template>
       <footer class="page__footer">
-        <input type="file" accept="image/*" capture="camera" id="camera" @change="setPicture" />
+        <input id="camera" type="file" accept="image/*" capture="camera" @change="setPicture" />
         <button v-if="btnPicture" class="btn btn--large btn--block btn--highlight" @click="takePhoto"><icon-camera />Tomar foto</button>
         <button v-else class="btn btn--large btn--block btn--primary" :disabled="!canAdvance" @click="next">
           <span v-if="isLast">Evaluar</span>
@@ -93,6 +92,11 @@ export default {
     TextToSpeech,
     IconCamera,
     IconDelete,
+  },
+  filters: {
+    replace(value, venue) {
+      return value.replace(/{{ service\.name }}/g, venue);
+    },
   },
   data() {
     return {
@@ -143,11 +147,6 @@ export default {
         }
       }
       return score;
-    },
-  },
-  filters: {
-    replace(value, venue) {
-      return value.replace(/{{ service\.name }}/g, venue);
     },
   },
   mounted() {

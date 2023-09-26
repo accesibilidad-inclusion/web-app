@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="colaborate">
     <div class="container">
@@ -32,7 +31,7 @@ import PageImage from '../../public/img/illustrations/colabora-con-nosotros-serv
 import ColaborateImage from '../../public/img/illustrations/colabora-con-nosotros-tareas.svg?inline';
 
 export default {
-  name: 'colaborate',
+  name: 'Colaborate',
   components: {
     TextToSpeech,
     PageImage,

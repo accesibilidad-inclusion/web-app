@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding--inside">
     <div class="container">
@@ -15,7 +14,7 @@
           <li class="onboarding__step-indicator--active"></li>
           <li class="onboarding__step-indicator--active"></li>
         </ol>
-        <button @click="next()" class="btn btn--large btn--block btn--primary">
+        <button class="btn btn--large btn--block btn--primary" @click="next()">
           Siguiente
         </button>
       </footer>

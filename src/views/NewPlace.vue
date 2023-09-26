@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="page">
     <div class="container">
@@ -9,14 +8,14 @@
       <div v-if="place" class="page__place-name">
       {{ place.name }}
       </div>
-      <div v-if="!search_again" @click="search_again = true" class="page__search-again"><icon-search />Buscar nuevamente</div>
+      <div v-if="!search_again" class="page__search-again" @click="search_again = true"><icon-search />Buscar nuevamente</div>
       <template v-else>
         <div class="custom-control custom-control--text main-search__group">
-          <input type="text" @keyup="searchPlaces" v-model="search_text" placeholder="Ejemplo: Terminal de buses" class="main-search__input" />
+          <input v-model="search_text" type="text" placeholder="Ejemplo: Terminal de buses" class="main-search__input" @keyup="searchPlaces" />
           <button type="submit" class="main-search__button">
             <icon-search />
           </button>
-          <div v-for="place in places" v-bind:key="place.place_id" @click="setPlace(place)" class="search-result__item">
+          <div v-for="place in places" :key="place.place_id" class="search-result__item" @click="setPlace(place)">
             <p>{{ place.name }}</p>
           </div>
         </div>

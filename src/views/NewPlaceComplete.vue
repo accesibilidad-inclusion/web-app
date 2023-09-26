@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding onboarding--dark">
     <header class="onboarding__navbar">
@@ -24,13 +23,13 @@
               ¿Quieres que te avisemos cuando publiquemos tu aporte?
             </p>
             <template v-if="!show_subscription_form">
-              <button type="button" @click="show_subscription_form = true" class="btn btn--light btn--large btn--block subscription-form__submit">
+              <button type="button" class="btn btn--light btn--large btn--block subscription-form__submit" @click="show_subscription_form = true">
                 Sí, avísame
               </button>
             </template>
             <template v-else>
               <form class="subscription-form" @submit="submitSubscription">
-                <input type="email" v-model="subscription_email" class="subscription-form__control" placeholder="Escribe tu email aquí">
+                <input v-model="subscription_email" type="email" class="subscription-form__control" placeholder="Escribe tu email aquí">
                 <button type="submit" class="btn btn--ghost subscription-form__submit" :disabled="submitting_subscription">
                   Enviar
                   <template v-if="submitting_subscription">

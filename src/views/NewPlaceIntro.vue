@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="onboarding--inside">
     <div class="container">
@@ -17,7 +16,7 @@
           <li></li>
           <li></li>
         </ol>
-        <OnboardingNext :linkTo="'/nuevo-lugar/intro2/' + ($route.params.service_id ? $route.params.service_id : '')" />
+        <OnboardingNext :link-to="'/nuevo-lugar/intro2/' + ($route.params.service_id ? $route.params.service_id : '')" />
       </footer>
     </div>
   </div>

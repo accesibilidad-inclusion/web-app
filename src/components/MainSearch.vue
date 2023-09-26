@@ -1,47 +1,46 @@
-<!-- eslint-disable max-len -->
 <template>
   <form class="main-search" @submit.prevent="doSearch">
-    <div class="your-location">
-      <div class="your-location__content">
-        <icon-location-pin />
-        <span v-if="$store.state.location.name">{{ $store.state.location.name }}</span>
-        <span v-else>Tu ubicación actual</span>
-      </div>
-      <a @click="changeLocation()" class="btn your-location__change">Cambiar</a>
-    </div>
     <label class="main-search__label" for="s">
-      <span>¿Qué necesitas hacer?</span>
-      <text-to-speech :text-audio="'¿Qué necesitas hacer?'" />
+      <span>Encuentra ayuda para tareas en internet o presenciales</span>
+      <text-to-speech :text-audio="'Encuentra ayuda para tareas en internet o presenciales'" />
     </label>
-    <div class="main-search__group">
-      <input
-        class="main-search__input"
-        type="search"
-        v-model="query"
-        id="s"
-        placeholder="Ejemplo: Viajar en metro"
-      />
-      <button type="submit" class="main-search__button">
-        <icon-search />
+    <div>
+      <div :class="filterSelected == 'online' ? 'active' : '' " @click="filterSelected = 'online'">Buscar tareas en internet</div>
+      <div :class="filterSelected == 'online' ? 'presential' : '' " @click="filterSelected = 'presential'">Buscar tareas presenciales</div>
+    </div>
+    <div v-if="filterSelected">
+      <div class="main-search__group">
+        <input
+          id="s"
+          v-model="query"
+          class="main-search__input"
+          type="search"
+          placeholder="Ejemplo: Viajar en metro"
+        />
+        <div class="main-search__button">
+          <icon-search />
+        </div>
+      </div>
+      <button class="btn btn-primary" :disabled="query.trim() == ''" type="submit">
+        Ver resultados
       </button>
     </div>
   </form>
 </template>
 
-<script lang="js">
+<script>
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import IconSearch from '../../public/img/app-icons/search.svg?inline';
-import IconLocationPin from '../../public/img/app-icons/location-pin.svg?inline';
 
 export default {
   components: {
     TextToSpeech,
     IconSearch,
-    IconLocationPin,
   },
   data() {
     return {
       query: '',
+      filterSelected: null,
     };
   },
   methods: {
@@ -54,11 +53,6 @@ export default {
         query: {
           s: this.query,
         },
-      });
-    },
-    changeLocation() {
-      this.$store.dispatch('setRedirectTo', '/home').then(() => {
-        this.$router.push('/tu-ubicacion');
       });
     },
   },
@@ -123,7 +117,6 @@ export default {
   }
 }
 .main-search__button {
-  cursor: pointer;
   position: absolute;
   top: 55%;
   right: calc(var(--spacer-lg) / 3);
@@ -151,42 +144,14 @@ export default {
   line-height: calc(25 / 18);
   font-weight: bold;
 }
-.your-location {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: calc(var(--spacer-lg) / 3);
-  border-radius: 5px;
-  background-color: var(--color-illustration-bg);
-  margin-bottom: var(--spacer);
-  color: #1a4571;
-  .your-location__change {
-    @include rfs($font-size-14);
-    font-weight: 700;
-    color: var(--color-brand-dark);
-    padding: calc(var(--spacer-lg) / 3);
-  }
-  .your-location__content {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: var(--spacer-sm);
-    padding-right: var(--spacer-sm);
-    border-right: 1px solid var(--color-brand-lighter);
-    span {
-      @include rfs($font-size-14);
-    }
-    svg {
-      width: 11px;
-      height: 15px;
-      @media screen and (min-width: 640px) {
-        width: var(--spacer);
-        height: var(--spacer);
-      }
-      path {
-        fill: var(--color-brand-dark);
-      }
+
+@media screen and ( max-width: 640px ) {
+    input[type="email"],
+    input[type="search"],
+    input[type="text"],
+    select:focus,
+    textarea {
+      font-size: 16px;
     }
   }
-}
 </style>

@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="evaluation">
     <header class="evaluation__header">
@@ -7,7 +6,7 @@
       <text-to-speech :text-audio="`${place.name}, en ${place.service}`" />
     </header>
     <div class="evaluation__summary">
-      <div class="place__evaluation-grade place__evaluation-grade--lg" v-bind:data-grade="evaluation.grade">
+      <div class="place__evaluation-grade place__evaluation-grade--lg" :data-grade="evaluation.grade">
         <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
         <span v-else>?</span>
       </div>
@@ -37,7 +36,7 @@
 import TextToSpeech from '@/components/TextToSpeech.vue';
 
 export default {
-  name: 'placeScore',
+  name: 'PlaceScore',
   components: {
     TextToSpeech,
   },

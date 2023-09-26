@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template>
   <div class="service">
     <template v-if="loading">
@@ -6,23 +5,23 @@
     </template>
     <template v-else>
       <header class="service__header entries-list__header">
-        <icon-transport class="service__icon" v-if="category.slug == 'transporte'" />
-        <icon-health class="service__icon" v-if="category.slug == 'salud'" />
-        <icon-leisure class="service__icon" v-if="category.slug == 'ocio'" />
-        <icon-formalities class="service__icon" v-if="category.slug == 'tramites'" />
+        <icon-transport v-if="category.slug == 'transporte'" class="service__icon" />
+        <icon-health v-if="category.slug == 'salud'" class="service__icon" />
+        <icon-leisure v-if="category.slug == 'ocio'" class="service__icon" />
+        <icon-formalities v-if="category.slug == 'tramites'" class="service__icon" />
         <h1 class="service__title entries-list__title">{{ service.name }}</h1>
         <p class="service__description entries-list__description">Selecciona un lugar para ver lo que puedes hacer en este servicio.</p>
         <text-to-speech :text-audio="service.name + '.\n\n\n\n\n Selecciona un lugar para ver lo que puedes hacer en este servicio.'"></text-to-speech>
       </header>
       <main class="service__items service__items places">
-        <template v-for="place in places" v-bind:place="place">
-          <a class="place-block entry-block" tag="article" v-bind:key="place.id" @click="setPlace(place)">
+        <template v-for="place in places" :place="place">
+          <a :key="place.id" class="place-block entry-block" tag="article" @click="setPlace(place)">
             <text-to-speech :text-audio="place.name + ': a' + $options.filters.distance(place.distance).replace('.', ' punto ') + ' de distancia.'" />
             <h2 class="place-block__name entry-block__name">{{ place.name }}</h2>
             <!-- @todo: método para transformar distancia desde metros a distancia "amigable" -->
             <p class="place-block__distance">a {{ place.distance | distance }} de distancia</p>
-            <div class="place-block__evaluation" v-if="place.evaluation && place.show_evaluation">
-              <span class="place__evaluation-grade place-block__evaluation-grade" v-bind:data-grade="place.evaluation.score">
+            <div v-if="place.evaluation && place.show_evaluation" class="place-block__evaluation">
+              <span class="place__evaluation-grade place-block__evaluation-grade" :data-grade="place.evaluation.score">
                 {{ place.evaluation.score }}
               </span>
               <span class="place-block__evaluation-description">
@@ -56,7 +55,7 @@ import IconTransport from '../../public/img/app-icons/transport.svg?inline';
 import IconLeisure from '../../public/img/app-icons/leisure.svg?inline';
 
 export default {
-  name: 'serviceSingle',
+  name: 'ServiceSingle',
   components: {
     ClipLoader,
     TextToSpeech,
@@ -64,6 +63,14 @@ export default {
     IconHealth,
     IconFormalities,
     IconLeisure,
+  },
+  data() {
+    return {
+      category: new Category(),
+      service: new Service(),
+      places: [],
+      loading: true,
+    };
   },
   beforeMount() {
     this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/services/nearVenues`, {
@@ -90,14 +97,6 @@ export default {
         this.$router.push('/');
       }
     });
-  },
-  data() {
-    return {
-      category: new Category(),
-      service: new Service(),
-      places: [],
-      loading: true,
-    };
   },
   methods: {
     setPlace(place) {
