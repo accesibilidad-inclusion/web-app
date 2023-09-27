@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     changeLocation() {
-      this.$store.dispatch('setRedirectTo', '/home').then(() => {
+      this.$store.dispatch('setRedirectTo', this.$route.fullPath).then(() => {
         this.$router.push('/tu-ubicacion');
       });
     },

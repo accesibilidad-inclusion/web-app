@@ -1,13 +1,15 @@
 <template>
-  <div class="search-results">
+  <div class="search-results" :class="$route.query.t">
     <header class="search-results__description">
-      <h1 class="search-results__title">Buscaste:
-        <span class="search-results__query">“{{ $route.query.s }}”</span>
-      </h1>
+      <div>
+        <h1 class="search-results__title">Resultados</h1>
+        <text-to-speech :text-audio="'Resultados'" />
+      </div>
       <p class="search-results__help">
-        Los resultados aparecen de más cerca a más lejos de ti
-        <text-to-speech :text-audio="'Los resultados aparecen de más cerca a más lejos de ti'" />
+        <span v-if="$route.query.t == 'presential'">Tareas presenciales cerca de</span>
+        <span v-if="$route.query.t == 'online'">Tareas en internet cerca de</span>
       </p>
+      <Location></Location>
     </header>
     <main class="search-results__hits">
       <template v-if="loading">
@@ -35,6 +37,7 @@
 </template>
 
 <script>
+import Location from '@/components/Location.vue';
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import TaskBlock from '@/components/TaskBlock.vue';
@@ -43,6 +46,7 @@ import IconNoResults from '../../public/img/app-icons/no-results.svg?inline';
 export default {
   name: 'SearchResults',
   components: {
+    Location,
     ClipLoader,
     TextToSpeech,
     TaskBlock,

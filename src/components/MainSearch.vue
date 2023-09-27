@@ -6,7 +6,7 @@
     </label>
     <div>
       <div :class="filterSelected == 'online' ? 'active' : '' " @click="filterSelected = 'online'">Buscar tareas en internet</div>
-      <div :class="filterSelected == 'online' ? 'presential' : '' " @click="filterSelected = 'presential'">Buscar tareas presenciales</div>
+      <div :class="filterSelected == 'presential' ? 'active' : '' " @click="filterSelected = 'presential'">Buscar tareas presenciales</div>
     </div>
     <div v-if="filterSelected">
       <div class="main-search__group">
@@ -52,6 +52,7 @@ export default {
         path: 'buscar',
         query: {
           s: this.query,
+          t: this.filterSelected,
         },
       });
     },
