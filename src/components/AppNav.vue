@@ -14,7 +14,7 @@
           <div class="app-menu__wrapper">
             <header class="app-menu__header">
               <h3 class="app-menu__title">Menú</h3>
-              <button class="app-menu__toggle" @click="closeMenu">
+              <button class="app-menu__toggle" @click="closeMenu" aria-label="Menu">
                 <icon-close class="app-menu__toggle-icon"></icon-close>
               </button>
             </header>
@@ -76,6 +76,7 @@ export default {
       this.$data.state.closed_modal = true;
     },
     tutorials() {
+      this.$store.dispatch('setRedirectTo', '/home');
       this.$store.commit('cleanTutorials');
       this.closeMenu();
     },

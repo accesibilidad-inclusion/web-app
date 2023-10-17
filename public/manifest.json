@@ -29,6 +29,7 @@
     "start_url": "/",
     "display": "standalone",
     "background_color": "#4990CD",
-    "theme_color": "#4990CD"
+    "theme_color": "#4990CD",
+    "scope": "/"
 }
   

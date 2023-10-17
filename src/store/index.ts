@@ -8,14 +8,16 @@ const mutations = require('./mutations');
 Vue.use(Vuex);
 
 const state = {
+  redirectTo: '/home',
+  initialized: localStorage.getItem('initialized') === null ? false : JSON.parse(localStorage.getItem('initialized') || '{}'),
   tutorial: {
-    onboarding: true,
-    evaluation: true,
-    place: true,
-    task: true,
-    pictogram: true,
+    onboarding: localStorage.getItem('tutorial.onboarding') === null ? true : JSON.parse(localStorage.getItem('tutorial.onboarding') || '{}'),
+    evaluation: localStorage.getItem('tutorial.evaluation') === null ? true : JSON.parse(localStorage.getItem('tutorial.evaluation') || '{}'),
+    place: localStorage.getItem('tutorial.place') === null ? true : JSON.parse(localStorage.getItem('tutorial.place') || '{}'),
+    task: localStorage.getItem('tutorial.task') === null ? true : JSON.parse(localStorage.getItem('tutorial.task') || '{}'),
+    pictogram: localStorage.getItem('tutorial.pictogram') === null ? true : JSON.parse(localStorage.getItem('tutorial.pictogram') || '{}'),
   },
-  user: {
+  user: localStorage.getItem('app_user') === null ? {
     id: null,
     disability: null,
     disabilities: [],
@@ -24,14 +26,14 @@ const state = {
     yearBirth: '',
     birthday: '',
     gender: null,
-  },
-  location: null,
-  selected: {
+  } : JSON.parse(localStorage.getItem('app_user') || '{}'),
+  location: localStorage.getItem('location') === null ? null : JSON.parse(localStorage.getItem('location') || '{}'),
+  selected: localStorage.getItem('selected') === null ? {
     category: null,
     service: null,
     venue: null,
     task: null,
-  },
+  } : JSON.parse(localStorage.getItem('selected') || '{}'),
   data: [],
   evaluations: [
     {
@@ -108,10 +110,10 @@ const state = {
       spatiality: 'El espacio es limpio, bien iluminado y con buenas condiciones de sonido. La señalética está bien ubicada.',
     },
   ],
-  categories: [],
-  regions: [],
-  questions: [],
-  pictos: [],
+  categories: localStorage.getItem('categories') === null ? [] : JSON.parse(localStorage.getItem('categories') || '{}'),
+  regions: localStorage.getItem('regions') === null ? [] : JSON.parse(localStorage.getItem('regions') || '{}'),
+  questions: localStorage.getItem('questions') === null ? [] : JSON.parse(localStorage.getItem('questions') || '{}'),
+  pictos: localStorage.getItem('pictos') === null ? [] : JSON.parse(localStorage.getItem('pictos') || '{}'),
   proposalPictos: [],
 };
 
@@ -128,9 +130,11 @@ export default new Vuex.Store({
           localStorage.setItem('regions', JSON.stringify(response.data.regions));
           localStorage.setItem('categories', JSON.stringify(response.data.categories));
           localStorage.setItem('questions', JSON.stringify(response.data.questions));
+          localStorage.setItem('initialized', JSON.stringify(true));
           commit('setRegions', response.data.regions);
           commit('setCategories', response.data.categories);
           commit('setQuestions', response.data.questions);
+          commit('setInitialized', true);
           resolve();
         });
       });
@@ -162,6 +166,13 @@ export default new Vuex.Store({
     setLocation({ commit }, payload) {
       return new Promise<void>((resolve, reject) => {
         commit('setLocation', payload);
+        resolve();
+      });
+    },
+
+    setRedirectTo({ commit }, payload) {
+      return new Promise<void>((resolve, reject) => {
+        commit('setRedirectTo', payload);
         resolve();
       });
     },

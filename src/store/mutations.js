@@ -47,6 +47,14 @@ export const setProposalPictos = (state, payload) => {
   state.proposalPictos = payload;
 };
 
+export const setRedirectTo = (state, payload) => {
+  state.redirectTo = payload;
+};
+
+export const setInitialized = (state, payload) => {
+  state.initialized = payload;
+};
+
 export const setSelectedItem = (state, payload) => {
   state.selected[payload.object] = payload.item;
   localStorage.setItem('selected', JSON.stringify(state.selected));
@@ -98,43 +106,4 @@ export const cleanTutorials = (state, payload) => {
   localStorage.setItem('tutorial.place', JSON.stringify(state.tutorial.place));
   localStorage.setItem('tutorial.task', JSON.stringify(state.tutorial.task));
   localStorage.setItem('tutorial.pictogram', JSON.stringify(state.tutorial.pictogram));
-};
-
-export const initializeStore = (state) => {
-  if (localStorage.getItem('app_user')) {
-    state.user = JSON.parse(localStorage.getItem('app_user'));
-  }
-  if (localStorage.getItem('tutorial.onboarding')) {
-    state.tutorial.onboarding = JSON.parse(localStorage.getItem('tutorial.onboarding'));
-  }
-  if (localStorage.getItem('tutorial.evaluation')) {
-    state.tutorial.evaluation = JSON.parse(localStorage.getItem('tutorial.evaluation'));
-  }
-  if (localStorage.getItem('tutorial.place')) {
-    state.tutorial.place = JSON.parse(localStorage.getItem('tutorial.place'));
-  }
-  if (localStorage.getItem('tutorial.task')) {
-    state.tutorial.task = JSON.parse(localStorage.getItem('tutorial.task'));
-  }
-  if (localStorage.getItem('tutorial.pictogram')) {
-    state.tutorial.pictogram = JSON.parse(localStorage.getItem('tutorial.pictogram'));
-  }
-  if (localStorage.getItem('selected')) {
-    state.selected = JSON.parse(localStorage.getItem('selected'));
-  }
-  if (localStorage.getItem('questions')) {
-    state.questions = JSON.parse(localStorage.getItem('questions'));
-  }
-  if (localStorage.getItem('pictos')) {
-    state.pictos = JSON.parse(localStorage.getItem('pictos'));
-  }
-  if (localStorage.getItem('categories')) {
-    state.categories = JSON.parse(localStorage.getItem('categories'));
-  }
-  if (localStorage.getItem('regions')) {
-    state.regions = JSON.parse(localStorage.getItem('regions'));
-  }
-  if (localStorage.getItem('location')) {
-    state.location = JSON.parse(localStorage.getItem('location'));
-  }
 };

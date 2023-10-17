@@ -57,7 +57,9 @@ export default {
       });
     },
     changeLocation() {
-      this.$router.push('/tu-ubicacion');
+      this.$store.dispatch('setRedirectTo', '/home').then(() => {
+        this.$router.push('/tu-ubicacion');
+      });
     },
   },
 };

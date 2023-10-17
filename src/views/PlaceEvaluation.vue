@@ -156,6 +156,7 @@ export default {
       countIndicator += question.questions.filter(q => q.answer_type === 'Indicador').length;
     });
     this.factor = countIndicator;
+    document.title = `Evaluando ${this.place.name} (${this.service.name}) | Pictos`;
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
