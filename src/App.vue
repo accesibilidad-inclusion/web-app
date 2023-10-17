@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-nav v-on:comeback="backEvaluation"></app-nav>
+    <app-nav v-if="!$route.meta.hideNav" v-on:comeback="backEvaluation"></app-nav>
     <transition name="slide">
       <router-view ref="view"/>
     </transition>

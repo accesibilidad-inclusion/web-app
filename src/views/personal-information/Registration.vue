@@ -22,14 +22,14 @@
 <script lang="ts">
 import TextToSpeech from '@/components/TextToSpeech.vue';
 import OnboardingNext from '@/components/OnboardingNext.vue';
-import PageImage from '../../../public/img/illustrations/onboarding-cuentanos-de-ti.svg?inline';
+//  import PageImage from '../../../public/img/illustrations/onboarding-cuentanos-de-ti.svg?inline';
 
 export default {
   name: 'Registration',
   components: {
     TextToSpeech,
     OnboardingNext,
-    PageImage,
+    // PageImage,
   },
 };
 </script>

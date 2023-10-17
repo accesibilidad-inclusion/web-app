@@ -32,7 +32,7 @@
                   <router-link to="/colabora-con-nosotros" @click.native="closeMenu">Colabora con nosotros</router-link>
                 </li>
                 <li>
-                  <router-link to="/onboarding" @click.native="tutorials">Reactivar tutoriales</router-link>
+                  <a href="javascript:void(0)" @click="tutorials">Reactivar tutoriales</a>
                 </li>
               </ul>
             </nav>
@@ -83,8 +83,10 @@ export default {
       this.$data.state.closed_modal = true;
     },
     tutorials() {
-      this.$store.dispatch('setRedirectTo', '/home');
-      this.$store.commit('cleanTutorials');
+      this.$store.dispatch('setRedirectTo', this.$route.fullPath).then( () => {
+        this.$store.commit('cleanTutorials');
+        this.$router.push('/onboarding');
+      });
       this.closeMenu();
     },
     isDark() {
