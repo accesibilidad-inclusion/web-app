@@ -22,7 +22,7 @@
   }
 }
 .btn--large {
-  @include rfs($font-size-14);
+  @include rfs($font-size-16);
   padding-left: var(--spacer);
   padding-right: var(--spacer);
 }
@@ -33,6 +33,13 @@
     background: var(--color-brand-darker);
   }
 }
+
+.btn--secondary {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: var( --color--dark-blue );
+}
+
 .btn--light {
   background-color: var(--color-brand-light);
   &:hover {

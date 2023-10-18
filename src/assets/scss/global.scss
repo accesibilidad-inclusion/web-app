@@ -1,3 +1,4 @@
+@import "@fontsource-variable/open-sans";
 @import './variables.scss';
 @import './normalize.scss';
 @import './animations.scss';
@@ -8,3 +9,7 @@
 @import './modal.scss';
 @import './page.scss';
 @import './onboarding.scss';
+
+body {
+	font-family: 'Open Sans Variable', sans-serif;
+}

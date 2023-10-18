@@ -1,5 +1,5 @@
 :root {
-  --font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  --font-family: 'Open Sans Variable', Helvetica, Arial, sans-serif;
   // Spacers
   --spacer-xl: 3.75rem;
   --spacer-lg: 2.5rem;
@@ -8,7 +8,7 @@
   --spacer-xs: .25rem;
 
   // Border radius
-  --border-radius: .35rem;
+  --border-radius: 70px;
   --border-radius-lg: .7rem;
 
   // Colors
@@ -54,4 +54,24 @@
 
   // Modal
   --modal-backdrop-bg: rgb(4, 28, 66);
+
+  // --- REDISEÑO ---
+  --font-size--400: 14px;
+  --font-size--500: 16px;
+  --font-size--600: 18px;
+  --font-size--700: 21px;
+  --font-size--800: 38px;
+
+  --spacer--300: 10px;
+  --spacer--400: 15px;
+  --spacer--500: 20px;
+
+  --color--blue-dark: #041C42;
+  --color--blue: #004079;
+  --color--yellow: #f6c254;
+  --color--yellow-light: #fada98;
+  --color--skyblue: #a1c9ff;
+  --color--skyblue-light: #cae0ff;
+  --color--inactive: rgba(4, 28, 66, 0.1);
+
 }
