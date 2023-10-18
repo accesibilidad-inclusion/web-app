@@ -13,7 +13,7 @@ const backEvaluation = () => {
 </script>
 
 <template>
-  <div id="app">
+  <div id="app-wrap">
     <AppNav v-if="!route.meta.hideNav" v-on:comeback="backEvaluation" />
     <RouterView ref="view" />
   </div>
@@ -23,7 +23,7 @@ const backEvaluation = () => {
 @import '@/assets/scss/rfs.scss';
 @import '@/assets/scss/global.scss';
 
-#app {
+#app-wrap {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -35,7 +35,8 @@ const backEvaluation = () => {
     margin-right: auto;
   }
   @media screen and (min-width: 1280px) {
-    max-width: 750px;
+    max-height: 100svh;
+    aspect-ratio: 320/568;
   }
 }
 // Transition: Slide
