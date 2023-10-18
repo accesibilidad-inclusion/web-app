@@ -35,7 +35,15 @@ const sequence: Array<Onboarding> = [
 </script>
 
 <template>
-  <main>
+  <main class="page">
     <OnboardingNav :sequence="sequence" onboarding-key="welcome" :redirect-to="appNav.redirectTo" />
   </main>
 </template>
+
+<style lang="scss" scoped>
+.page {
+  display: flex;
+  align-items: stretch;
+  grid-row: 1/-1;
+}
+</style>

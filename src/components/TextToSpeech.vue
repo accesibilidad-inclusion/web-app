@@ -60,6 +60,7 @@ onMounted(() => {
   background-color: transparent;
   border: 0;
   box-sizing: content-box;
+  float: right;
 }
 
 .tts ::v-deep svg {
