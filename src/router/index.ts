@@ -27,7 +27,12 @@ const router = createRouter({
       name: 'welcome-onboarding',
       component: () => import('../views/WelcomeOnboarding.vue'),
       meta: { title: 'Busca ayudas para realizar tareas', hideNav: true }
-    }
+    },
+    {
+      path: '/:categorySlug/',
+      name: 'category',
+      component: () => import('../views/CategoryServices.vue'),
+    },
   ]
 })
 
