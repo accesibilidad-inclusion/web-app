@@ -1,0 +1,52 @@
+// Text align
+.text-center {
+  text-align: center;
+}
+// Backgrounds
+.bg-white {
+  background-color: #fff;
+}
+.bg-light {
+  background-color: var(--color-brand-light);
+}
+.bg-lighter {
+  background-color: var(--color-brand-lighter);
+}
+.bg-lightest {
+  background-color: var(--color-brand-lightest);
+}
+.bg-darkest {
+  background-color: var(--color-brand-darkest);
+}
+// Margins
+.mt-auto {
+  margin-top: auto;
+}
+.mb-auto {
+  margin-bottom: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+.mb-1 {
+  margin-bottom: var(--spacer-xs);
+}
+.mb-2 {
+  margin-bottom: var(--spacer-sm);
+}
+.mb-3 {
+  margin-bottom: var(--spacer);
+}
+.mb-4 {
+  margin-bottom: var(--spacer-lg);
+}
+.mb-5 {
+  margin-bottom: var(--spacer-xl);
+}
+// Screen readers
+.sr-only {
+  display: none;
+}

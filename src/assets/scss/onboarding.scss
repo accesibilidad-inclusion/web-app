@@ -1,0 +1,88 @@
+//onboarding
+.onboarding--inside {
+    position: relative;
+    overflow: hidden;
+    height: calc(100vh - 50px);
+    @media screen and ( min-width: 650px ) {
+        height: calc(100vh - 66px);
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        height: 100%;
+        padding: var(--spacer-lg) var(--spacer) var(--spacer);
+        background-color: #fff;
+        overflow-x: hidden;
+        overflow-y: auto;
+    
+        @media screen and ( min-width: 640px ) {
+          max-width: 640px;
+          margin-left: auto;
+          margin-right: auto;
+          padding: var(--spacer-lg);
+        }
+        @media screen and ( min-width: 1288px ) {
+          max-width: 750px;
+          padding: var(--spacer-xl);
+        }
+    }
+    p {
+        @include rfs( $font-size-16 );
+        margin-bottom: var(--spacer);
+        line-height: calc(25/16);
+    }
+}
+.onboarding__steps {
+    margin-top: var(--spacer-xs);
+    margin-bottom: var(--spacer);
+    text-align: center;
+    grid-column: 1/3;
+    li {
+        display: inline-block;
+        width: calc( var(--spacer) * .35 );
+        height: calc( var(--spacer) * .35 );
+        margin: 0 calc( var(--spacer) * .125 );
+        list-style: none;
+        text-indent: -9999em;
+        line-height: calc( var(--spacer) * .35 );
+        background: #e1e1e1;
+        border-radius: 50%;
+    }
+}
+li.onboarding__step-indicator--active {
+    background: var(--color-brand-darker);
+}
+.onboarding__text-audio {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: var(--spacer);
+    align-items: flex-start;
+}
+//lista numerada
+.onboarding__list {
+    margin-bottom: var(--spacer);
+    line-height: 1.5;
+    list-style: none;
+    counter-reset: list-item;
+  }
+  .onboarding__list-item {
+    counter-increment: list-item;
+    margin-bottom: var(--spacer-sm);
+    padding-left: var(--spacer);
+    position: relative;
+    @media screen and ( min-width: 640px ) {
+      padding-left: calc(var(--spacer) + var(--spacer-xs));
+    }
+    @media screen and ( min-width: 1288px ) {
+      padding-left: calc(var(--spacer) + var(--spacer-xs));
+    }
+    &:before {
+      content: counter(list-item) ". ";
+      color: var(--color-brand-darkest);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+  }
