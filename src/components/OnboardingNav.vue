@@ -29,13 +29,13 @@ const finishing = () => {
 </script>
 
 <template>
-  <div>
-    <div class="onboarding__body">
+  <div class="onboarding-nav">
+    <div class="onboarding-nav__body">
       <!-- <a href="javascript:void(0)" @click="finishing">Cerrar</a> -->
       <OnboardingItem :data="sequence[currentStep]" />
     </div>
     <footer class="onboarding__footer">
-      <button class="btn btn--large btn--primary" v-if="currentStep > 0" @click="rewindStep">
+      <button class="btn btn--large btn--secondary" v-if="currentStep > 0" @click="rewindStep">
         Atrás
       </button>
       <button
@@ -57,8 +57,21 @@ const finishing = () => {
 </template>
 
 <style lang="scss">
+.onboarding-nav {
+  display: flex;
+  flex-flow: column;
+}
+.onboarding-nav__body {
+  flex-grow: 1;
+}
 .onboarding__footer {
   display: flex;
-  flex: 1 1;
+  gap: var( --spacer--300 );
+  padding: 0 var( --spacer--400 ) var( --spacer--400 );
+  button {
+    flex-basis: 50%;
+    flex-grow: 1;
+    border-radius: 50px;
+  }
 }
 </style>

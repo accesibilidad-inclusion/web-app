@@ -8,10 +8,10 @@ defineProps<{
 </script>
 
 <template>
-  <div>
-    <component :is="data.image" />
-    <div class="container">
-      <h2 class="onboarding__title">
+  <div class="onboarding-item">
+    <component :is="data.image" class="onboarding-item__image" />
+    <div class="onboarding-item__container container">
+      <h2 class="onboarding-item__title">
         {{ data.title }}
         <TextToSpeech
           :text-audio="data.title + '.\n\n\n\n\n\n' + data.body.replace(/(<([^>]+)>)/gi, '')"
@@ -21,3 +21,20 @@ defineProps<{
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.onboarding-item {
+  width: 100%;
+  line-height: 20px;
+}
+.onboarding-item__image {
+  width: 100%;
+  height: auto;
+}
+.onboarding-item__title {
+  font-weight: 700;
+  font-size: var( --font-size--500 );
+  color: var( --color--blue-dark );
+  margin-bottom: 10px;
+}
+</style>
