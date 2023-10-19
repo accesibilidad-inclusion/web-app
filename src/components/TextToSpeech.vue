@@ -63,16 +63,16 @@ onMounted(() => {
   float: right;
 }
 
-.tts ::v-deep svg {
+.tts :deep(svg) {
   @include rfs(1rem, width);
   @include rfs(1rem, height);
 }
 
-.tts ::v-deep .stop-img {
+.tts :deep(.stop-img) {
   animation: pulse 1s linear infinite;
 }
-.tts ::v-deep path {
-  fill: var(--color-brand);
+.tts :deep(path) {
+  fill: var( --color--blue );
 }
 
 @keyframes pulse {
