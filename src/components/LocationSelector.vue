@@ -16,7 +16,7 @@ const changeLocation = () => {
 </script>
 
 <template>
-  <div class="your-location">
+  <div class="your-location location-selector">
     <div class="your-location__content">
       <IconLocationPin />
       <span v-if="appData.location?.name">{{ appData.location.name }}</span>
@@ -26,22 +26,22 @@ const changeLocation = () => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .your-location {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-left: calc(var(--spacer-lg) / 3);
-  border-radius: 5px;
-  background-color: var(--color-illustration-bg);
-  margin-bottom: var(--spacer);
-  color: #1a4571;
+  border-radius: var( --spacer--500 );
+  background-color: var( --color--skyblue-light );
+  margin: var( --spacer--500 ) var( --spacer--400 );
+  color: var( --color--blue );
   .your-location__change {
     @include rfs($font-size-14);
-    font-weight: 700;
-    color: var(--color-brand-dark);
-    padding: calc(var(--spacer-lg) / 3);
+    font-weight: 600;
+    color: var(--color--blue);
+    padding: var( --spacer--200 ) var( --spacer--400 );
   }
   .your-location__content {
     display: flex;
@@ -49,7 +49,7 @@ const changeLocation = () => {
     width: 100%;
     gap: var(--spacer-sm);
     padding-right: var(--spacer-sm);
-    border-right: 1px solid var(--color-brand-lighter);
+    border-right: 1px solid var(--color--blue);
     span {
       @include rfs($font-size-14);
     }
@@ -60,8 +60,8 @@ const changeLocation = () => {
         width: var(--spacer);
         height: var(--spacer);
       }
-      path {
-        fill: var(--color-brand-dark);
+      :deep(path) {
+        fill: var( --color--blue ) !important;
       }
     }
   }
