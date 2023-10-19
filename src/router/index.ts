@@ -30,8 +30,13 @@ const router = createRouter({
     },
     {
       path: '/:categorySlug/',
-      name: 'category',
-      component: () => import('../views/CategoryServices.vue'),
+      name: 'services-by-category',
+      component: () => import('../views/ServicesByCategory.vue'),
+    },
+    {
+      path: '/:categorySlug/:serviceSlug/',
+      name: 'venues-by-service',
+      component: () => import('../views/VenuesByService.vue'),
     },
   ]
 })

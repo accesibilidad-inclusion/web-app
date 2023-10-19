@@ -1,10 +1,10 @@
 import type { Evaluation } from "./evaluation";
 
-export interface Venue {
+export interface VenueOnline {
     id: number;
     name: string;
     slug: string;
-    distance: number;
+    url: string;
     show_evaluation?: boolean;
     evaluation: Evaluation;
 }
