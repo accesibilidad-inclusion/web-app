@@ -85,7 +85,7 @@ const tutorials = () => {
   justify-content: space-between;
   top: 0;
   padding: var(--spacer-sm) var(--spacer);
-  background: var(--color-brand-lighter);
+  background: transparent;
   z-index: var(--z-index-navbar);
   align-items: center;
   @media screen and (min-width: 640px) {
