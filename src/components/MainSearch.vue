@@ -3,6 +3,8 @@ import {ref} from 'vue'
 import {useRouter} from 'vue-router'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconSearch from '@/assets/img/app-icons/search.svg'
+import IconInternetTasks from '@/assets/img/app-icons/instructions/internet.svg?component'
+import IconPresentialTasks from '@/assets/img/app-icons/instructions/presencial.svg?component'
 
 const router = useRouter()
 
@@ -33,19 +35,25 @@ const doSearch = () => {
       <div
         :class="
           filterSelected == 'online'
-            ? 'main-search__type main-search__type--active'
-            : 'main-search__type'
+            ? 'main-search__type main-search__type--online main-search__type--active'
+            : 'main-search__type main-search__type--online'
         "
         @click="filterSelected = 'online'">
+        <span class="main-search__type-icon">
+          <IconInternetTasks></IconInternetTasks>
+        </span>
         Buscar tareas en internet
       </div>
       <div
         :class="
           filterSelected == 'presential'
-            ? 'main-search__type main-search__type--active'
-            : 'main-search__type'
+            ? 'main-search__type main-search__type--presential main-search__type--active'
+            : 'main-search__type main-search__type--presential'
         "
         @click="filterSelected = 'presential'">
+        <span class="main-search__type-icon">
+          <IconPresentialTasks></IconPresentialTasks>
+        </span>
         Buscar tareas presenciales
       </div>
     </div>
@@ -59,14 +67,17 @@ const doSearch = () => {
           placeholder="Ejemplo: Viajar en metro" />
         <icon-search class="main-search__icon" />
       </div>
-      <button class="main-search__button" :disabled="query.trim() == ''" type="submit">
+      <button
+        v-bind:class="'main-search__button' + ' main-search__button--' + filterSelected"
+        :disabled="query.trim() == ''"
+        type="submit">
         Ver resultados
       </button>
     </div>
   </form>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .main-search {
   position: relative;
@@ -111,15 +122,36 @@ const doSearch = () => {
   background: var(--color--white);
   font-weight: 700;
   color: var(--color--blue-dark);
-  text-align: center;
   padding: var(--spacer--400);
   border-radius: var(--spacer--500);
   border: 1px solid var(--color--blue-dark);
   font-size: var(--font-size--500);
   line-height: 125%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacer--300);
 }
-.main-search__type--active {
+.main-search__type--online.main-search__type--active {
+  background: var(--color--yellow-light);
+}
+.main-search__type--presential.main-search__type--active {
   background: var(--color--skyblue-light);
+}
+.main-search__type-icon {
+  display: flex;
+  background: var(--color--yellow);
+  width: 45px;
+  height: 45px;
+  border: 1px solid var(--color--blue);
+  border-radius: var(--spacer--300);
+  align-items: center;
+  justify-content: center;
+  svg {
+    width: 27px;
+    height: 28px;
+  }
 }
 .main-search__group {
   position: relative;
@@ -161,6 +193,10 @@ const doSearch = () => {
   padding: var(--spacer--400);
   font-weight: 700;
 }
+.main-search__button--online {
+  border-color: var(--color--yellow-light);
+  color: var(--color--yellow-light);
+}
 @media screen and (max-width: 640px) {
   input[type='email'],
   input[type='search'],
@@ -169,5 +205,9 @@ const doSearch = () => {
   textarea {
     font-size: 16px;
   }
+}
+
+.tts :deep(path) {
+  fill: var(--color--white);
 }
 </style>
