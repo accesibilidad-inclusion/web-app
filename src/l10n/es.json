@@ -1,4 +1,8 @@
 {
+  "textToSpeech": {
+    "read": "Leer texto",
+    "listen": "Escuchar"
+  },
   "categoriesList": {
     "header": {
       "title": "Facilitamos tu vida en pasos simples",
