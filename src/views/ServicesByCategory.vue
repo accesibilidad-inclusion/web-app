@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import IconFormalities from '@/assets/img/app-icons/formalities.svg?component'
-import IconHealth from '@/assets/img/app-icons/health.svg?component'
-import IconTransport from '@/assets/img/app-icons/transport.svg?component'
-import IconLeisure from '@/assets/img/app-icons/leisure.svg?component'
+import CategoryIcon from '@/components/CategoryIcon.vue'
+import LocationSelector from '@/components/LocationSelector.vue'
 import type {Service} from '@/types/service'
 
 import {onBeforeMount, ref} from 'vue'
@@ -69,14 +67,10 @@ onBeforeMount(() => {
     </template>
     <template v-else-if="category">
       <header class="category__header entries-list__header">
-        <IconTransport class="category__icon" v-if="category.slug == 'transporte'" />
-        <IconHealth class="category__icon" v-if="category.slug == 'salud'" />
-        <IconLeisure class="category__icon" v-if="category.slug == 'ocio'" />
-        <IconFormalities class="category__icon" v-if="category.slug == 'tramites'" />
+        <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
         <h1 class="category__title entries-list__title">{{ category.name }}</h1>
-        <p class="category__description entries-list__description">
-          Revisa los servicios disponibles que están cerca de ti.
-        </p>
+        <p class="category__description entries-list__description">Servicios cercanos a</p>
+        <LocationSelector></LocationSelector>
         <text-to-speech
           :text-audio="
             category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'
@@ -116,6 +110,12 @@ onBeforeMount(() => {
   </div>
 </template>
 
+<style>
+#app-wrap {
+  background: var(--color--skyblue);
+}
+</style>
+
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .category {
@@ -123,8 +123,7 @@ onBeforeMount(() => {
   flex-flow: column nowrap;
 }
 .category__icon {
-  width: 2.1875rem;
-  height: 2.1875rem;
+  position: absolute;
 }
 .entries-list__header {
   position: relative;
@@ -140,15 +139,52 @@ onBeforeMount(() => {
   }
 }
 .entries-list__title {
-  @include rfs($font-size-18);
-  margin-bottom: var(--spacer-sm);
+  font-size: var(--font-size--700);
+  margin-bottom: var(--spacer--200);
   line-height: calc(25 / 18);
   color: var(--color-brand-darkest);
 }
-.entries-list__description {
-  @media screen and (max-width: 639px) {
-    text-align: left;
+.category__header {
+  border-radius: var(--spacer--500);
+  background: var(--color--carolinablue);
+  margin: var(--spacer--700) var(--spacer--400) 0;
+  position: relative;
+  padding-top: var(--spacer--600);
+  font-weight: 600;
+}
+.category__description {
+  font-size: var(--font-size--400);
+  color: var(--color--blue-dark);
+  margin: var(--spacer--200) 0;
+}
+.category__header :deep(.your-location) {
+  margin: 0;
+  background: transparent;
+  padding: 0;
+  justify-content: center;
+  .your-location__content {
+    width: auto;
+    color: var(--color--blue-dark);
+    gap: var(--spacer--200);
   }
+  svg {
+    position: relative;
+    top: 1px;
+    path {
+      fill: var(--color--blue-dark) !important;
+    }
+  }
+
+  .your-location__change {
+    padding: var(--spacer--200);
+    color: var(--color--blue);
+  }
+}
+.category__icon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .category__header .tts {
   position: absolute;

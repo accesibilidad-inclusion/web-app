@@ -3,10 +3,7 @@ import {useRouter} from 'vue-router'
 import type {Category} from '@/types/category'
 import {useAppDataStore} from '@/stores/app-data'
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import IconFormalities from '@/assets/img/app-icons/categories/tramites.svg?component'
-import IconHealth from '@/assets/img/app-icons/categories/salud.svg?component'
-import IconTransport from '@/assets/img/app-icons/categories/transporte.svg?component'
-import IconLeisure from '@/assets/img/app-icons/categories/ocio.svg?component'
+import CategoryIcon from './CategoryIcon.vue'
 
 const appData = useAppDataStore()
 const router = useRouter()
@@ -29,12 +26,7 @@ const setCategory = (category: Category) => {
     <ul class="main-categories__list">
       <li class="category" v-for="category in appData.categories" :key="category.id">
         <a @click="setCategory(category)">
-          <span class="category__icon">
-            <IconTransport v-if="category.slug == 'transporte'" />
-            <IconHealth v-if="category.slug == 'salud'" />
-            <IconLeisure v-if="category.slug == 'ocio'" />
-            <IconFormalities v-if="category.slug == 'tramites'" />
-          </span>
+          <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
           <h3 class="category__name">
             {{ category.name }}
           </h3>
@@ -140,14 +132,6 @@ const setCategory = (category: Category) => {
 }
 .category__icon {
   grid-area: icon;
-  background: var(--color--yellow);
-  border: 1px solid var(--color--blue);
-  border-radius: var(--spacer--300);
-  width: 55px;
-  height: 55px;
-  display: grid;
-  align-items: center;
-  justify-content: center;
 }
 .category__name {
   grid-area: name;
