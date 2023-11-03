@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
 import TextToSpeech from '@/components/TextToSpeech.vue'
+import IconSearch from '@/assets/img/app-icons/search.svg'
 
 const router = useRouter()
 
@@ -28,14 +29,23 @@ const doSearch = () => {
       <span>Encuentra ayuda para tareas en internet o presenciales</span>
       <TextToSpeech :text-audio="'Encuentra ayuda para tareas en internet o presenciales'" />
     </label>
-    <div>
-      <div :class="filterSelected == 'online' ? 'active' : ''" @click="filterSelected = 'online'">
+    <div class="main-search__types">
+      <div
+        :class="
+          filterSelected == 'online'
+            ? 'main-search__type main-search__type--active'
+            : 'main-search__type'
+        "
+        @click="filterSelected = 'online'">
         Buscar tareas en internet
       </div>
       <div
-        :class="filterSelected == 'presential' ? 'active' : ''"
-        @click="filterSelected = 'presential'"
-      >
+        :class="
+          filterSelected == 'presential'
+            ? 'main-search__type main-search__type--active'
+            : 'main-search__type'
+        "
+        @click="filterSelected = 'presential'">
         Buscar tareas presenciales
       </div>
     </div>
@@ -46,13 +56,10 @@ const doSearch = () => {
           v-model="query"
           class="main-search__input"
           type="search"
-          placeholder="Ejemplo: Viajar en metro"
-        />
-        <div class="main-search__button">
-          <icon-search />
-        </div>
+          placeholder="Ejemplo: Viajar en metro" />
+        <icon-search class="main-search__icon" />
       </div>
-      <button class="btn btn-primary" :disabled="query.trim() == ''" type="submit">
+      <button class="main-search__button" :disabled="query.trim() == ''" type="submit">
         Ver resultados
       </button>
     </div>
@@ -63,88 +70,97 @@ const doSearch = () => {
 @import '@/assets/scss/rfs.scss';
 .main-search {
   position: relative;
-  margin-left: calc(var(--spacer) * -1);
-  margin-right: calc(var(--spacer) * -1);
-  margin-bottom: var(--spacer-lg);
-  padding: calc(var(--spacer) / 2) var(--spacer) var(--spacer-xl);
-  background: var(--color-brand-lighter);
-  @media screen and (min-width: 640px) {
-    margin-left: calc(var(--spacer-lg) * -1);
-    margin-right: calc(var(--spacer-lg) * -1);
-    padding: calc(var(--spacer-lg) / 2) var(--spacer-lg) var(--spacer-xl);
+  padding: calc(var(--spacer--400) * 3) var(--spacer--400);
+  background: var(--color--blue);
+  color: var(--color--white);
+  margin-bottom: calc(var(--spacer--700) * 0.5);
+  // @media screen and (min-width: 640px) {
+  //   margin-left: calc(var(--spacer-lg) * -1);
+  //   margin-right: calc(var(--spacer-lg) * -1);
+  //   padding: calc(var(--spacer-lg) / 2) var(--spacer-lg) var(--spacer-xl);
+  // }
+  // @media screen and (min-width: 1280px) {
+  //   margin-left: calc(var(--spacer-xl) * -1);
+  //   margin-right: calc(var(--spacer-xl) * -1);
+  //   padding-left: var(--spacer-xl);
+  //   padding-right: var(--spacer-xl);
+  // }
+}
+.main-search__label {
+  display: flex;
+  flex-flow: column-reverse;
+  gap: var(--spacer--300);
+  > span {
+    font-weight: 700;
+    font-size: var(--font-size--600);
+    margin: 0 0 calc(var(--spacer--700) * 0.5);
+    display: block;
+    text-align: center;
   }
-  @media screen and (min-width: 1280px) {
-    margin-left: calc(var(--spacer-xl) * -1);
-    margin-right: calc(var(--spacer-xl) * -1);
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+  .tts {
+    svg path {
+      fill: var(--color--white);
+    }
   }
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    height: 30px;
-  }
-  &::before {
-    width: 100%;
-    left: 0;
-    background: #fff;
-    z-index: 1;
-  }
-  &::after {
-    left: calc(var(--spacer) * -1);
-    right: calc(var(--spacer) * -1);
-    background: var(--color-brand-lighter);
-    border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
-    z-index: 10;
-  }
+}
+.main-search__types {
+  display: flex;
+  gap: var(--spacer--300);
+}
+.main-search__type {
+  background: var(--color--white);
+  font-weight: 700;
+  color: var(--color--blue-dark);
+  text-align: center;
+  padding: var(--spacer--400);
+  border-radius: var(--spacer--500);
+  border: 1px solid var(--color--blue-dark);
+  font-size: var(--font-size--500);
+  line-height: 125%;
+}
+.main-search__type--active {
+  background: var(--color--skyblue-light);
 }
 .main-search__group {
   position: relative;
+  margin: var(--spacer--500) 0;
 }
 .main-search__input {
-  @include rfs($font-size-14);
+  font-size: var(--font-size--500);
   width: 100%;
-  padding: var(--spacer-sm) var(--spacer-lg) var(--spacer-sm) calc(var(--spacer-lg) / 3);
-  border: none;
-  border-radius: var(--border-radius);
+  padding: var(--spacer--500);
+  border: 1px solid var(--color--blue-dark);
+  border-radius: var(--spacer--500);
   &::placeholder {
     color: #848484;
     opacity: 1;
     font-style: italic;
-    font-family: var(--font-family);
+    font-family: inherit;
+  }
+}
+.main-search__icon {
+  position: absolute;
+  top: 50%;
+  right: var(--spacer--500);
+  background: none;
+  border: none;
+  z-index: 9;
+  width: var(--font-size--500);
+  height: var(--font-size--500);
+  transform: translateY(-50%);
+  path {
+    fill: var(--color--blue);
   }
 }
 .main-search__button {
-  position: absolute;
-  top: 55%;
-  right: calc(var(--spacer-lg) / 3);
-  margin-top: -0.625rem;
-  background: none;
-  border: none;
-  z-index: 10;
-  width: 1rem;
-  height: 1rem;
-  svg {
-    width: 1rem;
-    height: 1rem;
-    path {
-      fill: var(--color-brand);
-      opacity: 0.7;
-    }
-  }
+  width: 100%;
+  border: 1px solid var(--color--skyblue-light);
+  border-radius: var(--spacer--700);
+  color: var(--color--skyblue-light);
+  background: transparent;
+  padding: var(--spacer--400);
+  font-weight: 700;
 }
-.main-search__label {
-  @include rfs($font-size-18);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-gap: var(--spacer);
-  margin-bottom: var(--spacer);
-  line-height: calc(25 / 18);
-  font-weight: bold;
-}
-
 @media screen and (max-width: 640px) {
   input[type='email'],
   input[type='search'],

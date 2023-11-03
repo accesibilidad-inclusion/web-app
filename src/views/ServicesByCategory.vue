@@ -4,13 +4,13 @@ import IconFormalities from '@/assets/img/app-icons/formalities.svg?component'
 import IconHealth from '@/assets/img/app-icons/health.svg?component'
 import IconTransport from '@/assets/img/app-icons/transport.svg?component'
 import IconLeisure from '@/assets/img/app-icons/leisure.svg?component'
-import type { Service } from '@/types/service'
+import type {Service} from '@/types/service'
 
-import { onBeforeMount, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useAppDataStore } from '@/stores/app-data.js'
-import { useAppNavStore } from '@/stores/app-nav.js'
-import type { Category } from '@/types/category'
+import {onBeforeMount, ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+import {useAppDataStore} from '@/stores/app-data.js'
+import {useAppNavStore} from '@/stores/app-nav.js'
+import type {Category} from '@/types/category'
 
 const router = useRouter()
 const route = useRoute()
@@ -65,8 +65,7 @@ onBeforeMount(() => {
         :loading="loading"
         :color="'#CAE0FF'"
         :size="'3rem'"
-        class="mt-auto mb-auto"
-      ></clip-loader>
+        class="mt-auto mb-auto"></clip-loader>
     </template>
     <template v-else-if="category">
       <header class="category__header entries-list__header">
@@ -81,16 +80,14 @@ onBeforeMount(() => {
         <text-to-speech
           :text-audio="
             category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'
-          "
-        />
+          " />
       </header>
       <main class="category__items category__items--services">
         <template v-for="service in services" :key="service.id">
           <a
             class="category__item category__item--service service-block entry-block"
             tag="article"
-            @click="setService(service)"
-          >
+            @click="setService(service)">
             <span class="service-block__icon">
               <span class="sr-only">{{ $route.params.categorySlug }}</span>
               <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
@@ -107,13 +104,11 @@ onBeforeMount(() => {
         <p class="actions__title">
           ¿No encuentras el lugar que estás buscando?
           <text-to-speech
-            :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'"
-          />
+            :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
         </p>
         <router-link
           :to="appNav.onboarding.venue ? '/nuevo-lugar/intro' : '/nuevo-lugar'"
-          class="btn btn--primary btn--large btn--block"
-        >
+          class="btn btn--primary btn--large btn--block">
           &plus; Agregar un lugar nuevo
         </router-link>
       </aside>
@@ -121,7 +116,7 @@ onBeforeMount(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .category {
   display: flex;

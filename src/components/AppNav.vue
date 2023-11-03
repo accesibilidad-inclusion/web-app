@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { useAppNavStore } from '@/stores/app-nav'
-import { ref } from 'vue'
-import { RouterLink, useRoute, useRouter } from 'vue-router'
+import {useAppNavStore} from '@/stores/app-nav'
+import {ref} from 'vue'
+import {RouterLink, useRoute, useRouter} from 'vue-router'
+import IconMenu from '@/assets/img/app-icons/drag.svg?component'
+import IconClose from '@/assets/img/app-icons/error.svg?component'
+import LogoPictos from '@/assets/img/app-icons/logo-pictos-color.svg?component'
 
 const router = useRouter()
 const route = useRoute()
@@ -29,7 +32,7 @@ const tutorials = () => {
 </script>
 
 <template>
-  <div id="nav" class="app-nav" :class="{ 'app-nav--dark': dark }">
+  <div id="nav" class="app-nav" :class="{'app-nav--dark': dark}">
     <back-button v-if="$route.name !== 'home'" @comeback="$emit('comeback')"></back-button>
     <router-link to="/inicio" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
@@ -40,8 +43,7 @@ const tutorials = () => {
     <div
       :class="
         'modal' + (shown_modal ? ' modal--fade' : '') + (closed_modal ? ' modal--fade-out' : '')
-      "
-    >
+      ">
       <div class="modal__backdrop">
         <div class="app-menu">
           <div class="app-menu__wrapper">
@@ -104,7 +106,7 @@ const tutorials = () => {
     background-color: var(--color-brand-darkest);
   }
 }
-.app-nav > .router-link-active {
+.app-nav > .router-link-active:not(:first-child) {
   margin-left: var(--spacer);
   text-align: left;
   @media screen and (min-width: 640px) {
@@ -135,16 +137,15 @@ const tutorials = () => {
   }
 }
 .app-nav__logo-wrapper {
-  position: absolute;
-  right: 0;
-  left: 0;
-  text-align: center;
+  // position: absolute;
+  // right: 0;
+  // text-align: center;
   width: 86px;
-  margin: 0 auto;
+  margin: 0;
 }
 .app-nav__logo {
-  width: 55px;
-  height: 11px;
+  width: 75px;
+  height: 15px;
   .app-nav--dark & path {
     transition: var(--transition-nav-dark);
     fill: var(--color-background);
