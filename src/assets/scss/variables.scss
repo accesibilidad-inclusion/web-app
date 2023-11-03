@@ -4,12 +4,12 @@
   --spacer-xl: 3.75rem;
   --spacer-lg: 2.5rem;
   --spacer: 1.25rem;
-  --spacer-sm: .51rem;
-  --spacer-xs: .25rem;
+  --spacer-sm: 0.51rem;
+  --spacer-xs: 0.25rem;
 
   // Border radius
   --border-radius: 70px;
-  --border-radius-lg: .7rem;
+  --border-radius-lg: 0.7rem;
 
   // Colors
   --color-text: #1d1d1b;
@@ -30,23 +30,23 @@
   --color-score-text: #2a8600;
   --color-score-bg: #aaf886;
   --color-grade-0: #ffffff;
-  --color-grade-1: #E2343F;
-  --color-grade-2: #FF8A3D;
-  --color-grade-3: #FFE830;
-  --color-grade-4: #8FC44C;
-  --color-grade-5: #0CA1AD;
+  --color-grade-1: #e2343f;
+  --color-grade-2: #ff8a3d;
+  --color-grade-3: #ffe830;
+  --color-grade-4: #8fc44c;
+  --color-grade-5: #0ca1ad;
   --color-illustration-bg: #e9f2ff;
   --cyan-blue-lighter: #d8e8ff;
   --cyan-blue-lightest: #ecf4ff;
-  --blue-medium-light: #8dAdf1;
+  --blue-medium-light: #8dadf1;
 
   // Font sizes and Line height
   --subtitle-font-size: 18px;
-  --subtitle-line-height: calc(25/18);
+  --subtitle-line-height: calc(25 / 18);
 
   // Transitions
-  --transition-base: all .3s ease-out;
-  --transition-nav-dark: all .3s ease-out .2s;
+  --transition-base: all 0.3s ease-out;
+  --transition-nav-dark: all 0.3s ease-out 0.2s;
 
   // z-index
   --z-index-navbar: 1010;
@@ -62,16 +62,18 @@
   --font-size--700: 21px;
   --font-size--800: 38px;
 
+  --spacer--200: 5px;
   --spacer--300: 10px;
   --spacer--400: 15px;
   --spacer--500: 20px;
+  --spacer--600: 35px;
+  --spacer--700: 50px;
 
-  --color--blue-dark: #041C42;
+  --color--blue-dark: #041c42;
   --color--blue: #004079;
   --color--yellow: #f6c254;
   --color--yellow-light: #fada98;
   --color--skyblue: #a1c9ff;
   --color--skyblue-light: #cae0ff;
   --color--inactive: rgba(4, 28, 66, 0.1);
-
 }

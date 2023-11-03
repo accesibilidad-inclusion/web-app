@@ -46,8 +46,12 @@ const setCategory = (category: Category) => {
     </ul>
   </section>
 </template>
-
-<style lang="scss">
+<stlye lang="scss">
+#app-wrap {
+  background: var(--color--skyblue);
+}
+</stlye>
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 // .your-location {
 //   display: flex;
@@ -87,12 +91,8 @@ const setCategory = (category: Category) => {
 //     }
 //   }
 // }
-
-#app-wrap {
-  background: var(--color--skyblue);
-}
 .main-categories {
-  padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
+  padding: var(--spacer--700) var(--spacer--400) var(--spacer--500);
   position: relative;
   .tts {
     float: none;

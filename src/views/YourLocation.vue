@@ -223,7 +223,7 @@ const toggle = (id: number) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/rfs.scss';
 
 .your-location {

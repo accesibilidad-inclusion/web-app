@@ -34,7 +34,7 @@ const changeLocation = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: calc(var(--spacer-lg) / 3);
+  padding: 0 0 0 var(--spacer--400);
   border-radius: var(--spacer--500);
   background-color: var(--color--skyblue-light);
   margin: var(--spacer--500) var(--spacer--400);
