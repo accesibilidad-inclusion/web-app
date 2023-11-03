@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import IconAudio from '@/assets/img/app-icons/audio.svg?component'
 import IconStop from '@/assets/img/app-icons/stop-circle.svg?component'
 
@@ -44,8 +44,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <button class="tts" @click.stop="speak" type="button" aria-label="Escuchar">
-    <span class="sr-only">Leer texto</span>
+  <button
+    class="tts"
+    @click.stop="speak"
+    type="button"
+    v-bind:aria-label="$t('textToSpeech.listen')">
+    <span class="sr-only">{{ $t('textToSpeech.read') }}</span>
     <IconAudio v-if="!playing" />
     <IconStop class="stop-img" v-if="playing" />
   </button>
@@ -72,7 +76,7 @@ onMounted(() => {
   animation: pulse 1s linear infinite;
 }
 .tts :deep(path) {
-  fill: var( --color--blue );
+  fill: var(--color--blue);
 }
 
 @keyframes pulse {
