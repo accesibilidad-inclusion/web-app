@@ -9,10 +9,10 @@ import IconTransport from '@/assets/img/app-icons/transport.svg?component'
 import IconLeisure from '@/assets/img/app-icons/leisure.svg?component'
 import { useAppDataStore } from '@/stores/app-data.js'
 import { useAppNavStore } from '@/stores/app-nav.js'
-import type { Category } from '@/types/category'
-import type { Service } from '@/types/service'
-import type { Venue } from '@/types/venue'
-import type { VenueOnline } from '@/types/venue_online'
+import { Category } from '@/model/category'
+import { Service } from '@/model/service'
+import { PresentialVenue } from '@/model/presential_venue.js'
+import { OnlineVenue } from '@/model/online_venue.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -22,11 +22,11 @@ const appNav = useAppNavStore()
 
 const category = ref<Category>()
 const service = ref<Service>()
-const venues = ref<Array<Venue>>([])
-const venues_online = ref<Array<VenueOnline>>([])
+const venues_presential = ref<Array<PresentialVenue>>([])
+const venues_online = ref<Array<OnlineVenue>>([])
 const loading = ref(true)
 
-const setVenue = (venue: Venue | VenueOnline) => {
+const setVenue = (venue: PresentialVenue | OnlineVenue) => {
   router.push(`/${route.params.categorySlug}/${route.params.serviceSlug}/${venue.slug}`)
 }
 
@@ -46,8 +46,8 @@ onBeforeMount(() => {
     })
       .then(async (response) => {
         const data = await response.json()
-        venues.value = data.venues
-        venues_online.value = data.venues_online
+        venues_presential.value = data.venues.map((v: PresentialVenue) => new PresentialVenue(v))
+        venues_online.value = data.venues_online.map((v: OnlineVenue) => new OnlineVenue(v))
         category.value = data.category
         service.value = data.service
         appNav.selected.category = data.category
@@ -93,7 +93,7 @@ onBeforeMount(() => {
           <div>Lugares en internet</div>
           <template v-for="venue_online in venues_online" :key="venue_online.id">
             <a class="venue-block entry-block" tag="article" @click="setVenue(venue_online)">
-              <text-to-speech :text-audio="venue_online.name + '. ' + venue_online.url" />
+              <text-to-speech :text-audio="venue_online.name" />
               <h2 class="venue-block__name entry-block__name">{{ venue_online.name }}</h2>
               <!-- <p class="venue-block__distance">{{ venue_online.url }}</p> -->
               <p class="venue-block__distance">http://www.ejemplo.cl</p>
@@ -114,24 +114,20 @@ onBeforeMount(() => {
             </a>
           </template>
         </template>
-        <template v-if="venues.length">
+        <template v-if="venues_presential.length">
           <div>Lugares presenciales</div>
-          <template v-for="venue in venues" :key="venue.id">
+          <template v-for="venue in venues_presential" :key="venue.id">
             <a class="venue-block entry-block" tag="article" @click="setVenue(venue)">
               <text-to-speech
                 :text-audio="
                   venue.name +
                   ': a' +
-                  // $options.filters.distance(venue.distance).replace('.', ' punto ') +
-                  venue.distance +
+                  venue.distanceToText().replace('.', ' punto ') +
                   ' de distancia.'
                 "
               />
               <h2 class="venue-block__name entry-block__name">{{ venue.name }}</h2>
-              <!-- <p class="venue-block__distance">
-                a {{ /*venue.distance | distance*/ }} de distancia
-              </p> -->
-              <p class="venue-block__distance">a de distancia</p>
+              <p class="venue-block__distance">a {{ venue.distanceToText() }} de distancia</p>
               <div v-if="venue.evaluation && venue.show_evaluation" class="venue-block__evaluation">
                 <span
                   class="venue-grade venue-block__evaluation-grade"

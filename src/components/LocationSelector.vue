@@ -9,6 +9,10 @@ const appNav = useAppNavStore()
 const router = useRouter()
 const route = useRoute()
 
+defineProps<{
+  dense?: Boolean
+}>()
+
 const changeLocation = () => {
   appNav.redirectTo = route.fullPath
   router.push('/tu-ubicacion')
@@ -16,7 +20,7 @@ const changeLocation = () => {
 </script>
 
 <template>
-  <div class="your-location location-selector">
+  <div class="your-location location-selector" :class="{dense:  dense }">
     <div class="your-location__content">
       <IconLocationPin />
       <span v-if="appData.location?.name">{{ appData.location.name }}</span>

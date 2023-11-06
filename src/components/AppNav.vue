@@ -20,6 +20,11 @@ const closeMenu = () => {
   closed_modal.value = true
 }
 
+const toHome = () => {
+  router.push('/inicio')
+  closeMenu()
+}
+
 const tutorials = () => {
   appNav.redirectTo = route.fullPath
   appNav.cleanTutorials()
@@ -54,7 +59,7 @@ const tutorials = () => {
             <nav class="app-menu__body">
               <ul class="app-menu__items">
                 <li>
-                  <a href="javascript:void(0)" @click="closeMenu">Inicio</a>
+                  <a href="javascript:void(0)" @click="toHome">Inicio</a>
                 </li>
                 <li>
                   <a href="javascript:void(0)" @click="closeMenu">Acerca de</a>

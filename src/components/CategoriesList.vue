@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import type { Category } from '@/types/category'
+import { Category } from '@/model/category'
 import { useAppDataStore } from '@/stores/app-data'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconFormalities from '@/assets/img/app-icons/formalities.svg?component'
@@ -14,13 +14,6 @@ const router = useRouter()
 const setCategory = (category: Category) => {
   router.push(`/${category.slug}`)
 }
-
-const categoriesDescriptions = {
-  tramites: 'Bancos, Registro Civil, entre otros',
-  salud: 'Hospitales, Cesfam, entre otros',
-  transporte: 'Estación de metro, Terminal de buses, entre otros',
-  ocio: 'Cine, Tiendas comerciales, entre otros'
-};
 </script>
 
 <template>
@@ -45,7 +38,7 @@ const categoriesDescriptions = {
             {{ category.name }}
           </h3>
           <div class="category__description">
-          {{ categoriesDescriptions[ category.slug ] }}
+            {{ category.description }}
           </div>
         </a>
       </li>
@@ -95,21 +88,21 @@ const categoriesDescriptions = {
 // }
 
 #app-wrap {
-  background: var( --color--skyblue );
+  background: var(--color--skyblue);
 }
 .main-categories {
-  padding: var( --spacer--600 ) var( --spacer--400 ) var( --spacer--500 );
+  padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
   position: relative;
   .tts {
     float: none;
     position: absolute;
-    top: var( --spacer--300 );
-    right: var( --spacer--500 );
+    top: var(--spacer--300);
+    right: var(--spacer--500);
   }
 }
 .main-categories__title {
-  font-size: var( --font-size--800 );
-  color: var( --color--blue-dark );
+  font-size: var(--font-size--800);
+  color: var(--color--blue-dark);
   font-weight: 800;
   line-height: 105.263%;
 }
@@ -118,37 +111,37 @@ const categoriesDescriptions = {
   padding: 0;
   > li {
     list-style: none;
-    margin: var( --spacer--300 ) 0;
+    margin: var(--spacer--300) 0;
     a {
-      border: 1px solid var( --color--blue-dark );
-      padding: var( --spacer--500 ) var( --spacer--400 );
+      border: 1px solid var(--color--blue-dark);
+      padding: var(--spacer--500) var(--spacer--400);
       background: white;
-      border-radius: var( --spacer--500 );
-      color: var( --color--blue-dark );
+      border-radius: var(--spacer--500);
+      color: var(--color--blue-dark);
       display: grid;
-      grid-template-areas: "icon name""icon description";
+      grid-template-areas: 'icon name' 'icon description';
       grid-template-columns: 55px auto;
       grid-template-rows: auto 1fr;
-      gap: var( --spacer--200 ) var( --spacer--300 );
+      gap: var(--spacer--200) var(--spacer--300);
       &:hover {
-        background: var( --color--skyblue );
+        background: var(--color--skyblue);
         cursor: pointer;
       }
     }
   }
 }
 .main-categories__description {
-  font-size: var( --font-size--600 );
+  font-size: var(--font-size--600);
   font-weight: 700;
   line-height: 1.11;
-  margin: var( --spacer--600 ) 0 calc( var( --spacer--700 ) * .5 );
-  color: var( --color--blue-dark );
+  margin: var(--spacer--600) 0 calc(var(--spacer--700) * 0.5);
+  color: var(--color--blue-dark);
 }
 .category__icon {
   grid-area: icon;
-  background: var( --color--yellow );
-  border: 1px solid var( --color--blue );
-  border-radius: var( --spacer--300 );
+  background: var(--color--yellow);
+  border: 1px solid var(--color--blue);
+  border-radius: var(--spacer--300);
   width: 55px;
   height: 55px;
   display: grid;
@@ -158,11 +151,11 @@ const categoriesDescriptions = {
 .category__name {
   grid-area: name;
   display: block;
-  font-size: var( --font-size--500 );
+  font-size: var(--font-size--500);
   font-weight: 700;
 }
 .category__description {
   grid-area: description;
-  font-size: var( --font-size--400 );
+  font-size: var(--font-size--400);
 }
 </style>

@@ -1,16 +1,17 @@
 <script setup lang="ts">
+import { onBeforeMount, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+
+import LocationSelector from '@/components/LocationSelector.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconFormalities from '@/assets/img/app-icons/formalities.svg?component'
 import IconHealth from '@/assets/img/app-icons/health.svg?component'
 import IconTransport from '@/assets/img/app-icons/transport.svg?component'
 import IconLeisure from '@/assets/img/app-icons/leisure.svg?component'
-import type { Service } from '@/types/service'
-
-import { onBeforeMount, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { Service } from '@/model/service'
+import { Category } from '@/model/category'
 import { useAppDataStore } from '@/stores/app-data.js'
 import { useAppNavStore } from '@/stores/app-nav.js'
-import type { Category } from '@/types/category'
 
 const router = useRouter()
 const route = useRoute()
@@ -41,8 +42,8 @@ onBeforeMount(() => {
     })
       .then(async (response) => {
         const data = await response.json()
-        services.value = data.services
-        category.value = data.category
+        services.value = data.services.map((s: Service) => new Service(s))
+        category.value = new Category(data.category)
         appNav.selected.category = data.category
         document.title = `Servicios de ${data.category.name} | Pictos`
         loading.value = false
@@ -76,11 +77,12 @@ onBeforeMount(() => {
         <IconFormalities class="category__icon" v-if="category.slug == 'tramites'" />
         <h1 class="category__title entries-list__title">{{ category.name }}</h1>
         <p class="category__description entries-list__description">
-          Revisa los servicios disponibles que están cerca de ti.
+          Servicios cercanos a
+          <LocationSelector :dense="true" />
         </p>
         <text-to-speech
           :text-audio="
-            category.name + '.\n\n Revisa los servicios disponibles que están cerca de tí'
+            category.name + '.\n\n Servicios cercanos a ' + appData.location?.name ?? 'tu ubicación actual'
           "
         />
       </header>
@@ -91,14 +93,9 @@ onBeforeMount(() => {
             tag="article"
             @click="setService(service)"
           >
-            <span class="service-block__icon">
-              <span class="sr-only">{{ $route.params.categorySlug }}</span>
-              <icon-transport class="category__icon" v-if="category.slug == 'transporte'" />
-              <icon-health class="category__icon" v-if="category.slug == 'salud'" />
-              <icon-leisure class="category__icon" v-if="category.slug == 'ocio'" />
-              <icon-formalities class="category__icon" v-if="category.slug == 'tramites'" />
-            </span>
             <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
+            <div v-if="service.count_presential > 0">{{ service.count_presential }} lugar<span v-if="service.count_presential > 1">es</span> presencial<span v-if="service.count_presential > 1">es</span></div>
+            <div v-if="service.count_online > 0">{{ service.count_online }} lugar<span v-if="service.count_online > 1">es</span> en internet</div>
             <text-to-speech :text-audio="`${service.name}`" />
           </a>
         </template>

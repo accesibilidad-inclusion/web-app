@@ -2,7 +2,7 @@
 import LocationSelector from '@/components/LocationSelector.vue'
 import CategoriesList from '@/components/CategoriesList.vue'
 import MainSearch from '@/components/MainSearch.vue'
-import RecommendedTasks from '@/components/RecommendedTasks.vue'
+import RecommendedVenues from '@/components/RecommendedVenues.vue'
 </script>
 
 <template>
@@ -10,6 +10,6 @@ import RecommendedTasks from '@/components/RecommendedTasks.vue'
     <LocationSelector />
     <CategoriesList />
     <MainSearch />
-    <RecommendedTasks />
+    <RecommendedVenues />
   </main>
 </template>

@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import type { Task } from '@/types/task'
 import TextToSpeech from '@/components/TextToSpeech.vue'
+import DrawPictogram from '@/components/DrawPictogram.vue'
 import { useRoute, useRouter } from 'vue-router'
+import { PresentialTask } from '@/model/presential_task';
+import { OnlineTask } from '@/model/online_task';
 
 const props = defineProps<{
-  task: Task
+  task: PresentialTask|OnlineTask
   title?: string
+  preview?: boolean
 }>()
 
 const router = useRouter()
@@ -26,8 +29,9 @@ const selectTask = () => {
 
 <template>
   <div class="task task-block" tag="article" @click="selectTask()">
+    <DrawPictogram v-if="preview && (task instanceof PresentialTask)" class="task-block__preview" :layers="task.preview" />
     <p class="task-block__title">{{ task.title }}</p>
-    <p v-if="task.steps" class="task-block__service">{{ task.steps.length }} pasos</p>
+    <p v-if="task.count_steps > 0" class="task-block__service">{{ task.count_steps }} pasos</p>
     <TextToSpeech :text-audio="`${task.title}.\n\n`" />
   </div>
 </template>

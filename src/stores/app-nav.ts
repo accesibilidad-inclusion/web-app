@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import type { Category } from '@/types/category'
 import type { Service } from '@/types/service';
-import type { Venue } from '@/types/venue';
+import type { PresentialVenue } from '@/model/presential_venue';
+import type { OnlineVenue } from '@/model/online_venue';
 import type { Task } from '@/types/task';
 
 export const useAppNavStore = defineStore('appNav',{
@@ -11,7 +12,7 @@ export const useAppNavStore = defineStore('appNav',{
       selected: {
         category: null as Category | null,
         service: null as Service | null,
-        venue: null as Venue | null,
+        venue: null as PresentialVenue | OnlineVenue | null,
         task: null as Task | null,
       },
       onboarding: {
