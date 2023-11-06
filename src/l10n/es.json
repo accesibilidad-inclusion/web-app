@@ -1,0 +1,38 @@
+{
+  "textToSpeech": {
+    "read": "Leer texto",
+    "listen": "Escuchar"
+  },
+  "categoriesList": {
+    "header": {
+      "title": "Facilitamos tu vida en pasos simples",
+      "description": "Encuentra ayuda por categoría"
+    },
+    "list": {
+      "descriptions": {
+        "tramites": "Bancos, Registro Civil, entre otros",
+        "salud": "Hospitales, Cesfam, entre otros",
+        "transporte": "Estación de metro, Terminal de buses, entre otros",
+        "ocio": "Cine, Tiendas comerciales, entre otros"
+      }
+    }
+  },
+  "locationSelector": {
+    "name": "Tu ubicación actual",
+    "change": "Cambiar"
+  },
+  "yourLocation": {
+    "continue": "Continuar",
+    "gpsTitle": "Estamos utilizando <strong>tu ubicacion GPS</strong>",
+    "communeSelectedTitle": "Actualmente estás ubicado en <strong>{communeName}</strong>",
+    "selectACommune": "Seleccionar una comuna",
+    "changeLocation": "Puedes cambiar tu ubicación de dos formas:",
+    "activateGps": "Activando tu GPS",
+    "or": "o",
+    "selectingACommune": "Seleccionando una comuna",
+    "backToMain": "Volver al menú principal",
+    "permissionDeniedTitle": "No podemos acceder a <span class='font-weight-medium'>tu ubicacion GPS</span>",
+    "activatePermissions": "Activa los permisos de ubicación en tu dispositivo",
+    "tryAgain": "Volver a intentarlo"
+  }
+}

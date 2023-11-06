@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Onboarding } from '@/types/onboarding'
+import type {Onboarding} from '@/types/onboarding'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 
 defineProps<{
@@ -14,8 +14,7 @@ defineProps<{
       <h2 class="onboarding-item__title">
         {{ data.title }}
         <TextToSpeech
-          :text-audio="data.title + '.\n\n\n\n\n\n' + data.body.replace(/(<([^>]+)>)/gi, '')"
-        />
+          :text-audio="data.title + '.\n\n\n\n\n\n' + data.body.replace(/(<([^>]+)>)/gi, '')" />
       </h2>
       <p v-html="data.body"></p>
     </div>
@@ -33,8 +32,8 @@ defineProps<{
 }
 .onboarding-item__title {
   font-weight: 700;
-  font-size: var( --font-size--500 );
-  color: var( --color--blue-dark );
+  font-size: var(--font-size--500);
+  color: var(--color--blue-dark);
   margin-bottom: 10px;
 }
 </style>

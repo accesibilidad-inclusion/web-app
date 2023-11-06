@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
 import OnboardingItem from '@/components/OnboardingItem.vue'
-import { useAppNavStore } from '@/stores/app-nav.js'
-import type { Onboarding } from '@/types/onboarding'
+import {useAppNavStore} from '@/stores/app-nav.js'
+import type {Onboarding} from '@/types/onboarding'
 
 const router = useRouter()
 const appNav = useAppNavStore()
@@ -41,15 +41,13 @@ const finishing = () => {
       <button
         class="btn btn--large btn--primary"
         v-if="currentStep < sequence.length - 1"
-        @click="advanceStep"
-      >
+        @click="advanceStep">
         Siguiente
       </button>
       <button
         class="btn btn--large btn--primary"
         v-if="currentStep === sequence.length - 1"
-        @click="finishing"
-      >
+        @click="finishing">
         Finalizar
       </button>
     </footer>
@@ -66,8 +64,8 @@ const finishing = () => {
 }
 .onboarding__footer {
   display: flex;
-  gap: var( --spacer--300 );
-  padding: 0 var( --spacer--400 ) var( --spacer--400 );
+  gap: var(--spacer--300);
+  padding: 0 var(--spacer--400) var(--spacer--400);
   button {
     flex-basis: 50%;
     flex-grow: 1;

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAppDataStore } from '@/stores/app-data'
-import { useAppNavStore } from '@/stores/app-nav.js'
-import { useRouter } from 'vue-router'
-import type { Commune } from '@/types/commune'
+import {ref} from 'vue'
+import {useAppDataStore} from '@/stores/app-data'
+import {useAppNavStore} from '@/stores/app-nav.js'
+import {useRouter} from 'vue-router'
+import type {Commune} from '@/types/commune'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 
 const appData = useAppDataStore()
@@ -74,54 +74,57 @@ const toggle = (id: number) => {
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
           <h2 class="activate-location__title">
-            Estamos utilizando <strong>tu ubicacion GPS</strong>
+            {{ $t('yourLocation.gpsSelected.title') }}
           </h2>
           <button
             class="btn btn--large btn--block btn--primary"
-            @click="router.push(appNav.redirectTo).catch(() => {})"
-          >
-            Continuar
+            @click="router.push(appNav.redirectTo).catch(() => {})">
+            {{ $t('yourLocation.continue') }}
           </button>
           <button class="btn btn--large btn--block btn--as-link" @click="selectCommune()">
-            Seleccionar una comuna
+            {{ $t('yourLocation.selectACommune') }}
           </button>
         </div>
       </template>
       <template v-else-if="permissionDenied">
         <div class="activate-location">
-          <h2 class="activate-location__title">
-            No podemos acceder a <span class="font-weight-medium">tu ubicacion GPS</span>
-          </h2>
+          <h2
+            class="activate-location__title"
+            v-html="$t('yourLocation.permissionDeniedTitle')"></h2>
           <p class="activate-location__description">
-            Activa los permisos de ubicación en tu dispositivo
+            {{ $t('yourLocation.activatePermissions') }}
           </p>
           <button class="btn btn--large btn--block btn--primary" @click="permissionDenied = false">
-            Volver a intentarlo
+            {{ $t('yourLocation.tryAgain') }}
           </button>
-          <span class="activate-location__or">ó</span>
+          <span class="activate-location__or">{{ $t('yourLocation.or') }}</span>
           <button class="btn btn--large btn--block btn--primary" @click="selectCommune()">
-            Seleccionar una comuna
+            {{ $t('yourLocation.selectACommune') }}
           </button>
         </div>
       </template>
       <template v-else-if="communeSelected">
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
-          <h2 class="activate-location__title">
-            Actualmente estás ubicado en <strong>{{ appData.location?.name }}</strong>
-          </h2>
-          <p class="activate-location__description">Puedes cambiar tu ubicación de dos formas:</p>
+          <h2
+            class="activate-location__title"
+            v-html="
+              $t('yourLocation.communeSelectedTitle', {communeName: appData.location?.name})
+            "></h2>
+          <p class="activate-location__description">
+            {{ $t('yourLocation.changeLocation') }}
+          </p>
           <button class="btn btn--large btn--block btn--primary" @click="activateGps()">
-            Activando tu GPS
+            {{ $t('yourLocation.activateGps') }}
           </button>
-          <span class="activate-location__or">ó</span>
+          <span class="activate-location__or">{{ $t('yourLocation.or') }}</span>
           <button class="btn btn--large btn--block btn--primary" @click="selectCommune()">
-            Seleccionando una comuna
+            {{ $t('yourLocation.selectingACommune') }}
           </button>
         </div>
-        <a href="#" class="close-app" @click="router.push('/inicio').catch(() => {})"
-          >Volver al menú principal</a
-        >
+        <a href="#" class="close-app" @click="router.push('/inicio').catch(() => {})">{{
+          $t('yourLocation.backToMain')
+        }}</a>
       </template>
       <template v-else>
         <div class="activate-location">
@@ -150,8 +153,7 @@ const toggle = (id: number) => {
             v-model="query"
             class="main-search__input"
             type="search"
-            placeholder="Ejemplo: Viña del mar"
-          />
+            placeholder="Ejemplo: Viña del mar" />
           <button type="button" class="main-search__button">
             <icon-search />
           </button>
@@ -165,8 +167,7 @@ const toggle = (id: number) => {
                 .length
             "
             :key="region.id"
-            :class="query.trim() !== '' || expandRegions.includes(region.id) ? 'place-active' : ''"
-          >
+            :class="query.trim() !== '' || expandRegions.includes(region.id) ? 'place-active' : ''">
             <a class="place-block entry-block name-place" tag="article" @click="toggle(region.id)">
               <h2 class="place-block__name entry-block__name">{{ region.name }}</h2>
               <chevron-up v-if="query.trim() !== '' || expandRegions.includes(region.id)" />
@@ -177,13 +178,11 @@ const toggle = (id: number) => {
                 <div
                   v-if="comm.name.toLowerCase().includes(query.toLowerCase())"
                   :key="comm.id"
-                  :class="{ 'selected-commune': commune && commune.id === comm.id }"
-                >
+                  :class="{'selected-commune': commune && commune.id === comm.id}">
                   <a
                     class="place-block entry-block name-commune"
                     tag="article"
-                    @click="setCommune(comm)"
-                  >
+                    @click="setCommune(comm)">
                     <TextToSpeech :text-audio="comm.name" />
                     {{ comm.name }}
                   </a>
@@ -198,8 +197,7 @@ const toggle = (id: number) => {
               (r) =>
                 r.communes.filter((c) => c.name.toLowerCase().includes(query.toLowerCase())).length
             ).length
-          "
-        >
+          ">
           <div class="no-results-commune">
             <icon-no-results class="no-results-commune__icon" />
             <h2 class="no-results-commune__title">No se han encontrado comunas con ese nombre</h2>
@@ -217,8 +215,7 @@ const toggle = (id: number) => {
         <button
           class="btn btn--large btn--block btn--primary"
           :disabled="!commune"
-          @click="confirmCommune()"
-        >
+          @click="confirmCommune()">
           Listo
         </button>
       </footer>
@@ -226,11 +223,11 @@ const toggle = (id: number) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/rfs.scss';
 
 .your-location {
-  border-radius: 0;
+  border-radius: var(--spacer--500);
   div {
     display: initial;
     width: auto;
@@ -334,6 +331,7 @@ const toggle = (id: number) => {
   position: relative;
   z-index: 1050;
   margin-top: -39px;
+  background: var(--color--skyblue);
   @media screen and (min-width: 640px) {
     margin-top: -63px;
   }
@@ -341,19 +339,31 @@ const toggle = (id: number) => {
     margin-top: -68px;
   }
   .service__header {
-    padding-top: calc(var(--spacer-lg) + var(--spacer-xs));
-    @media screen and (min-width: 640px) {
-      padding-top: calc(var(--spacer-xl) + var(--spacer-xs));
-    }
-    @media screen and (min-width: 1280px) {
-      padding-top: calc(var(--spacer-xl) + var(--spacer-xs));
-    }
+    padding: var(--spacer--500) var(--spacer--500) var(--spacer--400);
+    // padding-top: calc(var(--spacer-lg) + var(--spacer-xs));
+    // @media screen and (min-width: 640px) {
+    //   padding-top: calc(var(--spacer-xl) + var(--spacer-xs));
+    // }
+    // @media screen and (min-width: 1280px) {
+    //   padding-top: calc(var(--spacer-xl) + var(--spacer-xs));
+    // }
     .entries-list__title {
       text-align: left;
       margin-bottom: calc(var(--spacer-lg) / 3);
+      font-size: var(--font-size--800);
+      color: var(--color--blue-dark);
+      font-weight: 800;
     }
   }
 }
+
+.main-search__input {
+  width: 100%;
+  padding: var(--spacer--400);
+  border: 1px solid var(--color--blue-dark);
+  border-radius: var(--spacer--500);
+}
+
 .footer-communes {
   position: fixed;
   width: 100%;
@@ -389,8 +399,7 @@ const toggle = (id: number) => {
   }
 }
 .service__items.places {
-  margin-bottom: calc(var(--spacer-lg) * 2);
-
+  margin: var(--spacer--500) var(--spacer--400);
   & > div {
     padding-bottom: var(--spacer);
     border-bottom: 1px solid #a0b6cb;

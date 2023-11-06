@@ -3,10 +3,7 @@ import { useRouter } from 'vue-router'
 import { Category } from '@/model/category'
 import { useAppDataStore } from '@/stores/app-data'
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import IconFormalities from '@/assets/img/app-icons/formalities.svg?component'
-import IconHealth from '@/assets/img/app-icons/health.svg?component'
-import IconTransport from '@/assets/img/app-icons/transport.svg?component'
-import IconLeisure from '@/assets/img/app-icons/leisure.svg?component'
+import CategoryIcon from './CategoryIcon.vue'
 
 const appData = useAppDataStore()
 const router = useRouter()
@@ -19,34 +16,34 @@ const setCategory = (category: Category) => {
 <template>
   <section class="main-categories container">
     <div class="main-categories__header">
-      <h2 class="main-categories__title">Facilitamos tu vida en pasos simples</h2>
-      <p class="main-categories__description">Encuentra ayuda por categoría</p>
+      <h2 class="main-categories__title">{{ $t('categoriesList.header.title') }}</h2>
+      <p class="main-categories__description">{{ $t('categoriesList.header.description') }}</p>
       <TextToSpeech
-        :text-audio="'Facilitamos tu vida en pasos simples. Encuentra ayuda por categoría'"
-      />
+        :text-audio="
+          $t('categoriesList.header.title') + '. ' + $t('categoriesList.header.description')
+        " />
     </div>
     <ul class="main-categories__list">
       <li class="category" v-for="category in appData.categories" :key="category.id">
         <a @click="setCategory(category)">
-          <span class="category__icon">
-            <IconTransport v-if="category.slug == 'transporte'" />
-            <IconHealth v-if="category.slug == 'salud'" />
-            <IconLeisure v-if="category.slug == 'ocio'" />
-            <IconFormalities v-if="category.slug == 'tramites'" />
-          </span>
+          <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
           <h3 class="category__name">
             {{ category.name }}
           </h3>
           <div class="category__description">
-            {{ category.description }}
+            {{ $t('categoriesList.list.descriptions.' + category.slug) }}
           </div>
         </a>
       </li>
     </ul>
   </section>
 </template>
-
-<style lang="scss">
+<stlye lang="scss">
+#app-wrap {
+  background: var(--color--skyblue);
+}
+</stlye>
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 // .your-location {
 //   display: flex;
@@ -86,12 +83,8 @@ const setCategory = (category: Category) => {
 //     }
 //   }
 // }
-
-#app-wrap {
-  background: var(--color--skyblue);
-}
 .main-categories {
-  padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
+  padding: var(--spacer--700) var(--spacer--400) var(--spacer--500);
   position: relative;
   .tts {
     float: none;
@@ -139,14 +132,6 @@ const setCategory = (category: Category) => {
 }
 .category__icon {
   grid-area: icon;
-  background: var(--color--yellow);
-  border: 1px solid var(--color--blue);
-  border-radius: var(--spacer--300);
-  width: 55px;
-  height: 55px;
-  display: grid;
-  align-items: center;
-  justify-content: center;
 }
 .category__name {
   grid-area: name;
