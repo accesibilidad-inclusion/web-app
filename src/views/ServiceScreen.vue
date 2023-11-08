@@ -95,8 +95,7 @@ onBeforeMount(() => {
             <a class="venue-block entry-block" tag="article" @click="setVenue(venue_online)">
               <text-to-speech :text-audio="venue_online.name" />
               <h2 class="venue-block__name entry-block__name">{{ venue_online.name }}</h2>
-              <!-- <p class="venue-block__distance">{{ venue_online.url }}</p> -->
-              <p class="venue-block__distance">http://www.ejemplo.cl</p>
+              <p class="venue-block__distance">{{ venue_online.url }}</p>
               <div
                 v-if="venue_online.evaluation && venue_online.show_evaluation"
                 class="venue-block__evaluation"

@@ -2,23 +2,20 @@
 import { reactive, onBeforeMount, ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
+import DrawPictogram from '@/components/DrawPictogram.vue'
+import ImageFocus from '@/components/ImageFocus.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import { useAppDataStore } from '@/stores/app-data'
 import { useAppNavStore } from '@/stores/app-nav'
-import { useAppSessionStore } from '@/stores/app-session'
 import { Service } from '@/model/service.js'
 import { PresentialVenue } from '@/model/presential_venue.js'
 import { OnlineVenue } from '@/model/online_venue.js'
 import { PresentialTask } from '@/model/presential_task'
 import { OnlineTask } from '@/model/online_task'
 
-
 const router = useRouter()
 const route = useRoute()
 
-const appData = useAppDataStore()
 const appNav = useAppNavStore()
-const appSession = useAppSessionStore()
 
 const type = ref<'online'|'presential'>();
 
@@ -181,28 +178,45 @@ onBeforeMount(() => {
       </template>
       <template v-else>
         <main class="task__main">
-          <!-- <ol v-touch:swipe.left="advanceStep"
+          <ol v-touch:swipe.left="advanceStep"
             v-touch:swipe.right="rewindStep"
             class="task__steps"
-            :class="!steps.filter( s => s.pictogram ).length ? 'task-steps--without-pictogram' : ''"
+            :class="!task.steps.filter( s => s.pictogram ).length ? 'task-steps--without-pictogram' : ''"
           >
-            <li v-for="(step, index) in steps"
+            <li v-for="(step, index) in task.steps"
               :key="step.id"
               :step="step"
               :class="'task-step'+ ( index === state.active_step ?
               ' task-step--active' : '')"
             >
-              <figure class="task-step__figure" :class="{'task-step__figure--without-pictogram' : !step.pictogram || !step.pictogram.images.filter( i => i.layout <= 3).length}">
-                <div v-if="step.pictogram && step.pictogram.images.filter( i => i.layout <= 3).length" class="step-canvas">
-                  <pictogram :layers="step.pictogram.images.filter( i => i.layout <= 3)"></pictogram>
+            <figure v-if="(task instanceof PresentialTask)" class="task-step__figure" :class="{'task-step__figure--without-pictogram' : !step.pictogram || !step.pictogram.images.filter( (i: any) => i.layout <= 3).length}">
+                <div v-if="step.pictogram && step.pictogram.images.filter( (i: any) => i.layout <= 3).length" class="step-canvas">
+                  <DrawPictogram :layers="step.pictogram.images.filter( (i: any) => i.layout <= 3)" />
                 </div>
+                <div>Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
                 <figcaption class="task-step__legend">
                   <div class="task-step__legend-text">
-                    <span v-if="step.pictogram && step.pictogram.images.find( i => i.layout == 4)">
-                      <img :src="`${step.pictogram.images.find( i => i.layout == 4).path}${step.pictogram.images.find( i => i.layout == 4).filename}`" class="pictogram__layer--action">
+                    <span v-if="step.pictogram && step.pictogram.images.find( (i: any) => i.layout == 4)">
+                      <img :src="`${step.pictogram.images.find( (i: any) => i.layout == 4)?.path}${step.pictogram.images.find( (i: any) => i.layout == 4)?.filename}`" class="pictogram__layer--action">
                     </span>
                     {{ step.label }}
                   </div>
+                  <text-to-speech :text-audio="step.label" />
+                </figcaption>
+              </figure>
+              <figure v-if="(task instanceof OnlineTask)" class="task-step__figure" :class="{'task-step__figure--without-pictogram' : !step.image }">
+                <div v-if="step.screenshot">
+                  <ImageFocus :image="step.screenshot" :focus-size="step.focus_size" :focus-x="step.focus_x" :focus-y="step.focus_y" />
+                </div>
+                <div>Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
+                <figcaption class="task-step__legend">
+                  <div class="task-step__legend-text">
+                    <span v-if="step.image">
+                      <img :src="`${step.image.path}${step.image.filename}`" class="pictogram__layer--action">
+                    </span>
+                    {{ step.label }}
+                  </div>
+                  <div v-html="step.details"></div>
                   <text-to-speech :text-audio="step.label" />
                 </figcaption>
               </figure>
@@ -217,10 +231,10 @@ onBeforeMount(() => {
                   <icon-dislike class="task-helpful__answer__icon--like"></icon-dislike>
                 </button>
               </div>
-              <template v-if="steps.length && !steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length">
+              <template v-if="task.steps.length && !task.steps.filter( s => s.pictogram && s.pictogram.images.filter( (i: any) => i.layout <= 3).length ).length">
                 <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
                 <router-link
-                  :to="$store.state.tutorial.pictogram ? '/nuevo-apoyo/intro' : '/nuevo-apoyo/' + steps[0].id"
+                  :to="appNav.onboarding.pictogram ? '/nuevo-apoyo/intro' : '/nuevo-apoyo/' + task.steps[0].id"
                   class="btn btn--large btn--block btn--ghost"
                 >
                   Crear el apoyo gráfico
@@ -228,7 +242,7 @@ onBeforeMount(() => {
               </template>
               <template v-else>
                 <router-link
-                  :to="{ name: 'place-single', params: { 'placeId': venue.id } }"
+                  :to="{ name: 'venue-screen', params: { 'placeId': venue.id } }"
                   class="btn btn--large btn--block btn--ghost"
                 >
                   Volver a {{ venue.name }}
@@ -236,7 +250,7 @@ onBeforeMount(() => {
               </template>
               <button :class="'btn--as-link' + ( state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden' )" @click="openFeedback">Reportar un problema</button>
             </li>
-          </ol> -->
+          </ol>
           <div v-if="!task.steps.filter( s => s.label ).length" :class="'task-empty'
               + ( state.active_step < 0 ? '' : ' task-step--active')">
             <icon-no-information class="task-empty__icon" />
@@ -255,16 +269,6 @@ onBeforeMount(() => {
               @click="advanceStep">
               Siguiente
             </button>
-            <ol class="task__steps-indicator">
-              <li v-for="(step, index) in task.steps" :key="step.id" :step="step"
-                :class="state.active_step >= index ?
-                  'task__step-indicator--active' : 'task__step-indicator'">
-                {{ index }}
-              </li>
-              <li :class="state.active_helpful ? 'task__step-indicator--active' : 'task__step-indicator'">
-                {{ task.steps.length }}
-              </li>
-            </ol>
           </div>
           <!-- <div v-if="!steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length" :class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
             <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>

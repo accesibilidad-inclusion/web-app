@@ -11,7 +11,6 @@ import { Service } from '@/model/service'
 import { PresentialVenue } from '@/model/presential_venue.js'
 import { OnlineVenue } from '@/model/online_venue.js'
 import { PresentialTask } from '@/model/presential_task'
-import { OnlineTask } from '@/model/online_task'
 
 
 const router = useRouter()

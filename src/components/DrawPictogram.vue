@@ -1,8 +1,8 @@
 <script setup lang="ts">
-
+import type { Image } from '@/model/image';
 
 const props = defineProps<{
-  layers: Array<{path:string; filename:string; layout:number;}>
+  layers: Array<Image>
 }>()
 
 const images = props.layers.filter( (l: any) => l.layout !== 4 );
