@@ -29,6 +29,12 @@ const router = createRouter({
       meta: { title: 'Busca ayudas para realizar tareas', hideNav: true }
     },
     {
+      path: '/busqueda/',
+      name: 'search-results-screen',
+      component: () => import('../views/SearchResultsScreen.vue'),
+      meta: { title: 'Resultados de tu búsqueda' },
+    },
+    {
       path: '/:categorySlug/',
       name: 'category-screen',
       component: () => import('../views/CategoryScreen.vue'),

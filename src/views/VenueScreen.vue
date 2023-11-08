@@ -22,7 +22,6 @@ const appSession = useAppSessionStore()
 
 const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
-// const tasks = ref<Array<PresentialTask | OnlineTask>>([])
 const type = ref<'online'|'presential'>();
 const loading = ref(true)
 
