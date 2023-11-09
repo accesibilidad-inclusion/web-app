@@ -16,7 +16,7 @@ const doSearch = () => {
     return
   }
   router.push({
-    path: 'buscar',
+    path: 'busqueda',
     query: {
       s: query.value,
       t: filterSelected.value

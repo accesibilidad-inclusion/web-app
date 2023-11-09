@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import { onBeforeMount, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import LocationSelector from '@/components/LocationSelector.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import CategoryIcon from '@/components/CategoryIcon.vue'
-import LocationSelector from '@/components/LocationSelector.vue'
-import type {Service} from '@/types/service'
+// import type {Service} from '@/types/service'
+import { Service } from '@/model/service';
 import PresentialPlaceIcon from '@/assets/img/app-icons/support/lugar.svg?component'
 import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
-import {onBeforeMount, ref} from 'vue'
-import {useRouter, useRoute} from 'vue-router'
 import {useAppDataStore} from '@/stores/app-data.js'
 import {useAppNavStore} from '@/stores/app-nav.js'
-import type {Category} from '@/types/category'
+// import type {Category} from '@/types/category'
+import { Category } from '@/model/category';
 
 const router = useRouter()
 const route = useRoute()
@@ -40,13 +42,14 @@ onBeforeMount(() => {
     })
       .then(async (response) => {
         const data = await response.json()
-        services.value = data.services
-        category.value = data.category
+        services.value = data.services.map((s: Service) => new Service(s))
+        category.value = new Category(data.category)
         appNav.selected.category = data.category
         document.title = `Servicios de ${data.category.name} | Pictos`
         loading.value = false
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 404) {
           router.push('/')
         }
@@ -73,7 +76,7 @@ onBeforeMount(() => {
         <p class="category__description entries-list__description">
           {{ $t('servicesByCategory.servicesNear') }}
         </p>
-        <LocationSelector></LocationSelector>
+        <LocationSelector :dense="true" />
         <text-to-speech
           :text-audio="category.name + '.\n\n ' + $t('servicesByCategory.servicesNear')" />
       </header>
@@ -82,8 +85,11 @@ onBeforeMount(() => {
           <a
             class="category__item category__item--service service-block entry-block"
             tag="article"
-            @click="setService(service)">
+            @click="setService(service)"
+          >
             <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
+            <div v-if="service.count_presential > 0">{{ service.count_presential }} lugar<span v-if="service.count_presential > 1">es</span> presencial<span v-if="service.count_presential > 1">es</span></div>
+            <div v-if="service.count_online > 0">{{ service.count_online }} lugar<span v-if="service.count_online > 1">es</span> en internet</div>
             <text-to-speech :text-audio="`${service.name}`" />
             <span class="category__meta">
               <span class="category__meta-data"

@@ -14,29 +14,45 @@ const router = createRouter({
     },
     {
       path: '/inicio',
-      name: 'home',
+      name: 'home-screen',
       component: () => import('../views/HomeScreen.vue')
     },
     {
       path: '/tu-ubicacion',
-      name: 'your-location',
-      component: () => import('../views/YourLocation.vue')
+      name: 'location-screen',
+      component: () => import('../views/LocationScreen.vue')
     },
     {
       path: '/bienvenida',
-      name: 'welcome-onboarding',
-      component: () => import('../views/WelcomeOnboarding.vue'),
+      name: 'welcome-screen',
+      component: () => import('../views/WelcomeScreen.vue'),
       meta: { title: 'Busca ayudas para realizar tareas', hideNav: true }
     },
     {
+      path: '/busqueda/',
+      name: 'search-results-screen',
+      component: () => import('../views/SearchResultsScreen.vue'),
+      meta: { title: 'Resultados de tu búsqueda' },
+    },
+    {
       path: '/:categorySlug/',
-      name: 'services-by-category',
-      component: () => import('../views/ServicesByCategory.vue'),
+      name: 'category-screen',
+      component: () => import('../views/CategoryScreen.vue'),
     },
     {
       path: '/:categorySlug/:serviceSlug/',
-      name: 'venues-by-service',
-      component: () => import('../views/VenuesByService.vue'),
+      name: 'service-screen',
+      component: () => import('../views/ServiceScreen.vue'),
+    },
+    {
+      path: '/:categorySlug/:serviceSlug/:venueSlug/',
+      name: 'venue-screen',
+      component: () => import('../views/VenueScreen.vue'),
+    },
+    {
+      path: '/:categorySlug/:serviceSlug/:venueSlug/:taskSlug/',
+      name: 'task-screen',
+      component: () => import('../views/TaskScreen.vue'),
     },
   ]
 })

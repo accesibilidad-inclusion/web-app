@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@fontsource-variable/open-sans": "^5.0.16",
+    "pictos": "github:accesibilidad-inclusion/pictogramas#qa",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.2.0",
     "rfs": "^10.0.0",
