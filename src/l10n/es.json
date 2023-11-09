@@ -34,5 +34,10 @@
     "permissionDeniedTitle": "No podemos acceder a <span class='font-weight-medium'>tu ubicacion GPS</span>",
     "activatePermissions": "Activa los permisos de ubicación en tu dispositivo",
     "tryAgain": "Volver a intentarlo"
+  },
+  "servicesByCategory": {
+    "servicesNear": "Servicios cercanos a",
+    "cantFind": "¿No encuentras el lugar? ¡Agrégalo!",
+    "addNew": "+ Agregar un lugar nuevo"
   }
 }
