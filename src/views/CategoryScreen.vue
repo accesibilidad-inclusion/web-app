@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-
 import LocationSelector from '@/components/LocationSelector.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import CategoryIcon from '@/components/CategoryIcon.vue'
-import { Service } from '@/model/service'
-import { Category } from '@/model/category'
-import { useAppDataStore } from '@/stores/app-data.js'
-import { useAppNavStore } from '@/stores/app-nav.js'
+// import type {Service} from '@/types/service'
+import { Service } from '@/model/service';
+import PresentialPlaceIcon from '@/assets/img/app-icons/support/lugar.svg?component'
+import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
+import {useAppDataStore} from '@/stores/app-data.js'
+import {useAppNavStore} from '@/stores/app-nav.js'
+// import type {Category} from '@/types/category'
+import { Category } from '@/model/category';
 
 const router = useRouter()
 const route = useRoute()
@@ -46,6 +49,7 @@ onBeforeMount(() => {
         loading.value = false
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 404) {
           router.push('/')
         }
@@ -70,14 +74,11 @@ onBeforeMount(() => {
         <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
         <h1 class="category__title entries-list__title">{{ category.name }}</h1>
         <p class="category__description entries-list__description">
-          Servicios cercanos a
-          <LocationSelector :dense="true" />
+          {{ $t('servicesByCategory.servicesNear') }}
         </p>
+        <LocationSelector :dense="true" />
         <text-to-speech
-          :text-audio="
-            category.name + '.\n\n Servicios cercanos a ' + appData.location?.name ?? 'tu ubicación actual'
-          "
-        />
+          :text-audio="category.name + '.\n\n ' + $t('servicesByCategory.servicesNear')" />
       </header>
       <main class="category__items category__items--services">
         <template v-for="service in services" :key="service.id">
@@ -90,19 +91,26 @@ onBeforeMount(() => {
             <div v-if="service.count_presential > 0">{{ service.count_presential }} lugar<span v-if="service.count_presential > 1">es</span> presencial<span v-if="service.count_presential > 1">es</span></div>
             <div v-if="service.count_online > 0">{{ service.count_online }} lugar<span v-if="service.count_online > 1">es</span> en internet</div>
             <text-to-speech :text-audio="`${service.name}`" />
+            <span class="category__meta">
+              <span class="category__meta-data"
+                ><PresentialPlaceIcon></PresentialPlaceIcon> 10 lugares presenciales
+              </span>
+              <span class="category__meta-data"
+                ><InternetPlaceIcon></InternetPlaceIcon> 4 lugares en internet
+              </span>
+            </span>
           </a>
         </template>
       </main>
       <aside class="actions actions--category">
+        <text-to-speech :text-audio="$t('servicesByCategory.cantFind')" />
         <p class="actions__title">
-          ¿No encuentras el lugar que estás buscando?
-          <text-to-speech
-            :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
+          {{ $t('servicesByCategory.cantFind') }}
         </p>
         <router-link
           :to="appNav.onboarding.venue ? '/nuevo-lugar/intro' : '/nuevo-lugar'"
           class="btn btn--primary btn--large btn--block">
-          &plus; Agregar un lugar nuevo
+          {{ $t('servicesByCategory.addNew') }}
         </router-link>
       </aside>
     </template>
@@ -199,54 +207,112 @@ onBeforeMount(() => {
 .category__items {
   flex-grow: 1;
 }
-.entry-block {
+// .entry-block {
+// display: grid;
+// grid-template-columns: auto 1fr auto;
+// align-items: center;
+// justify-content: flex-start;
+// gap: 0 var(--spacer-sm);
+// padding: var(--spacer);
+// color: var(--color-brand-darkest);
+// border-bottom: 1px solid var(--color-brand-light);
+// transition: all 0.15s linear;
+
+// @media screen and (min-width: 640px) {
+//   padding: 1.75rem var(--spacer-lg);
+// }
+// @media screen and (min-width: 1280px) {
+//   padding-left: var(--spacer-xl);
+//   padding-right: var(--spacer-xl);
+// }
+// }
+.category__items {
+  margin: calc(var(--spacer--700) * 0.5) var(--spacer--400);
+}
+.category__item {
   cursor: pointer;
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0 var(--spacer-sm);
-  padding: var(--spacer);
-  color: var(--color-brand-darkest);
-  border-bottom: 1px solid var(--color-brand-light);
-  transition: all 0.15s linear;
+  border: 1px solid var(--color--blue);
+  background: var(--color--white);
+  padding: var(--spacer--400) var(--spacer--500);
+  position: relative;
+  border-radius: var(--spacer--500);
+  margin-top: var(--spacer--300);
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'title tts' 'meta meta';
+  gap: var(--spacer--300);
   &:hover {
     cursor: pointer;
     background: var(--color-brand-lightest);
   }
-  @media screen and (min-width: 640px) {
-    padding: 1.75rem var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
-  }
 }
-.entry-block__name {
-  @include rfs($font-size-16);
-  line-height: 1.375;
+.service-block__name {
+  font-size: var(--font-size--500);
+  line-height: 1.25;
+  color: var(--color--blue-dark);
+  grid-area: title;
 }
-.service-block__icon {
+.category__meta {
+  grid-area: meta;
+  line-height: 1.2;
+  font-size: var(--font-size--400);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  line-height: 1;
+  flex-flow: column;
+  gap: var(--spacer--200);
+}
+.category__meta,
+.category__meta-data {
+  color: var(--color--blue-gray);
+  font-weight: 600;
+}
+.tts {
+  grid-area: tts;
+}
+.category__meta-data {
+  display: block;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacer--200);
+}
+.category__meta-data :deep(svg) {
+  // position: relative;
+  // top: 2px;
+}
+.category__meta-data :deep(path) {
+  fill: var(--color--blue-gray);
+}
+// .entry-block__name {
+//   @include rfs($font-size-16);
+//   line-height: 1.375;
+// }
+// .service-block__icon {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 1.25rem;
+//   height: 1.25rem;
+//   line-height: 1;
+//   text-align: center;
+//   border-radius: 50%;
+//   background: var(--color-brand-darkest);
+//   svg {
+//     width: 0.7rem;
+//     height: 0.7rem;
+//     path {
+//       fill: #fff;
+//     }
+//   }
+// }
+.actions--category {
+  display: flex;
+  flex-flow: column;
+  gap: var(--spacer--300);
   text-align: center;
-  border-radius: 50%;
-  background: var(--color-brand-darkest);
-  svg {
-    width: 0.7rem;
-    height: 0.7rem;
-    path {
-      fill: #fff;
-    }
+  .btn {
+    margin: var(--spacer--200) 0 var(--spacer--500);
   }
 }
 .actions--category .actions__title {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-gap: var(--spacer);
+  margin: 0;
 }
 </style>
