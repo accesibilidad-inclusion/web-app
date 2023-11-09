@@ -1,12 +1,12 @@
 <script setup lang="ts">
-defineProps({
-  category: String
-})
-
 import IconFormalities from '@/assets/img/app-icons/categories/tramites.svg?component'
 import IconHealth from '@/assets/img/app-icons/categories/salud.svg?component'
 import IconTransport from '@/assets/img/app-icons/categories/transporte.svg?component'
 import IconLeisure from '@/assets/img/app-icons/categories/ocio.svg?component'
+
+defineProps({
+  category: String
+})
 </script>
 
 <template>

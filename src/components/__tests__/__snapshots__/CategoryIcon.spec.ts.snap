@@ -1,0 +1,1744 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CategoryIcon > renders properly 1`] = `
+VueWrapper {
+  "__app": {
+    "_component": {
+      "name": "VTU_ROOT",
+      "render": [Function],
+      "setup": [Function],
+    },
+    "_container": <div
+      data-v-app=""
+    >
+      <span
+        class="category-icon"
+        data-v-ea6412a9=""
+      >
+        <svg
+          class="category__icon"
+          data-v-ea6412a9=""
+          fill="none"
+          height="27"
+          width="27"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+            fill="#CAE0FF"
+          />
+          <path
+            d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+            fill="#004079"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+            fill="#004079"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </span>
+    </div>,
+    "_context": {
+      "app": [Circular],
+      "components": {
+        "transition": {
+          "name": "transition",
+        },
+        "transition-group": {
+          "name": "transition-group",
+        },
+      },
+      "config": {
+        "compilerOptions": {},
+        "errorHandler": undefined,
+        "globalProperties": {},
+        "isNativeTag": [Function],
+        "optionMergeStrategies": {},
+        "performance": false,
+        "warnHandler": undefined,
+      },
+      "directives": {},
+      "emitsCache": WeakMap {},
+      "mixins": [
+        {
+          "beforeCreate": [Function],
+        },
+      ],
+      "optionsCache": WeakMap {},
+      "propsCache": WeakMap {},
+      "provides": {},
+      "reload": [Function],
+    },
+    "_instance": {
+      "a": null,
+      "accessCache": {},
+      "appContext": {
+        "app": [Circular],
+        "components": {
+          "transition": {
+            "name": "transition",
+          },
+          "transition-group": {
+            "name": "transition-group",
+          },
+        },
+        "config": {
+          "compilerOptions": {},
+          "errorHandler": undefined,
+          "globalProperties": {},
+          "isNativeTag": [Function],
+          "optionMergeStrategies": {},
+          "performance": false,
+          "warnHandler": undefined,
+        },
+        "directives": {},
+        "emitsCache": WeakMap {},
+        "mixins": [
+          {
+            "beforeCreate": [Function],
+          },
+        ],
+        "optionsCache": WeakMap {},
+        "propsCache": WeakMap {},
+        "provides": {},
+        "reload": [Function],
+      },
+      "asyncDep": null,
+      "asyncResolved": false,
+      "attrs": {},
+      "attrsProxy": null,
+      "bc": null,
+      "bm": null,
+      "bu": null,
+      "bum": null,
+      "c": null,
+      "components": null,
+      "ctx": {
+        "VTU_COMPONENT": {},
+      },
+      "da": null,
+      "data": {},
+      "devtoolsRawSetupState": {
+        "VTU_COMPONENT": RefImpl {
+          "__v_isRef": true,
+          "__v_isShallow": false,
+          "_rawValue": {},
+          "_value": {},
+          "dep": undefined,
+        },
+      },
+      "directives": null,
+      "ec": null,
+      "effect": ReactiveEffect {
+        "active": true,
+        "allowRecurse": true,
+        "deps": [
+          Set {
+            [Circular],
+          },
+          Set {
+            [Circular],
+          },
+          Set {
+            [Circular],
+          },
+          Set {
+            [Circular],
+          },
+        ],
+        "fn": [Function],
+        "onTrack": undefined,
+        "onTrigger": undefined,
+        "parent": undefined,
+        "scheduler": [Function],
+      },
+      "emit": [Function],
+      "emitsOptions": null,
+      "emitted": null,
+      "exposeProxy": null,
+      "exposed": null,
+      "inheritAttrs": undefined,
+      "isDeactivated": false,
+      "isMounted": true,
+      "isUnmounted": false,
+      "m": null,
+      "next": null,
+      "parent": null,
+      "props": {},
+      "propsDefaults": {},
+      "propsOptions": [
+        {},
+        [],
+      ],
+      "provides": {},
+      "proxy": {
+        "VTU_COMPONENT": {},
+      },
+      "refs": {
+        "VTU_COMPONENT": {},
+      },
+      "render": [Function],
+      "renderCache": [],
+      "root": [Circular],
+      "rtc": null,
+      "rtg": null,
+      "scope": EffectScope {
+        "_active": true,
+        "cleanups": [],
+        "detached": true,
+        "effects": [
+          ReactiveEffect {
+            "active": true,
+            "allowRecurse": true,
+            "deps": [
+              Set {
+                [Circular],
+              },
+              Set {
+                [Circular],
+              },
+              Set {
+                [Circular],
+              },
+              Set {
+                [Circular],
+              },
+            ],
+            "fn": [Function],
+            "onTrack": undefined,
+            "onTrigger": undefined,
+            "parent": undefined,
+            "scheduler": [Function],
+          },
+        ],
+        "parent": undefined,
+      },
+      "setupContext": null,
+      "setupState": {
+        "VTU_COMPONENT": {},
+      },
+      "slots": {},
+      "slotsProxy": null,
+      "sp": null,
+      "subTree": {
+        "__v_isVNode": true,
+        "__v_skip": true,
+        "anchor": null,
+        "appContext": null,
+        "children": null,
+        "component": {
+          "a": null,
+          "accessCache": {},
+          "appContext": {
+            "app": [Circular],
+            "components": {
+              "transition": {
+                "name": "transition",
+              },
+              "transition-group": {
+                "name": "transition-group",
+              },
+            },
+            "config": {
+              "compilerOptions": {},
+              "errorHandler": undefined,
+              "globalProperties": {},
+              "isNativeTag": [Function],
+              "optionMergeStrategies": {},
+              "performance": false,
+              "warnHandler": undefined,
+            },
+            "directives": {},
+            "emitsCache": WeakMap {},
+            "mixins": [
+              {
+                "beforeCreate": [Function],
+              },
+            ],
+            "optionsCache": WeakMap {},
+            "propsCache": WeakMap {},
+            "provides": {},
+            "reload": [Function],
+          },
+          "asyncDep": null,
+          "asyncResolved": false,
+          "attrs": {},
+          "attrsProxy": null,
+          "bc": null,
+          "bm": null,
+          "bu": null,
+          "bum": null,
+          "c": null,
+          "components": {},
+          "ctx": {
+            "category": "transporte",
+          },
+          "da": null,
+          "data": {},
+          "devtoolsRawSetupState": {
+            "IconFormalities": {
+              "render": [Function],
+            },
+            "IconHealth": {
+              "render": [Function],
+            },
+            "IconLeisure": {
+              "render": [Function],
+            },
+            "IconTransport": {
+              "render": [Function],
+            },
+          },
+          "directives": null,
+          "ec": null,
+          "effect": ReactiveEffect {
+            "active": true,
+            "allowRecurse": true,
+            "deps": [
+              Set {
+                [Circular],
+              },
+            ],
+            "fn": [Function],
+            "onTrack": undefined,
+            "onTrigger": undefined,
+            "parent": undefined,
+            "scheduler": [Function],
+          },
+          "emit": [Function],
+          "emitsOptions": null,
+          "emitted": null,
+          "exposeProxy": {},
+          "exposed": {},
+          "inheritAttrs": undefined,
+          "isDeactivated": false,
+          "isMounted": true,
+          "isUnmounted": false,
+          "m": null,
+          "next": null,
+          "parent": [Circular],
+          "props": {
+            "category": "transporte",
+          },
+          "propsDefaults": {},
+          "propsOptions": [
+            {
+              "category": {
+                "0": false,
+                "1": true,
+                "type": [Function],
+              },
+            },
+            [],
+          ],
+          "provides": {},
+          "proxy": {
+            "category": "transporte",
+          },
+          "refs": {},
+          "render": [Function],
+          "renderCache": [],
+          "root": [Circular],
+          "rtc": null,
+          "rtg": null,
+          "scope": EffectScope {
+            "_active": true,
+            "cleanups": [],
+            "detached": true,
+            "effects": [
+              ReactiveEffect {
+                "active": true,
+                "allowRecurse": true,
+                "deps": [
+                  Set {
+                    [Circular],
+                  },
+                ],
+                "fn": [Function],
+                "onTrack": undefined,
+                "onTrigger": undefined,
+                "parent": undefined,
+                "scheduler": [Function],
+              },
+            ],
+            "parent": undefined,
+          },
+          "setupContext": {
+            "attrs": {},
+            "emit": [Function],
+            "expose": [Function],
+            "slots": {},
+          },
+          "setupState": {
+            "IconFormalities": {
+              "render": [Function],
+            },
+            "IconHealth": {
+              "render": [Function],
+            },
+            "IconLeisure": {
+              "render": [Function],
+            },
+            "IconTransport": {
+              "render": [Function],
+            },
+          },
+          "slots": {},
+          "slotsProxy": {},
+          "sp": null,
+          "subTree": {
+            "__v_isVNode": true,
+            "__v_skip": true,
+            "anchor": null,
+            "appContext": null,
+            "children": [
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": null,
+                "component": {
+                  "a": null,
+                  "accessCache": {},
+                  "appContext": {
+                    "app": [Circular],
+                    "components": {
+                      "transition": {
+                        "name": "transition",
+                      },
+                      "transition-group": {
+                        "name": "transition-group",
+                      },
+                    },
+                    "config": {
+                      "compilerOptions": {},
+                      "errorHandler": undefined,
+                      "globalProperties": {},
+                      "isNativeTag": [Function],
+                      "optionMergeStrategies": {},
+                      "performance": false,
+                      "warnHandler": undefined,
+                    },
+                    "directives": {},
+                    "emitsCache": WeakMap {},
+                    "mixins": [
+                      {
+                        "beforeCreate": [Function],
+                      },
+                    ],
+                    "optionsCache": WeakMap {},
+                    "propsCache": WeakMap {},
+                    "provides": {},
+                    "reload": [Function],
+                  },
+                  "asyncDep": null,
+                  "asyncResolved": false,
+                  "attrs": {
+                    "class": "category__icon",
+                  },
+                  "attrsProxy": null,
+                  "bc": null,
+                  "bm": null,
+                  "bu": null,
+                  "bum": null,
+                  "c": null,
+                  "components": null,
+                  "ctx": {},
+                  "da": null,
+                  "data": {},
+                  "directives": null,
+                  "ec": null,
+                  "effect": ReactiveEffect {
+                    "active": true,
+                    "allowRecurse": true,
+                    "deps": [],
+                    "fn": [Function],
+                    "onTrack": undefined,
+                    "onTrigger": undefined,
+                    "parent": undefined,
+                    "scheduler": [Function],
+                  },
+                  "emit": [Function],
+                  "emitsOptions": null,
+                  "emitted": null,
+                  "exposeProxy": null,
+                  "exposed": null,
+                  "inheritAttrs": undefined,
+                  "isDeactivated": false,
+                  "isMounted": true,
+                  "isUnmounted": false,
+                  "m": null,
+                  "next": null,
+                  "parent": [Circular],
+                  "props": {},
+                  "propsDefaults": {},
+                  "propsOptions": [
+                    {},
+                    [],
+                  ],
+                  "provides": {},
+                  "proxy": {},
+                  "refs": {},
+                  "render": [Function],
+                  "renderCache": [],
+                  "root": [Circular],
+                  "rtc": null,
+                  "rtg": null,
+                  "scope": EffectScope {
+                    "_active": true,
+                    "cleanups": [],
+                    "detached": true,
+                    "effects": [
+                      ReactiveEffect {
+                        "active": true,
+                        "allowRecurse": true,
+                        "deps": [],
+                        "fn": [Function],
+                        "onTrack": undefined,
+                        "onTrigger": undefined,
+                        "parent": undefined,
+                        "scheduler": [Function],
+                      },
+                    ],
+                    "parent": undefined,
+                  },
+                  "setupContext": null,
+                  "setupState": {},
+                  "slots": {},
+                  "slotsProxy": null,
+                  "sp": null,
+                  "subTree": {
+                    "__v_isVNode": true,
+                    "__v_skip": true,
+                    "anchor": null,
+                    "appContext": null,
+                    "ce": undefined,
+                    "children": [
+                      {
+                        "__v_isVNode": true,
+                        "__v_skip": true,
+                        "anchor": null,
+                        "appContext": null,
+                        "ce": undefined,
+                        "children": null,
+                        "component": null,
+                        "ctx": null,
+                        "dirs": null,
+                        "dynamicChildren": null,
+                        "dynamicProps": null,
+                        "el": <path
+                          d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+                          fill="#CAE0FF"
+                        />,
+                        "key": null,
+                        "patchFlag": -1,
+                        "props": {
+                          "d": "M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z",
+                          "fill": "#CAE0FF",
+                        },
+                        "ref": null,
+                        "scopeId": null,
+                        "shapeFlag": 1,
+                        "slotScopeIds": null,
+                        "ssContent": null,
+                        "ssFallback": null,
+                        "staticCount": 0,
+                        "suspense": null,
+                        "target": null,
+                        "targetAnchor": null,
+                        "transition": null,
+                        "type": "path",
+                      },
+                      {
+                        "__v_isVNode": true,
+                        "__v_skip": true,
+                        "anchor": null,
+                        "appContext": null,
+                        "ce": undefined,
+                        "children": null,
+                        "component": null,
+                        "ctx": null,
+                        "dirs": null,
+                        "dynamicChildren": null,
+                        "dynamicProps": null,
+                        "el": <path
+                          d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+                          fill="#004079"
+                        />,
+                        "key": null,
+                        "patchFlag": -1,
+                        "props": {
+                          "d": "M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z",
+                          "fill": "#004079",
+                        },
+                        "ref": null,
+                        "scopeId": null,
+                        "shapeFlag": 1,
+                        "slotScopeIds": null,
+                        "ssContent": null,
+                        "ssFallback": null,
+                        "staticCount": 0,
+                        "suspense": null,
+                        "target": null,
+                        "targetAnchor": null,
+                        "transition": null,
+                        "type": "path",
+                      },
+                      {
+                        "__v_isVNode": true,
+                        "__v_skip": true,
+                        "anchor": null,
+                        "appContext": null,
+                        "ce": undefined,
+                        "children": null,
+                        "component": null,
+                        "ctx": null,
+                        "dirs": null,
+                        "dynamicChildren": null,
+                        "dynamicProps": null,
+                        "el": <path
+                          clip-rule="evenodd"
+                          d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+                          fill="#004079"
+                          fill-rule="evenodd"
+                        />,
+                        "key": null,
+                        "patchFlag": -1,
+                        "props": {
+                          "clip-rule": "evenodd",
+                          "d": "M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z",
+                          "fill": "#004079",
+                          "fill-rule": "evenodd",
+                        },
+                        "ref": null,
+                        "scopeId": null,
+                        "shapeFlag": 1,
+                        "slotScopeIds": null,
+                        "ssContent": null,
+                        "ssFallback": null,
+                        "staticCount": 0,
+                        "suspense": null,
+                        "target": null,
+                        "targetAnchor": null,
+                        "transition": null,
+                        "type": "path",
+                      },
+                    ],
+                    "component": null,
+                    "ctx": [Circular],
+                    "dirs": null,
+                    "dynamicChildren": [],
+                    "dynamicProps": null,
+                    "el": <svg
+                      class="category__icon"
+                      data-v-ea6412a9=""
+                      fill="none"
+                      height="27"
+                      width="27"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+                        fill="#CAE0FF"
+                      />
+                      <path
+                        d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+                        fill="#004079"
+                      />
+                      <path
+                        clip-rule="evenodd"
+                        d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+                        fill="#004079"
+                        fill-rule="evenodd"
+                      />
+                    </svg>,
+                    "key": null,
+                    "patchFlag": 16,
+                    "props": {
+                      "class": "category__icon",
+                      "fill": "none",
+                      "height": "27",
+                      "width": "27",
+                      "xmlns": "http://www.w3.org/2000/svg",
+                    },
+                    "ref": null,
+                    "scopeId": null,
+                    "shapeFlag": 17,
+                    "slotScopeIds": null,
+                    "ssContent": null,
+                    "ssFallback": null,
+                    "staticCount": 0,
+                    "suspense": null,
+                    "target": null,
+                    "targetAnchor": null,
+                    "transition": null,
+                    "type": "svg",
+                  },
+                  "suspense": null,
+                  "suspenseId": 0,
+                  "type": {
+                    "render": [Function],
+                  },
+                  "u": null,
+                  "uid": 2,
+                  "um": null,
+                  "update": [Function],
+                  "vnode": [Circular],
+                  "withProxy": null,
+                },
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <svg
+                  class="category__icon"
+                  data-v-ea6412a9=""
+                  fill="none"
+                  height="27"
+                  width="27"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+                    fill="#CAE0FF"
+                  />
+                  <path
+                    d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+                    fill="#004079"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+                    fill="#004079"
+                    fill-rule="evenodd"
+                  />
+                </svg>,
+                "key": 0,
+                "patchFlag": 0,
+                "props": {
+                  "class": "category__icon",
+                  "key": 0,
+                },
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 4,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": {
+                  "render": [Function],
+                },
+              },
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": "v-if",
+                "component": null,
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <!--v-if-->,
+                "key": null,
+                "patchFlag": 0,
+                "props": null,
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 8,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": Symbol(v-cmt),
+              },
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": "v-if",
+                "component": null,
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <!--v-if-->,
+                "key": null,
+                "patchFlag": 0,
+                "props": null,
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 8,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": Symbol(v-cmt),
+              },
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": "v-if",
+                "component": null,
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <!--v-if-->,
+                "key": null,
+                "patchFlag": 0,
+                "props": null,
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 8,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": Symbol(v-cmt),
+              },
+            ],
+            "component": null,
+            "ctx": [Circular],
+            "dirs": null,
+            "dynamicChildren": [
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": null,
+                "component": {
+                  "a": null,
+                  "accessCache": {
+                    "@@__IMMUTABLE_ITERABLE__@@": 0,
+                    "@@__IMMUTABLE_RECORD__@@": 0,
+                    "_isMockFunction": 0,
+                    "constructor": 0,
+                    "toJSON": 0,
+                    Symbol(Symbol.toStringTag): 0,
+                  },
+                  "appContext": {
+                    "app": [Circular],
+                    "components": {
+                      "transition": {
+                        "name": "transition",
+                      },
+                      "transition-group": {
+                        "name": "transition-group",
+                      },
+                    },
+                    "config": {
+                      "compilerOptions": {},
+                      "errorHandler": undefined,
+                      "globalProperties": {},
+                      "isNativeTag": [Function],
+                      "optionMergeStrategies": {},
+                      "performance": false,
+                      "warnHandler": undefined,
+                    },
+                    "directives": {},
+                    "emitsCache": WeakMap {},
+                    "mixins": [
+                      {
+                        "beforeCreate": [Function],
+                      },
+                    ],
+                    "optionsCache": WeakMap {},
+                    "propsCache": WeakMap {},
+                    "provides": {},
+                    "reload": [Function],
+                  },
+                  "asyncDep": null,
+                  "asyncResolved": false,
+                  "attrs": {
+                    "class": "category__icon",
+                  },
+                  "attrsProxy": null,
+                  "bc": null,
+                  "bm": null,
+                  "bu": null,
+                  "bum": null,
+                  "c": null,
+                  "components": null,
+                  "ctx": {},
+                  "da": null,
+                  "data": {},
+                  "directives": null,
+                  "ec": null,
+                  "effect": ReactiveEffect {
+                    "active": true,
+                    "allowRecurse": true,
+                    "deps": [],
+                    "fn": [Function],
+                    "onTrack": undefined,
+                    "onTrigger": undefined,
+                    "parent": undefined,
+                    "scheduler": [Function],
+                  },
+                  "emit": [Function],
+                  "emitsOptions": null,
+                  "emitted": null,
+                  "exposeProxy": null,
+                  "exposed": null,
+                  "inheritAttrs": undefined,
+                  "isDeactivated": false,
+                  "isMounted": true,
+                  "isUnmounted": false,
+                  "m": null,
+                  "next": null,
+                  "parent": [Circular],
+                  "props": {},
+                  "propsDefaults": {},
+                  "propsOptions": [
+                    {},
+                    [],
+                  ],
+                  "provides": {},
+                  "proxy": {},
+                  "refs": {},
+                  "render": [Function],
+                  "renderCache": [],
+                  "root": [Circular],
+                  "rtc": null,
+                  "rtg": null,
+                  "scope": EffectScope {
+                    "_active": true,
+                    "cleanups": [],
+                    "detached": true,
+                    "effects": [
+                      ReactiveEffect {
+                        "active": true,
+                        "allowRecurse": true,
+                        "deps": [],
+                        "fn": [Function],
+                        "onTrack": undefined,
+                        "onTrigger": undefined,
+                        "parent": undefined,
+                        "scheduler": [Function],
+                      },
+                    ],
+                    "parent": undefined,
+                  },
+                  "setupContext": null,
+                  "setupState": {},
+                  "slots": {},
+                  "slotsProxy": null,
+                  "sp": null,
+                  "subTree": {
+                    "__v_isVNode": true,
+                    "__v_skip": true,
+                    "anchor": null,
+                    "appContext": null,
+                    "ce": undefined,
+                    "children": [
+                      {
+                        "__v_isVNode": true,
+                        "__v_skip": true,
+                        "anchor": null,
+                        "appContext": null,
+                        "ce": undefined,
+                        "children": null,
+                        "component": null,
+                        "ctx": null,
+                        "dirs": null,
+                        "dynamicChildren": null,
+                        "dynamicProps": null,
+                        "el": <path
+                          d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+                          fill="#CAE0FF"
+                        />,
+                        "key": null,
+                        "patchFlag": -1,
+                        "props": {
+                          "d": "M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z",
+                          "fill": "#CAE0FF",
+                        },
+                        "ref": null,
+                        "scopeId": null,
+                        "shapeFlag": 1,
+                        "slotScopeIds": null,
+                        "ssContent": null,
+                        "ssFallback": null,
+                        "staticCount": 0,
+                        "suspense": null,
+                        "target": null,
+                        "targetAnchor": null,
+                        "transition": null,
+                        "type": "path",
+                      },
+                      {
+                        "__v_isVNode": true,
+                        "__v_skip": true,
+                        "anchor": null,
+                        "appContext": null,
+                        "ce": undefined,
+                        "children": null,
+                        "component": null,
+                        "ctx": null,
+                        "dirs": null,
+                        "dynamicChildren": null,
+                        "dynamicProps": null,
+                        "el": <path
+                          d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+                          fill="#004079"
+                        />,
+                        "key": null,
+                        "patchFlag": -1,
+                        "props": {
+                          "d": "M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z",
+                          "fill": "#004079",
+                        },
+                        "ref": null,
+                        "scopeId": null,
+                        "shapeFlag": 1,
+                        "slotScopeIds": null,
+                        "ssContent": null,
+                        "ssFallback": null,
+                        "staticCount": 0,
+                        "suspense": null,
+                        "target": null,
+                        "targetAnchor": null,
+                        "transition": null,
+                        "type": "path",
+                      },
+                      {
+                        "__v_isVNode": true,
+                        "__v_skip": true,
+                        "anchor": null,
+                        "appContext": null,
+                        "ce": undefined,
+                        "children": null,
+                        "component": null,
+                        "ctx": null,
+                        "dirs": null,
+                        "dynamicChildren": null,
+                        "dynamicProps": null,
+                        "el": <path
+                          clip-rule="evenodd"
+                          d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+                          fill="#004079"
+                          fill-rule="evenodd"
+                        />,
+                        "key": null,
+                        "patchFlag": -1,
+                        "props": {
+                          "clip-rule": "evenodd",
+                          "d": "M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z",
+                          "fill": "#004079",
+                          "fill-rule": "evenodd",
+                        },
+                        "ref": null,
+                        "scopeId": null,
+                        "shapeFlag": 1,
+                        "slotScopeIds": null,
+                        "ssContent": null,
+                        "ssFallback": null,
+                        "staticCount": 0,
+                        "suspense": null,
+                        "target": null,
+                        "targetAnchor": null,
+                        "transition": null,
+                        "type": "path",
+                      },
+                    ],
+                    "component": null,
+                    "ctx": [Circular],
+                    "dirs": null,
+                    "dynamicChildren": [],
+                    "dynamicProps": null,
+                    "el": <svg
+                      class="category__icon"
+                      data-v-ea6412a9=""
+                      fill="none"
+                      height="27"
+                      width="27"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+                        fill="#CAE0FF"
+                      />
+                      <path
+                        d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+                        fill="#004079"
+                      />
+                      <path
+                        clip-rule="evenodd"
+                        d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+                        fill="#004079"
+                        fill-rule="evenodd"
+                      />
+                    </svg>,
+                    "key": null,
+                    "patchFlag": 16,
+                    "props": {
+                      "class": "category__icon",
+                      "fill": "none",
+                      "height": "27",
+                      "width": "27",
+                      "xmlns": "http://www.w3.org/2000/svg",
+                    },
+                    "ref": null,
+                    "scopeId": null,
+                    "shapeFlag": 17,
+                    "slotScopeIds": null,
+                    "ssContent": null,
+                    "ssFallback": null,
+                    "staticCount": 0,
+                    "suspense": null,
+                    "target": null,
+                    "targetAnchor": null,
+                    "transition": null,
+                    "type": "svg",
+                  },
+                  "suspense": null,
+                  "suspenseId": 0,
+                  "type": {
+                    "render": [Function],
+                  },
+                  "u": null,
+                  "uid": 2,
+                  "um": null,
+                  "update": [Function],
+                  "vnode": [Circular],
+                  "withProxy": null,
+                },
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <svg
+                  class="category__icon"
+                  data-v-ea6412a9=""
+                  fill="none"
+                  height="27"
+                  width="27"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+                    fill="#CAE0FF"
+                  />
+                  <path
+                    d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+                    fill="#004079"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+                    fill="#004079"
+                    fill-rule="evenodd"
+                  />
+                </svg>,
+                "key": 0,
+                "patchFlag": 0,
+                "props": {
+                  "class": "category__icon",
+                  "key": 0,
+                },
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 4,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": {
+                  "render": [Function],
+                },
+              },
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": "v-if",
+                "component": null,
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <!--v-if-->,
+                "key": null,
+                "patchFlag": 0,
+                "props": null,
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 8,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": Symbol(v-cmt),
+              },
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": "v-if",
+                "component": null,
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <!--v-if-->,
+                "key": null,
+                "patchFlag": 0,
+                "props": null,
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 8,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": Symbol(v-cmt),
+              },
+              {
+                "__v_isVNode": true,
+                "__v_skip": true,
+                "anchor": null,
+                "appContext": null,
+                "children": "v-if",
+                "component": null,
+                "ctx": [Circular],
+                "dirs": null,
+                "dynamicChildren": [],
+                "dynamicProps": null,
+                "el": <!--v-if-->,
+                "key": null,
+                "patchFlag": 0,
+                "props": null,
+                "ref": null,
+                "scopeId": "data-v-ea6412a9",
+                "shapeFlag": 8,
+                "slotScopeIds": null,
+                "ssContent": null,
+                "ssFallback": null,
+                "staticCount": 0,
+                "suspense": null,
+                "target": null,
+                "targetAnchor": null,
+                "transition": null,
+                "type": Symbol(v-cmt),
+              },
+            ],
+            "dynamicProps": null,
+            "el": <span
+              class="category-icon"
+              data-v-ea6412a9=""
+            >
+              <svg
+                class="category__icon"
+                data-v-ea6412a9=""
+                fill="none"
+                height="27"
+                width="27"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+                  fill="#CAE0FF"
+                />
+                <path
+                  d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+                  fill="#004079"
+                />
+                <path
+                  clip-rule="evenodd"
+                  d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+                  fill="#004079"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <!--v-if-->
+              <!--v-if-->
+              <!--v-if-->
+            </span>,
+            "key": null,
+            "patchFlag": 0,
+            "props": {
+              "class": "category-icon",
+            },
+            "ref": null,
+            "scopeId": "data-v-ea6412a9",
+            "shapeFlag": 17,
+            "slotScopeIds": null,
+            "ssContent": null,
+            "ssFallback": null,
+            "staticCount": 0,
+            "suspense": null,
+            "target": null,
+            "targetAnchor": null,
+            "transition": null,
+            "type": "span",
+          },
+          "suspense": null,
+          "suspenseId": 0,
+          "type": {
+            "__file": "/var/www/pictos/web-app/src/components/CategoryIcon.vue",
+            "__name": "CategoryIcon",
+            "__scopeId": "data-v-ea6412a9",
+            "components": {},
+            "props": {
+              "category": [Function],
+            },
+            "render": [Function],
+            "setup": [Function],
+          },
+          "u": null,
+          "uid": 1,
+          "um": null,
+          "update": [Function],
+          "vnode": [Circular],
+          "withProxy": null,
+        },
+        "ctx": [Circular],
+        "dirs": null,
+        "dynamicChildren": null,
+        "dynamicProps": null,
+        "el": <span
+          class="category-icon"
+          data-v-ea6412a9=""
+        >
+          <svg
+            class="category__icon"
+            data-v-ea6412a9=""
+            fill="none"
+            height="27"
+            width="27"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+              fill="#CAE0FF"
+            />
+            <path
+              d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+              fill="#004079"
+            />
+            <path
+              clip-rule="evenodd"
+              d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+              fill="#004079"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <!--v-if-->
+          <!--v-if-->
+          <!--v-if-->
+        </span>,
+        "key": null,
+        "patchFlag": 0,
+        "props": {
+          "category": "transporte",
+          "ref": "VTU_COMPONENT",
+        },
+        "ref": {
+          "f": false,
+          "i": [Circular],
+          "k": undefined,
+          "r": "VTU_COMPONENT",
+        },
+        "scopeId": null,
+        "shapeFlag": 4,
+        "slotScopeIds": null,
+        "ssContent": null,
+        "ssFallback": null,
+        "staticCount": 0,
+        "suspense": null,
+        "target": null,
+        "targetAnchor": null,
+        "transition": null,
+        "type": {
+          "__file": "/var/www/pictos/web-app/src/components/CategoryIcon.vue",
+          "__name": "CategoryIcon",
+          "__scopeId": "data-v-ea6412a9",
+          "components": {},
+          "props": {
+            "category": [Function],
+          },
+          "render": [Function],
+          "setup": [Function],
+        },
+      },
+      "suspense": null,
+      "suspenseId": 0,
+      "type": {
+        "name": "VTU_ROOT",
+        "render": [Function],
+        "setup": [Function],
+      },
+      "u": null,
+      "uid": 0,
+      "um": null,
+      "update": [Function],
+      "vnode": {
+        "__v_isVNode": true,
+        "__v_skip": true,
+        "anchor": null,
+        "appContext": {
+          "app": [Circular],
+          "components": {
+            "transition": {
+              "name": "transition",
+            },
+            "transition-group": {
+              "name": "transition-group",
+            },
+          },
+          "config": {
+            "compilerOptions": {},
+            "errorHandler": undefined,
+            "globalProperties": {},
+            "isNativeTag": [Function],
+            "optionMergeStrategies": {},
+            "performance": false,
+            "warnHandler": undefined,
+          },
+          "directives": {},
+          "emitsCache": WeakMap {},
+          "mixins": [
+            {
+              "beforeCreate": [Function],
+            },
+          ],
+          "optionsCache": WeakMap {},
+          "propsCache": WeakMap {},
+          "provides": {},
+          "reload": [Function],
+        },
+        "children": null,
+        "component": [Circular],
+        "ctx": null,
+        "dirs": null,
+        "dynamicChildren": null,
+        "dynamicProps": null,
+        "el": <span
+          class="category-icon"
+          data-v-ea6412a9=""
+        >
+          <svg
+            class="category__icon"
+            data-v-ea6412a9=""
+            fill="none"
+            height="27"
+            width="27"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+              fill="#CAE0FF"
+            />
+            <path
+              d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+              fill="#004079"
+            />
+            <path
+              clip-rule="evenodd"
+              d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+              fill="#004079"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <!--v-if-->
+          <!--v-if-->
+          <!--v-if-->
+        </span>,
+        "key": null,
+        "patchFlag": 0,
+        "props": null,
+        "ref": null,
+        "scopeId": null,
+        "shapeFlag": 4,
+        "slotScopeIds": null,
+        "ssContent": null,
+        "ssFallback": null,
+        "staticCount": 0,
+        "suspense": null,
+        "target": null,
+        "targetAnchor": null,
+        "transition": null,
+        "type": {
+          "name": "VTU_ROOT",
+          "render": [Function],
+          "setup": [Function],
+        },
+      },
+      "withProxy": null,
+    },
+    "_props": null,
+    "_uid": 0,
+    "component": [Function],
+    "config": {
+      "compilerOptions": {},
+      "errorHandler": undefined,
+      "globalProperties": {},
+      "isNativeTag": [Function],
+      "optionMergeStrategies": {},
+      "performance": false,
+      "warnHandler": undefined,
+    },
+    "directive": [Function],
+    "mixin": [Function],
+    "mount": [Function],
+    "provide": [Function],
+    "runWithContext": [Function],
+    "unmount": [Function],
+    "use": [Function],
+    "version": "3.3.4",
+  },
+  "__setProps": [Function],
+  "cleanUpCallbacks": [
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+  ],
+  "componentVM": {},
+  "isDisabled": [Function],
+  "rootVM": {
+    "VTU_COMPONENT": {},
+  },
+  "wrapperElement": <span
+    class="category-icon"
+    data-v-ea6412a9=""
+  >
+    <svg
+      class="category__icon"
+      data-v-ea6412a9=""
+      fill="none"
+      height="27"
+      width="27"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 1h18.5l.5 3h3v4.5h-3v14h-2V26h-3v-3H9.5l-1 3H6v-3l-2-.5-.5-14H1v-4h3V1Z"
+        fill="#CAE0FF"
+      />
+      <path
+        d="M6.75 19.523c0-.401.325-.727.727-.727h1.661a.727.727 0 1 1 0 1.454H7.477a.727.727 0 0 1-.727-.727ZM17.861 18.796a.727.727 0 1 0 0 1.454h1.662a.727.727 0 0 0 0-1.454H17.86Z"
+        fill="#004079"
+      />
+      <path
+        clip-rule="evenodd"
+        d="M4.673 0c-.86 0-1.558.697-1.558 1.558v2.077h-1.35c-.86 0-1.557.697-1.557 1.557v2.493c0 .86.697 1.557 1.557 1.557h1.35v12.67c0 .86.698 1.557 1.558 1.557h.52v1.246a2.285 2.285 0 0 0 4.568 0V23.47h7.477v1.246a2.285 2.285 0 1 0 4.57 0V23.47h.519c.86 0 1.557-.697 1.557-1.558V9.242h1.35c.86 0 1.558-.697 1.558-1.557V5.192c0-.86-.697-1.557-1.558-1.557h-1.35V1.558c0-.86-.697-1.558-1.557-1.558H4.673ZM3.115 7.788v-2.7H1.973a.312.312 0 0 0-.312.312v2.077c0 .172.14.311.312.311h1.142Zm21.912 0h-1.143v-2.7h1.143c.172 0 .311.14.311.312v2.077c0 .172-.14.311-.311.311ZM18.692 23.47v1.246a.83.83 0 0 0 1.662 0V23.47h-1.662ZM6.646 24.715V23.47h1.662v1.246a.83.83 0 0 1-1.662 0Zm15.785-21.08V1.973a.52.52 0 0 0-.52-.52H5.088a.52.52 0 0 0-.519.52v1.662h17.862ZM4.569 5.088v11.216h17.862V5.088H4.569Zm0 16.408v-3.738h17.862v3.738a.52.52 0 0 1-.52.52H5.088a.52.52 0 0 1-.519-.52Z"
+        fill="#004079"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <!--v-if-->
+    <!--v-if-->
+    <!--v-if-->
+  </span>,
+}
+`;

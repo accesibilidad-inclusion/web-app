@@ -72,7 +72,7 @@ onBeforeMount(() => {
               <h2 class="search-no-results__title">Búsqueda sin resultados</h2>
               <p class="search-no-results__description">Prueba buscando con <strong>otras palabras</strong> o usando las <strong>categorías</strong> disponibles</p>
             </div>
-            <router-link to="/home" class="btn btn--primary btn--large btn--block">Volver a Inicio</router-link>
+            <router-link to="/inicio" class="btn btn--primary btn--large btn--block">Volver a Inicio</router-link>
           </div>
         </template>
         <template v-else>
