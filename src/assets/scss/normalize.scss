@@ -13,13 +13,21 @@ html {
   //   font-size: 15px;
   // }
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
-button, label, input, select, progress, meter {
+button,
+label,
+input,
+select,
+progress,
+meter {
   font-family: inherit;
 }
-input, button {
+input,
+button {
   -webkit-appearance: none;
 }
 body {
@@ -30,5 +38,5 @@ body {
   overflow-x: hidden;
 }
 a {
-  color: var( --color-brand );
+  color: var(--color-brand);
 }

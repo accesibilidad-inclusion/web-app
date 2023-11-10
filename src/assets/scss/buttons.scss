@@ -2,7 +2,7 @@
 .btn {
   @include rfs($font-size-12);
   display: inline-block;
-  padding: .9rem var(--spacer);
+  padding: 0.9rem var(--spacer);
   font-family: var(--font-family);
   font-weight: 600;
   text-align: center;
@@ -18,7 +18,7 @@
   }
   &:disabled {
     pointer-events: none;
-    opacity: .75;
+    opacity: 0.75;
   }
 }
 .btn--large {
@@ -37,7 +37,7 @@
 .btn--secondary {
   background: transparent;
   border: 1px solid currentColor;
-  color: var( --color--dark-blue );
+  color: var(--color--dark-blue);
 }
 
 .btn--light {
@@ -79,8 +79,8 @@
   .v-spinner {
     position: absolute;
     display: inline-block !important;
-    margin-top: .15rem;
-    animation: buttonSpinnerShow .35s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    margin-top: 0.15rem;
+    animation: buttonSpinnerShow 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   }
 }
 .btn--as-link {

@@ -1,10 +1,10 @@
-import { Venue } from "./venue";
+import {Venue} from './venue'
 
 export class OnlineVenue extends Venue {
-    url: string = '';
+  url: string = ''
 
-    constructor(init?: Partial<OnlineVenue>) {
-        super(init);
-        Object.assign(this, init);
-    }
+  constructor(init?: Partial<OnlineVenue>) {
+    super(init)
+    Object.assign(this, init)
+  }
 }

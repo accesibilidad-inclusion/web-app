@@ -1,75 +1,47 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+import {useFetch} from '@vueuse/core'
+
+import PresentialPlaceIcon from '@/assets/img/app-icons/support/lugar.svg?component'
+import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
 import LocationSelector from '@/components/LocationSelector.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import CategoryIcon from '@/components/CategoryIcon.vue'
-// import type {Service} from '@/types/service'
-import { Service } from '@/model/service';
-import PresentialPlaceIcon from '@/assets/img/app-icons/support/lugar.svg?component'
-import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
+import {Category} from '@/model/category'
+import {Service} from '@/model/service'
 import {useAppDataStore} from '@/stores/app-data.js'
 import {useAppNavStore} from '@/stores/app-nav.js'
-// import type {Category} from '@/types/category'
-import { Category } from '@/model/category';
 
 const router = useRouter()
 const route = useRoute()
 
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
-
 const category = ref<Category>()
 const services = ref<Array<Service>>([])
-const loading = ref(true)
 
 const setService = (service: Service) => {
   router.push(`/${route.params.categorySlug}/${service.slug}`)
 }
 
-onBeforeMount(() => {
-  if (appData.location) {
-    fetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearServices`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        lat: parseFloat(appData.location.lat),
-        lng: parseFloat(appData.location.lng),
-        category: route.params.categorySlug
-      })
-    })
-      .then(async (response) => {
-        const data = await response.json()
-        services.value = data.services.map((s: Service) => new Service(s))
-        category.value = new Category(data.category)
-        appNav.selected.category = data.category
-        document.title = `Servicios de ${data.category.name} | Pictos`
-        loading.value = false
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status === 404) {
-          router.push('/')
-        }
-      })
-  } else {
-    router.push('/')
-  }
-})
+const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearServices`)
+  .post({
+    lat: parseFloat(appData.location.lat),
+    lng: parseFloat(appData.location.lng),
+    category: route.params.categorySlug
+  })
+  .json()
+
+services.value = data.value.services.map((s: Service) => new Service(s))
+category.value = new Category(data.value.category)
+appNav.selected.category = data.value.category
+document.title = `Servicios de ${data.value.category.name} | Pictos`
 </script>
 
 <template>
   <div class="category entries-list">
-    <template v-if="loading">
-      <clip-loader
-        :loading="loading"
-        :color="'#CAE0FF'"
-        :size="'3rem'"
-        class="mt-auto mb-auto"></clip-loader>
-    </template>
-    <template v-else-if="category">
+    <template v-if="category">
       <header class="category__header entries-list__header">
         <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
         <h1 class="category__title entries-list__title">{{ category.name }}</h1>
@@ -85,18 +57,17 @@ onBeforeMount(() => {
           <a
             class="category__item category__item--service service-block entry-block"
             tag="article"
-            @click="setService(service)"
-          >
+            @click="setService(service)">
             <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
-            <div v-if="service.count_presential > 0">{{ service.count_presential }} lugar<span v-if="service.count_presential > 1">es</span> presencial<span v-if="service.count_presential > 1">es</span></div>
-            <div v-if="service.count_online > 0">{{ service.count_online }} lugar<span v-if="service.count_online > 1">es</span> en internet</div>
             <text-to-speech :text-audio="`${service.name}`" />
             <span class="category__meta">
-              <span class="category__meta-data"
-                ><PresentialPlaceIcon></PresentialPlaceIcon> 10 lugares presenciales
+              <span class="category__meta-data" v-if="service.count_presential > 0"
+                ><PresentialPlaceIcon></PresentialPlaceIcon> {{ service.count_presential }} lugares
+                presenciales
               </span>
-              <span class="category__meta-data"
-                ><InternetPlaceIcon></InternetPlaceIcon> 4 lugares en internet
+              <span class="category__meta-data" v-if="service.count_online > 0"
+                ><InternetPlaceIcon></InternetPlaceIcon> {{ service.count_online }} lugares en
+                internet
               </span>
             </span>
           </a>
@@ -274,10 +245,10 @@ onBeforeMount(() => {
   align-items: flex-end;
   gap: var(--spacer--200);
 }
-.category__meta-data :deep(svg) {
-  // position: relative;
-  // top: 2px;
-}
+// .category__meta-data :deep(svg) {
+//   // position: relative;
+//   // top: 2px;
+// }
 .category__meta-data :deep(path) {
   fill: var(--color--blue-gray);
 }

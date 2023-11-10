@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import {computed, ref} from 'vue'
+import {useRoute} from 'vue-router'
+import {useFetch} from '@vueuse/core'
 
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import TaskBlock from '@/components/TaskBlock.vue'
-import { useAppDataStore } from '@/stores/app-data'
-import { useAppNavStore } from '@/stores/app-nav'
-import { useAppSessionStore } from '@/stores/app-session'
-import { Service } from '@/model/service'
-import { PresentialVenue } from '@/model/presential_venue.js'
-import { OnlineVenue } from '@/model/online_venue.js'
-import { PresentialTask } from '@/model/presential_task'
+import {Service} from '@/model/service'
+import {PresentialVenue} from '@/model/presential_venue.js'
+import {OnlineVenue} from '@/model/online_venue.js'
+import {PresentialTask} from '@/model/presential_task'
+import {useAppDataStore} from '@/stores/app-data'
+import {useAppNavStore} from '@/stores/app-nav'
+import {useAppSessionStore} from '@/stores/app-session'
 
-
-const router = useRouter()
 const route = useRoute()
 
 const appData = useAppDataStore()
@@ -22,8 +21,29 @@ const appSession = useAppSessionStore()
 
 const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
-const type = ref<'online'|'presential'>();
-const loading = ref(true)
+const type = ref<'online' | 'presential'>()
+
+const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements`)
+  .post({
+    category: route.params.categorySlug,
+    service: route.params.serviceSlug,
+    venue: route.params.venueSlug
+  })
+  .json()
+
+type.value = data.value.type
+service.value = data.value.service
+venue.value =
+  data.value.type === 'online'
+    ? new OnlineVenue(data.value.venue)
+    : new PresentialVenue(data.value.venue)
+appNav.selected.category = data.value.category
+appNav.selected.service = data.value.service
+appNav.selected.venue =
+  data.value.type === 'online'
+    ? new OnlineVenue(data.value.venue)
+    : new PresentialVenue(data.value.venue)
+document.title = `Tareas de ${data.value.venue.name} (${data.value.service.name}) | Pictos`
 
 const evaluation = computed(() => {
   if (venue.value !== undefined) {
@@ -33,50 +53,11 @@ const evaluation = computed(() => {
   }
   return null
 })
-
-onBeforeMount(() => {
-  fetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      category: route.params.categorySlug,
-      service: route.params.serviceSlug,
-      venue: route.params.venueSlug
-    })
-  })
-    .then(async (response) => {
-      const data = await response.json()
-      type.value = data.type
-      // tasks.value = data.type === 'online' ? data.tasks.map( (t: any) => new OnlineTask(t)) : data.tasks.map( (t: any) => new PresentialTask(t))
-      service.value = data.service
-      venue.value = data.type === 'online' ? new OnlineVenue(data.venue) : new PresentialVenue(data.venue)
-      appNav.selected.category = data.category
-      appNav.selected.service = data.service
-      appNav.selected.venue = data.type === 'online' ? new OnlineVenue(data.venue) : new PresentialVenue(data.venue)
-      document.title = `Tareas de ${data.venue.name} (${data.service.name}) | Pictos`
-      loading.value = false
-    })
-    .catch((err) => {
-      if (err.response.status === 404) {
-        router.push('/')
-      }
-    })
-})
 </script>
 
 <template>
   <div :class="type + '-venue'">
-    <template v-if="loading">
-      <clip-loader
-        :loading="loading"
-        :color="'#CAE0FF'"
-        :size="'3rem'"
-        class="mt-auto mb-auto"
-      ></clip-loader>
-    </template>
-    <template v-else-if="service && venue">
+    <template v-if="service && venue">
       <header class="venue__header">
         <router-link
           :to="'/' + $route.params.categorySlug + '/' + $route.params.serviceSlug"
@@ -84,11 +65,19 @@ onBeforeMount(() => {
           >{{ service.name }}</router-link
         >
         <h1 class="venue__name">{{ venue.name }}</h1>
-        <a v-if="(venue instanceof PresentialVenue) && venue.mapLink" :href="venue.mapLink" class="venue__map-link" target="_blank">
+        <a
+          v-if="venue instanceof PresentialVenue && venue.mapLink"
+          :href="venue.mapLink"
+          class="venue__map-link"
+          target="_blank">
           <icon-location-pin />
           Abrir en mapa
         </a>
-        <a v-if="(venue instanceof OnlineVenue)" :href="venue.url" class="venue__map-link" target="_blank">
+        <a
+          v-if="venue instanceof OnlineVenue"
+          :href="venue.url"
+          class="venue__map-link"
+          target="_blank">
           Ir a sitio web
           <icon-location-pin />
         </a>
@@ -100,20 +89,22 @@ onBeforeMount(() => {
             <span>Selecciona lo que necesites hacer en este lugar</span>
             <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
           </p>
-          <task-block v-for="task in venue.tasks" :key="task.id" :task="task" :preview="(task instanceof PresentialTask)" />
+          <task-block
+            v-for="task in venue.tasks"
+            :key="task.id"
+            :task="task"
+            :preview="task instanceof PresentialTask" />
         </main>
         <aside class="actions actions--venue">
           <div class="actions__header">
             <text-to-speech
-              :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'"
-            />
+              :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
             <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
             <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
           </div>
           <router-link
             :to="appNav.onboarding.task ? '/nueva-tarea/intro' : '/nueva-tarea'"
-            class="btn btn--primary btn--large btn--block"
-          >
+            class="btn btn--primary btn--large btn--block">
             &plus; Agregar una tarea nueva
           </router-link>
         </aside>
@@ -121,16 +112,13 @@ onBeforeMount(() => {
           <router-link
             v-if="evaluation"
             :to="'/evaluacion/' + evaluation.grade"
-            class="venue__evaluation"
-          >
+            class="venue__evaluation">
             <text-to-speech
-              :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`"
-            />
+              :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`" />
             <div class="venue__evaluation-title">{{ evaluation.title }}</div>
             <div
               class="venue__evaluation-grade venue__evaluation-grade--lg"
-              :data-grade="evaluation.grade"
-            >
+              :data-grade="evaluation.grade">
               <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
               <span v-else>?</span>
             </div>
@@ -146,8 +134,7 @@ onBeforeMount(() => {
                   ? '/evaluacion-lugar'
                   : '/personal-information/registration'
               "
-              class="btn btn--ghost btn--large btn--block"
-            >
+              class="btn btn--ghost btn--large btn--block">
               Evaluar este lugar
             </router-link>
           </div>
@@ -166,8 +153,7 @@ onBeforeMount(() => {
             <router-link
               :to="appNav.onboarding.task ? '/nueva-tarea/intro' : '/nueva-tarea'"
               class="btn btn--white btn--large btn--block"
-              style="color: var(--color-brand-darker)"
-            >
+              style="color: var(--color-brand-darker)">
               &plus; Agregar tareas a este lugar
             </router-link>
           </aside>
@@ -175,16 +161,13 @@ onBeforeMount(() => {
             <router-link
               v-if="evaluation"
               :to="'/evaluacion/' + evaluation.grade"
-              class="venue__evaluation"
-            >
+              class="venue__evaluation">
               <text-to-speech
-                :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`"
-              />
+                :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`" />
               <div class="venue__evaluation-title">{{ evaluation.title }}</div>
               <div
                 class="venue__evaluation-grade venue__evaluation-grade--lg"
-                :data-grade="evaluation.grade"
-              >
+                :data-grade="evaluation.grade">
                 <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
                 <span v-else>?</span>
               </div>
@@ -202,8 +185,7 @@ onBeforeMount(() => {
                     ? '/evaluacion-lugar'
                     : '/personal-information/registration'
                 "
-                class="btn btn--ghost btn--large btn--block"
-              >
+                class="btn btn--ghost btn--large btn--block">
                 Evaluar este lugar
               </router-link>
             </div>

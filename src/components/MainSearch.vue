@@ -2,7 +2,7 @@
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import IconSearch from '@/assets/img/app-icons/search.svg'
+import IconSearch from '@/assets/img/app-icons/search.svg?component'
 import IconInternetTasks from '@/assets/img/app-icons/instructions/internet.svg?component'
 import IconPresentialTasks from '@/assets/img/app-icons/instructions/presencial.svg?component'
 

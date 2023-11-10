@@ -5,8 +5,8 @@ import OnboardingImage2 from '@/assets/img/illustrations/activar-tutoriales 2.sv
 import OnboardingImage3 from '@/assets/img/illustrations/activar-tutoriales 3.svg?component'
 import OnboardingImage4 from '@/assets/img/illustrations/activar-tutoriales 4.svg?component'
 
-import { useAppNavStore } from '@/stores/app-nav.js'
-import type { Onboarding } from '@/types/onboarding'
+import {useAppNavStore} from '@/stores/app-nav.js'
+import type {Onboarding} from '@/types/onboarding'
 
 const appNav = useAppNavStore()
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { Category } from '@/model/category'
-import { useAppDataStore } from '@/stores/app-data'
+import {useRouter} from 'vue-router'
+import {Category} from '@/model/category'
+import {useAppDataStore} from '@/stores/app-data'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import CategoryIcon from './CategoryIcon.vue'
 

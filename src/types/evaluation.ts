@@ -1,5 +1,5 @@
 export interface Evaluation {
-    id: number;
-    score: number;
-    calification: string;
+  id: number
+  score: number
+  calification: string
 }

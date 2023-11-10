@@ -1,42 +1,31 @@
 <script setup lang="ts">
-import { ref, onBeforeMount } from 'vue'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
+import {useFetch} from '@vueuse/core'
+
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import { PresentialVenue } from '@/model/presential_venue';
-import { useAppDataStore } from '@/stores/app-data';
-import { useRouter } from 'vue-router';
+import {PresentialVenue} from '@/model/presential_venue'
+import {useAppDataStore} from '@/stores/app-data'
 
 const appData = useAppDataStore()
 const router = useRouter()
 
-const loading = ref<boolean>(true)
 const venues = ref<Array<PresentialVenue>>([])
 
 const setVenue = (venue: PresentialVenue) => {
   router.push(`/${venue.category.slug}/${venue.service.slug}/${venue.slug}`)
 }
 
-onBeforeMount(async () => {
-  if (appData.location) {
-    await fetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/recommended`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          lat: parseFloat(appData.location.lat),
-          lng: parseFloat(appData.location.lng)
-        })
-      })
-      .then(async (response) => {
-        const data = await response.json()
-        venues.value = data.map( (t: PresentialVenue) =>  new PresentialVenue(t))
-        loading.value = false
-      })
-      .catch((error) => {
-        return error
-      })
-  }
-})
+const {data} = await useFetch(
+  `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/recommended`
+)
+  .post({
+    lat: parseFloat(appData.location.lat),
+    lng: parseFloat(appData.location.lng)
+  })
+  .json()
+
+venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
 </script>
 
 <template>

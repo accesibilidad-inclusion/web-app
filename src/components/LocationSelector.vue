@@ -20,7 +20,7 @@ const changeLocation = () => {
 </script>
 
 <template>
-  <div class="your-location location-selector" :class="{dense:  dense }">
+  <div class="your-location location-selector" :class="{dense: dense}">
     <div class="your-location__content">
       <IconLocationPin />
       <span v-if="appData.location?.name">{{ appData.location.name }}</span>

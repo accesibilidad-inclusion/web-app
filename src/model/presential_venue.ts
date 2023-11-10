@@ -1,24 +1,24 @@
-import { Venue } from "./venue";
+import {Venue} from './venue'
 
 export class PresentialVenue extends Venue {
-    distance: number = 0;
-    position:{lat: number; lng: number;}|null = null;
+  distance: number = 0
+  position: {lat: number; lng: number} | null = null
 
-    constructor(init?: Partial<PresentialVenue>) {
-        super(init);
-        Object.assign(this, init);
-    }
+  constructor(init?: Partial<PresentialVenue>) {
+    super(init)
+    Object.assign(this, init)
+  }
 
-    distanceToText = () => {
-        if (this.distance > 999) {
-            return `${Math.round((this.distance / 1000) * 10) / 10} kilómetros`
-        }
-        return `${Math.round(this.distance)} metros`
+  distanceToText = () => {
+    if (this.distance > 999) {
+      return `${Math.round((this.distance / 1000) * 10) / 10} kilómetros`
     }
+    return `${Math.round(this.distance)} metros`
+  }
 
-    get mapLink() {
-        return typeof this.position === 'object' && this.position !== null
-          ? `https://www.google.com/maps/search/?api=1&query=${this.position.lat},${this.position.lng}`
-          : '';
-    }
+  get mapLink() {
+    return typeof this.position === 'object' && this.position !== null
+      ? `https://www.google.com/maps/search/?api=1&query=${this.position.lat},${this.position.lng}`
+      : ''
+  }
 }

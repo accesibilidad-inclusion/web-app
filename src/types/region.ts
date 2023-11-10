@@ -1,7 +1,7 @@
-import type { Commune } from "./commune";
+import type {Commune} from './commune'
 
 export interface Region {
-    id: number;
-    name: string;
-    communes: Array<Commune>
+  id: number
+  name: string
+  communes: Array<Commune>
 }

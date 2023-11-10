@@ -13,26 +13,26 @@
   &.modal--fade {
     transform: scale(1);
     .modal__backdrop {
-      background-color: rgba( 4, 28, 66, 0);
-      animation: modalFadeIn .35s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+      background-color: rgba(4, 28, 66, 0);
+      animation: modalFadeIn 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
     }
     &.modal--fade-out {
-      animation: quickScaleDown 0s .5s linear forwards;
+      animation: quickScaleDown 0s 0.5s linear forwards;
       .modal__backdrop {
-        animation: modalFadeOut .35s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        animation: modalFadeOut 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
       }
     }
   }
 }
 .modal__backdrop {
   display: table-cell;
-  background-color: rgba( 4, 28, 66, .75);
-  @media screen and ( min-width: 640px ) {
+  background-color: rgba(4, 28, 66, 0.75);
+  @media screen and (min-width: 640px) {
     max-width: 640px;
     margin-left: auto;
     margin-right: auto;
   }
-  @media screen and ( min-width: 1280px ) {
+  @media screen and (min-width: 1280px) {
     max-width: 750px;
   }
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { RouterView, useRoute } from 'vue-router'
+import {RouterView, useRoute} from 'vue-router'
 import AppNav from './components/AppNav.vue'
-import { ref } from 'vue'
+import SpinnerLoader from '@/components/SpinnerLoader.vue'
+import {ref} from 'vue'
 
 const route = useRoute()
 
@@ -15,7 +16,18 @@ const backEvaluation = () => {
 <template>
   <div id="app-wrap">
     <AppNav v-if="!route.meta.hideNav" v-on:comeback="backEvaluation" />
-    <RouterView ref="view" />
+    <RouterView v-slot="{Component}" ref="view">
+      <Transition name="slide-fade">
+        <Suspense timeout="0">
+          <template #default>
+            <component :is="Component" />
+          </template>
+          <template #fallback>
+            <SpinnerLoader />
+          </template>
+        </Suspense>
+      </Transition>
+    </RouterView>
   </div>
 </template>
 
@@ -39,16 +51,17 @@ const backEvaluation = () => {
     aspect-ratio: 320/568;
   }
 }
-// Transition: Slide
-.slide-enter-active {
-  transition: all 0.5s ease;
+.slide-fade-enter-active {
+  transition: all 0.5s ease-out;
 }
-.slide-leave-active {
+
+.slide-fade-leave-active {
   transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
-.slide-enter,
-.slide-leave-to {
-  transform: translateX(-10px);
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(-20px);
   opacity: 0;
 }
 </style>

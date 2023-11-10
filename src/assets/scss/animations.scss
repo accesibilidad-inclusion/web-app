@@ -1,18 +1,18 @@
 // Animations
 @keyframes modalFadeIn {
   0% {
-    background: rgba( 4, 28, 66, 0);
+    background: rgba(4, 28, 66, 0);
   }
   100% {
-    background: rgba( 4, 28, 66, .75);
+    background: rgba(4, 28, 66, 0.75);
   }
 }
 @keyframes modalFadeOut {
   0% {
-    background: rgba( 4, 28, 66, .75);
+    background: rgba(4, 28, 66, 0.75);
   }
   100% {
-    background: rgba( 4, 28, 66, 0);
+    background: rgba(4, 28, 66, 0);
   }
 }
 @keyframes quickScaleDown {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useAppDataStore } from '@/stores/app-data'
-import { useAppNavStore } from '@/stores/app-nav.js'
-import { useRouter } from 'vue-router'
+import {onMounted} from 'vue'
+import {useAppDataStore} from '@/stores/app-data'
+import {useAppNavStore} from '@/stores/app-nav.js'
+import {useRouter} from 'vue-router'
 import LogoPictos from '@/assets/img/app-icons/logo-pictos-light.svg?component'
 
 const appData = useAppDataStore()

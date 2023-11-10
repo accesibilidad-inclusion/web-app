@@ -1,28 +1,33 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
+import {computed} from 'vue'
 
 const props = defineProps<{
-  image: string,
-  focusSize: number|null,
-  focusX: number|null,
-  focusY: number|null
+  image: string
+  focusSize: number | null
+  focusX: number | null
+  focusY: number | null
 }>()
 
 const cssVars = computed(() => {
-  return props.focusSize && props.focusX && props.focusY ? {
-    '--size-clip': props.focusSize + '%',
-    '--x-position': props.focusX + '%',
-    '--y-position': props.focusY + '%',
-  } : {}
+  return props.focusSize && props.focusX && props.focusY
+    ? {
+        '--size-clip': props.focusSize + '%',
+        '--x-position': props.focusX + '%',
+        '--y-position': props.focusY + '%'
+      }
+    : {}
 })
-
 </script>
 
 <template>
   <div class="pictogram">
     <div class="container-img-preview">
-      <img id="imgPreview" class="img-preview" :src="image" alt="" :style="focusSize && focusX && focusY ? 'opacity:0.5' : ''"/>
+      <img
+        id="imgPreview"
+        class="img-preview"
+        :src="image"
+        alt=""
+        :style="focusSize && focusX && focusY ? 'opacity:0.5' : ''" />
       <img id="imgPreviewFocus" :style="cssVars" class="img-preview-focus" :src="image" alt="" />
     </div>
   </div>

@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+import {useFetch} from '@vueuse/core'
 
-import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconFormalities from '@/assets/img/app-icons/formalities.svg?component'
 import IconHealth from '@/assets/img/app-icons/health.svg?component'
 import IconTransport from '@/assets/img/app-icons/transport.svg?component'
 import IconLeisure from '@/assets/img/app-icons/leisure.svg?component'
-import { useAppDataStore } from '@/stores/app-data.js'
-import { useAppNavStore } from '@/stores/app-nav.js'
-import { Category } from '@/model/category'
-import { Service } from '@/model/service'
-import { PresentialVenue } from '@/model/presential_venue.js'
-import { OnlineVenue } from '@/model/online_venue.js'
+import TextToSpeech from '@/components/TextToSpeech.vue'
+import {Category} from '@/model/category'
+import {Service} from '@/model/service'
+import {PresentialVenue} from '@/model/presential_venue.js'
+import {OnlineVenue} from '@/model/online_venue.js'
+import {useAppDataStore} from '@/stores/app-data.js'
+import {useAppNavStore} from '@/stores/app-nav.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -24,59 +25,32 @@ const category = ref<Category>()
 const service = ref<Service>()
 const venues_presential = ref<Array<PresentialVenue>>([])
 const venues_online = ref<Array<OnlineVenue>>([])
-const loading = ref(true)
 
 const setVenue = (venue: PresentialVenue | OnlineVenue) => {
   router.push(`/${route.params.categorySlug}/${route.params.serviceSlug}/${venue.slug}`)
 }
 
-onBeforeMount(() => {
-  if (appData.location) {
-    fetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        lat: parseFloat(appData.location.lat),
-        lng: parseFloat(appData.location.lng),
-        category: route.params.categorySlug,
-        service: route.params.serviceSlug
-      })
-    })
-      .then(async (response) => {
-        const data = await response.json()
-        venues_presential.value = data.venues.map((v: PresentialVenue) => new PresentialVenue(v))
-        venues_online.value = data.venues_online.map((v: OnlineVenue) => new OnlineVenue(v))
-        category.value = data.category
-        service.value = data.service
-        appNav.selected.category = data.category
-        appNav.selected.service = data.service
-        document.title = `Lugares de ${data.service.name} | Pictos`
-        loading.value = false
-      })
-      .catch((err) => {
-        if (err.response.status === 404) {
-          router.push('/')
-        }
-      })
-  } else {
-    router.push('/')
-  }
-})
+const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues`)
+  .post({
+    lat: parseFloat(appData.location.lat),
+    lng: parseFloat(appData.location.lng),
+    category: route.params.categorySlug,
+    service: route.params.serviceSlug
+  })
+  .json()
+
+venues_presential.value = data.value.venues.map((v: PresentialVenue) => new PresentialVenue(v))
+venues_online.value = data.value.venues_online.map((v: OnlineVenue) => new OnlineVenue(v))
+category.value = data.value.category
+service.value = data.value.service
+appNav.selected.category = data.value.category
+appNav.selected.service = data.value.service
+document.title = `Lugares de ${data.value.service.name} | Pictos`
 </script>
 
 <template>
   <div class="service">
-    <template v-if="loading">
-      <clip-loader
-        :loading="loading"
-        :color="'#CAE0FF'"
-        :size="'3rem'"
-        class="mt-auto mb-auto"
-      ></clip-loader>
-    </template>
-    <template v-else-if="category && service">
+    <template v-if="category && service">
       <header class="service__header entries-list__header">
         <icon-transport v-if="category.slug == 'transporte'" class="service__icon" />
         <icon-health v-if="category.slug == 'salud'" class="service__icon" />
@@ -85,8 +59,7 @@ onBeforeMount(() => {
         <h1 class="service__title entries-list__title">{{ service.name }}</h1>
         <p class="service__description entries-list__description">Lugares del servicio</p>
         <text-to-speech
-          :text-audio="service.name + '.\n\n\n\n\n Lugares del servicio.'"
-        ></text-to-speech>
+          :text-audio="service.name + '.\n\n\n\n\n Lugares del servicio.'"></text-to-speech>
       </header>
       <main class="service__items service__items venues">
         <template v-if="venues_online.length">
@@ -98,12 +71,10 @@ onBeforeMount(() => {
               <p class="venue-block__distance">{{ venue_online.url }}</p>
               <div
                 v-if="venue_online.evaluation && venue_online.show_evaluation"
-                class="venue-block__evaluation"
-              >
+                class="venue-block__evaluation">
                 <span
                   class="venue-grade venue-block__evaluation-grade"
-                  :data-grade="venue_online.evaluation.score"
-                >
+                  :data-grade="venue_online.evaluation.score">
                   {{ venue_online.evaluation.score }}
                 </span>
                 <span class="venue-block__evaluation-description">
@@ -123,15 +94,13 @@ onBeforeMount(() => {
                   ': a' +
                   venue.distanceToText().replace('.', ' punto ') +
                   ' de distancia.'
-                "
-              />
+                " />
               <h2 class="venue-block__name entry-block__name">{{ venue.name }}</h2>
               <p class="venue-block__distance">a {{ venue.distanceToText() }} de distancia</p>
               <div v-if="venue.evaluation && venue.show_evaluation" class="venue-block__evaluation">
                 <span
                   class="venue-grade venue-block__evaluation-grade"
-                  :data-grade="venue.evaluation.score"
-                >
+                  :data-grade="venue.evaluation.score">
                   {{ venue.evaluation.score }}
                 </span>
                 <span class="venue-block__evaluation-description">
@@ -146,8 +115,7 @@ onBeforeMount(() => {
         <p class="actions__title">
           ¿No encuentras el lugar que estás buscando?
           <text-to-speech
-            :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'"
-          />
+            :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
         </p>
         <router-link
           :to="
@@ -155,8 +123,7 @@ onBeforeMount(() => {
               ? '/nuevo-lugar/intro/' + service.id
               : '/nuevo-lugar/' + service.id
           "
-          class="btn btn--primary btn--large btn--block"
-        >
+          class="btn btn--primary btn--large btn--block">
           &plus; Agregar un lugar nuevo
         </router-link>
       </aside>

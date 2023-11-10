@@ -1,7 +1,7 @@
-import type { Component } from "vue";
+import type {Component} from 'vue'
 
 export interface Onboarding {
-    title: string;
-    body: string;
-    image: Component;
+  title: string
+  body: string
+  image: Component
 }

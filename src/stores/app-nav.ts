@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia'
-import type { Category } from '@/types/category'
-import type { Service } from '@/types/service';
-import type { PresentialVenue } from '@/model/presential_venue';
-import type { OnlineVenue } from '@/model/online_venue';
-import type { Task } from '@/types/task';
+import {defineStore} from 'pinia'
+import type {Category} from '@/types/category'
+import type {Service} from '@/types/service'
+import type {PresentialVenue} from '@/model/presential_venue'
+import type {OnlineVenue} from '@/model/online_venue'
+import type {Task} from '@/types/task'
 
-export const useAppNavStore = defineStore('appNav',{
+export const useAppNavStore = defineStore('appNav', {
   state: () => {
     return {
       redirectTo: '/inicio' as string,
@@ -13,15 +13,15 @@ export const useAppNavStore = defineStore('appNav',{
         category: null as Category | null,
         service: null as Service | null,
         venue: null as PresentialVenue | OnlineVenue | null,
-        task: null as Task | null,
+        task: null as Task | null
       },
       onboarding: {
         welcome: true,
         evaluation: true,
         venue: true,
         task: true,
-        pictogram: true,
-      } as { [key: string]: boolean; }
+        pictogram: true
+      } as {[key: string]: boolean}
     }
   },
   actions: {
@@ -31,9 +31,9 @@ export const useAppNavStore = defineStore('appNav',{
         evaluation: true,
         venue: true,
         task: true,
-        pictogram: true,
+        pictogram: true
       }
-    },
+    }
   },
-  persist: true,
+  persist: true
 })

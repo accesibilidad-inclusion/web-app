@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import DrawPictogram from '@/components/DrawPictogram.vue'
-import { useRoute, useRouter } from 'vue-router'
-import { PresentialTask } from '@/model/presential_task';
-import { OnlineTask } from '@/model/online_task';
+import {useRoute, useRouter} from 'vue-router'
+import {PresentialTask} from '@/model/presential_task'
+import {OnlineTask} from '@/model/online_task'
 
 const props = defineProps<{
-  task: PresentialTask|OnlineTask
+  task: PresentialTask | OnlineTask
   preview?: boolean
   showParents?: boolean
 }>()
@@ -29,10 +29,15 @@ const selectTask = () => {
 
 <template>
   <div class="task task-block" tag="article" @click="selectTask()">
-    <DrawPictogram v-if="preview && (task instanceof PresentialTask)" class="task-block__preview" :layers="task.preview" />
+    <DrawPictogram
+      v-if="preview && task instanceof PresentialTask"
+      class="task-block__preview"
+      :layers="task.preview" />
     <p class="task-block__title">{{ task.title }}</p>
     <p v-if="task.count_steps > 0" class="task-block__service">{{ task.count_steps }} pasos</p>
-    <p v-if="showParents" class="task-block__service">{{ task.service.name }} / {{ task.venue.name }}</p>
+    <p v-if="showParents" class="task-block__service">
+      {{ task.service.name }} / {{ task.venue.name }}
+    </p>
     <TextToSpeech :text-audio="`${task.title}.\n\n`" />
   </div>
 </template>
