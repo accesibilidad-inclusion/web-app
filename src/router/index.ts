@@ -40,6 +40,24 @@ const router = createRouter({
       component: defineAsyncComponent(() => import('../views/CategoryScreen.vue'))
     },
     {
+      path: '/error',
+      name: 'error-screen',
+      component: () => import('../views/ErrorScreen.vue'),
+      meta: {title: 'Ha ocurrido un error inesperado'}
+    },
+    {
+      path: '/acerca-de',
+      name: 'about-screen',
+      component: () => import('../views/AboutScreen.vue'),
+      meta: {title: 'Acerca de Pictos'}
+    },
+    {
+      path: '/colabora-con-nosotros',
+      name: 'colaborate-screen',
+      component: () => import('../views/ColaborateScreen.vue'),
+      meta: {title: 'Colabora con nosotros'}
+    },
+    {
       path: '/:categorySlug/:serviceSlug/',
       name: 'service-screen',
       component: defineAsyncComponent(() => import('../views/ServiceScreen.vue'))
@@ -53,7 +71,7 @@ const router = createRouter({
       path: '/:categorySlug/:serviceSlug/:venueSlug/:taskSlug/',
       name: 'task-screen',
       component: defineAsyncComponent(() => import('../views/TaskScreen.vue'))
-    }
+    },
   ]
 })
 
@@ -82,7 +100,7 @@ router.beforeEach((to, from, next) => {
     to.name !== 'welcome-screen' &&
     to.name !== 'splash' &&
     !to.path.includes('/tu-ubicacion') &&
-    !appData.location
+    (appData.location.lat === "" && appData.location.lng === "" )
   ) {
     appNav.redirectTo = to.path
     next({name: 'location-screen'})

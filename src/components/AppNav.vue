@@ -27,6 +27,10 @@ const toHome = () => {
   router.push('/inicio')
   closeMenu()
 }
+const toAbout = () => {
+  router.push('/acerca-de')
+  closeMenu()
+}
 
 const tutorials = () => {
   appNav.redirectTo = route.fullPath
@@ -64,7 +68,7 @@ const tutorials = () => {
                   <a href="javascript:void(0)" @click="toHome">Inicio</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" @click="closeMenu">Acerca de</a>
+                  <a href="javascript:void(0)" @click="toAbout">Acerca de</a>
                 </li>
                 <!--<li>
                   <router-link to="/" @click.native="closeMenu">Opciones de Accesibilidad</router-link>

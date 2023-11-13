@@ -24,4 +24,11 @@ app.use(pinia)
 app.use(router)
 app.use(i18n)
 
+app.config.errorHandler = (err, instance, info) => {
+  console.log(err)
+  console.log(instance)
+  console.log(info)
+  router.push('/error')
+}
+
 app.mount('#app')
