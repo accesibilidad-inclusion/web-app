@@ -10,7 +10,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'splash',
-      component: import('../views/SplashScreen.vue')
+      component: () => import('../views/SplashScreen.vue')
     },
     {
       path: '/inicio',
