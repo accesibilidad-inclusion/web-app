@@ -25,10 +25,9 @@ const setService = (service: Service) => {
   router.push(`/${route.params.categorySlug}/${service.slug}`)
 }
 
-const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearsServices`)
+const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearServices`)
   .post({
-    lat: parseFloat(appData.location.lat),
-    lng: parseFloat(appData.location.lng),
+    ...appData.location.getCoordinates(),
     category: route.params.categorySlug
   })
   .json()

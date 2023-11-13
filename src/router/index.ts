@@ -100,7 +100,7 @@ router.beforeEach((to, from, next) => {
     to.name !== 'welcome-screen' &&
     to.name !== 'splash' &&
     !to.path.includes('/tu-ubicacion') &&
-    (appData.location.lat === "" && appData.location.lng === "" )
+    (!appData.location.isGpsActivated() && !appData.location.isCommuneSelected())
   ) {
     appNav.redirectTo = to.path
     next({name: 'location-screen'})

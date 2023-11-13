@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
+
+import {Location} from '@/model/location'
 import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import {useRouter} from 'vue-router'
@@ -15,19 +17,17 @@ const query = ref('')
 const expandRegions = ref<Array<number>>([])
 const commune = ref<Commune | null>(null)
 const permissionDenied = ref(false)
-const activatedGps = ref(appData.location && !appData.location.id)
-const communeSelected = ref(appData.location && appData.location.id)
 
 const activateGps = () => {
   navigator.geolocation.getCurrentPosition(checkPosition, errorGps)
 }
 
 const checkPosition = (position: any) => {
-  appData.location = {
-    lat: position.coords.latitude.toString(),
-    lng: position.coords.longitude.toString()
-  }
-  activatedGps.value = true
+  appData.location = new Location({
+    gpsLat: position.coords.latitude.toString(),
+    gpsLng: position.coords.longitude.toString(),
+    commune: null
+  })
 }
 
 const errorGps = () => {
@@ -54,7 +54,11 @@ const cancelCommune = () => {
 }
 
 const confirmCommune = () => {
-  appData.location = commune.value
+  appData.location = new Location({
+    gpsLat: '',
+    gpsLng: '',
+    commune: commune.value
+  })
   router.push(appNav.redirectTo).catch(() => {})
 }
 
@@ -70,7 +74,7 @@ const toggle = (id: number) => {
 <template>
   <div>
     <div v-if="!showCommune" class="your-location location-container">
-      <template v-if="activatedGps">
+      <template v-if="appData.location.isGpsActivated()">
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
           <h2 class="activate-location__title">
@@ -103,13 +107,13 @@ const toggle = (id: number) => {
           </button>
         </div>
       </template>
-      <template v-else-if="communeSelected">
+      <template v-else-if="appData.location.isCommuneSelected()">
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
           <h2
             class="activate-location__title"
             v-html="
-              $t('yourLocation.communeSelectedTitle', {communeName: appData.location?.name})
+              $t('yourLocation.communeSelectedTitle', {communeName: appData.location.commune?.name})
             "></h2>
           <p class="activate-location__description">
             {{ $t('yourLocation.changeLocation') }}

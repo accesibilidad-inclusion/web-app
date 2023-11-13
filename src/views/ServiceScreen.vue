@@ -32,8 +32,7 @@ const setVenue = (venue: PresentialVenue | OnlineVenue) => {
 
 const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues`)
   .post({
-    lat: parseFloat(appData.location.lat),
-    lng: parseFloat(appData.location.lng),
+    ...appData.location.getCoordinates(),
     category: route.params.categorySlug,
     service: route.params.serviceSlug
   })

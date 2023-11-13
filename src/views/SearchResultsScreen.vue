@@ -23,8 +23,7 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
   )
     .post({
       query: route.query.s,
-      lat: parseFloat(appData.location.lat),
-      lng: parseFloat(appData.location.lng)
+      ...appData.location.getCoordinates()
     })
     .json()
   tasks.value =
