@@ -51,10 +51,12 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
   <div class="service">
     <template v-if="category && service">
       <header class="service__header entries-list__header">
+        <span class="service-icon">
         <icon-transport v-if="category.slug == 'transporte'" class="service__icon" />
         <icon-health v-if="category.slug == 'salud'" class="service__icon" />
         <icon-leisure v-if="category.slug == 'ocio'" class="service__icon" />
         <icon-formalities v-if="category.slug == 'tramites'" class="service__icon" />
+        </span>
         <h1 class="service__title entries-list__title">{{ service.name }}</h1>
         <p class="service__description entries-list__description">Lugares del servicio</p>
         <text-to-speech
@@ -86,7 +88,7 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
         <template v-if="venues_presential.length">
           <div>Lugares presenciales</div>
           <template v-for="venue in venues_presential" :key="venue.id">
-            <a class="venue-block entry-block" tag="article" @click="setVenue(venue)">
+            <a class="venue-block entry-block card" tag="article" @click="setVenue(venue)">
               <text-to-speech
                 :text-audio="
                   venue.name +
@@ -94,8 +96,8 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
                   venue.distanceToText().replace('.', ' punto ') +
                   ' de distancia.'
                 " />
-              <h2 class="venue-block__name entry-block__name">{{ venue.name }}</h2>
-              <p class="venue-block__distance">a {{ venue.distanceToText() }} de distancia</p>
+              <h2 class="venue-block__name entry-block__name card__name">{{ venue.name }}</h2>
+              <p class="venue-block__distance card__distance">a {{ venue.distanceToText() }} de distancia</p>
               <div v-if="venue.evaluation && venue.show_evaluation" class="venue-block__evaluation">
                 <span
                   class="venue-grade venue-block__evaluation-grade"
@@ -135,6 +137,41 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
 .service {
   display: flex;
   flex-flow: column nowrap;
+  padding: var(--spacer--700) var(--spacer--400) var(--spacer--500);
+}
+.service__header {
+  padding: var(--spacer--500) var(--spacer--400);
+  background: var(--color-brand-lighter);
+  border-radius: var(--spacer--500);
+  color: var(--color--blue-dark);
+  display: grid;
+  grid-template-areas: 'icon name' 'icon description';
+  grid-template-columns: 55px auto;
+  grid-template-rows: auto 1fr;
+  gap: var(--spacer--200) var(--spacer--300);
+  position: relative;
+}
+.service-icon {
+  background: var(--color--yellow);
+  border: 1px solid var(--color--blue);
+  border-radius: var(--spacer--300);
+  width: 55px;
+  height: 55px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-area: icon;
+}
+.service__title {
+  grid-area: name;
+  display: block;
+  font-size: var(--font-size--700);
+  font-weight: 700;
+}
+.service__description {
+  grid-area: description;
+  font-size: var(--font-size--400);
+  font-weight: 600;
 }
 .service__header .tts {
   position: absolute;
@@ -146,10 +183,6 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
   @media screen and (min-width: 1280px) {
     right: var(--spacer-xl);
   }
-}
-.service__icon {
-  width: 1rem;
-  height: 1rem;
 }
 .service__items {
   flex-grow: 1;
