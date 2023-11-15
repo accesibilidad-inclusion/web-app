@@ -57,23 +57,25 @@ const doSearch = () => {
         Buscar tareas presenciales
       </div>
     </div>
-    <div v-if="filterSelected">
-      <div class="main-search__group">
-        <input
-          id="s"
-          v-model="query"
-          class="main-search__input"
-          type="search"
-          placeholder="Ejemplo: Viajar en metro" />
-        <icon-search class="main-search__icon" />
+    <Transition>
+      <div v-if="filterSelected">
+        <div class="main-search__group">
+          <input
+            id="s"
+            v-model="query"
+            class="main-search__input"
+            type="search"
+            placeholder="Ejemplo: Viajar en metro" />
+          <icon-search class="main-search__icon" />
+        </div>
+        <button
+          v-bind:class="'main-search__button' + ' main-search__button--' + filterSelected"
+          :disabled="query.trim() == ''"
+          type="submit">
+          Ver resultados
+        </button>
       </div>
-      <button
-        v-bind:class="'main-search__button' + ' main-search__button--' + filterSelected"
-        :disabled="query.trim() == ''"
-        type="submit">
-        Ver resultados
-      </button>
-    </div>
+    </Transition>
   </form>
 </template>
 

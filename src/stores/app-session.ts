@@ -1,10 +1,10 @@
 import {defineStore} from 'pinia'
-import type {User} from '@/types/user'
+import {User} from '@/model/user'
 
 export const useAppSessionStore = defineStore('appSession', {
   state: () => {
     return {
-      user: null as User | null
+      user: new User() as User
     }
   },
   persist: true

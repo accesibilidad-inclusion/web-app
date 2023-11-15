@@ -15,7 +15,8 @@ const router = createRouter({
     {
       path: '/inicio',
       name: 'home-screen',
-      component: () => import('../views/HomeScreen.vue')
+      component: () => import('../views/HomeScreen.vue'),
+      meta: {title: 'Facilitamos tu vida en pasos simples'}
     },
     {
       path: '/tu-ubicacion',
@@ -56,6 +57,24 @@ const router = createRouter({
       name: 'colaborate-screen',
       component: () => import('../views/ColaborateScreen.vue'),
       meta: {title: 'Colabora con nosotros'}
+    },
+    {
+      path: '/evaluar-lugar/:type/:venueId',
+      name: 'evaluate-venue-screen',
+      component: () => import('../views/EvaluateVenueScreen.vue'),
+      meta: {title: 'Evalua este lugar'}
+    },
+    {
+      path: '/aprende-a-evaluar/:type',
+      name: 'onboarding-evaluation-screen',
+      component: () => import('../views/OnboardingEvaluationScreen.vue'),
+      meta: {title: 'Aprende a evaluar'}
+    },
+    {
+      path: '/informacion-personal',
+      name: 'personal-information-screen',
+      component: () => import('../views/PersonalInformationScreen.vue'),
+      meta: {title: 'Completa tu información personal'}
     },
     {
       path: '/:categorySlug/:serviceSlug/',

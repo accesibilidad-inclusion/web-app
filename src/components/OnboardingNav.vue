@@ -1,20 +1,28 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {ref, type Component} from 'vue'
 import {useRouter} from 'vue-router'
 import OnboardingItem from '@/components/OnboardingItem.vue'
 import {useAppNavStore} from '@/stores/app-nav.js'
-import type {Onboarding} from '@/types/onboarding'
+import type {Onboarding, OnboardingOrComponent} from '@/types/onboarding'
 
 const router = useRouter()
 const appNav = useAppNavStore()
 
 const props = defineProps<{
-  sequence: Array<Onboarding>
+  sequence: Array<OnboardingOrComponent>
   redirectTo: string
-  onboardingKey: string
+  onboardingKey?: string
 }>()
 
 const currentStep = ref(0)
+const comp = ref<any>(null)
+
+function isOnboarding(element: OnboardingOrComponent): element is Onboarding {
+  if ((element as Onboarding).title) {
+    return true
+  }
+  return false
+}
 
 const rewindStep = () => {
   currentStep.value = currentStep.value - 1
@@ -23,7 +31,7 @@ const advanceStep = () => {
   currentStep.value = currentStep.value + 1
 }
 const finishing = () => {
-  appNav.onboarding[props.onboardingKey] = false
+  if (props.onboardingKey !== undefined) appNav.onboarding[props.onboardingKey] = false
   router.push(props.redirectTo).catch(() => {})
 }
 </script>
@@ -31,8 +39,13 @@ const finishing = () => {
 <template>
   <div class="onboarding-nav">
     <div class="onboarding-nav__body">
-      <!-- <a href="javascript:void(0)" @click="finishing">Cerrar</a> -->
-      <OnboardingItem :data="sequence[currentStep]" />
+      <OnboardingItem
+        v-if="isOnboarding(sequence[currentStep])"
+        :data="sequence[currentStep] as Onboarding" />
+      <component
+        v-if="!isOnboarding(sequence[currentStep])"
+        :is="sequence[currentStep] as Component"
+        ref="comp" />
     </div>
     <footer class="onboarding__footer">
       <button class="btn btn--large btn--secondary" v-if="currentStep > 0" @click="rewindStep">
@@ -41,6 +54,7 @@ const finishing = () => {
       <button
         class="btn btn--large btn--primary"
         v-if="currentStep < sequence.length - 1"
+        :disabled="!!comp && !comp.canContinue"
         @click="advanceStep">
         Siguiente
       </button>

@@ -11,13 +11,11 @@ import {OnlineVenue} from '@/model/online_venue.js'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav'
-import {useAppSessionStore} from '@/stores/app-session'
 
 const route = useRoute()
 
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
-const appSession = useAppSessionStore()
 
 const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
@@ -127,13 +125,9 @@ const evaluation = computed(() => {
           </router-link>
           <div class="venue__evaluation-actions">
             <router-link
-              :to="
-                appNav.onboarding.evaluation
-                  ? '/evaluacion-lugar/intro'
-                  : appSession.user?.id
-                  ? '/evaluacion-lugar'
-                  : '/personal-information/registration'
-              "
+              :to="`/evaluar-lugar/${venue instanceof OnlineVenue ? 'en-internet' : 'presencial'}/${
+                venue.id
+              }`"
               class="btn btn--ghost btn--large btn--block">
               Evaluar este lugar
             </router-link>
@@ -178,13 +172,9 @@ const evaluation = computed(() => {
             </router-link>
             <div class="venue__evaluation-actions">
               <router-link
-                :to="
-                  appNav.onboarding.evaluation
-                    ? '/evaluacion-lugar/intro'
-                    : appSession.user?.id
-                    ? '/evaluacion-lugar'
-                    : '/personal-information/registration'
-                "
+                :to="`/evaluar-lugar/${
+                  venue instanceof OnlineVenue ? 'en-internet' : 'presencial'
+                }/${venue.id}`"
                 class="btn btn--ghost btn--large btn--block">
                 Evaluar este lugar
               </router-link>

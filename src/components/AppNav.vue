@@ -27,6 +27,12 @@ const toHome = () => {
   router.push('/inicio')
   closeMenu()
 }
+
+const toColaborateWithUs = () => {
+  router.push('/colabora-con-nosotros')
+  closeMenu()
+}
+
 const toAbout = () => {
   router.push('/acerca-de')
   closeMenu()
@@ -70,11 +76,8 @@ const tutorials = () => {
                 <li>
                   <a href="javascript:void(0)" @click="toAbout">Acerca de</a>
                 </li>
-                <!--<li>
-                  <router-link to="/" @click.native="closeMenu">Opciones de Accesibilidad</router-link>
-                </li>-->
                 <li>
-                  <a href="javascript:void(0)" @click="closeMenu">Colabora con nosotros</a>
+                  <a href="javascript:void(0)" @click="toColaborateWithUs">Colabora con nosotros</a>
                 </li>
                 <li>
                   <a href="javascript:void(0)" @click="tutorials">Reactivar tutoriales</a>

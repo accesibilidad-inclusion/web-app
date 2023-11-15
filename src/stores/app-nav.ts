@@ -17,7 +17,8 @@ export const useAppNavStore = defineStore('appNav', {
       },
       onboarding: {
         welcome: true,
-        evaluation: true,
+        presentialEvaluation: true,
+        onlineEvaluation: true,
         venue: true,
         task: true,
         pictogram: true

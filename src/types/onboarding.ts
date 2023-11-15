@@ -5,3 +5,5 @@ export interface Onboarding {
   body: string
   image: Component
 }
+
+export type OnboardingOrComponent = Onboarding | Component
