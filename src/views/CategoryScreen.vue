@@ -5,7 +5,7 @@ import {useFetch} from '@vueuse/core'
 
 import PresentialPlaceIcon from '@/assets/img/app-icons/support/lugar.svg?component'
 import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
-import LocationSelector from '@/components/LocationSelector.vue'
+import BlockHeader from '@/components/BlockHeader.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import CategoryIcon from '@/components/CategoryIcon.vue'
 import {Category} from '@/model/category'
@@ -41,16 +41,14 @@ document.title = `Servicios de ${data.value.category.name} | Pictos`
 <template>
   <div class="category entries-list">
     <template v-if="category">
-      <header class="category__header entries-list__header">
-        <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
-        <h1 class="category__title entries-list__title">{{ category.name }}</h1>
-        <p class="category__description entries-list__description">
-          {{ $t('servicesByCategory.servicesNear') }}
-        </p>
-        <LocationSelector :dense="true" />
-        <text-to-speech
-          :text-audio="category.name + '.\n\n ' + $t('servicesByCategory.servicesNear')" />
-      </header>
+      <BlockHeader
+        :title="category.name"
+        :description="$t('servicesByCategory.servicesNear')"
+        location>
+        <template v-slot:icon>
+          <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
+        </template>
+      </BlockHeader>
       <main class="category__items category__items--services">
         <template v-for="service in services" :key="service.id">
           <a
@@ -98,81 +96,6 @@ document.title = `Servicios de ${data.value.category.name} | Pictos`
 .category {
   display: flex;
   flex-flow: column nowrap;
-}
-.category__icon {
-  position: absolute;
-}
-.entries-list__header {
-  position: relative;
-  padding: var(--spacer);
-  text-align: center;
-  background-color: var(--color-brand-lighter);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
-  }
-}
-.entries-list__title {
-  font-size: var(--font-size--700);
-  margin-bottom: var(--spacer--200);
-  line-height: calc(25 / 18);
-  color: var(--color-brand-darkest);
-}
-.category__header {
-  border-radius: var(--spacer--500);
-  background: var(--color--carolinablue);
-  margin: var(--spacer--700) var(--spacer--400) 0;
-  position: relative;
-  padding-top: var(--spacer--600);
-  font-weight: 600;
-}
-.category__description {
-  font-size: var(--font-size--400);
-  color: var(--color--blue-dark);
-  margin: var(--spacer--200) 0;
-}
-.category__header :deep(.your-location) {
-  margin: 0;
-  background: transparent;
-  padding: 0;
-  justify-content: center;
-  .your-location__content {
-    width: auto;
-    color: var(--color--blue-dark);
-    gap: var(--spacer--200);
-  }
-  svg {
-    position: relative;
-    top: 1px;
-    path {
-      fill: var(--color--blue-dark) !important;
-    }
-  }
-
-  .your-location__change {
-    padding: var(--spacer--200);
-    color: var(--color--blue);
-  }
-}
-.category__icon {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.category__header .tts {
-  position: absolute;
-  top: var(--spacer);
-  right: var(--spacer);
-  @media screen and (min-width: 640px) {
-    right: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    right: var(--spacer-xl);
-  }
 }
 .category__items {
   flex-grow: 1;

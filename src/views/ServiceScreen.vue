@@ -3,10 +3,8 @@ import {ref} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {useFetch} from '@vueuse/core'
 
-import IconFormalities from '@/assets/img/app-icons/formalities.svg?component'
-import IconHealth from '@/assets/img/app-icons/health.svg?component'
-import IconTransport from '@/assets/img/app-icons/transport.svg?component'
-import IconLeisure from '@/assets/img/app-icons/leisure.svg?component'
+import BlockHeader from '@/components/BlockHeader.vue'
+import CategoryIcon from '@/components/CategoryIcon.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {Category} from '@/model/category'
 import {Service} from '@/model/service'
@@ -50,18 +48,11 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
 <template>
   <div class="service">
     <template v-if="category && service">
-      <header class="service__header entries-list__header">
-        <span class="service-icon">
-        <icon-transport v-if="category.slug == 'transporte'" class="service__icon" />
-        <icon-health v-if="category.slug == 'salud'" class="service__icon" />
-        <icon-leisure v-if="category.slug == 'ocio'" class="service__icon" />
-        <icon-formalities v-if="category.slug == 'tramites'" class="service__icon" />
-        </span>
-        <h1 class="service__title entries-list__title">{{ service.name }}</h1>
-        <p class="service__description entries-list__description">Lugares del servicio</p>
-        <text-to-speech
-          :text-audio="service.name + '.\n\n\n\n\n Lugares del servicio.'"></text-to-speech>
-      </header>
+      <BlockHeader :title="service.name" description="Lugares del servicio" compact>
+        <template v-slot:icon>
+          <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
+        </template>
+      </BlockHeader>
       <main class="service__items service__items venues">
         <template v-if="venues_online.length">
           <div>Lugares en internet</div>
@@ -97,7 +88,9 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
                   ' de distancia.'
                 " />
               <h2 class="venue-block__name entry-block__name card__name">{{ venue.name }}</h2>
-              <p class="venue-block__distance card__distance">a {{ venue.distanceToText() }} de distancia</p>
+              <p class="venue-block__distance card__distance">
+                a {{ venue.distanceToText() }} de distancia
+              </p>
               <div v-if="venue.evaluation && venue.show_evaluation" class="venue-block__evaluation">
                 <span
                   class="venue-grade venue-block__evaluation-grade"

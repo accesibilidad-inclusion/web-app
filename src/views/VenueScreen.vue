@@ -3,6 +3,7 @@ import {computed, ref} from 'vue'
 import {useRoute} from 'vue-router'
 import {useFetch} from '@vueuse/core'
 
+import BlockHeader from '@/components/BlockHeader.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import TaskBlock from '@/components/TaskBlock.vue'
 import {Service} from '@/model/service'
@@ -56,7 +57,7 @@ const evaluation = computed(() => {
 <template>
   <div :class="type + '-venue'">
     <template v-if="service && venue">
-      <header class="venue__header">
+      <!-- <header class="venue__header">
         <router-link
           :to="'/' + $route.params.categorySlug + '/' + $route.params.serviceSlug"
           class="venue__service"
@@ -80,7 +81,15 @@ const evaluation = computed(() => {
           <icon-location-pin />
         </a>
         <text-to-speech :text-audio="`${venue.name}, en ${service.name}`" />
-      </header>
+      </header> -->
+      <BlockHeader
+        :title="venue.name"
+        description="Listado de tareas en:"
+        :link="{
+          text: venue instanceof PresentialVenue ? 'Ver en el Mapa' : 'Ir a sitio web',
+          url: venue instanceof PresentialVenue ? venue.mapLink : venue.url
+        }">
+      </BlockHeader>
       <template v-if="venue.tasks !== undefined && venue.tasks.length">
         <main class="venue__tasks">
           <p class="venue__tasks-description">
