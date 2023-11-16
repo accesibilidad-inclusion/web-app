@@ -5,6 +5,7 @@ import {useFetch} from '@vueuse/core'
 
 import PresentialPlaceIcon from '@/assets/img/app-icons/support/lugar.svg?component'
 import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
+import ItemClickable from '@/components/ItemClickable.vue'
 import BlockHeader from '@/components/BlockHeader.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import CategoryIcon from '@/components/CategoryIcon.vue'
@@ -45,29 +46,22 @@ document.title = `Servicios de ${data.value.category.name} | Pictos`
         :title="category.name"
         :description="$t('servicesByCategory.servicesNear')"
         location>
-        <template v-slot:icon>
+        <template #icon>
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
       </BlockHeader>
       <main class="category__items category__items--services">
         <template v-for="service in services" :key="service.id">
-          <a
-            class="category__item category__item--service service-block entry-block"
-            tag="article"
-            @click="setService(service)">
-            <h2 class="service-block__name entry-block__name">{{ service.name }}</h2>
-            <text-to-speech :text-audio="`${service.name}`" />
-            <span class="category__meta">
-              <span class="category__meta-data" v-if="service.count_presential > 0"
-                ><PresentialPlaceIcon></PresentialPlaceIcon> {{ service.count_presential }} lugares
-                presenciales
-              </span>
-              <span class="category__meta-data" v-if="service.count_online > 0"
-                ><InternetPlaceIcon></InternetPlaceIcon> {{ service.count_online }} lugares en
-                internet
-              </span>
-            </span>
-          </a>
+          <ItemClickable :title="service.name" @click="setService(service)">
+            <template #meta>
+              <div v-if="service.count_presential > 0">
+                <PresentialPlaceIcon /> {{ service.count_presential }} lugares presenciales
+              </div>
+              <div v-if="service.count_online > 0">
+                <InternetPlaceIcon /> {{ service.count_online }} lugares en internet
+              </div>
+            </template>
+          </ItemClickable>
         </template>
       </main>
       <aside class="actions actions--category">
@@ -122,80 +116,6 @@ document.title = `Servicios de ${data.value.category.name} | Pictos`
 .category__items {
   margin: calc(var(--spacer--700) * 0.5) var(--spacer--400);
 }
-.category__item {
-  cursor: pointer;
-  display: grid;
-  border: 1px solid var(--color--blue);
-  background: var(--color--white);
-  padding: var(--spacer--400) var(--spacer--500);
-  position: relative;
-  border-radius: var(--spacer--500);
-  margin-top: var(--spacer--300);
-  grid-template-columns: 1fr auto;
-  grid-template-areas: 'title tts' 'meta meta';
-  gap: var(--spacer--300);
-  &:hover {
-    cursor: pointer;
-    background: var(--color-brand-lightest);
-  }
-}
-.service-block__name {
-  font-size: var(--font-size--500);
-  line-height: 1.25;
-  color: var(--color--blue-dark);
-  grid-area: title;
-}
-.category__meta {
-  grid-area: meta;
-  line-height: 1.2;
-  font-size: var(--font-size--400);
-  display: flex;
-  flex-flow: column;
-  gap: var(--spacer--200);
-}
-.category__meta,
-.category__meta-data {
-  color: var(--color--blue-gray);
-  font-weight: 600;
-}
-.tts {
-  grid-area: tts;
-}
-.category__meta-data {
-  display: block;
-  display: flex;
-  align-items: flex-end;
-  gap: var(--spacer--200);
-}
-// .category__meta-data :deep(svg) {
-//   // position: relative;
-//   // top: 2px;
-// }
-.category__meta-data :deep(path) {
-  fill: var(--color--blue-gray);
-}
-// .entry-block__name {
-//   @include rfs($font-size-16);
-//   line-height: 1.375;
-// }
-// .service-block__icon {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 1.25rem;
-//   height: 1.25rem;
-//   line-height: 1;
-//   text-align: center;
-//   border-radius: 50%;
-//   background: var(--color-brand-darkest);
-//   svg {
-//     width: 0.7rem;
-//     height: 0.7rem;
-//     path {
-//       fill: #fff;
-//     }
-//   }
-// }
 .actions--category {
   display: flex;
   flex-flow: column;

@@ -3,6 +3,7 @@ import {ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useFetch} from '@vueuse/core'
 
+import ItemClickable from '@/components/ItemClickable.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {PresentialVenue} from '@/model/presential_venue'
 import {useAppDataStore} from '@/stores/app-data'
@@ -33,11 +34,12 @@ venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
         <TextToSpeech :text-audio="'Lugares con ayudas cerca de tu ubicación'" />
       </p>
       <div v-for="venue in venues" :key="venue.id">
-        <a @click="setVenue(venue)">
-          <div>{{ venue.name }}</div>
-          <div>a {{ venue.distanceToText() }} de distancia</div>
-          <div>Pertenece a: {{ venue.service.name }}</div>
-        </a>
+        <ItemClickable :title="venue.name" @click="setVenue(venue)">
+          <template #meta>
+            <div>a {{ venue.distanceToText() }} de distancia</div>
+            <div>Pertenece a: {{ venue.service.name }}</div>
+          </template>
+        </ItemClickable>
       </div>
     </main>
   </div>

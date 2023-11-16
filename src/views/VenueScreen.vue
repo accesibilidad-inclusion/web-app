@@ -57,31 +57,6 @@ const evaluation = computed(() => {
 <template>
   <div :class="type + '-venue'">
     <template v-if="service && venue">
-      <!-- <header class="venue__header">
-        <router-link
-          :to="'/' + $route.params.categorySlug + '/' + $route.params.serviceSlug"
-          class="venue__service"
-          >{{ service.name }}</router-link
-        >
-        <h1 class="venue__name">{{ venue.name }}</h1>
-        <a
-          v-if="venue instanceof PresentialVenue && venue.mapLink"
-          :href="venue.mapLink"
-          class="venue__map-link"
-          target="_blank">
-          <icon-location-pin />
-          Abrir en mapa
-        </a>
-        <a
-          v-if="venue instanceof OnlineVenue"
-          :href="venue.url"
-          class="venue__map-link"
-          target="_blank">
-          Ir a sitio web
-          <icon-location-pin />
-        </a>
-        <text-to-speech :text-audio="`${venue.name}, en ${service.name}`" />
-      </header> -->
       <BlockHeader
         :title="venue.name"
         description="Listado de tareas en:"

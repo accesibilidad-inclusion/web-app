@@ -5,6 +5,7 @@ import {useFetch} from '@vueuse/core'
 
 import BlockHeader from '@/components/BlockHeader.vue'
 import CategoryIcon from '@/components/CategoryIcon.vue'
+import ItemClickable from '@/components/ItemClickable.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {Category} from '@/model/category'
 import {Service} from '@/model/service'
@@ -49,59 +50,53 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
   <div class="service">
     <template v-if="category && service">
       <BlockHeader :title="service.name" description="Lugares del servicio" compact>
-        <template v-slot:icon>
+        <template #icon>
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
       </BlockHeader>
       <main class="service__items service__items venues">
         <template v-if="venues_online.length">
           <div>Lugares en internet</div>
-          <template v-for="venue_online in venues_online" :key="venue_online.id">
-            <a class="venue-block entry-block" tag="article" @click="setVenue(venue_online)">
-              <text-to-speech :text-audio="venue_online.name" />
-              <h2 class="venue-block__name entry-block__name">{{ venue_online.name }}</h2>
-              <p class="venue-block__distance">{{ venue_online.url }}</p>
-              <div
-                v-if="venue_online.evaluation && venue_online.show_evaluation"
-                class="venue-block__evaluation">
-                <span
-                  class="venue-grade venue-block__evaluation-grade"
-                  :data-grade="venue_online.evaluation.score">
-                  {{ venue_online.evaluation.score }}
-                </span>
-                <span class="venue-block__evaluation-description">
-                  {{ venue_online.evaluation.calification }}
-                </span>
-              </div>
-            </a>
+          <template v-for="venue in venues_online" :key="venue.id">
+            <ItemClickable :title="venue.name" @click="setVenue(venue)">
+              <template #meta>
+                <div class="venue-block__distance">{{ venue.url }}</div>
+                <div
+                  v-if="venue.evaluation && venue.show_evaluation"
+                  class="venue-block__evaluation">
+                  <span
+                    class="venue-grade venue-block__evaluation-grade"
+                    :data-grade="venue.evaluation.score">
+                    {{ venue.evaluation.score }}
+                  </span>
+                  <span class="venue-block__evaluation-description">
+                    {{ venue.evaluation.calification }}
+                  </span>
+                </div>
+              </template>
+            </ItemClickable>
           </template>
         </template>
         <template v-if="venues_presential.length">
           <div>Lugares presenciales</div>
           <template v-for="venue in venues_presential" :key="venue.id">
-            <a class="venue-block entry-block card" tag="article" @click="setVenue(venue)">
-              <text-to-speech
-                :text-audio="
-                  venue.name +
-                  ': a' +
-                  venue.distanceToText().replace('.', ' punto ') +
-                  ' de distancia.'
-                " />
-              <h2 class="venue-block__name entry-block__name card__name">{{ venue.name }}</h2>
-              <p class="venue-block__distance card__distance">
-                a {{ venue.distanceToText() }} de distancia
-              </p>
-              <div v-if="venue.evaluation && venue.show_evaluation" class="venue-block__evaluation">
-                <span
-                  class="venue-grade venue-block__evaluation-grade"
-                  :data-grade="venue.evaluation.score">
-                  {{ venue.evaluation.score }}
-                </span>
-                <span class="venue-block__evaluation-description">
-                  {{ venue.evaluation.calification }}
-                </span>
-              </div>
-            </a>
+            <ItemClickable :title="venue.name" @click="setVenue(venue)">
+              <template #meta>
+                <div>a {{ venue.distanceToText() }} de distancia</div>
+                <div
+                  v-if="venue.evaluation && venue.show_evaluation"
+                  class="venue-block__evaluation">
+                  <span
+                    class="venue-grade venue-block__evaluation-grade"
+                    :data-grade="venue.evaluation.score">
+                    {{ venue.evaluation.score }}
+                  </span>
+                  <span class="venue-block__evaluation-description">
+                    {{ venue.evaluation.calification }}
+                  </span>
+                </div>
+              </template>
+            </ItemClickable>
           </template>
         </template>
       </main>
