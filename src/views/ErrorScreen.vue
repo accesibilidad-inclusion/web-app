@@ -8,33 +8,90 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="onboarding-item">
-    <ErrorImage class="onboarding-item__image" />
-    <div class="onboarding-item__container container">
-      <h2 class="onboarding-item__title">
-        ¡Lo sentimos!
-        <TextToSpeech
-          :text-audio="'¡Lo sentimos!.\n\n\n\n\n\n Ha ocurrido un error inesperado, puedes volver a Inicio o recargar la página'" />
-      </h2>
-      <p>Ha ocurrido un error inesperado, puedes volver a Inicio o recargar la página</p>
+  <div class="onboarding-error">
+    <div class="onboarding-error__body">
+      <div class="onboarding-error-item">
+        <ErrorImage class="onboarding-error-item__image" />
+        <div class="onboarding-error-item__container">
+          <h2 class="onboarding-error-item__title">
+            ¡Lo sentimos!
+            <TextToSpeech
+              :text-audio="'¡Lo sentimos!.\n\n\n\n\n\n Ha ocurrido un error inesperado, puedes volver a Inicio o recargar la página'" />
+          </h2>
+          <p class="onboarding-error-item__text">Ha ocurrido un error inesperado, puedes volver a Inicio o recargar la página</p>
+        </div>
+      </div>
     </div>
+    <footer class="onboarding__footer">
+      <button class="btn btn--large btn--primary" @click="router.push('/inicio')">Ir a inicio</button>
+    </footer>
   </div>
-  <button class="btn btn--large btn--primary" @click="router.push('/inicio')">Ir a inicio</button>
 </template>
 
 <style lang="scss">
-.onboarding-item {
-  width: 100%;
-  line-height: 20px;
+.onboarding-error {
+  display: flex;
+  flex-flow: column;
+  background-color: var(--color--skyblue);
 }
-.onboarding-item__image {
+.onboarding-error__body {
+  flex-grow: 1;
+}
+.onboarding__footer {
+  display: flex;
+  gap: var(--spacer--300);
+  padding: 0 var(--spacer--400) var(--spacer--400);
+  @media screen and (min-width: 640px) {
+    padding: 0 var(--spacer--500) var(--spacer--400);
+  }
+  button {
+    flex-basis: 50%;
+    flex-grow: 1;
+  }
+}
+.onboarding-error-item {
+  width: 100%;
+  line-height: 1.25rem;
+}
+.onboarding-error-item__image {
   width: 100%;
   height: auto;
 }
-.onboarding-item__title {
-  font-weight: 700;
-  font-size: var(--font-size--500);
-  color: var(--color--blue-dark);
-  margin-bottom: 10px;
+.onboarding-error-item__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  gap: var(--spacer--300);
+  padding: var(--spacer--500) var(--spacer--400);
+  width: 100%;
+  height: 100%;
+  @media screen and (min-width: 640px) {
+    padding: var(--spacer--600) var(--spacer--500);
+    gap: var(--spacer--400);
+  }
+  .onboarding-error-item__title {
+    font-weight: 800;
+    font-size: var(--font-size--600);
+    color: var(--color--blue-dark);
+    position: relative;
+    @media screen and (min-width: 640px) {
+      font-size: var(--font-size--700);
+      line-height: 1.3rem;
+    }
+    .tts {
+      position: absolute;
+      top: var(--spacer--200);
+      right: 0;
+    }
+  }
+  .onboarding-error-item__text {
+    font-size: var(--font-size--400);
+    font-weight: 600;
+    @media screen and (min-width: 640px) {
+      font-size: var(--font-size--600);
+      line-height: 1.5;
+    }
+  }
 }
 </style>
