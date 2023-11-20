@@ -36,11 +36,6 @@ const router = createRouter({
       meta: {title: 'Resultados de tu búsqueda'}
     },
     {
-      path: '/:categorySlug/',
-      name: 'category-screen',
-      component: defineAsyncComponent(() => import('../views/CategoryScreen.vue'))
-    },
-    {
       path: '/error',
       name: 'error-screen',
       component: () => import('../views/ErrorScreen.vue'),
@@ -68,13 +63,18 @@ const router = createRouter({
       path: '/aprende-a-evaluar/:type',
       name: 'onboarding-evaluation-screen',
       component: () => import('../views/OnboardingEvaluationScreen.vue'),
-      meta: {title: 'Aprende a evaluar'}
+      meta: {title: 'Aprende a evaluar', hideNav: true}
     },
     {
       path: '/informacion-personal',
       name: 'personal-information-screen',
       component: () => import('../views/PersonalInformationScreen.vue'),
-      meta: {title: 'Completa tu información personal'}
+      meta: {title: 'Completa tu información personal', hideNav: true}
+    },
+    {
+      path: '/:categorySlug/',
+      name: 'category-screen',
+      component: defineAsyncComponent(() => import('../views/CategoryScreen.vue'))
     },
     {
       path: '/:categorySlug/:serviceSlug/',

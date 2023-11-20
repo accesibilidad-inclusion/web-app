@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useRoute} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 
 import OnboardingNav from '@/components/OnboardingNav.vue'
 import OnboardingImage1 from '@/assets/img/illustrations/activar-tutoriales 1.svg?component'
@@ -11,6 +11,7 @@ import type {Onboarding} from '@/types/onboarding'
 
 const appNav = useAppNavStore()
 const route = useRoute()
+const router = useRouter()
 
 const sequence: Array<Onboarding> = [
   {
@@ -34,16 +35,17 @@ const sequence: Array<Onboarding> = [
     image: OnboardingImage4
   }
 ]
+
+const finishing = () => {
+  if (route.params.type === 'presencial') appNav.onboarding.presentialEvaluation = false
+  if (route.params.type === 'en-internet') appNav.onboarding.onlineEvaluation = false
+  router.push(appNav.redirectTo)
+}
 </script>
 
 <template>
   <main class="page">
-    <OnboardingNav
-      :sequence="sequence"
-      :onboarding-key="
-        route.params.type === 'presencial' ? 'presentialEvaluation' : 'onlineEvaluation'
-      "
-      :redirect-to="appNav.redirectTo" />
+    <OnboardingNav :sequence="sequence" @finished="finishing()" />
   </main>
 </template>
 

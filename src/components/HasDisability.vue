@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BlockHeader from './BlockHeader.vue'
 import TextToSpeech from './TextToSpeech.vue'
 import {useAppSessionStore} from '@/stores/app-session'
 import {computed} from 'vue'
@@ -9,12 +10,17 @@ const canContinue = computed((): boolean => {
   return !!appSession.user.disability
 })
 
+const clearDisabilities = () => {
+  appSession.user.disabilities = []
+}
+
 defineExpose({
   canContinue
 })
 </script>
 
 <template>
+  <BlockHeader description="Sobre ti"> </BlockHeader>
   <h2 class="onboarding__title">
     ¿Tienes alguna discapacidad?
     <text-to-speech
@@ -38,6 +44,7 @@ defineExpose({
       id="no"
       value="no"
       class="custom-control__input"
+      @input="clearDisabilities()"
       v-model="appSession.user.disability"
       :checked="appSession.user.disability == 'no'" />
     <label for="no" class="custom-control__label">No</label>

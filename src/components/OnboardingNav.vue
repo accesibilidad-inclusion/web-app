@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import {ref, type Component} from 'vue'
-import {useRouter} from 'vue-router'
+import {ref, type Component, nextTick} from 'vue'
 import OnboardingItem from '@/components/OnboardingItem.vue'
-import {useAppNavStore} from '@/stores/app-nav.js'
 import type {Onboarding, OnboardingOrComponent} from '@/types/onboarding'
 
-const router = useRouter()
-const appNav = useAppNavStore()
-
-const props = defineProps<{
+defineProps<{
   sequence: Array<OnboardingOrComponent>
-  redirectTo: string
-  onboardingKey?: string
+  finishButtonText?: string
 }>()
+defineEmits(['finished'])
 
 const currentStep = ref(0)
 const comp = ref<any>(null)
@@ -24,15 +19,15 @@ function isOnboarding(element: OnboardingOrComponent): element is Onboarding {
   return false
 }
 
-const rewindStep = () => {
+const rewindStep = async () => {
   currentStep.value = currentStep.value - 1
+  await nextTick()
+  if (comp.value && comp.value.byPass) rewindStep()
 }
-const advanceStep = () => {
+const advanceStep = async () => {
   currentStep.value = currentStep.value + 1
-}
-const finishing = () => {
-  if (props.onboardingKey !== undefined) appNav.onboarding[props.onboardingKey] = false
-  router.push(props.redirectTo).catch(() => {})
+  await nextTick()
+  if (comp.value && comp.value.byPass) advanceStep()
 }
 </script>
 
@@ -61,8 +56,8 @@ const finishing = () => {
       <button
         class="btn btn--large btn--primary"
         v-if="currentStep === sequence.length - 1"
-        @click="finishing">
-        Finalizar
+        @click="$emit('finished')">
+        {{ finishButtonText !== undefined ? finishButtonText : 'Finalizar' }}
       </button>
     </footer>
   </div>

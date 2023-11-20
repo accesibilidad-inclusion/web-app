@@ -7,8 +7,10 @@ import OnboardingImage4 from '@/assets/img/illustrations/activar-tutoriales 4.sv
 
 import {useAppNavStore} from '@/stores/app-nav.js'
 import type {Onboarding} from '@/types/onboarding'
+import {useRouter} from 'vue-router'
 
 const appNav = useAppNavStore()
+const router = useRouter()
 
 const sequence: Array<Onboarding> = [
   {
@@ -32,11 +34,16 @@ const sequence: Array<Onboarding> = [
     image: OnboardingImage4
   }
 ]
+
+const finishing = () => {
+  appNav.onboarding.welcome = false
+  router.push(appNav.redirectTo)
+}
 </script>
 
 <template>
   <main class="page">
-    <OnboardingNav :sequence="sequence" onboarding-key="welcome" :redirect-to="appNav.redirectTo" />
+    <OnboardingNav :sequence="sequence" @finished="finishing()" />
   </main>
 </template>
 

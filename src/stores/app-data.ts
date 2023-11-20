@@ -4,6 +4,7 @@ import {useFetch} from '@vueuse/core'
 import {Category} from '@/model/category'
 import {Location} from '@/model/location'
 import type {Region} from '@/types/region'
+import type { Question } from '@/model/question'
 
 export const useAppDataStore = defineStore('appData', {
   state: () => {
@@ -11,7 +12,10 @@ export const useAppDataStore = defineStore('appData', {
       initialized: false,
       regions: [] as Array<Region>,
       categories: [] as Array<Category>,
-      questions: [],
+      questions: {
+        presential: [] as Array<Question>,
+        online: [] as Array<Question>
+      },
       location: new Location() as Location,
       evaluations: [
         {

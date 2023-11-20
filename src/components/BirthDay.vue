@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FormSelect from './FormSelect.vue'
 import TextToSpeech from './TextToSpeech.vue'
+import BlockHeader from './BlockHeader.vue'
 import {useAppSessionStore} from '@/stores/app-session'
 import {computed, watch} from 'vue'
 
@@ -61,6 +62,7 @@ defineExpose({
 </script>
 
 <template>
+  <BlockHeader description="Sobre ti"> </BlockHeader>
   <h2 class="onboarding__title">
     Fecha de nacimiento <TextToSpeech :text-audio="`Fecha de nacimiento: Día, Mes y Año`" />
   </h2>

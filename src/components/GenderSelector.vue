@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BlockHeader from './BlockHeader.vue'
 import TextToSpeech from './TextToSpeech.vue'
 import {useAppSessionStore} from '@/stores/app-session'
 import {computed} from 'vue'
@@ -15,6 +16,7 @@ defineExpose({
 </script>
 
 <template>
+  <BlockHeader description="Sobre ti"> </BlockHeader>
   <h2 class="onboarding__title">
     Indica tu género
     <text-to-speech

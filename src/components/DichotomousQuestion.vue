@@ -1,0 +1,30 @@
+<script setup lang="ts">
+defineEmits(['reply'])
+</script>
+
+<template>
+  <div>
+    <div class="custom-control custom-control--radio">
+      <input
+        id="dicotomico_si"
+        type="radio"
+        name="dicotomico"
+        value="Si"
+        class="custom-control__input"
+        @change="$emit('reply', 'Si')" />
+      <label for="dicotomico_si" class="custom-control__label">Si</label>
+    </div>
+    <div class="custom-control custom-control--radio">
+      <input
+        id="dicotomico_no"
+        type="radio"
+        name="dicotomico"
+        value="No"
+        class="custom-control__input"
+        @change="$emit('reply', 'No')" />
+      <label for="dicotomico_no" class="custom-control__label">No</label>
+    </div>
+  </div>
+</template>
+
+<style lang="scss"></style>
