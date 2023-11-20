@@ -31,92 +31,111 @@ defineProps<{
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
 
-.entries-list__header {
+.block-header {
   position: relative;
-  padding: var(--spacer);
   text-align: center;
-  background-color: var(--color-brand-lighter);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer-lg);
+  padding: var(--spacer);
+  border-radius: var(--spacer--500);
+  background: var(--color--carolinablue);
+  margin: var(--spacer--700) var(--spacer--400) 0;
+  font-weight: 600;
+  // Ubicación
+  .your-location {
+    margin: 0;
+    background: transparent;
+    padding: 0;
+    justify-content: center;
+    .your-location__content {
+      width: auto;
+      color: var(--color--blue-dark);
+      gap: var(--spacer--200);
+    }
+    svg {
+      position: relative;
+      top: 2px;
+      width: 10px !important;
+      height: 16px !important;
+      path {
+        fill: var(--color--blue-dark) !important;
+      }
+    }
+    .your-location__change {
+      padding: var(--spacer--200);
+      color: var(--color--blue);
+    }
   }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+  // Audio
+  .tts {
+    position: absolute;
+    top: var(--spacer);
+    right: var(--spacer);
+    @media screen and (min-width: 640px) {
+      right: var(--spacer-lg);
+    }
+    @media screen and (min-width: 1280px) {
+      right: var(--spacer-xl);
+    }
   }
 }
-.entries-list__title {
+.block-header__title {
   font-size: var(--font-size--700);
   margin-bottom: var(--spacer--200);
   line-height: calc(25 / 18);
   color: var(--color-brand-darkest);
-}
-.block-header {
-  border-radius: var(--spacer--500);
-  background: var(--color--carolinablue);
-  margin: var(--spacer--700) var(--spacer--400) 0;
-  position: relative;
-  padding-top: var(--spacer--600);
-  font-weight: 600;
 }
 .block-header__description {
   font-size: var(--font-size--400);
   color: var(--color--blue-dark);
   margin: var(--spacer--200) 0;
 }
-.block-header :deep(.your-location) {
-  margin: 0;
-  background: transparent;
-  padding: 0;
-  justify-content: center;
-  .your-location__content {
-    width: auto;
-    color: var(--color--blue-dark);
-    gap: var(--spacer--200);
-  }
-  svg {
-    position: relative;
-    top: 1px;
-    path {
-      fill: var(--color--blue-dark) !important;
-    }
-  }
 
-  .your-location__change {
-    padding: var(--spacer--200);
-    color: var(--color--blue);
-  }
+.block-header__compact {
+  margin: 0;
 }
-.block-header__icon {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.block-header .tts {
-  position: absolute;
-  top: var(--spacer);
-  right: var(--spacer);
-  @media screen and (min-width: 640px) {
-    right: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    right: var(--spacer-xl);
-  }
-}
-.block-header__link {
-  @include rfs($font-size-12);
-  position: relative;
-  font-weight: bold;
-  color: var(--color-background);
-  z-index: 10;
-  svg {
-    position: relative;
-    width: 0.85rem;
-    height: 1rem;
-    top: 3px;
-    path {
-      fill: #fff;
+
+// Category
+.category {
+  .block-header {
+    padding-top: var(--spacer-lg);
+    @media screen and (min-width: 1280px) {
+      padding-left: var(--spacer-xl);
+      padding-right: var(--spacer-xl);
     }
+    .category-icon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+// Service
+.service {
+  .block-header {
+    padding-top: var(--spacer);
+    text-align: left;
+    display: grid;
+    grid-template-areas: 'icon name' 'icon description';
+    grid-template-columns: 55px auto;
+    grid-template-rows: auto;
+    gap: var(--spacer--200) var(--spacer--300);
+    .tts {
+      right: var(--spacer);
+      @media screen and (min-width: 1280px) {
+        right: var(--spacer);
+      }
+    }
+  }
+  .category-icon {
+    grid-area: icon;
+  }
+  .block-header__title {
+    grid-area: name;
+    margin: 0;
+  }
+  .block-header__description {
+    grid-area: description;
+    margin: 0;
   }
 }
 </style>
