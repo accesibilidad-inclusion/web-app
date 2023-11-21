@@ -8,6 +8,7 @@ import TaskBlock from '@/components/TaskBlock.vue'
 import {OnlineTask} from '@/model/online_task'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppDataStore} from '@/stores/app-data'
+import TextToSpeech from '@/components/TextToSpeech.vue'
 
 const appData = useAppDataStore()
 const route = useRoute()
@@ -35,7 +36,21 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
 
 <template>
   <div class="search-results" :class="$route.query.t">
-    <header class="search-results__description">
+
+    <header class="block-header block-header__compact">
+      <slot name="icon" class="block-header__icon"></slot>
+      <!-- <icon-resultado class="block-header__icon" /> -->
+      <h1 class="block-header__title search-results__title">Resultados</h1>
+      <p class="block-header__description entries-list__description search-results__help">
+        <span v-if="route.query.t == 'presential'">Tareas presenciales cerca de</span>
+        <span v-if="route.query.t == 'online'">Tareas en internet cerca de</span>
+      </p>
+      <LocationSelector :dense="true" />
+      <TextToSpeech :text-audio="'Resultados'" />
+    </header>
+
+
+    <!-- <header class="search-results__description">
       <div>
         <h1 class="search-results__title">Resultados</h1>
         <text-to-speech :text-audio="'Resultados'" />
@@ -45,14 +60,14 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
         <span v-if="route.query.t == 'online'">Tareas en internet cerca de</span>
       </p>
       <LocationSelector :dense="true" />
-    </header>
+    </header> -->
     <main class="search-results__hits">
       <template v-if="!tasks.length">
         <div class="search-no-results">
           <div class="search-no-results__content">
             <icon-no-results class="search-no-results__icon" />
             <h2 class="search-no-results__title">Búsqueda sin resultados</h2>
-            <p class="search-no-results__description">
+            <p class="block-header__description search-no-results__description">
               Prueba buscando con <strong>otras palabras</strong> o usando las
               <strong>categorías</strong> disponibles
             </p>
@@ -69,52 +84,142 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .search-results {
   position: relative;
+  padding: calc(var(--spacer--700) * 0.5) var(--spacer--400);
+  background-color: var(--color--skyblue);
 }
-.search-results__description {
-  margin-bottom: var(--spacer);
-  padding: var(--spacer-sm) var(--spacer) var(--spacer);
-  background: var(--color-brand-lighter);
+// .search-results__description {
+//   margin-bottom: var(--spacer);
+//   padding: var(--spacer-sm) var(--spacer) var(--spacer);
+//   background: var(--color-brand-lighter);
+//   @media screen and (min-width: 640px) {
+//     margin-bottom: var(--spacer-lg);
+//     padding: var(--spacer) var(--spacer-lg) var(--spacer-lg);
+//   }
+//   @media screen and (min-width: 1280px) {
+//     padding-left: var(--spacer-xl);
+//     padding-right: var(--spacer-xl);
+//   }
+// }
+// .search-results__title,
+// .search-results__hits__title {
+//   @include rfs($font-size-18);
+//   margin-bottom: var(--spacer-sm);
+//   line-height: var(--subtitle-line-height);
+// }
+// .search-results__query {
+//   font-weight: normal;
+// }
+// .search-results__help {
+//   @include rfs($font-size-14);
+//   .tts {
+//     position: relative;
+//     top: 3px;
+//   }
+// }
+// .search-results__hits {
+//   padding-left: var(--spacer);
+//   padding-right: var(--spacer);
+//   @media screen and (min-width: 640px) {
+//     padding-left: var(--spacer-lg);
+//     padding-right: var(--spacer-lg);
+//   }
+//   @media screen and (min-width: 1280px) {
+//     padding-left: var(--spacer-xl);
+//     padding-right: var(--spacer-xl);
+//   }
+// }
+
+
+.block-header {
+  position: relative;
+  text-align: center;
+  padding: var(--spacer--500);
+  border-radius: var(--spacer--500);
+  background: var(--color--carolinablue);
+  margin: var(--spacer--600) var(--spacer--400) 0;
+  font-weight: 600;
+  padding-top: var(--spacer);
+    text-align: left;
+    display: grid;
+    grid-template-areas: 'icon name' 'icon description' 'icon location';
+    grid-template-columns: 55px auto;
+    grid-template-rows: auto;
+    gap: var(--spacer--200) var(--spacer--300);
   @media screen and (min-width: 640px) {
-    margin-bottom: var(--spacer-lg);
-    padding: var(--spacer) var(--spacer-lg) var(--spacer-lg);
+    margin-left: var(--spacer--500);
+    margin-right: var(--spacer--500);
   }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+  // Ubicación
+  .your-location__content {
+    width: auto !important;
   }
-}
-.search-results__title,
-.search-results__hits__title {
-  @include rfs($font-size-18);
-  margin-bottom: var(--spacer-sm);
-  line-height: var(--subtitle-line-height);
-}
-.search-results__query {
-  font-weight: normal;
-}
-.search-results__help {
-  @include rfs($font-size-14);
+  .your-location {
+    margin: 0;
+    background: transparent;
+    padding: 0;
+    justify-content: center;
+    grid-area: location;
+    .your-location__content {
+      width: auto !important;
+      color: var(--color--blue-dark);
+      gap: var(--spacer--200);
+    }
+    svg {
+      position: relative;
+      top: 2px;
+      width: 10px !important;
+      height: 16px !important;
+      path {
+        fill: var(--color--blue-dark) !important;
+      }
+    }
+    .your-location__change {
+      padding: var(--spacer--200);
+      color: var(--color--blue);
+    }
+  }
+  // Audio
   .tts {
-    position: relative;
-    top: 3px;
+    position: absolute;
+    top: var(--spacer--400);
+    right: var(--spacer--400);
+      @media screen and (min-width: 1280px) {
+        top: var(--spacer--500);
+      right: var(--spacer--500);
+    }
   }
 }
-.search-results__hits {
-  padding-left: var(--spacer);
-  padding-right: var(--spacer);
+.block-header__icon {
+  grid-area: icon;
+}
+.block-header__title {
+  font-size: var(--font-size--700);
+  line-height: calc(25 / 18);
+  color: var(--color-brand-darkest);
+  grid-area: name;
+  margin: 0;
+}
+.block-header__description {
+  font-size: var(--font-size--400);
+  color: var(--color--blue-dark);
+  grid-area: description;
+  margin: 0;
+}
+.block-header__compact {
+  margin: 0;
+  padding: var(--spacer--400);
+  padding-top: var(--spacer--400);
   @media screen and (min-width: 640px) {
-    padding-left: var(--spacer-lg);
-    padding-right: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    padding: var(--spacer--500);
+    padding-top: var(--spacer--500);
   }
 }
+
+
 /*sin resultados*/
 .search-no-results {
   display: flex;

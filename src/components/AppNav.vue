@@ -102,6 +102,7 @@ const tutorials = () => {
   background: transparent;
   z-index: var(--z-index-navbar);
   align-items: center;
+  background-color: var(--color--skyblue);
   @media screen and (min-width: 640px) {
     padding: var(--spacer--500) var(--spacer--500);
   }
