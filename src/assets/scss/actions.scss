@@ -1,27 +1,20 @@
 // Actions
 .actions {
-  padding: var(--spacer);
+  padding: 0 var(--spacer--400);
   @media screen and (min-width: 640px) {
-    padding: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    padding: 0 var(--spacer--500);
   }
 }
 .actions__title {
-  @include rfs($font-size-14);
-  margin-bottom: calc(var(--spacer) * 0.75);
-  font-weight: bold;
-  line-height: 1.35714;
-  @media screen and (min-width: 640px) {
-    margin-bottom: var(--spacer);
-  }
+  font-size: var(--font-size--400);
+  margin-bottom: var(--spacer--400);
+  font-weight: 600;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--spacer--200);
 }
 .actions__description {
-  @include rfs($font-size-14);
-  margin-bottom: calc(var(--spacer) * 0.75);
-  @media screen and (min-width: 640px) {
-    margin-bottom: var(--spacer);
-  }
+  font-size: var(--font-size--400);
+  margin-bottom: var(--spacer--400);
 }

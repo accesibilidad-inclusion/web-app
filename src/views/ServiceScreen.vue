@@ -54,9 +54,9 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
       </BlockHeader>
-      <main class="service__items service__items venues">
+      <main class="service__items venues">
         <template v-if="venues_online.length">
-          <div>Lugares en internet</div>
+          <div class="items-title">Lugares en internet</div>
           <template v-for="venue in venues_online" :key="venue.id">
             <ItemClickable :title="venue.name" @click="setVenue(venue)">
               <template #meta>
@@ -78,7 +78,7 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
           </template>
         </template>
         <template v-if="venues_presential.length">
-          <div>Lugares presenciales</div>
+          <div class="items-title">Lugares presenciales</div>
           <template v-for="venue in venues_presential" :key="venue.id">
             <ItemClickable :title="venue.name" @click="setVenue(venue)">
               <template #meta>
@@ -125,7 +125,7 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
 .service {
   display: flex;
   flex-flow: column nowrap;
-  padding: var(--spacer--700) var(--spacer--400) var(--spacer--500);
+  padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
 }
 .service__header {
   padding: var(--spacer--500) var(--spacer--400);
@@ -175,6 +175,13 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
 .service__items {
   flex-grow: 1;
 }
+.items-title {
+  font-size: var(--font-size--600);
+  font-weight: 700;
+  text-align: center;
+  margin-top: var(--spacer--600);
+  margin-bottom: var(--spacer--500);
+}
 .venue-block {
   cursor: pointer;
   .tts {
@@ -187,14 +194,14 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
   grid-row: 1/2;
 }
 .venue-block__distance {
-  @include rfs($font-size-12);
+  font-size: var(--font-size--400);
   grid-column: 1/3;
   grid-row: 2/3;
   line-height: 1.33333;
   color: var(--color-neutral);
 }
 .venue-block__evaluation {
-  @include rfs($font-size-12);
+  font-size: var(--font-size--400);
   grid-column: 1/4;
   margin-top: var(--spacer-sm);
   line-height: 1.33333;

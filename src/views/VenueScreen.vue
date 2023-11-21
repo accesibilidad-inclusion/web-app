@@ -261,17 +261,16 @@ const evaluation = computed(() => {
   }
 }
 .venue__tasks {
-  padding: var(--spacer) var(--spacer) var(--spacer-lg);
+  padding: var(--spacer--600) var(--spacer--400);
   @media screen and (min-width: 640px) {
-    padding-left: var(--spacer-lg);
-    padding-right: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    padding-left: var(--spacer--500);
+    padding-right: var(--spacer--500);
   }
 }
 .venue__tasks-description {
+  font-size: var(--font-size--500);
+  font-weight: 700;
+  margin: 0 0 var(--spacer--500);
   display: grid;
   grid-template-columns: 1fr auto;
   grid-gap: var(--spacer);
