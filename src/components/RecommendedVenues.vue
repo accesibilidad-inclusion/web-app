@@ -48,6 +48,7 @@ venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
 .place__tasks {
+  background-color: var(--color--yellow);
   padding: calc(var(--spacer--400) * 3) var(--spacer--400);
   @media screen and (min-width: 640px) {
     padding-left: var(--spacer--500);

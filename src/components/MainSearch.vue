@@ -134,6 +134,7 @@ const doSearch = () => {
   align-items: center;
   text-align: center;
   gap: var(--spacer--300);
+  cursor: pointer;
 }
 .main-search__type--online.main-search__type--active {
   background: var(--color--yellow-light);
