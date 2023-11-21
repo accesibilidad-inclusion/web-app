@@ -67,6 +67,7 @@ const advanceStep = async () => {
 .onboarding-nav {
   display: flex;
   flex-flow: column;
+  background-color: var(--color--white);
 }
 .onboarding-nav__body {
   flex-grow: 1;
@@ -75,10 +76,12 @@ const advanceStep = async () => {
   display: flex;
   gap: var(--spacer--300);
   padding: 0 var(--spacer--400) var(--spacer--400);
+  @media screen and (min-width: 640px) {
+    padding: 0 var(--spacer--500) var(--spacer--400);
+  }
   button {
     flex-basis: 50%;
     flex-grow: 1;
-    border-radius: 50px;
   }
 }
 </style>
