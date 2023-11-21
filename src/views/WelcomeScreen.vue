@@ -37,7 +37,7 @@ const sequence: Array<Onboarding> = [
 
 const finishing = () => {
   appNav.onboarding.welcome = false
-  router.push(appNav.redirectTo)
+  router.push('/inicio')
 }
 </script>
 

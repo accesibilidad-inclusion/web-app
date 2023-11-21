@@ -4,7 +4,7 @@ import {useFetch} from '@vueuse/core'
 import {Category} from '@/model/category'
 import {Location} from '@/model/location'
 import type {Region} from '@/types/region'
-import type { Question } from '@/model/question'
+import { Question } from '@/model/question'
 
 export const useAppDataStore = defineStore('appData', {
   state: () => {
@@ -112,7 +112,10 @@ export const useAppDataStore = defineStore('appData', {
         .json()
       this.regions = data.value.regions
       this.categories = data.value.categories.map((c: Category) => new Category(c))
-      this.questions = data.value.questions
+      this.questions = {
+        presential: data.value.questions.presential.map((q: Question) => new Question(q)),
+        online: data.value.questions.online.map((q: Question) => new Question(q))
+      }
       this.initialized = true
     }
   },

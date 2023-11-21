@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 import BlockHeader from '@/components/BlockHeader.vue'
@@ -29,30 +29,42 @@ if (route.params.type === 'presencial' && appNav.onboarding.presentialEvaluation
 }
 
 const currentQuestion = ref(0)
+const currentSubQuestion = ref(null)
+
 const back = () => {
   currentQuestion.value--
 }
 const next = () => {
   currentQuestion.value++
 }
+
+const setAnswer = (event: any) => {
+  console.log(event)
+  question.value.answer = event
+}
+
+const question = computed(() => {
+  return currentSubQuestion.value === null
+    ? appData.questions.presential[currentQuestion.value]
+    : appData.questions.presential[currentQuestion.value].questions[currentSubQuestion.value]
+})
 </script>
 
 <template>
-  <BlockHeader
-    description="Evaluación"
-    v-if="appData.questions.presential[currentQuestion].answer_type !== 'Instrucción'" />
-  <div v-if="appData.questions.presential[currentQuestion].answer_type !== 'Instrucción'">
-    {{ appData.questions.presential[currentQuestion].text }}
+  <BlockHeader description="Evaluación" v-if="question.answer_type !== 'Instrucción'" />
+  {{ appData.questions.presential[currentQuestion] }}
+  <div v-if="question.answer_type !== 'Instrucción'">
+    {{ question.text }}
   </div>
   <QuestionInstruction
-    v-if="appData.questions.presential[currentQuestion].answer_type === 'Instrucción'"
-    :text="appData.questions.presential[currentQuestion].text"
-    icon="lookup" />
+    v-if="question.answer_type === 'Instrucción'"
+    :text="question.text"
+    icon="buscar" />
   <OptionsQuestion
-    v-if="appData.questions.presential[currentQuestion].answer_type === 'Opciones'"
-    :options="appData.questions.presential[currentQuestion].options" />
-  <DichotomousQuestion
-    v-if="appData.questions.presential[currentQuestion].answer_type === 'Dicotomico'" />
+    v-if="question.answer_type === 'Opciones'"
+    :options="question.options"
+    @reply="setAnswer" />
+  <DichotomousQuestion v-if="question.answer_type === 'Dicotomico'" />
   <footer>
     <button class="btn btn--large btn--secondary" v-if="currentQuestion > 0" @click="back()">
       Atrás

@@ -1,14 +1,26 @@
 <script setup lang="ts">
-defineProps<{
+import {computed, defineAsyncComponent} from 'vue'
+
+const props = defineProps<{
   text: string
   icon: string
 }>()
+
+const iconSvg = computed(() => {
+  return defineAsyncComponent(
+    () => import('../assets/img/app-icons/instructions/' + props.icon + '.svg?component')
+  )
+})
 </script>
 
 <template>
   <div>
-    {{ icon }}
-    {{ text }}
+    <div>
+      <component :is="iconSvg"></component>
+    </div>
+    <div>
+      {{ text }}
+    </div>
   </div>
 </template>
 
