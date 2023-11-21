@@ -87,10 +87,12 @@ const setCategory = (category: Category) => {
   padding: var(--spacer--700) var(--spacer--400) var(--spacer--500);
   position: relative;
   .tts {
-    float: none;
     position: absolute;
-    top: var(--spacer--300);
-    right: var(--spacer--500);
+    top: var(--spacer--500);
+    right: var(--spacer--400);
+    @media screen and (min-width: 640px) {
+      right: var(--spacer--500);
+    }
   }
 }
 .main-categories__title {

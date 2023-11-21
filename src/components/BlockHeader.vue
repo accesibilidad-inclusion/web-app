@@ -34,11 +34,15 @@ defineProps<{
 .block-header {
   position: relative;
   text-align: center;
-  padding: var(--spacer);
+  padding: var(--spacer--500);
   border-radius: var(--spacer--500);
   background: var(--color--carolinablue);
-  margin: var(--spacer--700) var(--spacer--400) 0;
+  margin: var(--spacer--600) var(--spacer--400) 0;
   font-weight: 600;
+  @media screen and (min-width: 640px) {
+    margin-left: var(--spacer--500);
+    margin-right: var(--spacer--500);
+  }
   // Ubicación
   .your-location {
     margin: 0;
@@ -67,13 +71,11 @@ defineProps<{
   // Audio
   .tts {
     position: absolute;
-    top: var(--spacer);
-    right: var(--spacer);
+    top: var(--spacer--400);
+    right: var(--spacer--400);
     @media screen and (min-width: 640px) {
-      right: var(--spacer-lg);
-    }
-    @media screen and (min-width: 1280px) {
-      right: var(--spacer-xl);
+      top: var(--spacer--500);
+      right: var(--spacer--500);
     }
   }
 }
@@ -88,9 +90,17 @@ defineProps<{
   color: var(--color--blue-dark);
   margin: var(--spacer--200) 0;
 }
-
+.block-header__link {
+  color: var(--color--blue-dark);
+}
 .block-header__compact {
   margin: 0;
+  padding: var(--spacer--400);
+  padding-top: var(--spacer--400);
+  @media screen and (min-width: 640px) {
+    padding: var(--spacer--500);
+    padding-top: var(--spacer--500);
+  }
 }
 
 // Category

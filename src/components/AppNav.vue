@@ -98,19 +98,12 @@ const tutorials = () => {
   display: flex;
   justify-content: space-between;
   top: 0;
-  padding: var(--spacer-sm) var(--spacer);
+  padding: var(--spacer--400) var(--spacer--400);
   background: transparent;
   z-index: var(--z-index-navbar);
   align-items: center;
   @media screen and (min-width: 640px) {
-    padding-top: var(--spacer);
-    padding-bottom: var(--spacer);
-    padding-right: var(--spacer-lg);
-    padding-left: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-right: var(--spacer-xl);
-    padding-left: var(--spacer-xl);
+    padding: var(--spacer--500) var(--spacer--500);
   }
   &.app-nav--dark {
     transition: var(--transition-nav-dark);
@@ -119,14 +112,7 @@ const tutorials = () => {
   }
 }
 .app-nav > .router-link-active:not(:first-child) {
-  margin-left: var(--spacer);
   text-align: left;
-  @media screen and (min-width: 640px) {
-    margin-left: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    margin-left: var(--spacer-xl);
-  }
 }
 .app-nav__toggle {
   @include rfs($font-size-16);
@@ -149,9 +135,8 @@ const tutorials = () => {
   }
 }
 .app-nav__logo-wrapper {
-  // position: absolute;
-  // right: 0;
-  // text-align: center;
+  width: 75px;
+  height: 15px;
   width: 86px;
   margin: 0;
 }

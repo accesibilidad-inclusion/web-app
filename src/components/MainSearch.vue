@@ -86,7 +86,6 @@ const doSearch = () => {
   padding: calc(var(--spacer--400) * 3) var(--spacer--400);
   background: var(--color--blue);
   color: var(--color--white);
-  margin-bottom: calc(var(--spacer--700) * 0.5);
   // @media screen and (min-width: 640px) {
   //   margin-left: calc(var(--spacer-lg) * -1);
   //   margin-right: calc(var(--spacer-lg) * -1);
@@ -117,7 +116,8 @@ const doSearch = () => {
   }
 }
 .main-search__types {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--spacer--300);
 }
 .main-search__type {

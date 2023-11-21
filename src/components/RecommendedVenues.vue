@@ -48,21 +48,21 @@ venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
 .place__tasks {
-  padding: var(--spacer) var(--spacer) var(--spacer-lg);
+  padding: calc(var(--spacer--400) * 3) var(--spacer--400);
   @media screen and (min-width: 640px) {
-    padding-left: var(--spacer-lg);
-    padding-right: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    padding-left: var(--spacer--500);
+    padding-right: var(--spacer--500);
   }
 }
 .place__tasks-description {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-gap: var(--spacer);
-  align-items: flex-start;
+  font-size: var(--font-size--600);
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--spacer--200);
+  align-items: center;
+  margin-bottom: var(--font-size--700);
   .tts {
     position: relative;
     top: var(--spacer-xs);

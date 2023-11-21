@@ -38,13 +38,17 @@ const changeLocation = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0 0 var(--spacer--400);
+  padding: 3px 0 3px var(--spacer--400);
   border-radius: var(--spacer--500);
   background-color: var(--color--skyblue-light);
-  margin: var(--spacer--500) var(--spacer--400);
+  margin: var(--spacer--500) var(--spacer--400) 0;
   color: var(--color--blue);
+  right: var(--spacer--400);
+  @media screen and (min-width: 640px) {
+    margin: var(--spacer--500) var(--spacer--500) 0;
+  }
   .your-location__change {
-    @include rfs($font-size-14);
+    font-size: var(--font-size--400);
     font-weight: 600;
     color: var(--color--blue);
     padding: var(--spacer--200) var(--spacer--400);
@@ -57,15 +61,13 @@ const changeLocation = () => {
     padding-right: var(--spacer-sm);
     border-right: 1px solid var(--color--blue);
     span {
-      @include rfs($font-size-14);
+      font-size: var(--font-size--400);
+      font-weight: 600;
     }
     svg {
-      width: 11px;
-      height: 15px;
-      @media screen and (min-width: 640px) {
-        width: var(--spacer);
-        height: var(--spacer);
-      }
+      width: 10px;
+      height: 16px;
+      margin-top: 3px;
       :deep(path) {
         fill: var(--color--blue) !important;
       }

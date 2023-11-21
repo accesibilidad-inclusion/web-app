@@ -67,8 +67,8 @@ onMounted(() => {
 }
 
 .tts :deep(svg) {
-  @include rfs(1rem, width);
-  @include rfs(1rem, height);
+  width: 0.875rem;
+  height: 0.875rem;
 }
 
 .tts :deep(.stop-img) {
