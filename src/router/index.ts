@@ -54,7 +54,7 @@ const router = createRouter({
       meta: {title: 'Colabora con nosotros'}
     },
     {
-      path: '/evaluar-lugar/:type/:venueId',
+      path: '/evaluar-lugar/:type/:id',
       name: 'evaluate-venue-screen',
       component: () => import('../views/EvaluateVenueScreen.vue'),
       meta: {title: 'Evalua este lugar'}

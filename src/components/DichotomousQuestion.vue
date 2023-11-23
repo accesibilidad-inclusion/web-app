@@ -1,4 +1,7 @@
 <script setup lang="ts">
+defineProps<{
+  selected: string
+}>()
 defineEmits(['reply'])
 </script>
 
@@ -11,6 +14,7 @@ defineEmits(['reply'])
         name="dicotomico"
         value="Si"
         class="custom-control__input"
+        :checked="'Si' === selected"
         @change="$emit('reply', 'Si')" />
       <label for="dicotomico_si" class="custom-control__label">Si</label>
     </div>
@@ -21,6 +25,7 @@ defineEmits(['reply'])
         name="dicotomico"
         value="No"
         class="custom-control__input"
+        :checked="'No' === selected"
         @change="$emit('reply', 'No')" />
       <label for="dicotomico_no" class="custom-control__label">No</label>
     </div>

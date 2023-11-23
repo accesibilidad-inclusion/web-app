@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   options: Array<{id: number; name: string}>
+  selected: string
 }>()
 defineEmits(['reply'])
 </script>
@@ -14,7 +15,8 @@ defineEmits(['reply'])
         name="gender"
         :value="option.name"
         class="custom-control__input"
-        @change="$emit('reply', option)" />
+        @change="$emit('reply', option.name)"
+        :checked="option.name === selected" />
       <label :for="'opt' + option.id" class="custom-control__label">{{ option.name }}</label>
     </div>
   </div>
