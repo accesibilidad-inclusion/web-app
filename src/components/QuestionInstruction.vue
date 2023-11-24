@@ -22,9 +22,7 @@ const iconSvg = computed(() => {
     <div>
       <component :is="iconSvg"></component>
     </div>
-    <div>
-      {{ text }}
-    </div>
+    <div v-html="text"></div>
   </div>
 </template>
 

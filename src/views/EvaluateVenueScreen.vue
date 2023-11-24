@@ -117,7 +117,14 @@ const setAnswer = (answr: string) => {
   else answers.value.push(a)
 }
 
-const sendEvaluation = () => {
+const sendEvaluation = async () => {
+  /* const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues`)
+  .post({
+    ...appData.location.getCoordinates(),
+    category: route.params.categorySlug,
+    service: route.params.serviceSlug
+  })
+  .json() */
   finished.value = true
 }
 
@@ -156,13 +163,13 @@ const lastQuestion = computed(() => {
       <BlockHeader
         description="Evaluación"
         v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)" />
-      <div v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)">
-        {{ question.text }}
-      </div>
+      <div
+        v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)"
+        v-html="question.text"></div>
       <QuestionInstruction
         v-if="question.answer_type === 'Instrucción'"
         :text="question.text"
-        icon="buscar" />
+        :icon="question.icon" />
       <OptionsQuestion
         v-if="question.answer_type === 'Opciones'"
         :options="question.options"
