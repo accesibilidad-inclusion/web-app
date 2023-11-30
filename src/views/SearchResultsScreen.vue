@@ -9,6 +9,7 @@ import {OnlineTask} from '@/model/online_task'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppDataStore} from '@/stores/app-data'
 import TextToSpeech from '@/components/TextToSpeech.vue'
+import IconInternet from '@/assets/img/app-icons/instructions/internet.svg?component'
 
 const appData = useAppDataStore()
 const route = useRoute()
@@ -38,8 +39,10 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
   <div class="search-results" :class="$route.query.t">
 
     <header class="block-header block-header__compact">
-      <slot name="icon" class="block-header__icon"></slot>
-      <!-- <icon-resultado class="block-header__icon" /> -->
+      <span class="category-icon">
+        <icon-internet class="block-header__icon" />
+      </span>
+      
       <h1 class="block-header__title search-results__title">Resultados</h1>
       <p class="block-header__description entries-list__description search-results__help">
         <span v-if="route.query.t == 'presential'">Tareas presenciales cerca de</span>
@@ -48,19 +51,6 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
       <LocationSelector :dense="true" />
       <TextToSpeech :text-audio="'Resultados'" />
     </header>
-
-
-    <!-- <header class="search-results__description">
-      <div>
-        <h1 class="search-results__title">Resultados</h1>
-        <text-to-speech :text-audio="'Resultados'" />
-      </div>
-      <p class="search-results__help">
-        <span v-if="route.query.t == 'presential'">Tareas presenciales cerca de</span>
-        <span v-if="route.query.t == 'online'">Tareas en internet cerca de</span>
-      </p>
-      <LocationSelector :dense="true" />
-    </header> -->
     <main class="search-results__hits">
       <template v-if="!tasks.length">
         <div class="search-no-results">
@@ -90,51 +80,8 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
   position: relative;
   padding: calc(var(--spacer--700) * 0.5) var(--spacer--400);
   background-color: var(--color--skyblue);
-}
-// .search-results__description {
-//   margin-bottom: var(--spacer);
-//   padding: var(--spacer-sm) var(--spacer) var(--spacer);
-//   background: var(--color-brand-lighter);
-//   @media screen and (min-width: 640px) {
-//     margin-bottom: var(--spacer-lg);
-//     padding: var(--spacer) var(--spacer-lg) var(--spacer-lg);
-//   }
-//   @media screen and (min-width: 1280px) {
-//     padding-left: var(--spacer-xl);
-//     padding-right: var(--spacer-xl);
-//   }
-// }
-// .search-results__title,
-// .search-results__hits__title {
-//   @include rfs($font-size-18);
-//   margin-bottom: var(--spacer-sm);
-//   line-height: var(--subtitle-line-height);
-// }
-// .search-results__query {
-//   font-weight: normal;
-// }
-// .search-results__help {
-//   @include rfs($font-size-14);
-//   .tts {
-//     position: relative;
-//     top: 3px;
-//   }
-// }
-// .search-results__hits {
-//   padding-left: var(--spacer);
-//   padding-right: var(--spacer);
-//   @media screen and (min-width: 640px) {
-//     padding-left: var(--spacer-lg);
-//     padding-right: var(--spacer-lg);
-//   }
-//   @media screen and (min-width: 1280px) {
-//     padding-left: var(--spacer-xl);
-//     padding-right: var(--spacer-xl);
-//   }
-// }
 
-
-.block-header {
+  .block-header {
   position: relative;
   text-align: center;
   padding: var(--spacer--500);
@@ -154,17 +101,14 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
     margin-right: var(--spacer--500);
   }
   // Ubicación
-  .your-location__content {
-    width: auto !important;
-  }
   .your-location {
     margin: 0;
     background: transparent;
     padding: 0;
-    justify-content: center;
+    justify-content: flex-start;
     grid-area: location;
     .your-location__content {
-      width: auto !important;
+      width: auto;
       color: var(--color--blue-dark);
       gap: var(--spacer--200);
     }
@@ -191,34 +135,42 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
         top: var(--spacer--500);
       right: var(--spacer--500);
     }
+    }
+  }
+  .category-icon {
+    background: var(--color--yellow);
+    border: 1px solid var(--color--blue);
+    border-radius: var(--spacer--300);
+    width: 55px;
+    height: 55px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-area: icon;
+  }
+  .block-header__title {
+    font-size: var(--font-size--700);
+    line-height: calc(25 / 18);
+    color: var(--color-brand-darkest);
+    grid-area: name;
+    margin: 0;
+  }
+  .block-header__description {
+    font-size: var(--font-size--400);
+    color: var(--color--blue-dark);
+    grid-area: description;
+    margin: 0;
+  }
+  .block-header__compact {
+    margin: 0;
+    padding: var(--spacer--400);
+    padding-top: var(--spacer--400);
+    @media screen and (min-width: 640px) {
+      padding: var(--spacer--500);
+      padding-top: var(--spacer--500);
+    }
   }
 }
-.block-header__icon {
-  grid-area: icon;
-}
-.block-header__title {
-  font-size: var(--font-size--700);
-  line-height: calc(25 / 18);
-  color: var(--color-brand-darkest);
-  grid-area: name;
-  margin: 0;
-}
-.block-header__description {
-  font-size: var(--font-size--400);
-  color: var(--color--blue-dark);
-  grid-area: description;
-  margin: 0;
-}
-.block-header__compact {
-  margin: 0;
-  padding: var(--spacer--400);
-  padding-top: var(--spacer--400);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer--500);
-    padding-top: var(--spacer--500);
-  }
-}
-
 
 /*sin resultados*/
 .search-no-results {
