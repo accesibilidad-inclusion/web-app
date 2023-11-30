@@ -37,12 +37,12 @@ const activateGps = () => {
 }
 
 const checkPosition = (position: any) => {
-  geocoder
+  /* geocoder
     .geocode({location: {lat: position.coords.latitude, lng: position.coords.longitude}})
     .then((response) => {
       console.log(response)
     })
-    .catch((e) => window.alert('Geocoder failed due to: ' + e))
+    .catch((e) => window.alert('Geocoder failed due to: ' + e)) */
   appData.location = new Location({
     gpsLat: position.coords.latitude.toString(),
     gpsLng: position.coords.longitude.toString(),
@@ -59,7 +59,7 @@ const selectCommune = () => {
 }
 
 const setCommune = (c: Commune) => {
-  geocoder
+  /* geocoder
     .geocode({location: {lat: parseFloat(c.lat), lng: parseFloat(c.lng)}})
     .then((response) => {
       if (response.results.length) {
@@ -70,7 +70,7 @@ const setCommune = (c: Commune) => {
         console.log(region)
       }
     })
-    .catch((e) => window.alert('Geocoder failed due to: ' + e))
+    .catch((e) => window.alert('Geocoder failed due to: ' + e)) */
   if (commune.value && commune.value?.id === c.id) {
     commune.value = null
   } else {
@@ -190,8 +190,8 @@ const toggle = (id: number) => {
             class="main-search__input"
             type="search"
             placeholder="Ejemplo: Viña del mar" />
-            <icon-search class="main-search__icon" />  
-        </div>        
+          <icon-search class="main-search__icon" />
+        </div>
       </header>
       <main class="places">
         <template v-for="region in appData.regions">
@@ -213,10 +213,7 @@ const toggle = (id: number) => {
                   v-if="comm.name.toLowerCase().includes(query.toLowerCase())"
                   :key="comm.id"
                   :class="{'selected-commune': commune && commune.id === comm.id}">
-                  <a
-                    class="name-commune"
-                    tag="article"
-                    @click="setCommune(comm)">
+                  <a class="name-commune" tag="article" @click="setCommune(comm)">
                     <TextToSpeech :text-audio="comm.name" />
                     {{ comm.name }}
                   </a>
@@ -244,16 +241,16 @@ const toggle = (id: number) => {
       </main>
       <footer class="footer-communes">
         <div>
-        <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
-          Cancelar
-        </button>
-        <button
-          class="btn btn--large btn--block btn--primary"
-          :disabled="!commune"
-          @click="confirmCommune()">
-          Listo
-        </button>
-      </div>
+          <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
+            Cancelar
+          </button>
+          <button
+            class="btn btn--large btn--block btn--primary"
+            :disabled="!commune"
+            @click="confirmCommune()">
+            Listo
+          </button>
+        </div>
       </footer>
     </div>
   </div>
@@ -508,7 +505,7 @@ const toggle = (id: number) => {
   left: 0;
   bottom: 0;
   max-width: 640px;
-  
+
   margin: 0 auto;
   padding: calc(var(--spacer-lg) / 3) var(--spacer);
   display: flex;
