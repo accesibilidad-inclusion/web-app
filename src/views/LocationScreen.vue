@@ -8,6 +8,19 @@ import {useRouter} from 'vue-router'
 import type {Commune} from '@/types/commune'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 
+import {Loader} from '@googlemaps/js-api-loader'
+
+let geocoder: google.maps.Geocoder
+
+const loader = new Loader({
+  apiKey: import.meta.env.VITE_APP_GOOGLE_API_KEY,
+  version: 'weekly'
+})
+
+loader.importLibrary('geocoding').then(() => {
+  geocoder = new google.maps.Geocoder()
+})
+
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
 const router = useRouter()
@@ -23,6 +36,12 @@ const activateGps = () => {
 }
 
 const checkPosition = (position: any) => {
+  geocoder
+    .geocode({location: {lat: position.coords.latitude, lng: position.coords.longitude}})
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((e) => window.alert('Geocoder failed due to: ' + e))
   appData.location = new Location({
     gpsLat: position.coords.latitude.toString(),
     gpsLng: position.coords.longitude.toString(),
@@ -39,6 +58,18 @@ const selectCommune = () => {
 }
 
 const setCommune = (c: Commune) => {
+  geocoder
+    .geocode({location: {lat: parseFloat(c.lat), lng: parseFloat(c.lng)}})
+    .then((response) => {
+      if (response.results.length) {
+        const address = response.results[0].address_components
+        const commune = address.find((a) => a.types.includes('administrative_area_level_3'))
+        const region = address.find((a) => a.types.includes('administrative_area_level_1'))
+        console.log(commune)
+        console.log(region)
+      }
+    })
+    .catch((e) => window.alert('Geocoder failed due to: ' + e))
   if (commune.value && commune.value?.id === c.id) {
     commune.value = null
   } else {
