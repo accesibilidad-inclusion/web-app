@@ -7,6 +7,7 @@ import {useAppNavStore} from '@/stores/app-nav.js'
 import {useRouter} from 'vue-router'
 import type {Commune} from '@/types/commune'
 import TextToSpeech from '@/components/TextToSpeech.vue'
+import IconSearch from '@/assets/img/app-icons/search.svg?component'
 
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
@@ -149,8 +150,8 @@ const toggle = (id: number) => {
       </template>
     </div>
     <div v-else class="select-commune">
-      <header class="service__header entries-list__header">
-        <h1 class="service__title entries-list__title">Elige o busca una comuna</h1>
+      <header class="commune-header">
+        <h1 class="commune-header__title">Elige o busca una comuna</h1>
         <TextToSpeech :text-audio="'Elige o busca una comuna.'" />
         <div class="main-search__group">
           <input
@@ -158,12 +159,10 @@ const toggle = (id: number) => {
             class="main-search__input"
             type="search"
             placeholder="Ejemplo: Viña del mar" />
-          <button type="button" class="main-search__button">
-            <icon-search />
-          </button>
-        </div>
+            <icon-search class="main-search__icon" />  
+        </div>        
       </header>
-      <main class="service__items service__items places">
+      <main class="places">
         <template v-for="region in appData.regions">
           <div
             v-if="
@@ -172,8 +171,8 @@ const toggle = (id: number) => {
             "
             :key="region.id"
             :class="query.trim() !== '' || expandRegions.includes(region.id) ? 'place-active' : ''">
-            <a class="place-block entry-block name-place" tag="article" @click="toggle(region.id)">
-              <h2 class="place-block__name entry-block__name">{{ region.name }}</h2>
+            <a class="place" tag="article" @click="toggle(region.id)">
+              <h2 class="place__name">{{ region.name }}</h2>
               <chevron-up v-if="query.trim() !== '' || expandRegions.includes(region.id)" />
               <chevron-down v-else />
             </a>
@@ -184,7 +183,7 @@ const toggle = (id: number) => {
                   :key="comm.id"
                   :class="{'selected-commune': commune && commune.id === comm.id}">
                   <a
-                    class="place-block entry-block name-commune"
+                    class="name-commune"
                     tag="article"
                     @click="setCommune(comm)">
                     <TextToSpeech :text-audio="comm.name" />
@@ -213,6 +212,7 @@ const toggle = (id: number) => {
         </template>
       </main>
       <footer class="footer-communes">
+        <div>
         <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
           Cancelar
         </button>
@@ -222,6 +222,7 @@ const toggle = (id: number) => {
           @click="confirmCommune()">
           Listo
         </button>
+      </div>
       </footer>
     </div>
   </div>
@@ -336,55 +337,156 @@ const toggle = (id: number) => {
   z-index: 1050;
   margin-top: -39px;
   background: var(--color--skyblue);
+  display: flex;
+  flex-flow: column nowrap;
+  padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
   @media screen and (min-width: 640px) {
     margin-top: -63px;
   }
   @media screen and (min-width: 1280px) {
     margin-top: -68px;
   }
-  .service__header {
-    padding: var(--spacer--500) var(--spacer--500) var(--spacer--400);
-    // padding-top: calc(var(--spacer-lg) + var(--spacer-xs));
-    // @media screen and (min-width: 640px) {
-    //   padding-top: calc(var(--spacer-xl) + var(--spacer-xs));
-    // }
-    // @media screen and (min-width: 1280px) {
-    //   padding-top: calc(var(--spacer-xl) + var(--spacer-xs));
-    // }
-    .entries-list__title {
+  .commune-header {
+    border-radius: var(--spacer--500);
+    background: var(--color--carolinablue);
+    padding: var(--spacer--500) var(--spacer--400) var(--spacer--400);
+    position: relative;
+    @media screen and (min-width: 640px) {
+      padding: var(--spacer--600) var(--spacer--500) var(--spacer--500);
+    }
+    .commune-header__title {
       text-align: left;
-      margin-bottom: calc(var(--spacer-lg) / 3);
-      font-size: var(--font-size--800);
+      margin-bottom: var(--spacer--300);
+      font-size: var(--font-size--700);
       color: var(--color--blue-dark);
-      font-weight: 800;
+      font-weight: 700;
+    }
+    .tts {
+      position: absolute;
+      top: var(--spacer--500);
+      right: var(--spacer--400);
+      @media screen and (min-width: 640px) {
+        top: var(--spacer--600);
+        right: var(--spacer--500);
+      }
     }
   }
 }
 
-.main-search__input {
-  width: 100%;
-  padding: var(--spacer--400);
-  border: 1px solid var(--color--blue-dark);
-  border-radius: var(--spacer--500);
+// Buscador
+// .main-search__input {
+//   width: 100%;
+//   padding: var(--spacer--400);
+//   border: 1px solid var(--color--blue-dark);
+//   border-radius: var(--spacer--500);
+// }
+
+.main-search {
+  position: relative;
+  padding: calc(var(--spacer--400) * 3) var(--spacer--400);
+  background: var(--color--blue);
+  color: var(--color--white);
+  // @media screen and (min-width: 640px) {
+  //   margin-left: calc(var(--spacer-lg) * -1);
+  //   margin-right: calc(var(--spacer-lg) * -1);
+  //   padding: calc(var(--spacer-lg) / 2) var(--spacer-lg) var(--spacer-xl);
+  // }
+  // @media screen and (min-width: 1280px) {
+  //   margin-left: calc(var(--spacer-xl) * -1);
+  //   margin-right: calc(var(--spacer-xl) * -1);
+  //   padding-left: var(--spacer-xl);
+  //   padding-right: var(--spacer-xl);
+  // }
+}
+.service__title {
+  display: flex;
+  flex-flow: column-reverse;
+  gap: var(--spacer--300);
+  > span {
+    font-weight: 700;
+    font-size: var(--font-size--600);
+    margin: 0 0 calc(var(--spacer--700) * 0.5);
+    display: block;
+    text-align: center;
+  }
+  .tts {
+    svg path {
+      fill: var(--color--white);
+    }
+  }
 }
 
+.main-search__group {
+  position: relative;
+}
+.main-search__input {
+  font-size: var(--font-size--500);
+  width: 100%;
+  padding: var(--spacer--500);
+  border: 1px solid var(--color--blue-dark);
+  border-radius: var(--spacer--500);
+  &::placeholder {
+    color: #848484;
+    opacity: 1;
+    font-style: italic;
+    font-family: inherit;
+  }
+}
+.main-search__icon {
+  position: absolute;
+  top: 50%;
+  right: var(--spacer--500);
+  background: none;
+  border: none;
+  z-index: 9;
+  width: var(--font-size--500);
+  height: var(--font-size--500);
+  transform: translateY(-50%);
+  path {
+    fill: var(--color--blue);
+  }
+}
+.main-search__button {
+  width: 100%;
+  border: 1px solid var(--color--skyblue-light);
+  border-radius: var(--spacer--700);
+  color: var(--color--skyblue-light);
+  background: transparent;
+  padding: var(--spacer--400);
+  font-weight: 700;
+}
+@media screen and (max-width: 640px) {
+  input[type='email'],
+  input[type='search'],
+  input[type='text'],
+  select:focus,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+.tts :deep(path) {
+  fill: var(--color--white);
+}
+
+// Footer
 .footer-communes {
   position: fixed;
   width: 100%;
+  right: 0;
+  left: 0;
   bottom: 0;
+  max-width: 640px;
+  
   margin: 0 auto;
   padding: calc(var(--spacer-lg) / 3) var(--spacer);
   display: flex;
   box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
   z-index: 100000;
   background-color: var(--color-background);
-  @media screen and (min-width: 640px) {
-    max-width: 640px;
-  }
   @media screen and (min-width: 1280px) {
-    max-width: 750px;
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    max-width: 453px;
+    aspect-ratio: 568;
   }
   .btn {
     @include rfs($font-size-14);
@@ -399,6 +501,58 @@ const toggle = (id: number) => {
       background: transparent;
       border: 1px solid var(--color-neutral-lighter);
       color: var(--color-neutral-lighter);
+    }
+  }
+}
+
+// Main
+.places {
+  flex-grow: 1;
+  & > div {
+    border: 1px solid var(--color--blue);
+    background: var(--color--white);
+    position: relative;
+    border-radius: var(--spacer--500);
+    margin-top: var(--spacer--300);
+    padding: var(--spacer--300) 0;
+  }
+  .place {
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    padding: var(--spacer--200) var(--spacer--400);
+  }
+  .place__name {
+    font-size: var(--font-size--600);
+    line-height: 1.25;
+    color: var(--color--blue-dark);
+    border-radius: var(--spacer--500);
+  }
+  .name-commune {
+    cursor: pointer;
+    font-size: var(--font-size--600);
+    line-height: 1.25;
+    color: var(--color--blue-dark);
+    font-weight: 600;
+    display: block;
+    padding: calc(var(--spacer--200) * 1.5) 0;
+    padding: var(--spacer--300) var(--spacer--400);
+    position: relative;
+    &::before {
+      content: '';
+      border-bottom: 1px solid rgba(160, 182, 203, 0.3);
+      position: absolute;
+      bottom: 0;
+      right: calc(var(--spacer-lg) / 2);
+      left: calc(var(--spacer-lg) / 2);
+      @media screen and (min-width: 640px) {
+        right: var(--spacer-lg);
+        left: var(--spacer-lg);
+      }
+      @media screen and (min-width: 1280px) {
+        right: var(--spacer-xl);
+        left: var(--spacer-xl);
+      }
     }
   }
 }
@@ -462,16 +616,14 @@ const toggle = (id: number) => {
   }
 }
 .place-active {
-  .name-place {
-    border-bottom: none;
-    background-color: var(--color-background);
-    padding-bottom: calc(var(--spacer) / 2);
+  .place {
+    padding-bottom: var(--spacer--300);
   }
   .selected-commune {
     border-bottom: none;
     .name-commune {
       transition: all 0.15s linear;
-      background-color: var(--color-brand-lightest);
+      background-color: var(--color--skyblue);
       &::before {
         content: none;
       }
