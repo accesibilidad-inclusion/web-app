@@ -18,7 +18,7 @@ export class Location {
   }
 
   getCoordinates = () : {lat: number, lng: number} => {
-    return this.commune ? { lat: parseFloat(this.commune.lat), lng: parseFloat(this.commune.lng) } : { lat: parseFloat(this.gpsLat), lng: parseFloat(this.gpsLng) }
+    return !this.isGpsActivated() && this.commune ? { lat: parseFloat(this.commune.lat), lng: parseFloat(this.commune.lng) } : { lat: parseFloat(this.gpsLat), lng: parseFloat(this.gpsLng) }
   }
 
   

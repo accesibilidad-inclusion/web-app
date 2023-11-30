@@ -23,7 +23,7 @@ const changeLocation = () => {
   <div class="your-location location-selector" :class="{dense: dense}">
     <div class="your-location__content">
       <IconLocationPin />
-      <span v-if="appData.location.commune?.name">{{ appData.location.commune.name }}</span>
+      <span v-if="!appData.location.isGpsActivated()">{{ appData.location.commune?.name }}</span>
       <span v-else>{{ $t('locationSelector.name') }}</span>
     </div>
     <a class="btn your-location__change" @click="changeLocation()">{{

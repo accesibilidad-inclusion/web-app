@@ -10,6 +10,7 @@ import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconSearch from '@/assets/img/app-icons/search.svg?component'
 
 import {Loader} from '@googlemaps/js-api-loader'
+import {useFetch} from '@vueuse/core'
 
 let geocoder: google.maps.Geocoder
 
@@ -37,17 +38,29 @@ const activateGps = () => {
 }
 
 const checkPosition = (position: any) => {
-  /* geocoder
-    .geocode({location: {lat: position.coords.latitude, lng: position.coords.longitude}})
-    .then((response) => {
-      console.log(response)
+  geocoder
+    .geocode({location: {lat: -34.602706, lng: -70.979868}})
+    //.geocode({location: {lat: position.coords.latitude, lng: position.coords.longitude}})
+    .then(async (response) => {
+      if (response.results.length) {
+        const address = response.results[0].address_components
+        const commune = address.find((a) => a.types.includes('administrative_area_level_3'))
+        // const region = address.find((a) => a.types.includes('administrative_area_level_1'))
+
+        const {data} = await useFetch(
+          `${import.meta.env.VITE_APP_API_DOMAIN}api/getCommuneByGoogleName/${commune?.long_name}`
+        )
+          .get()
+          .json()
+
+        appData.location = new Location({
+          gpsLat: position.coords.latitude.toString(),
+          gpsLng: position.coords.longitude.toString(),
+          commune: Object.keys(data.value).length ? data.value : null
+        })
+      }
     })
-    .catch((e) => window.alert('Geocoder failed due to: ' + e)) */
-  appData.location = new Location({
-    gpsLat: position.coords.latitude.toString(),
-    gpsLng: position.coords.longitude.toString(),
-    commune: null
-  })
+    .catch((e) => console.error('Geocoder failed due to: ' + e))
 }
 
 const errorGps = () => {
@@ -59,18 +72,6 @@ const selectCommune = () => {
 }
 
 const setCommune = (c: Commune) => {
-  /* geocoder
-    .geocode({location: {lat: parseFloat(c.lat), lng: parseFloat(c.lng)}})
-    .then((response) => {
-      if (response.results.length) {
-        const address = response.results[0].address_components
-        const commune = address.find((a) => a.types.includes('administrative_area_level_3'))
-        const region = address.find((a) => a.types.includes('administrative_area_level_1'))
-        console.log(commune)
-        console.log(region)
-      }
-    })
-    .catch((e) => window.alert('Geocoder failed due to: ' + e)) */
   if (commune.value && commune.value?.id === c.id) {
     commune.value = null
   } else {
@@ -239,16 +240,16 @@ const toggle = (id: number) => {
           </div>
         </template>
       </main>
-      <footer class="footer-communes">       
-          <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
-            Cancelar
-          </button>
-          <button
-            class="btn btn--large btn--block btn--primary"
-            :disabled="!commune"
-            @click="confirmCommune()">
-            Listo
-          </button>
+      <footer class="footer-communes">
+        <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
+          Cancelar
+        </button>
+        <button
+          class="btn btn--large btn--block btn--primary"
+          :disabled="!commune"
+          @click="confirmCommune()">
+          Listo
+        </button>
       </footer>
     </div>
   </div>

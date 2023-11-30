@@ -20,16 +20,20 @@ const tasks = ref<Array<PresentialTask | OnlineTask>>([])
 if (route.query.t !== 'online' && route.query.t !== 'presential') {
   router.push('/inicio')
 } else {
+  const postData =
+    route.query.t === 'presential'
+      ? appData.location.getCoordinates()
+      : {commune_id: appData.location.commune?.id}
   const {data} = await useFetch(
     `${import.meta.env.VITE_APP_API_DOMAIN}api/${route.query.t}_tasks/search`
   )
     .post({
       query: route.query.s,
-      ...appData.location.getCoordinates()
+      ...postData
     })
     .json()
   tasks.value =
-    route.query.s === 'online'
+    route.query.t === 'online'
       ? data.value.map((task: OnlineTask) => new OnlineTask(task))
       : data.value.map((task: PresentialTask) => new PresentialTask(task))
 }
@@ -37,12 +41,11 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
 
 <template>
   <div class="search-results" :class="$route.query.t">
-
     <header class="block-header block-header__compact">
       <span class="category-icon">
         <icon-internet class="block-header__icon" />
       </span>
-      
+
       <h1 class="block-header__title search-results__title">Resultados</h1>
       <p class="block-header__description entries-list__description search-results__help">
         <span v-if="route.query.t == 'presential'">Tareas presenciales cerca de</span>
@@ -82,59 +85,59 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
   background-color: var(--color--skyblue);
 
   .block-header {
-  position: relative;
-  text-align: center;
-  padding: var(--spacer--500);
-  border-radius: var(--spacer--500);
-  background: var(--color--carolinablue);
-  margin: var(--spacer--600) var(--spacer--400) 0;
-  font-weight: 600;
-  padding-top: var(--spacer);
+    position: relative;
+    text-align: center;
+    padding: var(--spacer--500);
+    border-radius: var(--spacer--500);
+    background: var(--color--carolinablue);
+    margin: var(--spacer--600) var(--spacer--400) 0;
+    font-weight: 600;
+    padding-top: var(--spacer);
     text-align: left;
     display: grid;
     grid-template-areas: 'icon name' 'icon description' 'icon location';
     grid-template-columns: 55px auto;
     grid-template-rows: auto;
     gap: var(--spacer--200) var(--spacer--300);
-  @media screen and (min-width: 640px) {
-    margin-left: var(--spacer--500);
-    margin-right: var(--spacer--500);
-  }
-  // Ubicación
-  .your-location {
-    margin: 0;
-    background: transparent;
-    padding: 0;
-    justify-content: flex-start;
-    grid-area: location;
-    .your-location__content {
-      width: auto;
-      color: var(--color--blue-dark);
-      gap: var(--spacer--200);
+    @media screen and (min-width: 640px) {
+      margin-left: var(--spacer--500);
+      margin-right: var(--spacer--500);
     }
-    svg {
-      position: relative;
-      top: 2px;
-      width: 10px !important;
-      height: 16px !important;
-      path {
-        fill: var(--color--blue-dark) !important;
+    // Ubicación
+    .your-location {
+      margin: 0;
+      background: transparent;
+      padding: 0;
+      justify-content: flex-start;
+      grid-area: location;
+      .your-location__content {
+        width: auto;
+        color: var(--color--blue-dark);
+        gap: var(--spacer--200);
+      }
+      svg {
+        position: relative;
+        top: 2px;
+        width: 10px !important;
+        height: 16px !important;
+        path {
+          fill: var(--color--blue-dark) !important;
+        }
+      }
+      .your-location__change {
+        padding: var(--spacer--200);
+        color: var(--color--blue);
       }
     }
-    .your-location__change {
-      padding: var(--spacer--200);
-      color: var(--color--blue);
-    }
-  }
-  // Audio
-  .tts {
-    position: absolute;
-    top: var(--spacer--400);
-    right: var(--spacer--400);
+    // Audio
+    .tts {
+      position: absolute;
+      top: var(--spacer--400);
+      right: var(--spacer--400);
       @media screen and (min-width: 1280px) {
         top: var(--spacer--500);
-      right: var(--spacer--500);
-    }
+        right: var(--spacer--500);
+      }
     }
   }
   .category-icon {
