@@ -239,8 +239,7 @@ const toggle = (id: number) => {
           </div>
         </template>
       </main>
-      <footer class="footer-communes">
-        <div>
+      <footer class="footer-communes">       
           <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
             Cancelar
           </button>
@@ -250,7 +249,6 @@ const toggle = (id: number) => {
             @click="confirmCommune()">
             Listo
           </button>
-        </div>
       </footer>
     </div>
   </div>
@@ -505,7 +503,6 @@ const toggle = (id: number) => {
   left: 0;
   bottom: 0;
   max-width: 640px;
-
   margin: 0 auto;
   padding: calc(var(--spacer-lg) / 3) var(--spacer);
   display: flex;
@@ -513,8 +510,7 @@ const toggle = (id: number) => {
   z-index: 100000;
   background-color: var(--color-background);
   @media screen and (min-width: 1280px) {
-    max-width: 453px;
-    aspect-ratio: 568;
+    max-width: 545px;
   }
   .btn {
     @include rfs($font-size-14);
@@ -536,6 +532,7 @@ const toggle = (id: number) => {
 // Main
 .places {
   flex-grow: 1;
+  margin-bottom: 80px;
   & > div {
     border: 1px solid var(--color--blue);
     background: var(--color--white);
