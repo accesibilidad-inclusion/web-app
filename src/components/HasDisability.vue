@@ -21,34 +21,50 @@ defineExpose({
 
 <template>
   <BlockHeader description="Sobre ti"> </BlockHeader>
-  <h2 class="onboarding__title">
-    ¿Tienes alguna discapacidad?
-    <text-to-speech
-      :text-audio="'¿Tienes alguna discapacidad?\n\n\n\n\n\n\n' + 'Sí\n\n\n\n\n\n' + 'No'" />
-  </h2>
-  <div class="custom-control custom-control--radio">
-    <input
-      type="radio"
-      name="disability"
-      id="yes"
-      value="yes"
-      class="custom-control__input"
-      v-model="appSession.user.disability"
-      :checked="appSession.user.disability == 'yes'" />
-    <label for="yes" class="custom-control__label">Sí</label>
-  </div>
-  <div class="custom-control custom-control--radio">
-    <input
-      type="radio"
-      name="disability"
-      id="no"
-      value="no"
-      class="custom-control__input"
-      @input="clearDisabilities()"
-      v-model="appSession.user.disability"
-      :checked="appSession.user.disability == 'no'" />
-    <label for="no" class="custom-control__label">No</label>
+  <div class="onboarding-item__container">
+    <h2 class="onboarding__title">
+      ¿Tienes alguna discapacidad?
+      <text-to-speech
+        :text-audio="'¿Tienes alguna discapacidad?\n\n\n\n\n\n\n' + 'Sí\n\n\n\n\n\n' + 'No'" />
+    </h2>
+    <form class="form-radio">
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="disability"
+          id="yes"
+          value="yes"
+          class="custom-control__input"
+          v-model="appSession.user.disability"
+          :checked="appSession.user.disability == 'yes'" />
+        <label for="yes" class="custom-control__label">Sí</label>
+      </div>
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="disability"
+          id="no"
+          value="no"
+          class="custom-control__input"
+          @input="clearDisabilities()"
+          v-model="appSession.user.disability"
+          :checked="appSession.user.disability == 'no'" />
+        <label for="no" class="custom-control__label">No</label>
+      </div>
+    </form>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.form-radio {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacer--400);
+}
+.custom-control__label {
+  font-size: var(--font-size--800);
+  font-weight: 800;
+  justify-content: center;
+  padding: var(--spacer--500) var(--spacer--300);
+}
+</style>

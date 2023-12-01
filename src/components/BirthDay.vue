@@ -63,35 +63,37 @@ defineExpose({
 
 <template>
   <BlockHeader description="Sobre ti"> </BlockHeader>
-  <h2 class="onboarding__title">
-    Fecha de nacimiento <TextToSpeech :text-audio="`Fecha de nacimiento: Día, Mes y Año`" />
-  </h2>
-  <form>
-    <div class="form-group">
-      <label for="day">Día</label>
-      <FormSelect
-        :id="'day'"
-        :options="days"
-        :optionDefault="'Selecciona el día'"
-        v-model="appSession.user.dayBirth" />
-    </div>
-    <div class="form-group">
-      <label for="month">Mes</label>
-      <FormSelect
-        :id="'month'"
-        :options="months"
-        :optionDefault="'Selecciona el mes'"
-        v-model="appSession.user.monthBirth" />
-    </div>
-    <div class="form-group">
-      <label for="ano">Año</label>
-      <FormSelect
-        :id="'year'"
-        :options="years"
-        :optionDefault="'Selecciona el año'"
-        v-model="appSession.user.yearBirth" />
-    </div>
-  </form>
+  <div class="onboarding-item__container">
+    <h2 class="onboarding__title">
+      Fecha de nacimiento <TextToSpeech :text-audio="`Fecha de nacimiento: Día, Mes y Año`" />
+    </h2>
+    <form>
+      <div class="form-group">
+        <label for="day">Día</label>
+        <FormSelect
+          :id="'day'"
+          :options="days"
+          :optionDefault="'Selecciona el día'"
+          v-model="appSession.user.dayBirth" />
+      </div>
+      <div class="form-group">
+        <label for="month">Mes</label>
+        <FormSelect
+          :id="'month'"
+          :options="months"
+          :optionDefault="'Selecciona el mes'"
+          v-model="appSession.user.monthBirth" />
+      </div>
+      <div class="form-group">
+        <label for="ano">Año</label>
+        <FormSelect
+          :id="'year'"
+          :options="years"
+          :optionDefault="'Selecciona el año'"
+          v-model="appSession.user.yearBirth" />
+      </div>
+    </form>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,66 +1,26 @@
 .custom-control {
   position: relative;
   display: block;
-  margin-bottom: var(--spacer);
-  @media screen and (min-width: 640px) {
-    margin-bottom: 1.75rem;
-  }
 }
 .custom-control__label {
-  @include rfs($font-size-14);
+  font-size: var(--font-size--500);
   cursor: pointer;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0.85rem 1rem 0.85rem 4.5rem;
-  font-weight: bold;
-  background-color: var(--color-brand-light);
-  border-radius: var(--border-radius);
+  padding: var(--spacer--400) var(--spacer--500);
+  font-weight: 700;
+  background-color: var(--color--white);
+  border: 1px solid var(--color--blue);
+  border-radius: var(--spacer--500);
+  color: var(--color--blue-dark);
 
   @media screen and (min-width: 640px) {
-    @include rfs($font-size-15);
-    padding: 1rem 1rem 1rem 5rem;
+    
   }
-}
-.custom-control__label::before {
-  content: '';
-  position: absolute;
-  width: 1.625rem;
-  height: 1.625rem;
-  top: 50%;
-  left: 2rem;
-  margin-top: -0.8125rem;
-  background-color: #fff;
-  pointer-events: none;
-  .custom-control--radio & {
-    border-radius: 50%;
-  }
-  .custom-control--checkbox & {
-    border-radius: 3px;
-  }
-}
-.custom-control__label::after {
-  content: '';
-  position: absolute;
-  width: 1.625rem;
-  height: 1.625rem;
-  top: 50%;
-  left: 2rem;
-  margin-top: -0.8125rem;
-  background-image: url("data:image/svg+xml,%3Csvg width='13px' height='11px' viewBox='0 0 13 11' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cpolygon id='check' fill='%23000000' fill-rule='nonzero' points='4.589 7.6132 1.534 4.22639 0 5.91979 3.055 9.3066 4.589 11 6.123 9.3066 13 1.6934 11.466 0'%3E%3C/polygon%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 20px 16px;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
 }
 .custom-control__input:checked ~ .custom-control__label {
-  color: #fff;
-  background-color: var(--color-brand-darkest);
-  &::after {
-    opacity: 1;
-  }
+  background-color: var(--color--skyblue-light);
 }
 .custom-control__input {
   position: absolute;

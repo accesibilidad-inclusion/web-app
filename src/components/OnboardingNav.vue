@@ -68,6 +68,7 @@ const advanceStep = async () => {
   display: flex;
   flex-flow: column;
   background-color: var(--color--white);
+  width: 100%;
 }
 .onboarding-nav__body {
   flex-grow: 1;

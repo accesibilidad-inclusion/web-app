@@ -46,6 +46,14 @@ const classes = computed(() => {
   border: 1px solid var(--color-neutral-light);
   border-radius: 0.25rem;
   appearance: none;
+
+  border: 1px solid var(--color--blue);
+  background: var(--color--white);
+  padding: var(--spacer--400) var(--spacer--500);
+  position: relative;
+  border-radius: var(--spacer--500);
+  margin-top: var(--spacer--300);
+
   &:valid {
     font-style: normal;
   }
