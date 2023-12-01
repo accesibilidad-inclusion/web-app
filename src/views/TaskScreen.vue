@@ -206,7 +206,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                   <DrawPictogram
                     :layers="step.pictogram.images.filter((i: any) => i.layout <= 3)" />
                 </div>
-                <div>Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
+                <div class="task-step__number">Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
                 <figcaption class="task-step__legend">
                   <div class="task-step__legend-text">
                     <span
@@ -235,7 +235,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                     :focus-x="step.focus_x"
                     :focus-y="step.focus_y" />
                 </div>
-                <div>Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
+                <div class="task-step__number">Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
                 <figcaption class="task-step__legend">
                   <div class="task-step__legend-text">
                     <span v-if="step.image">
@@ -420,13 +420,13 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   display: flex;
   flex-flow: column nowrap;
   overflow-x: hidden;
+  background-color: var(--color--skyblue-light);
 }
 .task__header {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  text-align: left;
-  background: var(--color-background);
+  text-align: center;
 }
 .task__title {
   grid-column: 1/2;
@@ -460,9 +460,9 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   display: flex;
   flex-flow: column nowrap;
   // flex-grow: 1;
-  background: var(--color-brand-lightest);
   // max-height: 55vh;
   // Hack Safari
+  padding: var(--spacer--400) var(--spacer--500);
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
       height: 100%;
@@ -473,8 +473,6 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   display: grid;
   grid-template-rows: auto 1fr;
   flex-grow: 1;
-  border-top: 1px solid var(--color-brand-light);
-  border-bottom: 1px solid var(--color-brand-light);
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
@@ -500,7 +498,6 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
 .step-canvas {
   position: relative;
   width: 100%;
-  background: var(--color-brand-lightest);
   min-height: 13rem;
   max-height: 41vh;
   height: 100%;
@@ -525,6 +522,8 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
     transform 0 0;
   list-style: none;
   opacity: 0;
+  background-color: var(--color--white);
+  border-radius: var(--spacer--500);
 }
 .task-step--active {
   position: relative;
@@ -552,6 +551,14 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
 .task-step__layer--landmark {
   z-index: 1;
 }
+.task-step__number {
+  font-size: var(--font-size--400);
+  font-weight: 700;
+  color: var(--color-blue-dark);
+  letter-spacing: 0.0625rem;
+  text-transform: uppercase;
+  padding: var(--spacer--400) var(--spacer--400) var(--spacer--400) var(--spacer--700);
+}
 .task-step__legend {
   @include rfs($font-size-16);
   display: flex;
@@ -559,7 +566,6 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   padding: calc(var(--spacer) * 0.75) var(--spacer);
   line-height: calc(22 / 16);
   font-weight: bold;
-  background: var(--color-background);
   justify-content: space-between;
   min-height: 14vh;
   @media screen and (min-width: 640px) {
