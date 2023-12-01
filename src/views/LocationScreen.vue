@@ -39,8 +39,8 @@ const activateGps = () => {
 
 const checkPosition = (position: any) => {
   geocoder
-    .geocode({location: {lat: -34.602706, lng: -70.979868}})
-    //.geocode({location: {lat: position.coords.latitude, lng: position.coords.longitude}})
+    //.geocode({location: {lat: -34.602706, lng: -70.979868}})
+    .geocode({location: {lat: position.coords.latitude, lng: position.coords.longitude}})
     .then(async (response) => {
       if (response.results.length) {
         const address = response.results[0].address_components
