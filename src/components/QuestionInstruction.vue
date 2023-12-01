@@ -8,11 +8,7 @@ const props = defineProps<{
 
 const iconSvg = computed(() => {
   return defineAsyncComponent(
-    () =>
-      import(
-        /* @vite-ignore */
-        '../assets/img/app-icons/instructions/' + props.icon + '.svg?component'
-      )
+    () => import(`../assets/img/app-icons/instructions/${props.icon}.svg?component`)
   )
 })
 </script>
