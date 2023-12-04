@@ -3,8 +3,10 @@ import {RouterView, useRoute} from 'vue-router'
 import AppNav from './components/AppNav.vue'
 import SpinnerLoader from '@/components/SpinnerLoader.vue'
 import {ref} from 'vue'
+import {useAppNavStore} from './stores/app-nav'
 
 const route = useRoute()
+const appNav = useAppNavStore()
 
 const view = ref(null)
 
@@ -14,7 +16,7 @@ const backEvaluation = () => {
 </script>
 
 <template>
-  <div id="app-wrap">
+  <div id="app-wrap" :class="`theme-${appNav.theme}`">
     <AppNav v-if="!route.meta.hideNav" v-on:comeback="backEvaluation" />
     <RouterView v-slot="{Component}" ref="view">
       <Transition name="slide-fade">
@@ -39,7 +41,6 @@ const backEvaluation = () => {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
-  background: var(--color-background);
   overflow-x: hidden;
   @media screen and (min-width: 640px) {
     max-width: 640px;
@@ -50,6 +51,13 @@ const backEvaluation = () => {
     max-height: 100svh;
     aspect-ratio: 320/568;
   }
+}
+
+#app-wrap.theme-presential {
+  background: var(--color--skyblue);
+}
+#app-wrap.theme-online {
+  background: var(--color--yellow);
 }
 .slide-fade-enter-active {
   transition: all 0.5s ease-out;

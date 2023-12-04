@@ -10,7 +10,6 @@ const router = useRouter()
 const route = useRoute()
 const appNav = useAppNavStore()
 
-const dark = ref<boolean>(false)
 const shown_modal = ref<boolean>(false)
 const closed_modal = ref<boolean>(false)
 
@@ -47,7 +46,7 @@ const tutorials = () => {
 </script>
 
 <template>
-  <div id="nav" class="app-nav" :class="{'app-nav--dark': dark}">
+  <div id="nav" class="app-nav" :class="`app-nav__${appNav.theme}`">
     <back-button v-if="$route.name !== 'home'" @comeback="$emit('comeback')"></back-button>
     <router-link to="/inicio" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
@@ -102,15 +101,15 @@ const tutorials = () => {
   background: transparent;
   z-index: var(--z-index-navbar);
   align-items: center;
-  background-color: var(--color--skyblue);
   @media screen and (min-width: 640px) {
     padding: var(--spacer--500) var(--spacer--500);
   }
-  &.app-nav--dark {
-    transition: var(--transition-nav-dark);
-    color: var(--color-background);
-    background-color: var(--color-brand-darkest);
-  }
+}
+.app-nav__presential {
+  background: var(--color--skyblue);
+}
+.app-nav__online {
+  background: var(--color--yellow);
 }
 .app-nav > .router-link-active:not(:first-child) {
   text-align: left;
@@ -122,18 +121,6 @@ const tutorials = () => {
   background: none;
   border: 0;
   margin-left: auto;
-  .app-nav--dark & {
-    transition: var(--transition-nav-dark);
-    color: var(--color-background);
-  }
-}
-.app-nav--dark .btn-prev {
-  transition: var(--transition-nav-dark);
-  color: var(--color-background);
-  svg path {
-    transition: var(--transition-nav-dark);
-    fill: var(--color-background);
-  }
 }
 .app-nav__logo-wrapper {
   width: 75px;
@@ -144,10 +131,6 @@ const tutorials = () => {
 .app-nav__logo {
   width: 75px;
   height: 15px;
-  .app-nav--dark & path {
-    transition: var(--transition-nav-dark);
-    fill: var(--color-background);
-  }
   @media screen and (min-width: 640px) {
     width: 86px;
     height: 17px;
@@ -160,10 +143,6 @@ const tutorials = () => {
   @media screen and (min-width: 640px) {
     width: 24px;
     height: 17px;
-  }
-  .app-nav--dark & path {
-    transition: fill 0.3s ease 0.2s;
-    fill: var(--color-background);
   }
 }
 .app-menu {

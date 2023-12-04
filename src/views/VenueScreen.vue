@@ -20,7 +20,7 @@ const appNav = useAppNavStore()
 
 const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
-const type = ref<'online' | 'presential'>()
+const type = ref<'online' | 'presential'>('presential')
 
 const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements`)
   .post({
@@ -31,6 +31,7 @@ const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/g
   .json()
 
 type.value = data.value.type
+appNav.theme = type.value
 service.value = data.value.service
 venue.value =
   data.value.type === 'online'

@@ -36,6 +36,7 @@ if (route.params.type === 'presencial' && appNav.onboarding.presentialEvaluation
 }
 
 const questionsType = route.params.type === 'presencial' ? 'presential' : 'online'
+appNav.theme = questionsType
 
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/${questionsType}_venues/getById/${route.params.id}`

@@ -8,6 +8,7 @@ import type {Task} from '@/types/task'
 export const useAppNavStore = defineStore('appNav', {
   state: () => {
     return {
+      theme: 'presential' as 'online'|'presential',
       redirectTo: '/inicio' as string,
       selected: {
         category: null as Category | null,

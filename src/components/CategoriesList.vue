@@ -38,11 +38,6 @@ const setCategory = (category: Category) => {
     </ul>
   </section>
 </template>
-<stlye lang="scss">
-#app-wrap {
-  background: var(--color--skyblue);
-}
-</stlye>
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 // .your-location {

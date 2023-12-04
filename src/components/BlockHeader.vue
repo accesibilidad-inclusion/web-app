@@ -2,6 +2,9 @@
 import IconLocationPin from '@/assets/img/app-icons/support/lugar.svg?component'
 import LocationSelector from '@/components/LocationSelector.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
+import {useAppNavStore} from '@/stores/app-nav'
+
+const appNav = useAppNavStore()
 
 defineProps<{
   title?: string
@@ -13,7 +16,9 @@ defineProps<{
 </script>
 
 <template>
-  <header class="block-header entries-list__header" :class="{'block-header__compact': compact}">
+  <header
+    class="block-header entries-list__header"
+    :class="[{'block-header__compact': compact}, `block-header__${appNav.theme}`]">
     <slot name="icon" class="block-header__icon"></slot>
     <h1 class="block-header__title entries-list__title" v-if="title !== undefined">{{ title }}</h1>
     <p class="block-header__description entries-list__description">

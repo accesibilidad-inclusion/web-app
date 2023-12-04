@@ -79,12 +79,6 @@ document.title = `Servicios de ${data.value.category.name} | Pictos`
   </div>
 </template>
 
-<style>
-#app-wrap {
-  background: var(--color--skyblue);
-}
-</style>
-
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .category {

@@ -99,6 +99,7 @@ router.beforeEach((to, from, next) => {
 
   const appData = useAppDataStore()
   const appNav = useAppNavStore()
+  appNav.theme = 'presential'
 
   if (!appData.initialized && to.fullPath !== '/') {
     appNav.redirectTo = to.path
