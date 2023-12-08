@@ -41,7 +41,7 @@ defineProps<{
   text-align: center;
   padding: var(--spacer--500);
   border-radius: var(--spacer--500);
-  background: var(--color--carolinablue);
+  background-color: var(--color--carolinablue);
   margin: var(--spacer--600) var(--spacer--400) 0;
   font-weight: 600;
   @media screen and (min-width: 640px) {
@@ -88,7 +88,7 @@ defineProps<{
   font-size: var(--font-size--700);
   margin-bottom: var(--spacer--200);
   line-height: calc(25 / 18);
-  color: var(--color-brand-darkest);
+  color: var(--color--blue-dark);
 }
 .block-header__description {
   font-size: var(--font-size--400);
