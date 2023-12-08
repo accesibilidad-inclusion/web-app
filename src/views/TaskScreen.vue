@@ -12,6 +12,9 @@ import {OnlineVenue} from '@/model/online_venue.js'
 import {PresentialTask} from '@/model/presential_task'
 import {OnlineTask} from '@/model/online_task'
 import {useAppNavStore} from '@/stores/app-nav'
+import IconError from '@/assets/img/app-icons/error.svg'
+import IconLike from '@/assets/img/app-icons/instructions/like.svg'
+import IconDislike from '@/assets/img/app-icons/instructions/dislike.svg'
 
 const route = useRoute()
 
@@ -148,6 +151,8 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
       <header
         :class="{'header--prerequisites': show_prerequisites}"
         class="task__header entries-list__header">
+        <text-to-speech
+          :text-audio="`${task.title}.\n\n\n\n\n ${venue.name}, en ${service.name}`" />
         <p class="entries-list__description task__description">
           <router-link :to="{name: 'venue-screen', params: {placeId: venue.id}}">{{
             venue.name
@@ -158,8 +163,6 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
           }}</router-link>
         </p>
         <h1 class="task__title entries-list__title">{{ task.title }}</h1>
-        <text-to-speech
-          :text-audio="`${task.title}.\n\n\n\n\n ${venue.name}, en ${service.name}`" />
       </header>
       <template v-if="show_prerequisites">
         <div class="task__prerequisites">
@@ -206,23 +209,25 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                   <DrawPictogram
                     :layers="step.pictogram.images.filter((i: any) => i.layout <= 3)" />
                 </div>
-                <div class="task-step__number">Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
-                <figcaption class="task-step__legend">
-                  <div class="task-step__legend-text">
-                    <span
-                      v-if="
-                        step.pictogram && step.pictogram.images.find((i: any) => i.layout == 4)
-                      ">
-                      <img
-                        :src="`${step.pictogram.images.find((i: any) => i.layout == 4)?.path}${
-                          step.pictogram.images.find((i: any) => i.layout == 4)?.filename
-                        }`"
-                        class="pictogram__layer--action" />
-                    </span>
-                    {{ step.label }}
-                  </div>
-                  <text-to-speech :text-audio="step.label" />
-                </figcaption>
+                <div class="task-step-main">
+                  <div class="task-step__number">Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
+                  <figcaption class="task-step__legend">
+                    <div class="task-step__legend-text">
+                      <span
+                        v-if="
+                          step.pictogram && step.pictogram.images.find((i: any) => i.layout == 4)
+                        ">
+                        <img
+                          :src="`${step.pictogram.images.find((i: any) => i.layout == 4)?.path}${
+                            step.pictogram.images.find((i: any) => i.layout == 4)?.filename
+                          }`"
+                          class="pictogram__layer--action" />
+                      </span>
+                      {{ step.label }}
+                    </div>
+                    <text-to-speech :text-audio="step.label" />
+                  </figcaption>
+                </div>
               </figure>
               <figure
                 v-if="task instanceof OnlineTask"
@@ -288,14 +293,14 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                       ? '/nuevo-apoyo/intro'
                       : '/nuevo-apoyo/' + task.steps[0].id
                   "
-                  class="btn btn--large btn--block btn--ghost">
+                  class="btn btn--large btn--block btn--secondary">
                   Crear el apoyo gráfico
                 </router-link>
               </template>
               <template v-else>
                 <router-link
                   :to="{name: 'venue-screen', params: {placeId: venue.id}}"
-                  class="btn btn--large btn--block btn--ghost">
+                  class="btn btn--large btn--block btn--secondary">
                   Volver a {{ venue.name }}
                 </router-link>
               </template>
@@ -312,7 +317,6 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
           <div
             v-if="!task.steps.filter((s) => s.label).length"
             :class="'task-empty' + (state.active_step < 0 ? '' : ' task-step--active')">
-            <icon-no-information class="task-empty__icon" />
             <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
             <p class="task-empty__description">
               Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y
@@ -326,7 +330,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
           </div>
           <div class="task__nav">
             <button
-              class="btn btn--large btn--primary"
+              class="btn btn--large btn--secondary"
               :class="{
                 'btn--hidden':
                   state.active_step === 0 && task.prerequisites.trim() === '' && !show_prerequisites
@@ -423,30 +427,33 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   background-color: var(--color--skyblue-light);
 }
 .task__header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
+  position: relative;
   text-align: center;
+  padding: var(--spacer--500);
+  border-radius: var(--spacer--500);
+  margin: var(--spacer--600) var(--spacer--400) 0;
+  font-weight: 600;
 }
 .task__title {
-  grid-column: 1/2;
-  margin-bottom: 0;
+  font-size: var(--font-size--500);
+  margin-bottom: var(--spacer--200);
+  line-height: 1.3888888889;
+  color: var(--color--blue-dark);
 }
 .task__description {
-  @include rfs($font-size-12);
-  grid-column: 1/2;
-  grid-row: 1/2;
-  margin-bottom: var(--spacer-xs);
-  line-height: 1.35;
+  font-size: var(--font-size--400);
+  color: var(--color--blue-dark);
+  margin: var(--spacer--200) 0;
+  a {
+    color: var(--color--blue-dark);
+  }
 }
 .tts {
-  .task__header & {
-    align-self: flex-start;
-    grid-column: 2/3;
-    grid-row: 1/2;
-    path {
-      fill: var(--color-brand);
-    }
+  position: absolute;
+  top: var(--spacer--400);
+  right: var(--spacer--400);
+  path {
+    fill: var(--color--blue-dark);
   }
 }
 .task__main {
@@ -551,29 +558,31 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
 .task-step__layer--landmark {
   z-index: 1;
 }
+.task-step-main {
+  position: relative;
+}
 .task-step__number {
-  font-size: var(--font-size--400);
+  font-size: 0.625rem;
+  opacity: .7;
   font-weight: 700;
   color: var(--color-blue-dark);
   letter-spacing: 0.0625rem;
   text-transform: uppercase;
-  padding: var(--spacer--400) var(--spacer--400) var(--spacer--400) var(--spacer--700);
+  position: absolute;
+  left: 56px;
+  top: var(--spacer--400);
 }
 .task-step__legend {
   @include rfs($font-size-16);
   display: flex;
   align-items: center;
-  padding: calc(var(--spacer) * 0.75) var(--spacer);
+  padding: var(--spacer--500) var(--spacer--300) var(--spacer--400);
   line-height: calc(22 / 16);
   font-weight: bold;
   justify-content: space-between;
   min-height: 14vh;
   @media screen and (min-width: 640px) {
-    padding: calc(var(--spacer-lg) * 0.75) var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
   }
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
@@ -587,6 +596,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   }
 }
 .task-step__legend-text {
+  font-size: var(--font-size--400);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -598,8 +608,8 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   justify-content: center;
   align-items: center;
   padding: var(--spacer);
-  color: #fff;
-  background-color: var(--color-brand-darker);
+  color: var(--color--blue-dark);
+  background-color: var(--color--carolinablue);
   height: 55vh;
   @media screen and (min-width: 640px) {
     padding-left: var(--spacer-lg);
@@ -613,6 +623,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
 .task-helpful__title {
   @include rfs($font-size-18);
   margin-bottom: var(--spacer);
+  text-align: center;
 }
 .task-helpful__answers {
   display: grid;
@@ -634,20 +645,22 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
 .task-helpful__answer {
   cursor: pointer;
   display: block;
-  padding: var(--spacer-sm);
+  padding: var(--spacer--400);
   text-align: center;
   color: var(--color-brand-darker);
   background-color: var(--color-brand-light);
-  border: 1px solid var(--color-brand-light);
-  border-radius: var(--border-radius);
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color--blue-dark);
+  border-radius: var(--spacer--300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     background-color: var(--color-brand-lighter);
     transition: var(--transition-base);
   }
   &.task-helpful__answer--active {
-    background-color: var(--color-highlight);
-    border-color: var(--color-highlight);
+    background-color: var(--color--skyblue);
+    border-color: var(--color--blue-dark);
   }
   @media screen and (max-width: 400px) {
     // Hack Safari
@@ -664,12 +677,13 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
   font-weight: bold;
 }
 [class^='task-helpful__answer__icon'] {
-  width: 25px;
-  height: 25px;
+  width: 27px;
+  height: 27px;
 }
 .btn--as-link {
   margin-top: var(--spacer);
-  color: #fff;
+  color: var(--color--blue-dark);
+  font-weight: 600;
   &.task-helpful__toggle-feedback--hidden {
     display: none;
   }
@@ -710,7 +724,8 @@ li.task__step-indicator--active {
 }
 // Botón de feedback
 .task__step-feedback {
-  @include rfs($font-size-12);
+  font-size: var(--font-size--400);
+  font-weight: 700;
   cursor: pointer;
   position: fixed;
   display: block;
@@ -722,8 +737,7 @@ li.task__step-indicator--active {
   margin-left: auto;
   margin-right: auto;
   padding: calc(var(--spacer) * 0.65);
-  font-weight: 600;
-  background: var(--color-brand-lighter);
+  background: var(--color--skyblue);
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
   border: 0;
@@ -803,11 +817,11 @@ li.task__step-indicator--active {
   height: 100%;
 }
 .task-feedback__title {
-  @include rfs($font-size-16);
+  font-size: var(--font-size--500);
   margin-bottom: var(--spacer);
 }
 .task-feedback__control {
-  @include rfs($font-size-14);
+  font-size: var(--font-size--400);
   width: 100%;
   height: 40vh;
   min-height: 80px;
@@ -816,7 +830,7 @@ li.task__step-indicator--active {
   padding: var(--spacer);
   font-family: var(--font-family);
   border: none;
-  border-radius: var(--border-radius);
+  border-radius: var(--spacer--500);
 }
 .task-feedback__submit {
   margin-top: auto;
@@ -890,20 +904,19 @@ li.task__step-indicator--active {
 .task-empty--hidden {
   display: none;
 }
+.task__main {
+  .task-empty & {
+    background-color: red !important;
+  }
+}
 .task-empty {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 90%;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--spacer);
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 0;
-  background-color: var(--color-background);
+  background-color: var(--color--skyblue-light);
+  padding: var(--spacer--700) var(--spacer--500) var(--spacer--600);
+  flex-grow: 1;
+  gap: var(--spacer--400);
   .btn {
     max-width: 500px;
   }
@@ -911,46 +924,58 @@ li.task__step-indicator--active {
 .task-empty__icon {
   width: var(--spacer-lg);
   height: var(--spacer-lg);
-  margin: var(--spacer-sm) auto var(--spacer);
+  margin: 0 auto;
   path {
     fill: var(--color-brand);
   }
 }
 .task-empty__title {
-  @include rfs($font-size-16);
-  color: var(--color-brand);
-  margin-bottom: var(--spacer-sm);
-  padding: 0 var(--spacer-sm);
-  text-transform: uppercase;
-  font-weight: 800;
+  font-size: var(--font-size--600);
+  color: var(--color--blue-dark);
   text-align: center;
-  max-width: 400px;
+  font-weight: 800;
   @media screen and (min-width: 640px) {
     margin-bottom: var(--spacer);
   }
 }
 .task-empty__description {
-  @include rfs($font-size-14);
+  font-size: var(--font-size--500);
+  color: var(--color--blue-dark);
   text-align: center;
+  font-weight: 600;
   margin-bottom: var(--spacer-xl);
-  max-width: 400px;
 }
 .task-empty + .task__nav {
   display: none;
 }
 .pictogram__layer--action {
-  height: 44px;
-  margin-right: var(--spacer-sm) / 2;
-  padding: 0 var(--spacer-sm);
+  height: 30px;
+  @media screen and (min-width: 640px) {
+    height: 40px;
+  }
 }
 
-.text-formatted * {
-  all: revert !important;
-}
+// .text-formatted * {
+//   all: revert !important;
+// }
 .task__prerequisites {
-  padding: 0 var(--spacer);
-  @media screen and (min-width: 640px) {
-    padding: 0 var(--spacer-xl);
+  .task__header {
+    background-color: var(--color--white);
+    text-align: left;
+    h2 {
+      font-size: var(--font-size--400);
+      font-weight: 700;
+      color: var(--color--blue-dark);
+      margin-bottom: var(--spacer--500);
+    }
+    ul {
+      font-size: var(--font-size--400);
+      color: var(--color--blue-dark);
+      margin-left: var(--spacer--500);
+      li {
+        margin-bottom: var(--spacer--300);
+      }
+    }
   }
 }
 .task__single .page__footer {
