@@ -69,9 +69,7 @@ document.title = `Servicios de ${data.value.category.name} | Pictos`
         <p class="actions__title">
           {{ $t('servicesByCategory.cantFind') }}
         </p>
-        <router-link
-          :to="appNav.onboarding.venue ? '/nuevo-lugar/intro' : '/nuevo-lugar'"
-          class="btn btn--primary btn--large btn--block">
+        <router-link to="/sugerir-lugar" class="btn btn--primary btn--large btn--block">
           {{ $t('servicesByCategory.addNew') }}
         </router-link>
       </aside>

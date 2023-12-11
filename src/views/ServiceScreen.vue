@@ -107,11 +107,7 @@ document.title = `Lugares de ${data.value.service.name} | Pictos`
             :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
         </p>
         <router-link
-          :to="
-            appNav.onboarding.venue
-              ? '/nuevo-lugar/intro/' + service.id
-              : '/nuevo-lugar/' + service.id
-          "
+          :to="'/sugerir-lugar/' + service.id"
           class="btn btn--primary btn--large btn--block">
           &plus; Agregar un lugar nuevo
         </router-link>

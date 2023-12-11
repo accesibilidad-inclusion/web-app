@@ -72,6 +72,18 @@ const router = createRouter({
       meta: {title: 'Completa tu información personal', hideNav: true}
     },
     {
+      path: '/aprende-a-sugerir-lugares/',
+      name: 'onboarding-add-venue-screen',
+      component: () => import('../views/OnboardingSuggestVenuesScreen.vue'),
+      meta: {title: 'Aprende a sugerir lugares', hideNav: true}
+    },
+    {
+      path: '/sugerir-lugar/:service_id?',
+      name: 'add-venue-screen',
+      component: () => import('../views/SuggestVenueScreen.vue'),
+      meta: {title: 'Sugiérenos un nuevo lugar'}
+    },
+    {
       path: '/:categorySlug/',
       name: 'category-screen',
       component: defineAsyncComponent(() => import('../views/CategoryScreen.vue'))

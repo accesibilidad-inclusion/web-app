@@ -130,7 +130,7 @@ const evaluation = computed(() => {
           </main>
           <aside class="actions actions--venue">
             <router-link
-              :to="appNav.onboarding.task ? '/nueva-tarea/intro' : '/nueva-tarea'"
+              to="/agregar-tarea"
               class="btn btn--white btn--large btn--block"
               style="color: var(--color-brand-darker)">
               &plus; Agregar tareas a este lugar
