@@ -203,6 +203,8 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
   align-items: center;
   display: flex;
   flex-direction: column;
+  padding: var(--spacer--600) 0;
+  gap: var(--spacer--400);
 }
 .search-no-results__icon {
   width: var(--spacer-lg);
@@ -211,19 +213,15 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
   display: block;
 }
 .search-no-results__title {
-  @include rfs($font-size-18);
-  color: var(--color-brand);
-  margin-bottom: var(--spacer-sm);
-  text-transform: uppercase;
+  font-size: var(--font-size--700);
+  line-height: 1.3rem;
+  color: var(--color--blue-dark);
   font-weight: 800;
   text-align: center;
 }
 .search-no-results__description {
-  @include rfs($font-size-14);
+  font-size: var(--font-size--600);
+  line-height: 1.5;
   text-align: center;
-  max-width: 240px;
-  @media screen and (min-width: 640px) {
-    max-width: 350px;
-  }
 }
 </style>

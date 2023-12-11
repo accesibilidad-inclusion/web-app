@@ -122,17 +122,16 @@ const evaluation = computed(() => {
       <template v-else>
         <div class="venue__no-information">
           <main class="venue__no-information-content">
+            <text-to-speech :text-audio="'Este lugar no tiene información, ayúdanos a mejorar'" />
             <p class="venue__no-information-desc">
-              <icon-no-information />
-              <span>Este lugar no tiene información, ayúdanos a mejorar</span>
-              <text-to-speech :text-audio="'Este lugar no tiene información, ayúdanos a mejorar'" />
+              Este lugar no tiene información, <span>ayúdanos a mejorar</span>
             </p>
           </main>
           <aside class="actions actions--venue">
             <router-link
               to="/agregar-tarea"
-              class="btn btn--white btn--large btn--block"
-              style="color: var(--color-brand-darker)">
+              class="btn btn--primary btn--large btn--block"
+              style="color: var(--color--white)">
               &plus; Agregar tareas a este lugar
             </router-link>
           </aside>
@@ -173,6 +172,11 @@ const evaluation = computed(() => {
 
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
+
+.presential-venue {
+  position: relative;
+}
+
 .venue__header {
   position: relative;
   margin-bottom: var(--spacer);
@@ -313,8 +317,8 @@ const evaluation = computed(() => {
   position: relative;
   padding: var(--spacer-lg) var(--spacer);
   text-align: center;
-  color: var(--color-background);
-  background: var(--color-brand-darkest);
+  color: var(--color--white);
+  background-color: var(--color--blue);
   @media screen and (min-width: 640px) {
     padding-left: var(--spacer-lg);
     padding-right: var(--spacer-lg);
@@ -325,45 +329,26 @@ const evaluation = computed(() => {
 }
 .venue__evaluation {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto auto;
-  row-gap: var(--spacer-sm);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacer--500);
   text-decoration: none;
   color: #fff;
   @media screen and (min-width: 1280px) {
-    row-gap: var(--spacer);
+    row-gap: var(--spacer--600);
   }
 }
 .venue__footer .tts {
-  grid-column: 2/3;
-  grid-row: 1/2;
-  // position: absolute;
-  // top: calc( var(--spacer-lg) * 1.125 );
-  // right: var(--spacer);
-  // @media screen and ( min-width: 640px ) {
-  //   top: calc( var(--spacer-lg) * 1.25 );
-  //   right: var(--spacer-lg);
-  // }
-  // @media screen and ( min-width: 1280px ) {
-  //   top: calc( var(--spacer-xl) * 1.25 );
-  //   right: var(--spacer-xl);
-  // }
   path {
     fill: #fff;
   }
 }
 .venue__evaluation-title {
-  @include rfs($font-size-18);
-  grid-column: 1/3;
-  grid-row: 1/2;
+  font-size: var(--font-size--600);
   font-weight: bold;
   line-height: calc(25 / 18);
-  text-transform: uppercase;
 }
 .venue__evaluation-grade--lg {
-  grid-column: 1/3;
-  grid-row: 2/3;
   width: 3.125rem;
   height: 3.125rem;
   margin-left: auto;
@@ -379,8 +364,6 @@ const evaluation = computed(() => {
 }
 .venue__evaluation-description {
   @include rfs($font-size-14);
-  grid-column: 1/3;
-  grid-row: 3/4;
   max-width: 15rem;
   margin-left: auto;
   margin-right: auto;
@@ -402,62 +385,40 @@ const evaluation = computed(() => {
 .venue__no-information {
   display: flex;
   flex-direction: column;
-  position: relative;
-  width: 100%;
-  left: auto;
-  right: auto;
-  margin-top: -50px;
-  background-color: var(--color-brand-darkest);
-  z-index: 1;
-  @media screen and (min-width: 640px) {
-    max-width: 640px;
-    margin-top: -50px;
-    min-height: 500px;
-  }
-  @media screen and (min-width: 1280px) {
-    max-width: 750px;
-  }
+  background-color: var(--color--skyblue);
   .actions--venue {
+    background-color: var(--color--skyblue);
     padding-top: 0;
-    background-color: var(--color-brand-darkest);
     .actions__title {
-      color: var(--color-background);
+      color: var(--color--white);
+    }
+    .btn {
+      font-weight: 700;
     }
   }
 }
 .venue__no-information-content {
-  padding: var(--spacer-lg) 0 var(--spacer);
+  padding: var(--spacer--700) var(--spacer--500) var(--spacer--600);
   flex-grow: 1;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
+  gap: var(--spacer--500);
+  min-height: 300px;
   .tts {
-    position: absolute;
-    right: var(--spacer);
-    z-index: 10;
-    @media screen and (min-width: 640px) {
-      top: calc(var(--spacer-lg) + (var(--spacer) / 2));
-      right: var(--spacer-lg);
-    }
-    @media screen and (min-width: 1280px) {
-      right: var(--spacer-xl);
-    }
     path {
-      fill: #fff;
+      fill: var(--color--blue-dark);
     }
   }
 }
 .venue__no-information-desc {
-  padding: 0 var(--spacer);
-  display: flex;
-  flex-direction: column;
+  font-size: var(--font-size--600);
+  color: var(--color--blue-dark);
+  text-align: center;
+  font-weight: 800;
   span {
-    @include rfs($font-size-18);
-    color: var(--color-highlight);
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 700;
   }
   svg {
     width: var(--spacer-lg);
@@ -518,15 +479,15 @@ const evaluation = computed(() => {
   margin-top: var(--spacer-sm);
   line-height: 1.33333;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: var(--color--blue-dark);
 }
 .venue__evaluation-grade {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
+  font-weight: 800;
   text-align: center;
-  border-radius: 50%;
+  border-radius: var(--spacer--300);
   &[data-grade='5'] {
     background: var(--color-grade-5);
   }
@@ -552,6 +513,6 @@ const evaluation = computed(() => {
   height: 1.1875rem;
   margin-right: 0.15rem;
   line-height: 1.1875rem;
-  color: var(--color-brand-darker);
+  color: var(--color--blue-dark);
 }
 </style>
