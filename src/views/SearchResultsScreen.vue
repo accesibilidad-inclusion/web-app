@@ -3,12 +3,11 @@ import {ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {useFetch} from '@vueuse/core'
 
-import LocationSelector from '@/components/LocationSelector.vue'
+import BlockHeader from '@/components/BlockHeader.vue'
 import TaskBlock from '@/components/TaskBlock.vue'
 import {OnlineTask} from '@/model/online_task'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppDataStore} from '@/stores/app-data'
-import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconInternet from '@/assets/img/app-icons/instructions/internet.svg?component'
 
 const appData = useAppDataStore()
@@ -41,7 +40,7 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
 
 <template>
   <div class="search-results" :class="$route.query.t">
-    <header class="block-header block-header__compact">
+    <!-- <header class="block-header block-header__compact">
       <span class="category-icon">
         <icon-internet class="block-header__icon" />
       </span>
@@ -53,7 +52,20 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
       </p>
       <LocationSelector :dense="true" />
       <TextToSpeech :text-audio="'Resultados'" />
-    </header>
+    </header> -->
+    <BlockHeader
+      title="Resultados"
+      :description="
+        route.query.t === 'online' ? 'Tareas en internet cerca de' : 'Tareas presenciales cerca de'
+      "
+      location
+      compact>
+      <template #icon>
+        <span class="category-icon">
+          <IconInternet class="block-header__icon" />
+        </span>
+      </template>
+    </BlockHeader>
     <main class="search-results__hits">
       <template v-if="!tasks.length">
         <div class="search-no-results">
