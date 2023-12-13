@@ -391,7 +391,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                 <button
                   :class="
                     'task-feedback__submit btn btn--large btn--block' +
-                    (feedback.body === '' ? ' btn--ghost' : ' btn--primary') +
+                    (feedback.body === '' ? ' btn--ghost-primary' : ' btn--primary') +
                     (state.submitting_feedback ? ' btn--loading' : '')
                   ">
                   Enviar
@@ -405,7 +405,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                 </p>
                 <button
                   type="button"
-                  class="task-feedback__response-close btn btn--large btn--block btn--light"
+                  class="task-feedback__response-close btn btn--large btn--block btn--primary btn--filled--skyblue"
                   @click="closeFeedback">
                   Cerrar
                 </button>
