@@ -23,7 +23,7 @@ const appNav = useAppNavStore()
 const type = ref<'online' | 'presential'>()
 
 const state = reactive({
-  active_step: 0,
+  active_step: route.hash === '' ? 0 : parseInt(route.hash.replace('#', '')) - 1,
   active_helpful: false,
   was_helpful: false,
   was_liked: false,
@@ -142,6 +142,7 @@ appNav.selected.venue =
 if (data.value.task.prerequisites.trim() !== '') {
   show_prerequisites.value = true
 }
+if (task.value.steps.length <= state.active_step) state.active_step = 0
 document.title = `${task.value.title} en ${venue.value.name} (${service.value.name}) | Pictos`
 </script>
 
@@ -210,7 +211,9 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                     :layers="step.pictogram.images.filter((i: any) => i.layout <= 3)" />
                 </div>
                 <div class="task-step-main">
-                  <div class="task-step__number">Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
+                  <div class="task-step__number">
+                    Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
+                  </div>
                   <figcaption class="task-step__legend">
                     <div class="task-step__legend-text">
                       <span
@@ -240,7 +243,9 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
                     :focus-x="step.focus_x"
                     :focus-y="step.focus_y" />
                 </div>
-                <div class="task-step__number">Paso {{ state.active_step + 1 }} de {{ task.steps.length }}</div>
+                <div class="task-step__number">
+                  Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
+                </div>
                 <figcaption class="task-step__legend">
                   <div class="task-step__legend-text">
                     <span v-if="step.image">
@@ -563,7 +568,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
 }
 .task-step__number {
   font-size: 0.625rem;
-  opacity: .7;
+  opacity: 0.7;
   font-weight: 700;
   color: var(--color-blue-dark);
   letter-spacing: 0.0625rem;
