@@ -113,7 +113,7 @@ const evaluation = computed(() => {
               :to="`/evaluar-lugar/${venue instanceof OnlineVenue ? 'en-internet' : 'presencial'}/${
                 venue.id
               }`"
-              class="btn btn--ghost btn--large btn--block">
+              class="btn btn--secondary btn--outlined--white btn--large btn--block">
               Evaluar este lugar
             </router-link>
           </div>
@@ -159,7 +159,7 @@ const evaluation = computed(() => {
                 :to="`/evaluar-lugar/${
                   venue instanceof OnlineVenue ? 'en-internet' : 'presencial'
                 }/${venue.id}`"
-                class="btn btn--ghost btn--large btn--block">
+                class="btn btn--secondary btn--outlined--white btn--large btn--block">
                 Evaluar este lugar
               </router-link>
             </div>
