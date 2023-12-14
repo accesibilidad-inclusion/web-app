@@ -38,6 +38,11 @@
     color: var(--color--blue-gray);
     border-color: transparent;
   }
+  .btn--icon {
+    path {
+      fill: var(--color--white);
+    }
+  }
 }
 .btn--secondary {
   background: transparent;
@@ -78,6 +83,19 @@
   text-decoration: underline;
   background: transparent;
   border: none;
+}
+.btn--icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacer--200);
+  svg {
+    width: 13px;
+    height: auto;
+    path {
+      fill: var(--color--blue-dark);
+    }
+  }
 }
 
 // viariables color
