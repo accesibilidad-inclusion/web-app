@@ -112,8 +112,12 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 @import '@/assets/scss/rfs.scss';
 
 //search-result
+
+.page__title {
+  @include rfs($font-size--800);
+}
 .page__place-name {
-  @include rfs($font-size-16);
+  @include rfs($font-size-400);
   color: var(--color-brand-darkest);
   font-weight: bold;
   border: 2px solid var(--color-brand-light);

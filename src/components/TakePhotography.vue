@@ -10,16 +10,26 @@ defineEmits(['change'])
 </script>
 
 <template>
-  <div class="page__photo-block">
+  <div class="photo-block">
     <template v-if="photography === ''">
       <QuestionInstruction :text="text" icon="camara" />
     </template>
     <template v-else>
-      <div class="page__photo-wrapper">
-        <img id="photo" class="photo" :src="photography" />
-      </div>
-      <div class="page__photo-edit">
-        <span class="page__photo-change" @click="$emit('change')"><IconCamera />Reemplazar</span>
+      <div class="photo-block__content">
+        <div class="photo-block__wrapper">
+          <img id="photo" class="photo" :src="photography" />
+        </div>
+        <div class="photo-block__edit">
+          <button
+            class="btn btn--large btn--block btn--primary btn--filled--skyblue btn--icon"
+            @click="$emit('change')">
+            <IconCamera />
+            Reemplazar
+          </button>
+        </div>
+        <!-- <div class="photo-block__edit btn btn--large btn--block btn--primary btn--filled--skyblue">
+          <span class="photo-block__change" @click="$emit('change')"><IconCamera />Reemplazar</span>
+        </div> -->
       </div>
     </template>
   </div>
@@ -27,60 +37,33 @@ defineEmits(['change'])
 
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
-.page__photo-block {
-  display: grid;
-  grid-template-columns: 45% 55%;
-  height: 8.5rem;
-  overflow: hidden;
-  align-items: center;
+
+.photo-block {
+  height: 100%;
+}
+.photo-block__content {
+  height: 100%;
+  position: relative;
   @media screen and (min-width: 640px) {
-    height: 10rem;
   }
 }
-.page__photo-wrapper {
+.photo-block__wrapper {
+  height: 100%;
+  display: block;
   overflow: hidden;
+  position: relative;
+  border-radius: var(--border-radius-md);
   img {
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
     width: 100%;
   }
 }
-.page__photo-edit {
-  background-color: var(--color-neutral-lightest);
-  padding: 0 var(--spacer-sm);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 8.5rem;
-  @media screen and (min-width: 640px) {
-    height: 10rem;
-  }
-  span {
-    @include rfs($font-size-16);
-    font-weight: 600;
-    display: block;
-    color: var(--color-neutral);
-    padding: var(--spacer) var(--spacer-xs);
-    margin: 0 var(--spacer-sm);
-    text-align: center;
-    cursor: pointer;
-    svg {
-      margin-right: var(--spacer-xs);
-      path {
-        fill: var(--color-neutral);
-      }
-    }
-  }
-}
-.page__photo-change {
-  border-bottom: 1px solid var(--color-neutral-lighter);
-  svg {
-    width: 1rem;
-    height: auto;
-  }
-}
-.page__photo-delete {
-  svg {
-    width: 0.6rem;
-    height: auto;
-  }
+.photo-block__edit {
+  position: absolute;
+  right: var(--spacer--300);
+  left: var(--spacer--300);
+  bottom: var(--spacer--300);
 }
 </style>

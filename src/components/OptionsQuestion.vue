@@ -7,7 +7,7 @@ defineEmits(['reply'])
 </script>
 
 <template>
-  <div>
+  <div class="options-group">
     <div v-for="option in options" :key="option.id" class="custom-control custom-control--radio">
       <input
         :id="'opt' + option.id"
@@ -22,4 +22,9 @@ defineEmits(['reply'])
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.options-group {
+  display: grid;
+  gap: var(--spacer--300)
+}
+</style>
