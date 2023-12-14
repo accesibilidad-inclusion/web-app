@@ -115,7 +115,7 @@ defineEmits(['reply'])
 .page__evaluation-grade {
   display: flex;
   align-items: center;
-  border-top: 1px solid var(--color-neutral-lightest);
+  border-top: 1px solid var(--color--blue-dark);
   padding-top: var(--spacer-sm);
   padding-bottom: var(--spacer-sm);
   transition: var(--transition-base);

@@ -22,10 +22,10 @@ defineExpose({
   <BlockHeader description="Sobre ti"> </BlockHeader>
   <div class="onboarding-item__container">
     <h2 class="onboarding__title">
-      ¿Qué tipo de discapacidad tienes?
+      ¿Qué tipo de discapacidad tienes? Selecciona 1 o mas
       <text-to-speech
         :text-audio="
-          '¿Qué tipo de discapacidad tienes?\n\n\n\n\n\n' +
+          '¿Qué tipo de discapacidad tienes? Selecciona 1 o mas\n\n\n\n\n\n' +
           'Intelectual\n\n\n\n\n' +
           'Física\n\n\n\n\n' +
           'Visual\n\n\n\n\n' +

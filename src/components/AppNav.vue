@@ -109,7 +109,7 @@ const tutorials = () => {
   background: var(--color--skyblue);
 }
 .app-nav__online {
-  background: var(--color--yellow);
+  background: var(--color--yellow-light);
 }
 .app-nav > .router-link-active:not(:first-child) {
   text-align: left;

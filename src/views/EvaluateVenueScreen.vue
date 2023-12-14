@@ -151,6 +151,7 @@ const lastQuestion = computed(() => {
       <BlockHeader
         :title="venue.name"
         description="Evaluación"
+        compact
         :link="{
           text: venue instanceof PresentialVenue ? 'Ver en el Mapa' : 'Ir a sitio web',
           url: venue instanceof PresentialVenue ? venue.mapLink : venue.url
@@ -162,11 +163,12 @@ const lastQuestion = computed(() => {
     </template>
     <template v-else>
       <BlockHeader
+        compact
         description="Evaluación"
         v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)" />
       <div
         v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)"
-        v-html="question.text"></div>
+        v-html="question.text" class="evaluation__title"></div>
       <QuestionInstruction
         v-if="question.answer_type === 'Instrucción'"
         :text="question.text"
@@ -200,25 +202,25 @@ const lastQuestion = computed(() => {
       style="display: none" />
     <footer>
       <template v-if="!started">
-        <button class="btn btn--large btn--primary" @click="started = true">
+        <button class="btn btn--large btn--primary btn--block" @click="started = true">
           Comenzar evaluación
         </button>
       </template>
       <template v-else-if="finished">
-        <button class="btn btn--large btn--primary" @click="started = true">Atras</button>
+        <button class="btn btn--large btn--primary btn--block" @click="started = true">Atras</button>
       </template>
       <template v-else>
-        <button class="btn btn--large btn--secondary" v-if="currentQuestion > 0" @click="back">
+        <button class="btn btn--large btn--secondary btn--block" v-if="currentQuestion > 0" @click="back">
           Atrás
         </button>
         <button
-          class="btn btn--large btn--primary"
+          class="btn btn--large btn--primary btn--block"
           v-if="question.answer_type === 'Fotografía' && answer === ''"
           @click="takePhoto">
           Tomar foto
         </button>
         <button
-          class="btn btn--large btn--primary"
+          class="btn btn--large btn--primary btn--block"
           v-else-if="currentQuestion < lastQuestion"
           :disabled="
             ['Opciones', 'Dicotomico', 'Indicador', 'Global'].includes(question.answer_type) &&
@@ -228,7 +230,7 @@ const lastQuestion = computed(() => {
           Siguiente
         </button>
         <button
-          class="btn btn--large btn--primary"
+          class="btn btn--large btn--primary btn--block"
           v-if="currentQuestion === lastQuestion"
           @click="sendEvaluation">
           Finalizar evaluación
@@ -238,4 +240,39 @@ const lastQuestion = computed(() => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+@import '@/assets/scss/rfs.scss';
+
+.presential-evaluation {
+  background-color: var(--color--skyblue-light);
+}
+.online-evaluation {
+  background-color: var(--color--yellow-light);
+}
+.presential-evaluation,
+.online-evaluation {
+  padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
+  display: flex;
+  flex-direction: column;
+  .block-header__compact {
+    display: grid;
+    mix-blend-mode: multiply;
+    .block-header__description {
+      grid-row: 1;
+    }
+  }
+  footer {
+    margin-top: auto;
+    display: flex;
+    gap: var(--spacer--300);
+    padding-top: var(--spacer--500)
+  }
+}
+.evaluation__title {
+  @include rfs($font-size--600);
+  font-weight: 700;
+  text-align: center;
+  padding: var(--spacer--500) 0 var(--spacer--500);
+  margin-top: var(--spacer--300);
+}
+</style>

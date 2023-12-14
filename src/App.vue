@@ -57,7 +57,7 @@ const backEvaluation = () => {
   background: var(--color--skyblue);
 }
 #app-wrap.theme-online {
-  background: var(--color--yellow);
+  background: var(--color--yellow-light);
 }
 .slide-fade-enter-active {
   transition: all 0.5s ease-out;
