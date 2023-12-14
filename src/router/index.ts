@@ -84,6 +84,18 @@ const router = createRouter({
       meta: {title: 'Sugiérenos un nuevo lugar'}
     },
     {
+      path: '/aprende-a-agregar-tareas/',
+      name: 'onboarding-new-task-screen',
+      component: () => import('../views/OnboardingNewTaskScreen.vue'),
+      meta: {title: 'Aprende a agregar nuevas tareas', hideNav: true}
+    },
+    {
+      path: '/agregar-tarea',
+      name: 'new-task-screen',
+      component: () => import('../views/NewTaskScreen.vue'),
+      meta: {title: 'Agregar nueva tarea'}
+    },
+    {
       path: '/:categorySlug/',
       name: 'category-screen',
       component: defineAsyncComponent(() => import('../views/CategoryScreen.vue'))

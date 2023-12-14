@@ -21,7 +21,7 @@ export const useAppNavStore = defineStore('appNav', {
         presentialEvaluation: true,
         onlineEvaluation: true,
         suggestVenue: true,
-        task: true,
+        newTask: true,
         pictogram: true
       } as {[key: string]: boolean}
     }
@@ -32,7 +32,7 @@ export const useAppNavStore = defineStore('appNav', {
         welcome: true,
         evaluation: true,
         suggestVenue: true,
-        task: true,
+        newTask: true,
         pictogram: true
       }
     }
