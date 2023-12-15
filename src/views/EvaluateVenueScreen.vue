@@ -16,6 +16,9 @@ import type {Answer} from '@/model/answer'
 import {useFetch} from '@vueuse/core'
 import {OnlineVenue} from '@/model/online_venue'
 import {PresentialVenue} from '@/model/presential_venue'
+import TextToSpeech from '@/components/TextToSpeech.vue'
+import IconLike from '@/assets/img/app-icons/instructions/like.svg'
+
 
 const router = useRouter()
 const route = useRoute()
@@ -158,8 +161,17 @@ const lastQuestion = computed(() => {
         }" />
     </template>
     <template v-else-if="finished">
-      <div>Gracias por tu aporte</div>
-      <div>Estás ayudando al mundo a ser un lugar más accesible</div>
+      <div class="feedback-evaluation">
+        <text-to-speech :text-audio="'Gracias por tu aporte \n\n\n\n\n Estás ayudando al mundo a ser un lugar más accesible'" />
+        <span class="evaluation__icon">
+          <icon-like></icon-like>
+        </span>
+        <p class="feedback-evaluation__title">
+          Gracias por tu aporte
+        </p>
+        <p class="feedback-evaluation__description">Estás ayudando al mundo a ser un lugar más accesible</p>
+        <button class="btn btn--large btn--primary btn--block btn--filled--skyblue">Volver a Estación Viña del mar</button>
+      </div>
     </template>
     <template v-else>
       <BlockHeader
@@ -274,5 +286,47 @@ const lastQuestion = computed(() => {
   text-align: center;
   padding: var(--spacer--500) 0 var(--spacer--500);
   margin-top: var(--spacer--300);
+  b {
+    font-weight: 800;
+  }
+}
+.evaluation__icon {
+  background: var(--color--yellow);
+  border: 1px solid var(--color--blue);
+  border-radius: var(--spacer--300);
+  width: 55px;
+  height: 55px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+// Feedback evaluation
+.feedback-evaluation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacer--300);
+  flex-direction: column;
+  height: 100%;
+  .btn {
+    font-weight: 800;
+  }
+}
+.feedback-evaluation__title {
+  font-size: var(--font-size--600);
+  color: var(--color--blue-dark);
+  text-align: center;
+  font-weight: 800;
+  @media screen and (min-width: 640px) {
+    margin-bottom: var(--spacer);
+  }
+}
+.feedback-evaluation__description {
+  font-size: var(--font-size--500);
+  color: var(--color--blue-dark);
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: var(--spacer-xl);
 }
 </style>
