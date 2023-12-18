@@ -27,9 +27,6 @@ defineEmits(['change'])
             Reemplazar
           </button>
         </div>
-        <!-- <div class="photo-block__edit btn btn--large btn--block btn--primary btn--filled--skyblue">
-          <span class="photo-block__change" @click="$emit('change')"><IconCamera />Reemplazar</span>
-        </div> -->
       </div>
     </template>
   </div>
