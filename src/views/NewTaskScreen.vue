@@ -54,9 +54,7 @@ const editStep = (i: number) => {
 const submitSubscription = async (event: Event) => {
   event.preventDefault()
   submitting_subscription.value = true
-  const {data} = await useFetch(
-    `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/addNotification`
-  )
+  await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/addNotification`)
     .post({
       id: id.value,
       email: subscription_email.value
