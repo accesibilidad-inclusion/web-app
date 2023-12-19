@@ -13,12 +13,11 @@ import {useAppNavStore} from '@/stores/app-nav.js'
 import {useAppSessionStore} from '@/stores/app-session.js'
 import {useAppDataStore} from '@/stores/app-data'
 import type {Answer} from '@/model/answer'
-import {useFetch} from '@vueuse/core'
+import {useEventBus, useFetch} from '@vueuse/core'
 import {OnlineVenue} from '@/model/online_venue'
 import {PresentialVenue} from '@/model/presential_venue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import IconLike from '@/assets/img/app-icons/instructions/like.svg'
-
+import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 
 const router = useRouter()
 const route = useRoute()
@@ -146,6 +145,19 @@ const answer = computed(() => {
 const lastQuestion = computed(() => {
   return appData.questions[questionsType].length - 1
 })
+
+const bus = useEventBus('close')
+const listener = () => {
+  router.push(
+    '/' +
+      appNav.selected.category?.slug +
+      '/' +
+      appNav.selected.service?.slug +
+      '/' +
+      appNav.selected.venue?.slug
+  )
+}
+bus.on(listener)
 </script>
 
 <template>
@@ -162,15 +174,18 @@ const lastQuestion = computed(() => {
     </template>
     <template v-else-if="finished">
       <div class="feedback-evaluation">
-        <text-to-speech :text-audio="'Gracias por tu aporte \n\n\n\n\n Estás ayudando al mundo a ser un lugar más accesible'" />
+        <text-to-speech
+          :text-audio="'Gracias por tu aporte \n\n\n\n\n Estás ayudando al mundo a ser un lugar más accesible'" />
         <span class="evaluation__icon">
           <icon-like></icon-like>
         </span>
-        <p class="feedback-evaluation__title">
-          Gracias por tu aporte
+        <p class="feedback-evaluation__title">Gracias por tu aporte</p>
+        <p class="feedback-evaluation__description">
+          Estás ayudando al mundo a ser un lugar más accesible
         </p>
-        <p class="feedback-evaluation__description">Estás ayudando al mundo a ser un lugar más accesible</p>
-        <button class="btn btn--large btn--primary btn--block btn--filled--skyblue">Volver a Estación Viña del mar</button>
+        <button class="btn btn--large btn--primary btn--block btn--filled--skyblue">
+          Volver a Estación Viña del mar
+        </button>
       </div>
     </template>
     <template v-else>
@@ -180,7 +195,8 @@ const lastQuestion = computed(() => {
         v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)" />
       <div
         v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)"
-        v-html="question.text" class="evaluation__title"></div>
+        v-html="question.text"
+        class="evaluation__title"></div>
       <QuestionInstruction
         v-if="question.answer_type === 'Instrucción'"
         :text="question.text"
@@ -219,10 +235,15 @@ const lastQuestion = computed(() => {
         </button>
       </template>
       <template v-else-if="finished">
-        <button class="btn btn--large btn--primary btn--block" @click="started = true">Atras</button>
+        <button class="btn btn--large btn--primary btn--block" @click="started = true">
+          Atras
+        </button>
       </template>
       <template v-else>
-        <button class="btn btn--large btn--secondary btn--block" v-if="currentQuestion > 0" @click="back">
+        <button
+          class="btn btn--large btn--secondary btn--block"
+          v-if="currentQuestion > 0"
+          @click="back">
           Atrás
         </button>
         <button
@@ -277,7 +298,7 @@ const lastQuestion = computed(() => {
     margin-top: auto;
     display: flex;
     gap: var(--spacer--300);
-    padding-top: var(--spacer--500)
+    padding-top: var(--spacer--500);
   }
 }
 .evaluation__title {

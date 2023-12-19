@@ -6,6 +6,7 @@ import OnboardingImage1 from '@/assets/img/illustrations/sugerir-lugar 1.svg?com
 import OnboardingImage2 from '@/assets/img/illustrations/sugerir-lugar 2.svg?component'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import type {Onboarding} from '@/types/onboarding'
+import {useEventBus} from '@vueuse/core'
 
 const appNav = useAppNavStore()
 const router = useRouter()
@@ -27,6 +28,12 @@ const finishing = () => {
   appNav.onboarding.suggestVenue = false
   router.push(appNav.redirectTo)
 }
+
+const bus = useEventBus('close')
+const listener = () => {
+  finishing()
+}
+bus.on(listener)
 </script>
 
 <template>

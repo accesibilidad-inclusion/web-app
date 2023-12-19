@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {onMounted} from 'vue'
 import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import {useRouter} from 'vue-router'
@@ -9,20 +8,17 @@ const appData = useAppDataStore()
 const appNav = useAppNavStore()
 const router = useRouter()
 
-// const color = '#fff'
-// const size = '20px'
+appNav.redirectTo = '/inicio'
 
-onMounted(() => {
-  if (appData.initialized) {
-    setTimeout(() => {
-      router.push(appNav.redirectTo).catch(() => {})
-    }, 1200)
-  } else {
-    appData.initiation().then(() => {
-      router.push(appNav.redirectTo).catch(() => {})
-    })
-  }
-})
+if (appData.initialized) {
+  setTimeout(() => {
+    router.push(appNav.redirectTo).catch(() => {})
+  }, 1200)
+} else {
+  appData.initiation().then(() => {
+    router.push(appNav.redirectTo).catch(() => {})
+  })
+}
 </script>
 
 <template>

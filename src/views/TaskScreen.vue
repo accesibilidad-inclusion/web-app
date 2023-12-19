@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {reactive, ref, computed} from 'vue'
-import {useRoute} from 'vue-router'
-import {useFetch} from '@vueuse/core'
+import {RouterLink, useRoute, useRouter} from 'vue-router'
+import {useEventBus, useFetch} from '@vueuse/core'
 
 import DrawPictogram from '@/components/DrawPictogram.vue'
 import ImageFocus from '@/components/ImageFocus.vue'
@@ -12,11 +12,13 @@ import {OnlineVenue} from '@/model/online_venue.js'
 import {PresentialTask} from '@/model/presential_task'
 import {OnlineTask} from '@/model/online_task'
 import {useAppNavStore} from '@/stores/app-nav'
-import IconError from '@/assets/img/app-icons/error.svg'
-import IconLike from '@/assets/img/app-icons/instructions/like.svg'
-import IconDislike from '@/assets/img/app-icons/instructions/dislike.svg'
+import IconError from '@/assets/img/app-icons/error.svg?component'
+import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
+import IconDislike from '@/assets/img/app-icons/instructions/dislike.svg?component'
+import {Category} from '@/model/category'
 
 const route = useRoute()
+const router = useRouter()
 
 const appNav = useAppNavStore()
 
@@ -37,6 +39,7 @@ const state = reactive({
 })
 
 const show_prerequisites = ref(false)
+const category = ref<Category>()
 const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
 const task = ref<PresentialTask | OnlineTask>()
@@ -128,22 +131,31 @@ task.value =
   data.value.type === 'online'
     ? new OnlineTask(data.value.task)
     : new PresentialTask(data.value.task)
+category.value = new Category(data.value.category)
 service.value = new Service(data.value.service)
 venue.value =
   data.value.type === 'online'
     ? new OnlineVenue(data.value.venue)
     : new PresentialVenue(data.value.venue)
-appNav.selected.category = data.value.category
-appNav.selected.service = data.value.service
-appNav.selected.venue =
-  data.value.type === 'online'
-    ? new OnlineVenue(data.value.venue)
-    : new PresentialVenue(data.value.venue)
+appNav.setSelecteds(category.value, service.value, venue.value, task.value)
 if (data.value.task.prerequisites.trim() !== '') {
   show_prerequisites.value = true
 }
 if (task.value.steps.length <= state.active_step) state.active_step = 0
 document.title = `${task.value.title} en ${venue.value.name} (${service.value.name}) | Pictos`
+
+const bus = useEventBus('close')
+const listener = () => {
+  router.push(
+    '/' +
+      appNav.selected.category?.slug +
+      '/' +
+      appNav.selected.service?.slug +
+      '/' +
+      appNav.selected.venue?.slug
+  )
+}
+bus.on(listener)
 </script>
 
 <template>
@@ -328,7 +340,7 @@ document.title = `${task.value.title} en ${venue.value.name} (${service.value.na
               apoyos.
             </p>
             <router-link
-              :to="appNav.onboarding.task ? '/nueva-tarea/intro' : '/nueva-tarea'"
+              to="/agregar-tarea"
               class="btn btn--primary btn--large btn--block">
               &plus; Crear una tarea nueva
             </router-link>

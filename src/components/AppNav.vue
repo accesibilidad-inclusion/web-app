@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import {useAppNavStore} from '@/stores/app-nav'
 import {ref} from 'vue'
 import {RouterLink, useRoute, useRouter} from 'vue-router'
+import {useEventBus} from '@vueuse/core'
 import IconMenu from '@/assets/img/app-icons/drag.svg?component'
 import IconClose from '@/assets/img/app-icons/error.svg?component'
+import IconChevronLeft from '@/assets/img/app-icons/chevron-left.svg?component'
 import LogoPictos from '@/assets/img/app-icons/logo-pictos-color.svg?component'
+import {useAppNavStore} from '@/stores/app-nav'
 
 const router = useRouter()
 const route = useRoute()
 const appNav = useAppNavStore()
+const bus = useEventBus('close')
 
 const shown_modal = ref<boolean>(false)
 const closed_modal = ref<boolean>(false)
@@ -43,17 +46,24 @@ const tutorials = () => {
   router.push('/bienvenida')
   closeMenu()
 }
+
+const close = () => {
+  bus.emit()
+}
 </script>
 
 <template>
   <div id="nav" class="app-nav" :class="`app-nav__${appNav.theme}`">
-    <back-button v-if="$route.name !== 'home'" @comeback="$emit('comeback')"></back-button>
-    <router-link to="/inicio" class="app-nav__logo-wrapper">
+    <button v-if="route.meta.navbar?.back" class="app-nav__toggle" @click="router.back()">
+      <IconChevronLeft class="app-nav__toggle-icon" /> Volver
+    </button>
+    <router-link v-if="route.meta.navbar?.logo" to="/inicio" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
     </router-link>
-    <button class="app-nav__toggle" @click="openMenu">
+    <button v-if="route.meta.navbar?.menu" class="app-nav__toggle" @click="openMenu">
       Menú <icon-menu class="app-nav__toggle-icon" />
     </button>
+    <button v-if="route.meta.navbar?.close" class="app-nav__toggle" @click="close">Cerrar</button>
     <div
       :class="
         'modal' + (shown_modal ? ' modal--fade' : '') + (closed_modal ? ' modal--fade-out' : '')

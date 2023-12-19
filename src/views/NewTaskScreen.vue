@@ -10,7 +10,7 @@ import IconDelete from '@/assets/img/app-icons/error.svg?component'
 import IconMenu from '@/assets/img/app-icons/drag-light.svg?component'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import {useFetch} from '@vueuse/core'
+import {useEventBus, useFetch} from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
@@ -73,6 +73,19 @@ const setStep = (i: number) => {
 const addStep = computed(() => {
   return steps.value.length < 9 && !steps.value.filter((s) => s.trim() === '').length
 })
+
+const bus = useEventBus('close')
+const listener = () => {
+  router.push(
+    '/' +
+    appNav.selected.category?.slug +
+    '/' +
+    appNav.selected.service?.slug +
+    '/' +
+    appNav.selected.venue?.slug 
+  )
+}
+bus.on(listener)
 </script>
 
 <template>

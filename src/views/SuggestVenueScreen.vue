@@ -4,7 +4,7 @@ import {useAppNavStore} from '@/stores/app-nav'
 import {Loader} from '@googlemaps/js-api-loader'
 import {ref, watch} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {refDebounced} from '@vueuse/core'
+import {refDebounced, useEventBus} from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
@@ -62,6 +62,19 @@ const next = () => {
     params: {place: this.place, service_id: this.$route.params.service_id}
   }) */
 }
+
+const bus = useEventBus('close')
+const listener = () => {
+  router.push(appNav.selected.service ?
+    '/' +
+    appNav.selected.category?.slug +
+    '/' +
+    appNav.selected.service?.slug :
+    '/' +
+    appNav.selected.category?.slug 
+  )
+}
+bus.on(listener)
 
 watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : {}))
 </script>

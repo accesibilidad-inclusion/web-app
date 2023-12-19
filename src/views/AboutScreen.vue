@@ -5,12 +5,22 @@ import LogoAccesibilidadInclusionImage from '@/assets/img/app-icons/logo-accesib
 import LogoPucvImage from '@/assets/img/app-icons/logo-pucv.svg?component'
 import LogoUandesImage from '@/assets/img/app-icons/logo-uandes.svg?component'
 import LogoGobiernoImage from '@/assets/img/app-icons/logo-gobierno.svg?component'
+import {useEventBus} from '@vueuse/core'
+import {useRouter} from 'vue-router'
+
+const router = useRouter()
 
 const data = {
   title: 'Acerca de PICTOS',
   body: '<ul><li>PICTOS es una aplicación para hacer el mundo inclusivo y accesible.</li><li>PICTOS es una aplicación de uso gratuito.</li><li>Todos pueden aportar en PICTOS.</li><li>Tú participación es importante, ayuda a construir PICTOS.</li><li>Para hacer esta app, trabajaron investigadores, diseñadores y desarrolladores con y sin discapacidad.</li><li>Este es un proyecto del Núcleo de Accesibilidad e Inclusión de la Pontificia Universidad Católica de Valparaíso.</li><li>Este proyecto fue financiado por SENADIS y FONDEF IT.</li></ul>',
   image: AboutImage
 }
+
+const bus = useEventBus('close')
+const listener = () => {
+  router.back()
+}
+bus.on(listener)
 </script>
 
 <template>

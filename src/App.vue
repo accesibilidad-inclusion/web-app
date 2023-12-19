@@ -1,24 +1,16 @@
 <script setup lang="ts">
-import {RouterView, useRoute} from 'vue-router'
+import {RouterView} from 'vue-router'
 import AppNav from './components/AppNav.vue'
 import SpinnerLoader from '@/components/SpinnerLoader.vue'
-import {ref} from 'vue'
 import {useAppNavStore} from './stores/app-nav'
 
-const route = useRoute()
 const appNav = useAppNavStore()
-
-const view = ref(null)
-
-const backEvaluation = () => {
-  // view.value.comeback()
-}
 </script>
 
 <template>
   <div id="app-wrap" :class="`theme-${appNav.theme}`">
-    <AppNav v-if="!route.meta.hideNav" v-on:comeback="backEvaluation" />
-    <RouterView v-slot="{Component}" ref="view">
+    <AppNav />
+    <RouterView v-slot="{Component}">
       <Transition name="slide-fade">
         <Suspense timeout="0">
           <template #default>

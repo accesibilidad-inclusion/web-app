@@ -39,10 +39,9 @@ const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/service
 
 venues_presential.value = data.value.venues.map((v: PresentialVenue) => new PresentialVenue(v))
 venues_online.value = data.value.venues_online.map((v: OnlineVenue) => new OnlineVenue(v))
-category.value = data.value.category
-service.value = data.value.service
-appNav.selected.category = data.value.category
-appNav.selected.service = data.value.service
+category.value = new Category(data.value.category)
+service.value = new Service(data.value.service)
+appNav.setSelecteds(category.value, service.value)
 document.title = `Lugares de ${data.value.service.name} | Pictos`
 </script>
 

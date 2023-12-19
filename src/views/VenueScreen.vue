@@ -12,12 +12,14 @@ import {OnlineVenue} from '@/model/online_venue.js'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav'
+import {Category} from '@/model/category'
 
 const route = useRoute()
 
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
 
+const category = ref<Category>()
 const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
 const type = ref<'online' | 'presential'>('presential')
@@ -32,17 +34,14 @@ const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/g
 
 type.value = data.value.type
 appNav.theme = type.value
-service.value = data.value.service
+category.value = new Category(data.value.category)
+service.value = new Service(data.value.service)
 venue.value =
   data.value.type === 'online'
     ? new OnlineVenue(data.value.venue)
     : new PresentialVenue(data.value.venue)
-appNav.selected.category = data.value.category
-appNav.selected.service = data.value.service
-appNav.selected.venue =
-  data.value.type === 'online'
-    ? new OnlineVenue(data.value.venue)
-    : new PresentialVenue(data.value.venue)
+
+appNav.setSelecteds(category.value, service.value, venue.value)
 document.title = `Tareas de ${data.value.venue.name} (${data.value.service.name}) | Pictos`
 
 const evaluation = computed(() => {
@@ -78,7 +77,7 @@ const evaluation = computed(() => {
             :task="task"
             :preview="task instanceof PresentialTask" />
         </main>
-        <aside class="actions actions--venue">
+        <aside class="actions actions--venue" v-if="venue instanceof PresentialVenue">
           <div class="actions__header">
             <text-to-speech
               :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
@@ -86,7 +85,7 @@ const evaluation = computed(() => {
             <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
           </div>
           <router-link
-            :to="appNav.onboarding.task ? '/nueva-tarea/intro' : '/nueva-tarea'"
+            to="/agregar-tarea"
             class="btn btn--primary btn--large btn--block">
             &plus; Agregar una tarea nueva
           </router-link>
@@ -127,7 +126,7 @@ const evaluation = computed(() => {
               Este lugar no tiene información, <span>ayúdanos a mejorar</span>
             </p>
           </main>
-          <aside class="actions actions--venue">
+          <aside class="actions actions--venue" v-if="venue instanceof PresentialVenue">
             <router-link
               to="/agregar-tarea"
               class="btn btn--primary btn--large btn--block"

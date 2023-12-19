@@ -8,6 +8,7 @@ import OnboardingImage3 from '@/assets/img/illustrations/activar-tutoriales 3.sv
 import OnboardingImage4 from '@/assets/img/illustrations/activar-tutoriales 4.svg?component'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import type {Onboarding} from '@/types/onboarding'
+import {useEventBus} from '@vueuse/core'
 
 const appNav = useAppNavStore()
 const route = useRoute()
@@ -41,6 +42,11 @@ const finishing = () => {
   if (route.params.type === 'en-internet') appNav.onboarding.onlineEvaluation = false
   router.push(appNav.redirectTo)
 }
+const bus = useEventBus('close')
+const listener = () => {
+  finishing()
+}
+bus.on(listener)
 </script>
 
 <template>

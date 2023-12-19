@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import {useRouter} from 'vue-router'
+import {useEventBus} from '@vueuse/core'
+
 import OnboardingNav from '@/components/OnboardingNav.vue'
 import OnboardingImage1 from '@/assets/img/illustrations/activar-tutoriales 1.svg?component'
 import OnboardingImage2 from '@/assets/img/illustrations/activar-tutoriales 2.svg?component'
@@ -7,10 +10,14 @@ import OnboardingImage4 from '@/assets/img/illustrations/activar-tutoriales 4.sv
 
 import {useAppNavStore} from '@/stores/app-nav.js'
 import type {Onboarding} from '@/types/onboarding'
-import {useRouter} from 'vue-router'
 
 const appNav = useAppNavStore()
 const router = useRouter()
+const bus = useEventBus('close')
+const listener = () => {
+  finishing()
+}
+bus.on(listener)
 
 const sequence: Array<Onboarding> = [
   {
@@ -37,8 +44,12 @@ const sequence: Array<Onboarding> = [
 
 const finishing = () => {
   appNav.onboarding.welcome = false
-  router.push('/inicio')
+  router.push(appNav.redirectTo)
 }
+
+defineExpose({
+  finishing
+})
 </script>
 
 <template>

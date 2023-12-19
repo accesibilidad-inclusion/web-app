@@ -35,7 +35,7 @@ const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/categor
 
 services.value = data.value.services.map((s: Service) => new Service(s))
 category.value = new Category(data.value.category)
-appNav.selected.category = data.value.category
+appNav.setSelecteds(category.value)
 document.title = `Servicios de ${data.value.category.name} | Pictos`
 </script>
 

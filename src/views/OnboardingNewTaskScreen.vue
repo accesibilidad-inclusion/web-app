@@ -8,6 +8,7 @@ import OnboardingImage3 from '@/assets/img/illustrations/nueva-tarea 3.svg?compo
 import OnboardingImage4 from '@/assets/img/illustrations/nueva-tarea 4.svg?component'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import type {Onboarding} from '@/types/onboarding'
+import {useEventBus} from '@vueuse/core'
 
 const appNav = useAppNavStore()
 const router = useRouter()
@@ -39,6 +40,12 @@ const finishing = () => {
   appNav.onboarding.newTask = false
   router.push(appNav.redirectTo)
 }
+
+const bus = useEventBus('close')
+const listener = () => {
+  finishing()
+}
+bus.on(listener)
 </script>
 
 <template>

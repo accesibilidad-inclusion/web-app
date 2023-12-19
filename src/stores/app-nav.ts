@@ -1,9 +1,10 @@
 import {defineStore} from 'pinia'
-import type {Category} from '@/types/category'
-import type {Service} from '@/types/service'
+import type {Category} from '@/model/category'
+import type {Service} from '@/model/service'
 import type {PresentialVenue} from '@/model/presential_venue'
 import type {OnlineVenue} from '@/model/online_venue'
-import type {Task} from '@/types/task'
+import type {PresentialTask} from '@/model/presential_task'
+import type {OnlineTask} from '@/model/online_task'
 
 export const useAppNavStore = defineStore('appNav', {
   state: () => {
@@ -14,7 +15,7 @@ export const useAppNavStore = defineStore('appNav', {
         category: null as Category | null,
         service: null as Service | null,
         venue: null as PresentialVenue | OnlineVenue | null,
-        task: null as Task | null
+        task: null as PresentialTask | OnlineTask | null
       },
       onboarding: {
         welcome: true,
@@ -30,11 +31,24 @@ export const useAppNavStore = defineStore('appNav', {
     cleanTutorials() {
       this.onboarding = {
         welcome: true,
-        evaluation: true,
+        presentialEvaluation: true,
+        onlineEvaluation: true,
         suggestVenue: true,
         newTask: true,
         pictogram: true
       }
+    },
+    setSelecteds(category: Category|null = null,
+      service: Service|null = null,
+      venue: PresentialVenue|OnlineVenue|null = null,
+      task: PresentialTask|OnlineTask|null = null) {
+      this.selected = {
+        category: category,
+        service: service,
+        venue: venue,
+        task: task,
+      }
+
     }
   },
   persist: true

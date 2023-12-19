@@ -9,7 +9,7 @@ import type {OnboardingOrComponent} from '@/types/onboarding'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import {useAppSessionStore} from '@/stores/app-session.js'
 import {useRouter} from 'vue-router'
-import {useFetch} from '@vueuse/core'
+import {useEventBus, useFetch} from '@vueuse/core'
 
 const appNav = useAppNavStore()
 const appSession = useAppSessionStore()
@@ -42,6 +42,18 @@ const finishing = async () => {
   appSession.user.id = data.value.id
   router.push(appNav.redirectTo)
 }
+const bus = useEventBus('close')
+const listener = () => {
+  router.push(
+    '/' +
+      appNav.selected.category?.slug +
+      '/' +
+      appNav.selected.service?.slug +
+      '/' +
+      appNav.selected.venue?.slug
+  )
+}
+bus.on(listener)
 </script>
 
 <template>
