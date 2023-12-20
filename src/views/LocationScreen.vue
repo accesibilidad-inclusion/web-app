@@ -16,7 +16,7 @@ let geocoder: google.maps.Geocoder
 
 const loader = new Loader({
   apiKey: import.meta.env.VITE_APP_GOOGLE_API_KEY,
-  version: 'weekly'
+  version: 'beta'
 })
 
 loader.importLibrary('geocoding').then(() => {

@@ -4,7 +4,7 @@ import {useAppNavStore} from '@/stores/app-nav'
 import {Loader} from '@googlemaps/js-api-loader'
 import {ref, watch} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {refDebounced, useEventBus} from '@vueuse/core'
+import {refDebounced, useEventBus, useFetch} from '@vueuse/core'
 
 const router = useRouter()
 const route = useRoute()
@@ -29,6 +29,12 @@ const searchDebounced = refDebounced(searchText, 350)
 const venues = ref<google.maps.places.Place[] | null>(null)
 const venue = ref<google.maps.places.Place | null>(null)
 const searchAgain = ref(true)
+const submitted = ref(false)
+const subscription_submitted = ref(false)
+const show_subscription_form = ref(false)
+const submitting_subscription = ref(false)
+const id = ref(null)
+const subscription_email = ref('')
 
 const currentPosition = new google.maps.LatLng(
   appData.location.getCoordinates().lat,
@@ -56,22 +62,40 @@ const setVenue = (place: google.maps.places.Place) => {
   venues.value = null
 }
 
-const next = () => {
-  /* this.$router.push({
-    name: 'new-place-complete',
-    params: {place: this.place, service_id: this.$route.params.service_id}
-  }) */
+const next = async () => {
+  const {data} = await useFetch(
+    `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/store_by_user`
+  )
+    .post({
+      name: venue.value?.displayName,
+      service_id: route.params.service_id === '' ? null : route.params.service_id,
+      lat: venue.value?.location?.lat(),
+      lng: venue.value?.location?.lng()
+    })
+    .json()
+  submitted.value = true
+  id.value = data.value.id
+}
+
+const submitSubscription = async (event: Event) => {
+  event.preventDefault()
+  submitting_subscription.value = true
+  await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/addNotification`)
+    .post({
+      id: id.value,
+      email: subscription_email.value
+    })
+    .json()
+  subscription_submitted.value = true
+  submitting_subscription.value = false
 }
 
 const bus = useEventBus('close')
 const listener = () => {
-  router.push(appNav.selected.service ?
-    '/' +
-    appNav.selected.category?.slug +
-    '/' +
-    appNav.selected.service?.slug :
-    '/' +
-    appNav.selected.category?.slug 
+  router.push(
+    appNav.selected.service
+      ? '/' + appNav.selected.category?.slug + '/' + appNav.selected.service?.slug
+      : '/' + appNav.selected.category?.slug
   )
 }
 bus.on(listener)
@@ -82,41 +106,95 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 <template>
   <div class="page">
     <div class="container">
-      <h2 class="page__title">
-        Busca un lugar para agregarlo a Pictos
-        <text-to-speech :text-audio="'Busca un lugar para agregarlo a Pictos'" />
-      </h2>
-      <div v-if="venue" class="page__place-name">
-        {{ venue.displayName }}
-      </div>
-      <div v-if="!searchAgain" class="page__search-again" @click="searchAgain = true">
-        <icon-search />Buscar nuevamente
-      </div>
-      <template v-else>
-        <div class="custom-control custom-control--text main-search__group">
-          <input
-            v-model="searchText"
-            type="text"
-            placeholder="Ejemplo: Terminal de buses"
-            class="main-search__input" />
-          <button type="submit" class="main-search__button">
-            <icon-search />
-          </button>
-          <div
-            v-for="venue in venues"
-            :key="venue.id"
-            class="search-result__item"
-            @click="setVenue(venue)">
-            <p>{{ venue.displayName }}</p>
-          </div>
+      <template v-if="!submitted">
+        <h2 class="page__title">
+          Busca un lugar para agregarlo a Pictos
+          <text-to-speech :text-audio="'Busca un lugar para agregarlo a Pictos'" />
+        </h2>
+        <div v-if="venue" class="page__place-name">
+          {{ venue.displayName }}
         </div>
+        <div v-if="!searchAgain" class="page__search-again" @click="searchAgain = true">
+          <icon-search />Buscar nuevamente
+        </div>
+        <template v-else>
+          <div class="custom-control custom-control--text main-search__group">
+            <input
+              v-model="searchText"
+              type="text"
+              placeholder="Ejemplo: Terminal de buses"
+              class="main-search__input" />
+            <button type="submit" class="main-search__button">
+              <icon-search />
+            </button>
+            <div
+              v-for="venue in venues"
+              :key="venue.id"
+              class="search-result__item"
+              @click="setVenue(venue)">
+              <p>{{ venue.displayName }}</p>
+            </div>
+          </div>
+        </template>
+        <div id="map"></div>
+        <footer class="onboarding__footer">
+          <button class="btn btn--large btn--block btn--primary" :disabled="!venue" @click="next">
+            Listo
+          </button>
+        </footer>
       </template>
-      <div id="map"></div>
-      <footer class="onboarding__footer">
-        <button class="btn btn--large btn--block btn--primary" :disabled="!venue" @click="next">
-          Listo
-        </button>
-      </footer>
+      <template v-else>
+        <h2 class="onboarding__title">
+          Gracias por<br />
+          tu aporte
+        </h2>
+        <p class="onboarding__description">
+          Estás ayudando al mundo a<br />
+          ser un lugar más accesible
+        </p>
+        <router-link :to="'/home'" class="onboarding__link"> Volver </router-link>
+        <footer class="onboarding__footer">
+          <template v-if="subscription_submitted">
+            <p class="onboarding__description subscription-form__description">
+              Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            </p>
+          </template>
+          <template v-else>
+            <p class="onboarding__description subscription-form__description">
+              ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            </p>
+            <template v-if="!show_subscription_form">
+              <button
+                type="button"
+                class="btn btn--light btn--large btn--block subscription-form__submit"
+                @click="show_subscription_form = true">
+                Sí, avísame
+              </button>
+            </template>
+            <template v-else>
+              <form class="subscription-form" @submit="submitSubscription">
+                <input
+                  v-model="subscription_email"
+                  type="email"
+                  class="subscription-form__control"
+                  placeholder="Escribe tu email aquí" />
+                <button
+                  type="submit"
+                  class="btn btn--ghost subscription-form__submit"
+                  :disabled="submitting_subscription">
+                  Enviar
+                  <template v-if="submitting_subscription">
+                    <clip-loader
+                      :loading="submitting_subscription"
+                      :color="'#fff'"
+                      :size="'1rem'"></clip-loader>
+                  </template>
+                </button>
+              </form>
+            </template>
+          </template>
+        </footer>
+      </template>
     </div>
   </div>
 </template>
@@ -191,6 +269,53 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
   }
   & + .search-result__item {
     border-top: 1px solid var(--color-brand-light);
+  }
+}
+
+.onboarding ::v-deep .onboarding__title {
+  @include rfs($font-size-21);
+  margin-top: auto;
+  text-transform: uppercase;
+}
+.onboarding__description {
+  @include rfs($font-size-16);
+  font-weight: bold;
+  line-height: calc(22 / 16);
+  color: var(--color-background);
+}
+.onboarding__link {
+  @include rfs($font-size-16);
+  font-weight: bold;
+  color: var(--color-highlight);
+}
+.subscription-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: var(--spacer-sm);
+}
+.subscription-form__description {
+  margin-bottom: var(--spacer);
+  color: var(--color-highlight);
+}
+.subscription-form__control {
+  @include rfs($font-size-14);
+  padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
+  border: 2px solid var(--color-background);
+  border-radius: var(--border-radius);
+  &::placeholder {
+    color: #848484;
+    opacity: 1;
+    font-style: italic;
+    font-family: var(--font-family);
+  }
+}
+.subscription-form__submit {
+  @include rfs($font-size-14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .v-spinner {
+    margin-left: var(--spacer-sm);
   }
 }
 </style>
