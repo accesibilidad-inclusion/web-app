@@ -69,29 +69,31 @@ const rewindStep = () => {
   }
 }
 
-const likedStep = () => {
+const likedStep = async () => {
   state.was_helpful = true
   if (!state.was_liked) {
-    // this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/liked`, {
-    //   id: this.$store.state.selected.task.id,
-    //   was_disliked: state.was_disliked,
-    // }).then((result) => {
-    //   state.was_liked = true;
-    //   state.was_disliked = null;
-    // });
+    await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/${type.value}_tasks/liked`)
+    .post({
+      id: appNav.selected.task?.id,
+      was_disliked: state.was_disliked,
+    })
+    .json()
+    state.was_liked = true
+    state.was_disliked = false
   }
 }
 
-const dislikedStep = () => {
+const dislikedStep = async () => {
   state.was_helpful = false
   if (!state.was_disliked) {
-    // this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/tasks/disliked`, {
-    //   id: this.$store.state.selected.task.id,
-    //   was_liked: state.was_liked,
-    // }).then((result) => {
-    //   state.was_disliked = true;
-    //   state.was_liked = null;
-    // });
+    await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/${type.value}_tasks/disliked`)
+    .post({
+      id: appNav.selected.task?.id,
+      was_liked: state.was_liked,
+    })
+    .json()
+    state.was_disliked = true
+    state.was_liked = false
   }
 }
 
@@ -106,15 +108,17 @@ const closeFeedback = () => {
   state.closed_modal = true
 }
 
-const submitFeedback = () => {
+const submitFeedback = async () => {
   state.submitting_feedback = true
-  // this.$http.post(`${process.env.VUE_APP_API_DOMAIN}api/reports/store`, {
-  //   report: this.feedback.body,
-  //   task: this.$store.state.selected.task,
-  // }).then((result) => {
-  //   state.submitted_feedback = true;
-  //   state.submitting_feedback = false;
-  // });
+  await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/reports/store`)
+    .post({
+      presential_task_id: type.value === 'presential' ? appNav.selected.task?.id : null,
+      online_task_id: type.value === 'online' ? appNav.selected.task?.id : null,
+      report: feedback.body,
+    })
+    .json()
+    state.submitted_feedback = true
+    state.submitting_feedback = false
 }
 
 const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements`)
