@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {useFetch} from '@vueuse/core'
+import {useEventBus, useFetch} from '@vueuse/core'
 
 import PresentialPlaceIcon from '@/assets/img/app-icons/support/lugar.svg?component'
 import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
@@ -37,6 +37,12 @@ services.value = data.value.services.map((s: Service) => new Service(s))
 category.value = new Category(data.value.category)
 appNav.setSelecteds(category.value)
 document.title = `Servicios de ${data.value.category.name} | Pictos`
+
+const bus = useEventBus('back')
+const listener = () => {
+  router.push('/inicio')
+}
+bus.on(listener)
 </script>
 
 <template>

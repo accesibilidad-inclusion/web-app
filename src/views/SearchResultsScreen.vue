@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
-import {useFetch} from '@vueuse/core'
+import {useEventBus, useFetch} from '@vueuse/core'
 
 import BlockHeader from '@/components/BlockHeader.vue'
 import TaskBlock from '@/components/TaskBlock.vue'
@@ -36,23 +36,16 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
       ? data.value.map((task: OnlineTask) => new OnlineTask(task))
       : data.value.map((task: PresentialTask) => new PresentialTask(task))
 }
+
+const bus = useEventBus('back')
+const listener = () => {
+  router.push('/inicio')
+}
+bus.on(listener)
 </script>
 
 <template>
   <div class="search-results" :class="$route.query.t">
-    <!-- <header class="block-header block-header__compact">
-      <span class="category-icon">
-        <icon-internet class="block-header__icon" />
-      </span>
-
-      <h1 class="block-header__title search-results__title">Resultados</h1>
-      <p class="block-header__description entries-list__description search-results__help">
-        <span v-if="route.query.t == 'presential'">Tareas presenciales cerca de</span>
-        <span v-if="route.query.t == 'online'">Tareas en internet cerca de</span>
-      </p>
-      <LocationSelector :dense="true" />
-      <TextToSpeech :text-audio="'Resultados'" />
-    </header> -->
     <BlockHeader
       title="Resultados"
       :description="

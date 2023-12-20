@@ -11,7 +11,8 @@ import {useAppNavStore} from '@/stores/app-nav'
 const router = useRouter()
 const route = useRoute()
 const appNav = useAppNavStore()
-const bus = useEventBus('close')
+const busBack = useEventBus('back')
+const busClose = useEventBus('close')
 
 const shown_modal = ref<boolean>(false)
 const closed_modal = ref<boolean>(false)
@@ -48,13 +49,17 @@ const tutorials = () => {
 }
 
 const close = () => {
-  bus.emit()
+  busClose.emit()
+}
+
+const back = () => {
+  busBack.emit()
 }
 </script>
 
 <template>
   <div id="nav" class="app-nav" :class="`app-nav__${appNav.theme}`">
-    <button v-if="route.meta.navbar?.back" class="app-nav__toggle" @click="router.back()">
+    <button v-if="route.meta.navbar?.back" class="app-nav__toggle" @click="back">
       <IconChevronLeft class="app-nav__toggle-icon" /> Volver
     </button>
     <router-link v-if="route.meta.navbar?.logo" to="/inicio" class="app-nav__logo-wrapper">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, ref} from 'vue'
-import {useRoute} from 'vue-router'
-import {useFetch} from '@vueuse/core'
+import {useRoute, useRouter} from 'vue-router'
+import {useEventBus, useFetch} from '@vueuse/core'
 
 import BlockHeader from '@/components/BlockHeader.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
@@ -15,6 +15,7 @@ import {useAppNavStore} from '@/stores/app-nav'
 import {Category} from '@/model/category'
 
 const route = useRoute()
+const router = useRouter()
 
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
@@ -52,6 +53,12 @@ const evaluation = computed(() => {
   }
   return null
 })
+
+const bus = useEventBus('back')
+const listener = () => {
+  router.push('/' + appNav.selected.category?.slug + '/' + appNav.selected.service?.slug)
+}
+bus.on(listener)
 </script>
 
 <template>
@@ -84,9 +91,7 @@ const evaluation = computed(() => {
             <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
             <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
           </div>
-          <router-link
-            to="/agregar-tarea"
-            class="btn btn--primary btn--large btn--block">
+          <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block">
             &plus; Agregar una tarea nueva
           </router-link>
         </aside>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {useFetch} from '@vueuse/core'
+import {useEventBus, useFetch} from '@vueuse/core'
 
 import BlockHeader from '@/components/BlockHeader.vue'
 import CategoryIcon from '@/components/CategoryIcon.vue'
@@ -43,6 +43,12 @@ category.value = new Category(data.value.category)
 service.value = new Service(data.value.service)
 appNav.setSelecteds(category.value, service.value)
 document.title = `Lugares de ${data.value.service.name} | Pictos`
+
+const bus = useEventBus('back')
+const listener = () => {
+  router.push('/' + appNav.selected.category?.slug)
+}
+bus.on(listener)
 </script>
 
 <template>
