@@ -121,13 +121,14 @@ const setAnswer = (answr: string) => {
 }
 
 const sendEvaluation = async () => {
-  /* const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues`)
-  .post({
-    ...appData.location.getCoordinates(),
-    category: route.params.categorySlug,
-    service: route.params.serviceSlug
-  })
-  .json() */
+  await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/evaluations/store`)
+    .post({
+      answers: answers.value,
+      user_id: appSession.user.id,
+      presential_venue_id: questionsType === 'presential' ? appNav.selected.venue?.id : null,
+      online_venue_id: questionsType === 'online' ? appNav.selected.venue?.id : null
+    })
+    .json()
   finished.value = true
 }
 
@@ -148,6 +149,11 @@ const lastQuestion = computed(() => {
 
 const bus = useEventBus('close')
 const listener = () => {
+  backToVenue()
+}
+bus.on(listener)
+
+const backToVenue = () => {
   router.push(
     '/' +
       appNav.selected.category?.slug +
@@ -157,7 +163,6 @@ const listener = () => {
       appNav.selected.venue?.slug
   )
 }
-bus.on(listener)
 </script>
 
 <template>
@@ -183,8 +188,10 @@ bus.on(listener)
         <p class="feedback-evaluation__description">
           Estás ayudando al mundo a ser un lugar más accesible
         </p>
-        <button class="btn btn--large btn--primary btn--block btn--filled--skyblue">
-          Volver a Estación Viña del mar
+        <button
+          class="btn btn--large btn--primary btn--block btn--filled--skyblue"
+          @click="backToVenue">
+          Volver a {{ appNav.selected.venue?.name }}
         </button>
       </div>
     </template>
@@ -234,12 +241,7 @@ bus.on(listener)
           Comenzar evaluación
         </button>
       </template>
-      <template v-else-if="finished">
-        <button class="btn btn--large btn--primary btn--block" @click="started = true">
-          Atras
-        </button>
-      </template>
-      <template v-else>
+      <template v-else-if="!finished">
         <button
           class="btn btn--large btn--secondary btn--block"
           v-if="currentQuestion > 0"
