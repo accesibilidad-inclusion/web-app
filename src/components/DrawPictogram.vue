@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type {Image} from '@/model/image'
+import {ref, watchEffect} from 'vue'
 
 const props = defineProps<{
   layers: Array<Image>
 }>()
 
-const images = props.layers.filter((l: any) => l.layout !== 4)
-images.sort((a: any, b: any) => b.layout - a.layout)
+const images = ref<Array<Image>>([])
+
+watchEffect(() => {
+  images.value = props.layers.filter((l: any) => l.layout !== 4)
+  images.value.sort((a: any, b: any) => b.layout - a.layout)
+})
 </script>
 
 <template>

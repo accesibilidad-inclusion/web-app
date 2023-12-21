@@ -3,6 +3,7 @@ export class Image {
   filename: string = ''
   path: string = ''
   layout: number = 0
+  label: string = ''
 
   constructor(init?: Partial<Image>) {
     Object.assign(this, init)

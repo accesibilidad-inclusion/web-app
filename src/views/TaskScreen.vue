@@ -73,11 +73,11 @@ const likedStep = async () => {
   state.was_helpful = true
   if (!state.was_liked) {
     await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/${type.value}_tasks/liked`)
-    .post({
-      id: appNav.selected.task?.id,
-      was_disliked: state.was_disliked,
-    })
-    .json()
+      .post({
+        id: appNav.selected.task?.id,
+        was_disliked: state.was_disliked
+      })
+      .json()
     state.was_liked = true
     state.was_disliked = false
   }
@@ -87,11 +87,11 @@ const dislikedStep = async () => {
   state.was_helpful = false
   if (!state.was_disliked) {
     await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/${type.value}_tasks/disliked`)
-    .post({
-      id: appNav.selected.task?.id,
-      was_liked: state.was_liked,
-    })
-    .json()
+      .post({
+        id: appNav.selected.task?.id,
+        was_liked: state.was_liked
+      })
+      .json()
     state.was_disliked = true
     state.was_liked = false
   }
@@ -114,11 +114,11 @@ const submitFeedback = async () => {
     .post({
       presential_task_id: type.value === 'presential' ? appNav.selected.task?.id : null,
       online_task_id: type.value === 'online' ? appNav.selected.task?.id : null,
-      report: feedback.body,
+      report: feedback.body
     })
     .json()
-    state.submitted_feedback = true
-    state.submitting_feedback = false
+  state.submitted_feedback = true
+  state.submitting_feedback = false
 }
 
 const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements`)
@@ -301,6 +301,7 @@ bus.on(listener)
               </div>
               <template
                 v-if="
+                  task instanceof PresentialTask &&
                   task.steps.length &&
                   !task.steps.filter(
                     (s) =>
@@ -309,11 +310,7 @@ bus.on(listener)
                 ">
                 <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
                 <router-link
-                  :to="
-                    appNav.onboarding.pictogram
-                      ? '/nuevo-apoyo/intro'
-                      : '/nuevo-apoyo/' + task.steps[0].id
-                  "
+                  :to="'/crear-pictogramas/' + task.id"
                   class="btn btn--large btn--block btn--secondary">
                   Crear el apoyo gráfico
                 </router-link>
@@ -343,9 +340,7 @@ bus.on(listener)
               Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y
               apoyos.
             </p>
-            <router-link
-              to="/agregar-tarea"
-              class="btn btn--primary btn--large btn--block">
+            <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block">
               &plus; Crear una tarea nueva
             </router-link>
           </div>
@@ -368,10 +363,21 @@ bus.on(listener)
               Siguiente
             </button>
           </div>
-          <!-- <div v-if="!steps.filter( s => s.pictogram && s.pictogram.images.filter( i => i.layout <= 3).length ).length" :class="'without-pictogram' + ( state.active_helpful === true ? ' without-pictogram--hidden' : '' )">
+          <div
+            v-if="
+              !task.steps.filter(
+                (s) => s.pictogram && s.pictogram.images.filter((i: any) => i.layout <= 3).length
+              ).length
+            "
+            :class="
+              'without-pictogram' +
+              (state.active_helpful === true ? ' without-pictogram--hidden' : '')
+            ">
             <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
-            <p class="without-pictogram__description">Al terminar la tarea podrás colaborar en la creación del apoyo gráfico</p>
-          </div> -->
+            <p class="without-pictogram__description">
+              Al terminar la tarea podrás colaborar en la creación del apoyo gráfico
+            </p>
+          </div>
         </main>
         <!-- Pestaña inferior para feedback -->
         <button
