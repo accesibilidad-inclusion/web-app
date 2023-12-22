@@ -63,16 +63,20 @@ bus.on(listener)
       <template v-if="!tasks.length">
         <div class="search-no-results">
           <div class="search-no-results__content">
-            <icon-no-results class="search-no-results__icon" />
+            <div class="search-no-results__icon">
+              <span>!</span>
+            </div>
             <h2 class="search-no-results__title">Búsqueda sin resultados</h2>
             <p class="block-header__description search-no-results__description">
               Prueba buscando con <strong>otras palabras</strong> o usando las
               <strong>categorías</strong> disponibles
             </p>
           </div>
-          <router-link to="/inicio" class="btn btn--primary btn--large btn--block"
-            >Volver a Inicio</router-link
-          >
+          <div class="search-no-results__">
+            <router-link to="/inicio" class="btn btn--primary btn--large btn--block"
+              >Volver a Inicio</router-link
+            >
+          </div>
         </div>
       </template>
       <template v-else>
@@ -184,23 +188,8 @@ bus.on(listener)
 .search-no-results {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  bottom: var(--spacer);
-  width: 100%;
-  padding: 0 var(--spacer);
-  left: 0;
-  top: 100px;
-  @media screen and (min-width: 640px) {
-    max-width: 560px;
-    left: auto;
-    right: auto;
-    padding: 0;
-    top: 130px;
-  }
-  @media screen and (min-width: 1280px) {
-    max-width: 630px;
-    top: 140px;
-  }
+  height: 100%;
+  padding-top: var(--spacer--700);
 }
 .search-no-results__content {
   flex-grow: 1;
@@ -208,14 +197,23 @@ bus.on(listener)
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: var(--spacer--600) 0;
+  padding: var(--spacer--700) var(--spacer--400);
   gap: var(--spacer--400);
+  height: 100%;
 }
 .search-no-results__icon {
-  width: var(--spacer-lg);
-  height: var(--spacer-lg);
-  margin: var(--spacer) auto;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color--carolinablue);
+  border-radius: var(--spacer--300);
+  width: 55px;
+  height: 55px;
+  span {
+    font-size: 2.5rem;
+    color: var(--color--blue-dark);
+    font-weight: 700;
+  }
 }
 .search-no-results__title {
   font-size: var(--font-size--700);

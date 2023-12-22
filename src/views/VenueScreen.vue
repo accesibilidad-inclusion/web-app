@@ -13,6 +13,7 @@ import {PresentialTask} from '@/model/presential_task'
 import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav'
 import {Category} from '@/model/category'
+import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 
 const route = useRoute()
 const router = useRouter()
@@ -91,8 +92,8 @@ bus.on(listener)
             <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
             <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
           </div>
-          <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block">
-            &plus; Agregar una tarea nueva
+          <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block btn--icon">
+            <IconPlus /> Agregar una tarea nueva
           </router-link>
         </aside>
         <footer class="venue__footer">
@@ -127,6 +128,9 @@ bus.on(listener)
         <div class="venue__no-information">
           <main class="venue__no-information-content">
             <text-to-speech :text-audio="'Este lugar no tiene información, ayúdanos a mejorar'" />
+            <div class="venue__no-information-icon">
+              <span>!</span>
+            </div>
             <p class="venue__no-information-desc">
               Este lugar no tiene información, <span>ayúdanos a mejorar</span>
             </p>
@@ -134,9 +138,9 @@ bus.on(listener)
           <aside class="actions actions--venue" v-if="venue instanceof PresentialVenue">
             <router-link
               to="/agregar-tarea"
-              class="btn btn--primary btn--large btn--block"
+              class="btn btn--primary btn--large btn--block btn--icon"
               style="color: var(--color--white)">
-              &plus; Agregar tareas a este lugar
+              <IconPlus /> Agregar tareas a este lugar
             </router-link>
           </aside>
           <footer class="venue__footer">
@@ -208,7 +212,7 @@ bus.on(listener)
   &::before {
     width: 100%;
     left: 0;
-    background: #fff;
+    background: var(--color--white);
     z-index: 1;
   }
   &::after {
@@ -224,7 +228,7 @@ bus.on(listener)
   display: inline-block;
   padding: var(--spacer-sm);
   text-decoration: none;
-  color: #fff;
+  color: var(--color--white);
   &:hover {
     text-decoration: underline;
   }
@@ -249,7 +253,7 @@ bus.on(listener)
     height: 1rem;
     top: 3px;
     path {
-      fill: #fff;
+      fill: var(--color--white);
     }
   }
 }
@@ -266,7 +270,7 @@ bus.on(listener)
     right: var(--spacer-xl);
   }
   svg path {
-    fill: #fff;
+    fill: var(--color--white);
   }
 }
 .venue__tasks {
@@ -330,6 +334,13 @@ bus.on(listener)
   @media screen and (min-width: 1280px) {
     padding: var(--spacer-xl);
   }
+  .theme-online & {
+    background-color: var(--color--yellow);
+    color: var(--color--blue-dark);
+  }
+  .btn--outlined--white {
+    color: initial;
+  }
 }
 .venue__evaluation {
   position: relative;
@@ -337,14 +348,20 @@ bus.on(listener)
   flex-direction: column;
   row-gap: var(--spacer--500);
   text-decoration: none;
-  color: #fff;
+  color: var(--color--white);
+  .theme-online & {
+    color: var(--color--blue-dark);
+  }
   @media screen and (min-width: 1280px) {
     row-gap: var(--spacer--600);
   }
 }
 .venue__footer .tts {
   path {
-    fill: #fff;
+    fill: var(--color--white);
+    .theme-online & {
+      fill: var(--color--blue-dark);
+    }
   }
 }
 .venue__evaluation-title {
@@ -359,11 +376,14 @@ bus.on(listener)
   margin-right: auto;
   font-size: 2rem;
   line-height: 3.125rem;
-  color: var(--color-brand-darker);
+  color: var(--color--blue-dark);
   @media screen and (min-width: 640px) {
     width: 3.5rem;
     height: 3.5rem;
     font-size: 2.5rem;
+  }
+  .theme-online & {
+    border: 1px solid var(--color--blue);
   }
 }
 .venue__evaluation-description {
@@ -379,12 +399,12 @@ bus.on(listener)
   padding: calc(var(--spacer) + var(--spacer-sm));
   font-weight: 600;
   line-height: 1.33333;
-  color: var(--color-background);
+  color: var(--color--white);
   display: block;
   text-decoration: underline;
-}
-.btn--large {
-  display: block;
+  .theme-online & {
+    color: var(--color--blue-dark);
+  }
 }
 .venue__no-information {
   display: flex;
@@ -416,6 +436,20 @@ bus.on(listener)
     }
   }
 }
+.venue__no-information-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color--carolinablue);
+  border-radius: var(--spacer--300);
+  width: 55px;
+  height: 55px;
+  span {
+    font-size: 2.5rem;
+    color: var(--color--blue-dark);
+    font-weight: 700;
+  }
+}
 .venue__no-information-desc {
   font-size: var(--font-size--600);
   color: var(--color--blue-dark);
@@ -433,10 +467,7 @@ bus.on(listener)
     }
   }
 }
-</style>
 
-<style lang="scss">
-@import '@/assets/scss/rfs.scss';
 .service {
   display: flex;
   flex-flow: column nowrap;

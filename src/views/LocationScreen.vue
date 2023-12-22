@@ -279,10 +279,11 @@ const toggle = (id: number) => {
   left: 0;
   top: 0;
   background-color: var(--color-brand-darkest);
-  max-width: 750px;
+  max-width: 560px;
   padding: 0 calc(var(--spacer-lg) / 3);
   z-index: 100000;
-  @media screen and (min-width: 640px) {
+  border-radius: 0;
+  @media screen and (min-width: 560px) {
     padding-left: var(--spacer-xl);
     padding-right: var(--spacer-xl);
   }

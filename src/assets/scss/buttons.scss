@@ -38,7 +38,7 @@
     color: var(--color--blue-gray);
     border-color: transparent;
   }
-  .btn--icon {
+  &.btn--icon {
     path {
       fill: var(--color--white);
     }

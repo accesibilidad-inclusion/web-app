@@ -16,6 +16,7 @@ import IconError from '@/assets/img/app-icons/error.svg?component'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 import IconDislike from '@/assets/img/app-icons/instructions/dislike.svg?component'
 import {Category} from '@/model/category'
+import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 
 const route = useRoute()
 const router = useRouter()
@@ -335,13 +336,16 @@ bus.on(listener)
           <div
             v-if="!task.steps.filter((s) => s.label).length"
             :class="'task-empty' + (state.active_step < 0 ? '' : ' task-step--active')">
+            <div class="task-empty__icon">
+              <span>!</span>
+            </div>
             <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
             <p class="task-empty__description">
               Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y
               apoyos.
             </p>
-            <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block">
-              &plus; Crear una tarea nueva
+            <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block btn--icon">
+              <IconPlus /> Crear una tarea nueva
             </router-link>
           </div>
           <div class="task__nav">
@@ -373,6 +377,9 @@ bus.on(listener)
               'without-pictogram' +
               (state.active_helpful === true ? ' without-pictogram--hidden' : '')
             ">
+            <div class="task-empty__icon">
+              <span>!</span>
+            </div>
             <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
             <p class="without-pictogram__description">
               Al terminar la tarea podrás colaborar en la creación del apoyo gráfico
@@ -496,7 +503,7 @@ bus.on(listener)
   // flex-grow: 1;
   // max-height: 55vh;
   // Hack Safari
-  padding: var(--spacer--400) var(--spacer--500);
+  padding: 0 var(--spacer--500);
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
       height: 100%;
@@ -552,8 +559,8 @@ bus.on(listener)
   height: 100%;
   transform: translateX(100%);
   transition:
-    opacity 0.25s 0.25s ease-out,
-    transform 0 0;
+  opacity 0.25s 0.25s ease-out,
+  transform 0 0;
   list-style: none;
   opacity: 0;
   background-color: var(--color--white);
@@ -639,8 +646,8 @@ bus.on(listener)
   background-color: var(--color--carolinablue);
   height: 55vh;
   @media screen and (min-width: 640px) {
-    padding-left: var(--spacer-lg);
-    padding-right: var(--spacer-lg);
+    padding-left: var(--spacer--600);
+    padding-right: var(--spacer--600);
   }
   @media screen and (min-width: 1280px) {
     padding-left: var(--spacer-xl);
@@ -657,7 +664,7 @@ bus.on(listener)
   grid-template-columns: 1fr 1fr;
   gap: var(--spacer);
   width: 100%;
-  margin-bottom: var(--spacer-lg);
+  margin-bottom: var(--spacer--600);
   @media screen and (max-width: 400px) {
     // Hack Safari
     @media not all and (min-resolution: 0.001dpcm) {
@@ -720,9 +727,9 @@ bus.on(listener)
   display: grid;
   gap: 0 var(--spacer-sm);
   grid-template-columns: 1fr 1fr;
-  padding: var(--spacer) var(--spacer) var(--spacer-lg);
+  padding: var(--spacer) var(--spacer) var(--spacer--600);
   @media screen and (min-width: 640px) {
-    padding: var(--spacer-lg) var(--spacer-lg) calc(var(--spacer-lg) + 1.5rem);
+    padding: var(--spacer--600) var(--spacer--600) calc(var(--spacer--600) + 1.5rem);
   }
   @media screen and (min-width: 1280px) {
     padding-left: var(--spacer-xl);
@@ -757,7 +764,7 @@ li.task__step-indicator--active {
   position: fixed;
   display: block;
   width: calc(100% - var(--spacer));
-  max-width: calc(640px - var(--spacer));
+  max-width: calc(560px - var(--spacer));
   bottom: 0;
   left: 0;
   right: 0;
@@ -774,7 +781,7 @@ li.task__step-indicator--active {
     opacity: 0;
   }
   @media screen and (min-width: 1280px) {
-    max-width: calc(750px - (var(--spacer-lg) * 2));
+    max-width: calc(560px - var(--spacer--600));
   }
 }
 // Modal de feedback
@@ -794,7 +801,7 @@ li.task__step-indicator--active {
   border-top-right-radius: var(--spacer);
   overflow: hidden;
   .modal--fade:not(.modal--fade-out) & {
-    top: var(--spacer-lg);
+    top: var(--spacer--600);
     overflow: unset;
   }
   &.task-feedback--submitted {
@@ -805,14 +812,14 @@ li.task__step-indicator--active {
       animation: quickScaleDown 0s 0.5s linear forwards;
     }
   }
-  @media screen and (min-width: 640px) {
-    max-width: calc(640px - var(--spacer));
+  @media screen and (min-width: 400px) {
+    max-width: calc(400px - var(--spacer));
     margin-left: auto;
     margin-right: auto;
-    padding: var(--spacer-lg);
+    padding: var(--spacer--600);
   }
   @media screen and (min-width: 1280px) {
-    max-width: calc(750px - var(--spacer-lg));
+    max-width: calc(560px - var(--spacer--600));
     padding-left: var(--spacer-xl);
     padding-right: var(--spacer-xl);
   }
@@ -822,9 +829,9 @@ li.task__step-indicator--active {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--spacer-lg);
-    height: var(--spacer-lg);
-    top: calc(var(--spacer-lg) * -1);
+    width: var(--spacer--600);
+    height: var(--spacer--600);
+    top: calc(var(--spacer--600) * -1);
     right: var(--spacer-xs);
     line-height: 0;
     background: none;
@@ -861,7 +868,7 @@ li.task__step-indicator--active {
 }
 .task-feedback__submit {
   margin-top: auto;
-  margin-bottom: var(--spacer-lg);
+  margin-bottom: var(--spacer--600);
 }
 .task-feedback__response {
   display: flex;
@@ -875,19 +882,19 @@ li.task__step-indicator--active {
   @include rfs($font-size-18);
   max-width: 75%;
   margin-top: auto;
-  margin-bottom: var(--spacer-lg);
+  margin-bottom: var(--spacer--600);
   font-weight: bold;
   line-height: calc(25 / 18);
   text-transform: uppercase;
 }
 .task-feedback__response-close {
   margin-top: auto;
-  margin-bottom: var(--spacer-lg);
+  margin-bottom: var(--spacer--600);
 }
 
 /*Tarea sin pictogramas*/
 .without-pictogram {
-  color: #727272;
+  color: var(--color--blue-dark);
   grid-row: 1/3;
   grid-column: 1/3;
   justify-content: center;
@@ -907,15 +914,18 @@ li.task__step-indicator--active {
   }
 }
 .without-pictogram__title {
-  @include rfs($font-size-16);
+  font-size: var(--font-size--700);
+  line-height: 1.3rem;
+  font-weight: 800;
+  text-align: center;
   margin-bottom: var(--spacer-sm);
 }
 .without-pictogram__description {
-  @include rfs($font-size-14);
-  max-width: 300px;
-  margin: 0 auto;
+  font-size: var(--font-size--600);
+  line-height: 1.5;
+  text-align: center;
   @media screen and (min-width: 640px) {
-    max-width: 400px;
+    
   }
 }
 .without-pictogram--hidden {
@@ -924,6 +934,9 @@ li.task__step-indicator--active {
 .task-steps--without-pictogram {
   .step-canvas {
     display: none;
+  }
+  .task-step__legend {
+    height: auto;
   }
 }
 
@@ -949,11 +962,17 @@ li.task__step-indicator--active {
   }
 }
 .task-empty__icon {
-  width: var(--spacer-lg);
-  height: var(--spacer-lg);
-  margin: 0 auto;
-  path {
-    fill: var(--color-brand);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color--skyblue);
+  border-radius: var(--spacer--300);
+  width: 55px;
+  height: 55px;
+  span {
+    font-size: 2.5rem;
+    color: var(--color--blue-dark);
+    font-weight: 700;
   }
 }
 .task-empty__title {
@@ -1006,7 +1025,7 @@ li.task__step-indicator--active {
   }
 }
 .task__single .page__footer {
-  padding: var(--spacer-lg);
+  padding: var(--spacer--600);
 }
 .header--prerequisites {
   padding-bottom: var(--spacer-sm) !important;
