@@ -337,9 +337,12 @@ bus.on(listener)
   .theme-online & {
     background-color: var(--color--yellow);
     color: var(--color--blue-dark);
-  }
-  .btn--outlined--white {
-    color: initial;
+    .btn--outlined--white {
+      color: initial;
+      &:hover {
+        color: var(--color--white);
+      }
+    }
   }
 }
 .venue__evaluation {

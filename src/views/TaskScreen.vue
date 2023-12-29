@@ -228,23 +228,21 @@ bus.on(listener)
                     :layers="step.pictogram.images.filter((i: any) => i.layout <= 3)" />
                 </div>
                 <div class="task-step-main">
-                  <div class="task-step__number">
-                    Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
-                  </div>
                   <figcaption class="task-step__legend">
-                    <div class="task-step__legend-text">
-                      <span
-                        v-if="
-                          step.pictogram && step.pictogram.images.find((i: any) => i.layout == 4)
-                        ">
-                        <img
-                          :src="`${step.pictogram.images.find((i: any) => i.layout == 4)?.path}${
-                            step.pictogram.images.find((i: any) => i.layout == 4)?.filename
-                          }`"
-                          class="pictogram__layer--action" />
-                      </span>
-                      {{ step.label }}
+                    <span
+                      v-if="
+                        step.pictogram && step.pictogram.images.find((i: any) => i.layout == 4)
+                      " class="task-action">
+                      <img
+                        :src="`${step.pictogram.images.find((i: any) => i.layout == 4)?.path}${
+                          step.pictogram.images.find((i: any) => i.layout == 4)?.filename
+                        }`"
+                        class="pictogram__layer--action" />
+                    </span>
+                    <div class="task-text__number">
+                      Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
                     </div>
+                    <div class="task-text__description">{{ step.label }}</div>
                     <text-to-speech :text-audio="step.label" />
                   </figcaption>
                 </div>
@@ -260,18 +258,16 @@ bus.on(listener)
                     :focus-x="step.focus_x"
                     :focus-y="step.focus_y" />
                 </div>
-                <div class="task-step__number">
-                  Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
-                </div>
                 <figcaption class="task-step__legend">
-                  <div class="task-step__legend-text">
-                    <span v-if="step.image">
-                      <img
-                        :src="`${step.image.path}${step.image.filename}`"
-                        class="pictogram__layer--action" />
-                    </span>
-                    {{ step.label }}
+                  <span v-if="step.image" class="task-action">
+                    <img
+                      :src="`${step.image.path}${step.image.filename}`"
+                      class="pictogram__layer--action" />
+                  </span>
+                  <div class="task-step__number">
+                    Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
                   </div>
+                  <div class="task-text__description">{{ step.label }}</div>
                   <div v-html="step.details"></div>
                   <text-to-speech :text-audio="step.label" />
                 </figcaption>
@@ -452,7 +448,7 @@ bus.on(listener)
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .task__single {
   display: flex;
@@ -465,7 +461,6 @@ bus.on(listener)
   text-align: center;
   padding: var(--spacer--500);
   border-radius: var(--spacer--500);
-  margin: var(--spacer--600) var(--spacer--400) 0;
   font-weight: 600;
 }
 .task__title {
@@ -500,10 +495,10 @@ bus.on(listener)
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  // flex-grow: 1;
-  // max-height: 55vh;
+  flex-grow: 1;
+  max-height: 55vh;
   // Hack Safari
-  padding: 0 var(--spacer--500);
+  padding: 0 var(--spacer--400);
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
       height: 100%;
@@ -573,8 +568,8 @@ bus.on(listener)
   flex-grow: 1;
   transform: translateX(0%);
   transition:
-    opacity 0.25s ease-in,
-    transform 0 0.5s;
+  opacity 0.25s ease-in,
+  transform 0 0.5s;
   opacity: 1;
 }
 .task-step__layer {
@@ -594,30 +589,18 @@ bus.on(listener)
 }
 .task-step-main {
   position: relative;
-}
-.task-step__number {
-  font-size: 0.625rem;
-  opacity: 0.7;
-  font-weight: 700;
-  color: var(--color-blue-dark);
-  letter-spacing: 0.0625rem;
-  text-transform: uppercase;
-  position: absolute;
-  left: 56px;
-  top: var(--spacer--400);
+  padding: var(--spacer--500) var(--spacer--400) var(--spacer--500);
+  @media screen and (min-width: 640px) {
+    padding: var(--spacer--500) var(--spacer--400) var(--spacer--600);
+  }
 }
 .task-step__legend {
-  @include rfs($font-size-16);
-  display: flex;
-  align-items: center;
-  padding: var(--spacer--500) var(--spacer--300) var(--spacer--400);
-  line-height: calc(22 / 16);
-  font-weight: bold;
-  justify-content: space-between;
-  min-height: 14vh;
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
-  }
+  min-height: 8vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-auto-rows: auto 1fr;
+  column-gap: var(--spacer--300);
+  row-gap: var(--spacer--200);
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
@@ -626,15 +609,32 @@ bus.on(listener)
   }
   .tts {
     margin-left: var(--spacer);
-    align-self: flex-start;
+    position: absolute;
+    right: var(--spacer--400);
+    top: var(--spacer--400);
   }
 }
-.task-step__legend-text {
-  font-size: var(--font-size--400);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.task-action {
+  grid-column: 1/2;
+  grid-row: 2/3;
 }
+.task-text__number {
+  font-size: 0.625rem;
+  opacity: 0.7;
+  font-weight: 700;
+  color: var(--color--blue-dark);
+  letter-spacing: 0.0625rem;
+  text-transform: uppercase;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+.task-text__description {
+  @include rfs($font-size-14);
+  font-weight: 700;
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
 // Último paso, donde se pregunta si fue de ayuda
 .task-helpful {
   display: flex;
@@ -727,14 +727,8 @@ bus.on(listener)
   display: grid;
   gap: 0 var(--spacer-sm);
   grid-template-columns: 1fr 1fr;
-  padding: var(--spacer) var(--spacer) var(--spacer--600);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer--600) var(--spacer--600) calc(var(--spacer--600) + 1.5rem);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
-  }
+  padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
+  margin-bottom: var(--spacer--600);
 }
 .task__steps-indicator {
   margin-top: var(--spacer-xs);
@@ -900,8 +894,10 @@ li.task__step-indicator--active {
   justify-content: center;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  align-items: center;
   margin-bottom: 5rem;
+  gap: var(--spacer--300);
+  padding: 0 var(--spacer--400);
   & + .task-step__legend {
     grid-column: 1/3;
   }
@@ -996,9 +992,6 @@ li.task__step-indicator--active {
 }
 .pictogram__layer--action {
   height: 30px;
-  @media screen and (min-width: 640px) {
-    height: 40px;
-  }
 }
 
 // .text-formatted * {
