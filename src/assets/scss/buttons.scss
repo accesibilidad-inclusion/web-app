@@ -2,7 +2,7 @@
 .btn {
   @include rfs($font-size--400);
   display: inline-block;
-  padding: 0.9rem var(--spacer);
+  padding: var(--spacer--300) var(--spacer--400);
   font-family: var(--font-family);
   font-weight: 600;
   text-align: center;
@@ -22,8 +22,7 @@
 }
 .btn--large {
   @include rfs($font-size--500);
-  padding-left: var(--spacer);
-  padding-right: var(--spacer);
+  padding: 0.9rem var(--spacer--400);
 }
 .btn--primary {
   background: var(--color--blue-dark);
@@ -212,4 +211,13 @@
   background: rgba(255, 255, 255, 0.1);
   color: var(--color--white);
   border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn--active {
+  background: var(--color--blue-dark);
+  color: var(--color--white);
+  border: 1px solid var(--color--blue-dark);
+  &:hover {
+    background: var(--color--blue-dark);
+  }
 }

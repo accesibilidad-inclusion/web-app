@@ -59,7 +59,7 @@ const back = () => {
 
 <template>
   <div id="nav" class="app-nav" :class="`app-nav__${appNav.theme}`">
-    <button v-if="route.meta.navbar?.back" class="app-nav__toggle" @click="back">
+    <button v-if="route.meta.navbar?.back" class="app-nav__toggle-back" @click="back">
       <IconChevronLeft class="app-nav__toggle-icon" /> Volver
     </button>
     <router-link v-if="route.meta.navbar?.logo" to="/inicio" class="app-nav__logo-wrapper">
@@ -136,6 +136,19 @@ const back = () => {
   background: none;
   border: 0;
   margin-left: auto;
+}
+.app-nav__toggle-back {
+  @include rfs($font-size-16);
+  cursor: pointer;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  margin-right: auto;
+  svg {
+    margin-left: 0;
+    height: 10px;
+    width: 6px;
+  }
 }
 .app-nav__logo-wrapper {
   width: 75px;
