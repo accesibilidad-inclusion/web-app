@@ -5,6 +5,7 @@ import {Loader} from '@googlemaps/js-api-loader'
 import {ref, watch} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {refDebounced, useEventBus, useFetch} from '@vueuse/core'
+import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 
 const router = useRouter()
 const route = useRoute()
@@ -123,7 +124,7 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
               v-model="searchText"
               type="text"
               placeholder="Ejemplo: Terminal de buses"
-              class="main-search__input" />
+              class="main-search__input custom-control" />
             <button type="submit" class="main-search__button">
               <icon-search />
             </button>
@@ -144,29 +145,32 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
         </footer>
       </template>
       <template v-else>
-        <h2 class="onboarding__title">
-          Gracias por<br />
-          tu aporte
-        </h2>
-        <p class="onboarding__description">
-          Estás ayudando al mundo a<br />
-          ser un lugar más accesible
-        </p>
-        <router-link :to="'/home'" class="onboarding__link"> Volver </router-link>
-        <footer class="onboarding__footer">
+        <div class="thanks-message">
+          <span class="thanks-message__icon">
+            <icon-like></icon-like>
+          </span>
+          <h2 class="thanks-message__title">
+            Gracias por tu aporte
+          </h2>
+          <p class="thanks-message__description">
+            Estás ayudando al mundo a ser un lugar más accesible
+          </p>
+          <router-link :to="'/home'" class="btn btn--as-link"> Volver </router-link>         
+        </div>
+        <footer class="thanks-message-footer">
           <template v-if="subscription_submitted">
-            <p class="onboarding__description subscription-form__description">
+            <p class="thanks-message__description">
               Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
             </p>
           </template>
           <template v-else>
-            <p class="onboarding__description subscription-form__description">
+            <p class="thanks-message__description">
               ¿Quieres que te avisemos cuando publiquemos tu aporte?
             </p>
             <template v-if="!show_subscription_form">
               <button
                 type="button"
-                class="btn btn--light btn--large btn--block subscription-form__submit"
+                class="btn btn--large btn--primary btn--block btn--filled--skyblue"
                 @click="show_subscription_form = true">
                 Sí, avísame
               </button>
@@ -237,7 +241,11 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
   }
 }
 .main-search__input {
-  border: 1px solid var(--color-neutral-light);
+  font-size: var(--font-size--500);
+  width: 100%;
+  padding: var(--spacer--500);
+  border: 1px solid var(--color--blue-dark);
+  border-radius: var(--spacer--500);
 }
 
 .main-search__button {

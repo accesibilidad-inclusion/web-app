@@ -928,6 +928,7 @@ li.task__step-indicator--active {
   display: none;
 }
 .task-steps--without-pictogram {
+  flex-grow: initial;
   .step-canvas {
     display: none;
   }

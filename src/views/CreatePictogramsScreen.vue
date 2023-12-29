@@ -8,6 +8,7 @@ import TextToSpeech from '@/components/TextToSpeech.vue'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppNavStore} from '@/stores/app-nav'
 import type {Image} from '@/model/image'
+import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 
 const router = useRouter()
 
@@ -144,33 +145,21 @@ const submitSubscription = async () => {
                 <DrawPictogram :layers="getImages" />
               </div>
               <div class="task-step-main">
-                <div class="task-step__number">
-                  Paso {{ active_step + 1 }} de {{ task.steps.length }}
-                </div>
                 <figcaption class="task-step__legend">
-                  <div class="task-step__legend-text">
-                    <!-- <span
-                      v-if="
-                        step.pictogram && step.pictogram.images.find((i: any) => i.layout == 4)
-                      ">
-                      <img
-                        :src="`${step.pictogram.images.find((i: any) => i.layout == 4)?.path}${
-                          step.pictogram.images.find((i: any) => i.layout == 4)?.filename
-                        }`"
-                        class="pictogram__layer--action" />
-                    </span> -->
-                    {{ step.label }}
-                  </div>
+                    <div class="task-step__number">
+                      Paso {{ active_step + 1 }} de {{ task.steps.length }}
+                    </div>
+                    <div class="task-text__description">{{ step.label }}</div>
                   <text-to-speech :text-audio="step.label" />
                 </figcaption>
               </div>
             </figure>
           </li>
         </ol>
-        <div>
-          <div>
+        <div class="select-pictogram">
+          <div class="select-pictogram__filter">
             <button
-              class="btn btn--large btn--secondary"
+              class="btn btn--primary btn--block btn--filled--skyblue-light"
               :class="{
                 'btn--active': tab === 'subject'
               }"
@@ -178,7 +167,7 @@ const submitSubscription = async () => {
               Persona
             </button>
             <button
-              class="btn btn--large btn--secondary"
+              class="btn btn--primary btn--block btn--filled--skyblue-light"
               :class="{
                 'btn--active': tab === 'landmark'
               }"
@@ -186,7 +175,7 @@ const submitSubscription = async () => {
               Objeto
             </button>
             <button
-              class="btn btn--large btn--secondary"
+              class="btn btn--primary btn--block btn--filled--skyblue-light"
               :class="{
                 'btn--active': tab === 'context'
               }"
@@ -194,7 +183,7 @@ const submitSubscription = async () => {
               Espacio
             </button>
           </div>
-          <div>
+          <div class="select-pictogram__img">
             <div
               v-for="(image, index) in showImages"
               :key="index"
@@ -219,14 +208,14 @@ const submitSubscription = async () => {
           <button
             v-if="active_step < task.steps.length - 1"
             :disabled="!canContinue()"
-            class="btn btn--large btn--primary"
+            class="btn btn--large btn--primary btn--block"
             @click="advanceStep">
             Siguiente
           </button>
           <button
             v-if="active_step === task.steps.length - 1"
             :disabled="!canContinue()"
-            class="btn btn--large btn--primary"
+            class="btn btn--large btn--primary btn--block"
             @click="saveProposal">
             Guardar
           </button>
@@ -234,47 +223,50 @@ const submitSubscription = async () => {
       </main>
     </template>
     <template v-else>
-      <text-to-speech
-        :text-audio="
-          'Gracias por tu aporte\n\n\n\n\n\n' +
-          'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n' +
-          'Volver\n\n\n\n\n\n' +
-          '¿Quieres que te avisemos cuando publiquemos tu aporte?'
-        " />
-      <h2 class="onboarding__title">
-        Gracias por<br />
-        tu aporte
-      </h2>
-      <p class="onboarding__description">
-        Estás ayudando al mundo a<br />
-        ser un lugar más accesible
-      </p>
-      <router-link
-        :to="
-          '/' +
-          appNav.selected.category?.slug +
-          '/' +
-          appNav.selected.service?.slug +
-          '/' +
-          appNav.selected.venue?.slug
-        "
-        class="onboarding__link">
-        Volver a {{ appNav.selected.venue?.name }}
-      </router-link>
-      <footer class="onboarding__footer">
+      <div class="thanks-message">
+        <text-to-speech
+          :text-audio="
+            'Gracias por tu aporte\n\n\n\n\n\n' +
+            'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n' +
+            'Volver\n\n\n\n\n\n' +
+            '¿Quieres que te avisemos cuando publiquemos tu aporte?'
+          " />
+        <span class="thanks-message__icon">
+          <icon-like></icon-like>
+        </span>
+        <h2 class="thanks-message__title">
+          Gracias por tu aporte
+        </h2>
+        <p class="thanks-message__description">
+          Estás ayudando al mundo a ser un lugar más accesible
+        </p>
+        <router-link
+          :to="
+            '/' +
+            appNav.selected.category?.slug +
+            '/' +
+            appNav.selected.service?.slug +
+            '/' +
+            appNav.selected.venue?.slug
+          "
+          class="btn btn--as-link">
+          Volver a {{ appNav.selected.venue?.name }}
+        </router-link>
+      </div>
+      <footer class="thanks-message-footer">
         <template v-if="notification_submitted">
-          <p class="onboarding__description subscription-form__description">
+          <p class="thanks-message__description">
             Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
           </p>
         </template>
         <template v-else>
-          <p class="onboarding__description subscription-form__description">
+          <p class="thanks-message__description">
             ¿Quieres que te avisemos cuando publiquemos tu aporte?
           </p>
           <template v-if="!show_subscription_form">
             <button
               type="button"
-              class="btn btn--block btn--ghost subscription-form__submit"
+              class="btn btn--large btn--primary btn--block btn--filled--skyblue"
               @click="show_subscription_form = true">
               Sí, avísame
             </button>
@@ -306,13 +298,16 @@ const submitSubscription = async () => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .task__single {
   display: flex;
   flex-flow: column nowrap;
   overflow-x: hidden;
   background-color: var(--color--skyblue-light);
+}
+.task__single--pictogram {
+  background-color: var(--color--skyblue);
 }
 .task__main {
   position: relative;
@@ -324,8 +319,8 @@ const submitSubscription = async () => {
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  // flex-grow: 1;
-  // max-height: 55vh;
+  flex-grow: 1;
+  max-height: 55vh;
   // Hack Safari
   padding: var(--spacer--400) var(--spacer--500);
   @media not all and (min-resolution: 0.001dpcm) {
@@ -338,6 +333,9 @@ const submitSubscription = async () => {
   display: grid;
   grid-template-rows: auto 1fr;
   flex-grow: 1;
+  background-color: var(--color--white);
+  border-radius: var(--spacer--500);
+  overflow: hidden;
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
@@ -373,12 +371,11 @@ const submitSubscription = async () => {
   height: 100%;
   transform: translateX(100%);
   transition:
-    opacity 0.25s 0.25s ease-out,
-    transform 0 0;
+  opacity 0.25s 0.25s ease-out,
+  transform 0 0;
   list-style: none;
   opacity: 0;
-  background-color: var(--color--white);
-  border-radius: var(--spacer--500);
+  
 }
 .task-step--active {
   position: relative;
@@ -408,30 +405,15 @@ const submitSubscription = async () => {
 }
 .task-step-main {
   position: relative;
-}
-.task-step__number {
-  font-size: 0.625rem;
-  opacity: 0.7;
-  font-weight: 700;
-  color: var(--color-blue-dark);
-  letter-spacing: 0.0625rem;
-  text-transform: uppercase;
-  position: absolute;
-  left: 56px;
-  top: var(--spacer--400);
+  background-color: var(--color--carolinablue);
+  padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
 }
 .task-step__legend {
-  @include rfs($font-size-16);
-  display: flex;
-  align-items: center;
-  padding: var(--spacer--500) var(--spacer--300) var(--spacer--400);
-  line-height: calc(22 / 16);
-  font-weight: bold;
-  justify-content: space-between;
-  min-height: 14vh;
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
-  }
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-auto-rows: auto 1fr;
+  column-gap: var(--spacer--300);
+  row-gap: var(--spacer--200);
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
@@ -440,27 +422,40 @@ const submitSubscription = async () => {
   }
   .tts {
     margin-left: var(--spacer);
-    align-self: flex-start;
+    position: absolute;
+    right: var(--spacer--400);
+    top: var(--spacer--400);
   }
 }
-.task-step__legend-text {
-  font-size: var(--font-size--400);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.task-action {
+  grid-column: 1/2;
+  grid-row: 2/3;
 }
+.task-step__number {
+  font-size: 0.625rem;
+  opacity: 0.7;
+  font-weight: 700;
+  color: var(--color--blue-dark);
+  letter-spacing: 0.0625rem;
+  text-transform: uppercase;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+.task-text__description {
+  @include rfs($font-size-14);
+  font-weight: 700;
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
 // Navegación
 .task__nav {
   display: grid;
   gap: 0 var(--spacer-sm);
   grid-template-columns: 1fr 1fr;
-  padding: var(--spacer) var(--spacer) var(--spacer-lg);
+  padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
   @media screen and (min-width: 640px) {
-    padding: var(--spacer-lg) var(--spacer-lg) calc(var(--spacer-lg) + 1.5rem);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
   }
 }
 // Modal de feedback
@@ -580,5 +575,50 @@ const submitSubscription = async () => {
 
 .task__single .page__footer {
   padding: var(--spacer-lg);
+}
+
+// Filtrar pictograma
+.select-pictogram__filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacer--300);
+  padding: var(--spacer--300) var(--spacer--500) var(--spacer--500);
+}
+
+.select-pictogram__img {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: var(--spacer--400);
+  padding: var(--spacer--500) var(--spacer--500) var(--spacer--500);
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacer--300);
+    img {
+      width: 100% !important;
+      background-color: var(--color--white);
+      border: 1px solid var(--color--blue-dark);
+      border-radius: var(--spacer--500);
+    }
+  }
+  .image__active {
+    position: relative;   
+    img {
+      border-width: 2px;
+    }
+    &::before {
+      content: '';
+      background-image: url("data:image/svg+xml,%0A%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='15' cy='15' r='14.5' fill='%23F6C254' stroke='%23041C42'/%3E%3Cpath d='M12.3464 21.3786L12.7 21.7321L13.0536 21.3786L23.6536 10.7786L24.0071 10.425L23.6536 10.0714L22.2286 8.64645L21.875 8.29289L21.5214 8.64645L12.7 17.4679L8.77855 13.5464L8.425 13.1929L8.07145 13.5464L6.64645 14.9714L6.29289 15.325L6.64645 15.6786L12.3464 21.3786Z' fill='%23CAE0FF' stroke='%23041C42'/%3E%3C/svg%3E%0A");
+      background-repeat: no-repeat;
+      position: absolute; 
+      top: var(--spacer--400);
+      right: var(--spacer--400);
+      width: 2rem;
+      height: 2rem;
+    }
+  }
 }
 </style>

@@ -11,6 +11,7 @@ import IconMenu from '@/assets/img/app-icons/drag-light.svg?component'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {useEventBus, useFetch} from '@vueuse/core'
+import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 
 const router = useRouter()
 const route = useRoute()
@@ -166,80 +167,76 @@ bus.on(listener)
         </template>
         <template v-else-if="showStep == 4">
           <div class="thanks-message">
-            <div class="thanks-message__container">
-              <text-to-speech
-                :text-audio="
-                  'Gracias por tu aporte\n\n\n\n\n\n' +
-                  'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n' +
-                  'Volver\n\n\n\n\n\n' +
-                  '¿Quieres que te avisemos cuando publiquemos tu aporte?'
-                " />
-              <h2 class="thanks-message__title">
-                Gracias por<br />
-                tu aporte
-              </h2>
-              <p class="thanks-message__description">
-                Estás ayudando al mundo a<br />
-                ser un lugar más accesible
-              </p>
-              <router-link
-                :to="
-                  '/' +
-                  appNav.selected.category?.slug +
-                  '/' +
-                  appNav.selected.service?.slug +
-                  '/' +
-                  appNav.selected.venue?.slug
-                "
-                class="thanks-message__back"
-                >Volver a {{ appNav.selected.venue?.name }}</router-link
-              >
-            </div>
+            <text-to-speech
+              :text-audio="
+                'Gracias por tu aporte\n\n\n\n\n\n' +
+                'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n' +
+                'Volver\n\n\n\n\n\n' +
+                '¿Quieres que te avisemos cuando publiquemos tu aporte?'
+              " />
+            <span class="thanks-message__icon">
+              <icon-like></icon-like>
+            </span>
+            <h2 class="thanks-message__title">
+              Gracias por tu aporte
+            </h2>
+            <p class="thanks-message__description">
+              Estás ayudando al mundo a ser un lugar más accesible
+            </p>
+            <router-link
+              :to="
+                '/' +
+                appNav.selected.category?.slug +
+                '/' +
+                appNav.selected.service?.slug +
+                '/' +
+                appNav.selected.venue?.slug
+              "
+              class="btn btn--primary btn--block btn--large btn--filled--skyblue"
+              >Volver a {{ appNav.selected.venue?.name }}</router-link
+            >
           </div>
         </template>
       </form>
-      <footer class="page__footer">
+      <footer class="thanks-message-footer">
         <template v-if="showStep == 4">
-          <div class="thanks-message__footer">
-            <template v-if="submited">
-              <p class="thanks-message__footer-description">
-                Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
-              </p>
-            </template>
-            <template v-else>
-              <p class="thanks-message__footer-description">
-                ¿Quieres que te avisemos cuando publiquemos tu aporte?
-              </p>
-              <button
-                v-if="!show_subscription_form"
-                class="btn btn--white btn--large btn--block"
-                style="color: var(--color-brand-darker)"
-                @click="show_subscription_form = true">
-                Sí, avísame
-              </button>
-              <div v-else class="thanks-message__form">
-                <form class="subscription-form" @submit="submitSubscription">
-                  <input
-                    v-model="subscription_email"
-                    type="email"
-                    class="thanks-message__email"
-                    placeholder="Escribe tu email aquí" />
-                  <button
-                    type="submit"
-                    class="btn btn--large btn--ghost"
-                    :disabled="submitting_subscription">
-                    Enviar
-                    <template v-if="submitting_subscription">
-                      <clip-loader
-                        :loading="submitting_subscription"
-                        :color="'#fff'"
-                        :size="'1rem'"></clip-loader>
-                    </template>
-                  </button>
-                </form>
-              </div>
-            </template>
-          </div>
+          <template v-if="submited">
+            <p class="thanks-message__description">
+              Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            </p>
+          </template>
+          <template v-else>
+            <p class="thanks-message__description">
+              ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            </p>
+            <button
+              v-if="!show_subscription_form"
+              class="btn btn--large btn--block btn--primary"
+              @click="show_subscription_form = true">
+              Sí, avísame
+            </button>
+            <div v-else class="thanks-message__form">
+              <form class="subscription-form" @submit="submitSubscription">
+                <input
+                  v-model="subscription_email"
+                  type="email"
+                  class="thanks-message__email"
+                  placeholder="Escribe tu email aquí" />
+                <button
+                  type="submit"
+                  class="btn btn--large btn--ghost"
+                  :disabled="submitting_subscription">
+                  Enviar
+                  <template v-if="submitting_subscription">
+                    <clip-loader
+                      :loading="submitting_subscription"
+                      :color="'#fff'"
+                      :size="'1rem'"></clip-loader>
+                  </template>
+                </button>
+              </form>
+            </div>
+          </template>
         </template>
         <button
           v-else
@@ -387,105 +384,5 @@ input {
   width: 0.5rem;
   height: auto;
 }
-//agradecimiento aporte
-.thanks-message {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-brand-lightest);
-  z-index: 10000;
-  .thanks-message__container {
-    //background-image: url('../../public/img/illustrations/background.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: var(--color-highlight);
-    background-color: var(--color-brand-darkest);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100%;
-    padding: var(--spacer);
-    overflow-x: hidden;
-    overflow-y: auto;
 
-    @media screen and (min-width: 640px) {
-      max-width: 640px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: var(--spacer-lg);
-    }
-    @media screen and (min-width: 1288px) {
-      max-width: 750px;
-      padding: var(--spacer-xl);
-    }
-    .tts {
-      margin-left: auto;
-    }
-    .tts ::v-deep path {
-      fill: var(--color-brand-light);
-    }
-  }
-}
-.thanks-message__title {
-  margin-top: var(--spacer);
-  text-transform: uppercase;
-  color: var(--color-highlight);
-}
-.thanks-message__description {
-  @include rfs($font-size-16);
-  font-weight: bold;
-  color: var(--color-background);
-  margin-top: var(--spacer);
-}
-.thanks-message__back {
-  @include rfs($font-size-16);
-  color: var(--color-highlight);
-  padding: var(--spacer) 0;
-  font-weight: bold;
-}
-.thanks-message__footer {
-  z-index: 100000;
-  position: relative;
-  padding-top: var(--spacer);
-  background-color: var(--color-brand-darkest);
-}
-.thanks-message__footer-description {
-  @include rfs($font-size-16);
-  font-weight: bold;
-  color: var(--color-highlight);
-  margin-bottom: var(--spacer);
-}
-.thanks-message__form {
-  .subscription-form {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-gap: var(--spacer-sm);
-  }
-  .btn {
-    display: flex;
-    align-items: center;
-    .v-spinner {
-      margin-left: var(--spacer-sm);
-    }
-  }
-}
-.thanks-message__email {
-  @include rfs($font-size-14);
-  padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
-  border: 2px solid var(--color-background);
-  border-radius: var(--border-radius);
-  &::placeholder {
-    color: #848484;
-    opacity: 1;
-    font-style: italic;
-    font-family: var(--font-family);
-  }
-}
 </style>
