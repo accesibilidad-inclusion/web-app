@@ -4,10 +4,9 @@ import {ref} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {computed} from 'vue'
 
-import IconAdd from '@/assets/img/app-icons/add.svg?component'
-import IconCheck from '@/assets/img/app-icons/check.svg?component'
-import IconDelete from '@/assets/img/app-icons/error.svg?component'
-import IconMenu from '@/assets/img/app-icons/drag-light.svg?component'
+import IconCheck from '@/assets/img/app-icons/support/check2.svg?component'
+import IconDelete from '@/assets/img/app-icons/support/error.svg?component'
+import IconMenu from '@/assets/img/app-icons/support/menu.svg?component'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {useEventBus, useFetch} from '@vueuse/core'
@@ -98,14 +97,15 @@ bus.on(listener)
             Agregar una nueva tarea
             <text-to-speech :text-audio="'Agregar una nueva tarea'" />
           </h2>
-          <div class="form-group page__search">
+          <div class="custom-control custom-control--with-btn">
             <input v-model="task" type="text" placeholder="Ejemplo: Comprar tarjeta" />
-            <span v-if="task.trim() != ''" @click="showStep = 2"><icon-plus /></span>
+            <span v-if="task.trim() != ''" @click="showStep = 2" class="btn btn--primary btn--block btn--large btn--icon"><icon-plus /> Agregar</span>
           </div>
         </template>
         <template v-else-if="showStep == 2">
           <h2 class="page__title-new-task">
             {{ task }}
+            <TextToSpeech :text-audio="task" />
           </h2>
           <p class="page__subtitle page__text-audio">
             Enumera los pasos requeridos para completar esta acción
@@ -116,26 +116,27 @@ bus.on(listener)
               " />
           </p>
           <p class="page__indication">Mínimo 3 y máximo 9 pasos</p>
-          <div v-for="(step, index) in steps" :key="index" class="form-group page__new-steps">
-            {{ index + 1 }}
+          <div v-for="(step, index) in steps" :key="index" class="custom-control page__new-steps">
+            <span>{{ index + 1 }}</span>
             <input
               v-model="steps[index]"
               type="text"
               :placeholder="'Escribe el paso ' + (index + 1)" />
             <span
               v-if="steps.length > 3"
-              class="page__delete-new-steps"
+              class="btn btn--large btn--icon btn--as-link page__delete-new-steps"
               @click="steps.splice(index, 1)"
               ><icon-delete
-            /></span>
+            /> Eliminar</span>
           </div>
-          <div v-if="addStep" class="page__add-new-steps" @click="steps.push('')">
-            <icon-add />Agregar otro paso
+          <div v-if="addStep" class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon page__add-new-steps" @click="steps.push('')">
+            <icon-plus /> Agregar otro paso
           </div>
         </template>
         <template v-else-if="showStep == 3">
           <h2 class="page__title-new-task">
             {{ task }}
+            <TextToSpeech :text-audio="task" />
           </h2>
           <p class="page__subtitle page__text-audio">
             Revisa los pasos ingresados
@@ -150,10 +151,13 @@ bus.on(listener)
             {{ index + 1 }}
             <template v-if="editing != index"
               ><p class="step-block-inserted__title">{{ step }}</p>
-              <span @click="editStep(index)"><icon-menu class="step-block-inserted__edit" /></span
+              <span @click="editStep(index)" class="step-block-inserted__edit"><icon-menu/></span
             ></template>
             <template v-else
-              ><input v-model="stepEdit" type="text" />
+              >
+              <div class="custom-control">
+                <input v-model="stepEdit" type="text"/>
+              </div>
               <div class="step-block-inserted__actions">
                 <span class="step-block-inserted__btn" @click="setStep(index)"
                   ><icon-check class="step-block-inserted__icon-check" />Listo</span
@@ -216,7 +220,7 @@ bus.on(listener)
               Sí, avísame
             </button>
             <div v-else class="thanks-message__form">
-              <form class="subscription-form" @submit="submitSubscription">
+              <form class="subscription-form custom-control" @submit="submitSubscription">
                 <input
                   v-model="subscription_email"
                   type="email"
@@ -224,14 +228,14 @@ bus.on(listener)
                   placeholder="Escribe tu email aquí" />
                 <button
                   type="submit"
-                  class="btn btn--large btn--ghost"
+                  class="btn btn--large btn--primary btn--icon"
                   :disabled="submitting_subscription">
                   Enviar
                   <template v-if="submitting_subscription">
                     <clip-loader
                       :loading="submitting_subscription"
                       :color="'#fff'"
-                      :size="'1rem'"></clip-loader>
+                      :size="'1rem'" ></clip-loader>
                   </template>
                 </button>
               </form>
@@ -255,107 +259,102 @@ bus.on(listener)
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 
-input {
-  @include rfs($font-size-16);
-  width: 100%;
-  padding: var(--spacer-sm) var(--spacer-lg) var(--spacer-sm) var(--spacer-sm);
-  border: 1px solid var(--color-neutral-light);
-  border-radius: var(--border-radius);
-  &::placeholder {
-    color: #848484;
-    opacity: 1;
-    font-style: italic;
-    font-family: var(--font-family);
-  }
-}
 .page__title-new-task {
   @include rfs($font-size-16);
-  color: var(--color-background);
-  background-color: var(--color-brand-dark);
-  padding: var(--spacer-sm) var(--spacer);
+  text-align: center;
+  color: var(--color--blue-dark);
+  border-radius: var(--spacer--500);
+  background-color: var(--color--skyblue-light);
+  padding: var(--spacer--500);
+  position: relative;
+  .tts {
+    position: absolute;
+    top: var(--spacer--500);
+    right: var(--spacer--500);
+  }
 }
-
-.page .page__new-steps {
+.page__new-steps {
   @include rfs($font-size-16);
   font-weight: 700;
   display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: var(--spacer-sm);
+  grid-template-columns: var(--spacer--500) 1fr;
+  grid-template-rows: auto auto;
+  column-gap: var(--spacer--200);
   align-items: center;
-  margin-bottom: var(--spacer-sm);
+  margin-bottom: var(--spacer--400);
   position: relative;
-  input {
-    border: none;
-    border-bottom: 1px solid var(--color-neutral-light);
-    border-radius: 0;
-    padding-left: 0;
-    &::placeholder {
-      color: var(--color-neutral-light);
-    }
-  }
-}
-.page__delete-new-steps {
-  position: absolute;
-  right: var(--spacer-xs);
-  svg {
-    width: 10px;
-    height: 10px;
-    path {
-      fill: var(--color-neutral-light);
-    }
-  }
 }
 .page__add-new-steps {
-  padding-top: var(--spacer-sm);
-  font-weight: 600;
-  color: var(--color-brand-darkest);
-  padding-bottom: var(--spacer);
-  svg {
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    margin-right: var(--spacer-sm);
-  }
+  width: 250px;
+  margin-left: auto;
 }
+.page__delete-new-steps {
+  grid-column: 2/3;
+  width: 130px;
+  margin-left: auto;
+  justify-content: flex-end;
+  padding-top: var(--spacer--200);
+}
+
 //bloque pasos
 .step-block-inserted {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto auto;
-  column-gap: var(--spacer-sm);
+  column-gap: var(--spacer--200);
   align-items: center;
-  margin: calc(var(--spacer) / 1.5) 0;
-  border: 2px solid var(--color-brand-lighter);
-  border-radius: var(--border-radius);
+  margin-bottom: var(--spacer--400);
+  border: 1px solid transparent;
+  background-color: var(--color--skyblue-light);
+  border-radius: var(--spacer--500);
   box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.25);
   transition: var(--transition-base);
-  padding: var(--spacer-sm);
+  padding: var(--spacer--400) var(--spacer--400);
   font-weight: 700;
-  @media screen and (min-width: 640px) {
-    padding: calc(var(--spacer) / 2) calc(var(--spacer) * 0.75);
-  }
+  position: relative;
   &:hover {
     cursor: pointer;
-    border-color: var(--color-brand-light);
+    border: 1px solid var(--color--blue-dark);
     box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.5);
   }
-  input {
-    border: none;
-    border-bottom: 1px solid var(--color-neutral-light);
-    border-radius: 0;
-    padding: 0 0 var(--spacer-xs) 0;
-    color: var(--color-neutral-light);
-    font-style: italic;
-    grid-column: 2 / 3;
+  .custom-control {
+    grid-column: 2 / -1;
     grid-row: 1 / 2;
+    input {
+      padding: var(--spacer--300);
+      border: none;
+      border-radius: var(--spacer--300);
+      color: var(--color--blue-light);
+      font-weight: 700;
+      font-style: italic;
+    }
   }
 }
 .step-block-inserted__title {
-  font-weight: normal;
+  @include rfs($font-size--500);
+  font-weight: 700;
+  color: var(--color--blue-dark);
 }
 .step-block-inserted__edit {
-  width: var(--spacer);
-  height: auto;
+  display: block;
+  height: 16px;
+  width: 16px;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+  }
+  svg {
+    height: 100%;
+    width: 100%;
+    path {
+      fill: var(--color--blue-dark);
+    }
+  }
 }
 .step-block-inserted__actions {
   grid-column: 1/3;
@@ -365,24 +364,24 @@ input {
 }
 .step-block-inserted__btn {
   @include rfs($font-size-14);
-  color: var(--color-brand-darkest);
+  color: var(--color--blue-dark);
   font-weight: 600;
   text-decoration: underline;
   padding: var(--spacer-sm) var(--spacer) var(--spacer-xs) var(--spacer);
   svg {
     margin-right: var(--spacer-xs);
     path {
-      fill: var(--color-brand-darkest);
+      fill: var(--color--blue-dark);
     }
   }
 }
 .step-block-inserted__icon-check {
-  width: 0.6rem;
-  height: auto;
+  width: auto;
+  height: 13px;
 }
 .step-block-inserted__icon-cancel {
-  width: 0.5rem;
-  height: auto;
+  width: auto;
+  height: 11px;
 }
 
 </style>

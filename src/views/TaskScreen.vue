@@ -810,12 +810,11 @@ li.task__step-indicator--active {
     max-width: calc(400px - var(--spacer));
     margin-left: auto;
     margin-right: auto;
-    padding: var(--spacer--600);
+    padding: var(--spacer--600) var(--spacer--500) var(--spacer--400);
   }
   @media screen and (min-width: 1280px) {
     max-width: calc(560px - var(--spacer--600));
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+
   }
   .modal__close {
     cursor: pointer;
@@ -833,9 +832,9 @@ li.task__step-indicator--active {
     svg {
       width: 1rem;
       height: 1rem;
-    }
-    path {
-      fill: #fff;
+      path {
+        fill: var(--color--white);
+      }
     }
   }
 }
@@ -1002,24 +1001,27 @@ li.task__step-indicator--active {
   .task__header {
     background-color: var(--color--white);
     text-align: left;
-    h2 {
-      font-size: var(--font-size--400);
-      font-weight: 700;
-      color: var(--color--blue-dark);
-      margin-bottom: var(--spacer--500);
-    }
-    ul {
-      font-size: var(--font-size--400);
-      color: var(--color--blue-dark);
-      margin-left: var(--spacer--500);
-      li {
-        margin-bottom: var(--spacer--300);
+    margin: var(--spacer--400);
+    &:deep(.text-formatted) {
+      h2 {
+        @include rfs($font-size-16);
+        font-weight: 700;
+        color: var(--color--blue-dark);
+        margin-bottom: var(--spacer--500);
       }
-    }
+      ul {
+        @include rfs($font-size-14);
+        color: var(--color--blue-dark);
+        margin-left: var(--spacer--500);
+        li {
+          margin-bottom: var(--spacer--300);
+        }
+      }
+    } 
   }
 }
 .task__single .page__footer {
-  padding: var(--spacer--600);
+  padding: var(--spacer--600) var(--spacer--400) var(--spacer--400);
 }
 .header--prerequisites {
   padding-bottom: var(--spacer-sm) !important;
