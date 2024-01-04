@@ -69,6 +69,6 @@ bus.on(listener)
 .page {
   display: flex;
   align-items: stretch;
-  grid-row: 1/-1;
+  grid-row: 2/-1;
 }
 </style>
