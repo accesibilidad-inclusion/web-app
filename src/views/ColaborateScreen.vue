@@ -1,19 +1,15 @@
 <script setup lang="ts">
 import OnboardingItem from '@/components/OnboardingItem.vue'
-import AboutImage from '@/assets/img/illustrations/acerca.svg?component'
-import LogoAccesibilidadInclusionImage from '@/assets/img/app-icons/logo-accesibilidad-inclusion.svg?component'
-import LogoPucvImage from '@/assets/img/app-icons/logo-pucv.svg?component'
-import LogoUandesImage from '@/assets/img/app-icons/logo-uandes.svg?component'
-import LogoGobiernoImage from '@/assets/img/app-icons/logo-gobierno.svg?component'
+import ColaboraImage from '@/assets/img/illustrations/colabora.svg?component'
 import {useEventBus} from '@vueuse/core'
 import {useRouter} from 'vue-router'
 
 const router = useRouter()
 
 const data = {
-  title: 'Acerca de PICTOS',
-  body: '<ul><li>PICTOS es una aplicación para hacer el mundo inclusivo y accesible.</li><li>PICTOS es una aplicación de uso gratuito.</li><li>Todos pueden aportar en PICTOS.</li><li>Tú participación es importante, ayuda a construir PICTOS.</li><li>Para hacer esta app, trabajaron investigadores, diseñadores y desarrolladores con y sin discapacidad.</li><li>Este es un proyecto del Núcleo de Accesibilidad e Inclusión de la Pontificia Universidad Católica de Valparaíso.</li><li>Este proyecto fue financiado por SENADIS y FONDEF IT.</li></ul>',
-  image: AboutImage
+  title: '¡Qué bueno que quieras colaborar!',
+  body: '<p>Tu ayuda es muy importante para hacer entre todos una ciudad más fácil y amigable.</p> <p>Las ayudas que puedes darnos son:</p><ol><li>Si falta un lugar, lo puedes agregar.</li><li>Si falta una tarea de un lugar, la puedes agregar.</li><li>Si no hay pictogramas, los puedes crear.</li><li>Puedes evaluar la accesibilidad de un lugar.</li></ol>',
+  image: ColaboraImage
 }
 
 const bus = useEventBus('close')
@@ -24,13 +20,36 @@ bus.on(listener)
 </script>
 
 <template>
-  <OnboardingItem :data="data" />
-  <div>
-    <LogoAccesibilidadInclusionImage />
-    <LogoPucvImage />
-    <LogoUandesImage />
-    <LogoGobiernoImage />
-  </div>
+  <main class="page">
+    <OnboardingItem :data="data" />
+  </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/rfs.scss';
+.page {
+  display: flex;
+  align-items: stretch;
+  grid-row: 2/-1;
+  flex-direction: column;
+}
+.page:deep(.onboarding-item__container) {
+  background-color: var(--color--white);
+  padding-bottom: var(--spacer--700);
+  .onboarding-item__title {
+    font-weight: 800;
+  }
+  .onboarding-item__text {
+    p {
+      margin-bottom: var(--spacer--400);
+    }
+    ol {
+      padding-left: var(--spacer--500);
+      @include rfs($font-size--500);
+      li {
+        margin-bottom: var(--spacer--300);
+      }
+    }
+  }
+}
+</style>

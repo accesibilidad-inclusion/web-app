@@ -15,7 +15,7 @@
     // }
   }
   p {
-    @include rfs($font-size-16);
+    @include rfs($font-size--600);
   }
 }
 
@@ -28,7 +28,7 @@
   grid-gap: var(--spacer);
   align-items: flex-start;
   @media screen and (min-width: 640px) {
-    margin-bottom: var(--spacer-lg);
+    margin-bottom: var(--spacer--400);
   }
   .tts {
     position: relative;
@@ -36,10 +36,10 @@
   }
 }
 .page__subtitle {
-  font-weight: bold;
-  padding-top: var(--spacer);
+  @include rfs($font-size--600);
   font-weight: 700;
-  margin-bottom: var(--spacer-xs);
+  padding: var(--spacer--500) 0 var(--spacer--200);
+  margin-top: var(--spacer--300);
 }
 
 .page__indication {

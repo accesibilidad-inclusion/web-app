@@ -24,13 +24,43 @@ bus.on(listener)
 </script>
 
 <template>
+  <main class="page">
   <OnboardingItem :data="data" />
-  <div>
+  <div class="onboarding__logos">
     <LogoAccesibilidadInclusionImage />
     <LogoPucvImage />
     <LogoUandesImage />
     <LogoGobiernoImage />
   </div>
+</main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.page {
+  display: flex;
+  align-items: stretch;
+  grid-row: 2/-1;
+  flex-direction: column;
+}
+.page:deep(.onboarding-item__container) {
+  background-color: var(--color--white);
+  padding-bottom: var(--spacer--700);
+  .onboarding-item__title {
+    font-weight: 800;
+  }
+  .onboarding-item__text ul {
+    padding-left: var(--spacer--500);
+    li {
+      margin-bottom: var(--spacer--300);
+    }
+  }
+}
+.onboarding__logos {
+  background-color: var(--color--blue);
+  display: flex;
+  align-items: center;
+  gap: var(--spacer--600);
+  flex-direction: column;
+  padding: var(--spacer--700) var(--spacer--400);
+}
+</style>
