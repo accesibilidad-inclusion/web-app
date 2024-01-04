@@ -70,7 +70,7 @@ bus.on(listener)
                   v-if="venue.evaluation && venue.show_evaluation"
                   class="venue-block__evaluation">
                   <span
-                    class="venue-grade venue-block__evaluation-grade"
+                    class="venue-block__evaluation-grade"
                     :data-grade="venue.evaluation.score">
                     {{ venue.evaluation.score }}
                   </span>
@@ -92,7 +92,7 @@ bus.on(listener)
                   v-if="venue.evaluation && venue.show_evaluation"
                   class="venue-block__evaluation">
                   <span
-                    class="venue-grade venue-block__evaluation-grade"
+                    class="venue-block__evaluation-grade"
                     :data-grade="venue.evaluation.score">
                     {{ venue.evaluation.score }}
                   </span>
@@ -202,20 +202,20 @@ bus.on(listener)
   color: var(--color-neutral);
 }
 .venue-block__evaluation {
-  font-size: var(--font-size--400);
-  grid-column: 1/4;
-  margin-top: var(--spacer-sm);
-  line-height: 1.33333;
-  text-transform: uppercase;
-  color: var(--color-text);
+  margin-top: var(--spacer--200);
+  align-items: center !important;
 }
-.venue__evaluation-grade {
+.venue-block__evaluation-grade {
+  @include rfs($font-size-14);
+  width: 1.563rem;
+  height: 1.563rem;
+  color: var(--color--blue-dark);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
-  border-radius: 50%;
+  border-radius: var(--spacer--300);
   &[data-grade='5'] {
     background: var(--color-grade-5);
   }
@@ -235,12 +235,8 @@ bus.on(listener)
     background: var(--color-grade-0);
   }
 }
-.venue-block__evaluation-grade {
-  display: inline-block;
-  width: 1.1875rem;
-  height: 1.1875rem;
-  margin-right: 0.15rem;
-  line-height: 1.1875rem;
-  color: var(--color-brand-darker);
+.venue-block__evaluation-description {
+  @include rfs($font-size-14);
+  color: var(--color--blue-dark);
 }
 </style>
