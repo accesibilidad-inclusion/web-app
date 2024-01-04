@@ -38,7 +38,7 @@ const changeLocation = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3px 0 3px var(--spacer--400);
+  padding: 0 0 0 var(--spacer--400);
   border-radius: var(--spacer--500);
   background-color: var(--color--skyblue-light);
   margin: var(--spacer--500) var(--spacer--400) 0;
@@ -51,7 +51,7 @@ const changeLocation = () => {
     font-size: var(--font-size--400);
     font-weight: 600;
     color: var(--color--blue);
-    padding: var(--spacer--200) var(--spacer--400);
+    padding: var(--spacer--400) var(--spacer--400);
   }
   .your-location__content {
     display: flex;

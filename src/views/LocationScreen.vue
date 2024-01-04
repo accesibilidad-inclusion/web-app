@@ -570,16 +570,8 @@ const toggle = (id: number) => {
       border-bottom: 1px solid rgba(160, 182, 203, 0.3);
       position: absolute;
       bottom: 0;
-      right: calc(var(--spacer-lg) / 2);
-      left: calc(var(--spacer-lg) / 2);
-      @media screen and (min-width: 640px) {
-        right: var(--spacer-lg);
-        left: var(--spacer-lg);
-      }
-      @media screen and (min-width: 1280px) {
-        right: var(--spacer-xl);
-        left: var(--spacer-xl);
-      }
+      right: var(--spacer--400);
+      left: var(--spacer--400);
     }
   }
 }
@@ -620,7 +612,7 @@ const toggle = (id: number) => {
       padding-right: calc(var(--spacer-lg) + 10px);
     }
     @media screen and (min-width: 1280px) {
-      @include rfs($font-size-15);
+      @include rfs($font-size-16);
       padding-left: calc(var(--spacer-xl) + 10px);
       padding-right: calc(var(--spacer-xl) + 10px);
     }
