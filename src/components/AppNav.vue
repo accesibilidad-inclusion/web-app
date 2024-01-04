@@ -2,7 +2,7 @@
 import {ref} from 'vue'
 import {RouterLink, useRoute, useRouter} from 'vue-router'
 import {useEventBus} from '@vueuse/core'
-import IconMenu from '@/assets/img/app-icons/drag.svg?component'
+import IconMenu from '@/assets/img/app-icons/support/menu.svg?component'
 import IconClose from '@/assets/img/app-icons/error.svg?component'
 import IconChevronLeft from '@/assets/img/app-icons/chevron-left.svg?component'
 import LogoPictos from '@/assets/img/app-icons/logo-pictos-color.svg?component'
