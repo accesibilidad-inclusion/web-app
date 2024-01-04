@@ -9,7 +9,9 @@ defineProps<{
 
 <template>
   <div class="onboarding-item">
-    <component :is="data.image" class="onboarding-item__image" />
+    <div class="onboarding-item__content-image">
+      <component :is="data.image" class="onboarding-item__image" />
+    </div>
     <div class="onboarding-item__container">
       <h2 class="onboarding-item__title">
         {{ data.title }}
@@ -25,6 +27,12 @@ defineProps<{
 .onboarding-item {
   width: 100%;
   line-height: 1.25rem;
+}
+.onboarding-item__content-image {
+  width: 100%;
+  max-height: 500px;
+  overflow: hidden;
+  position: relative;
 }
 .onboarding-item__image {
   width: 100%;
