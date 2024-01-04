@@ -2,17 +2,16 @@
 
 // Responsive font-size config
 $rfs-rem-value: 16;
-$rfs-base-value: 13;
+$rfs-base-value: 14;
 $rfs-factor: 50;
 
-$font-size-21: 2.25rem;
-$font-size-18: 2rem;
-$font-size-17: 1.6rem;
-$font-size-16: 1.3rem;
-$font-size-15: 1.15rem;
-$font-size-14: 1rem;
-$font-size-13: 0.825rem;
-$font-size-12: 0.75rem;
+$font-size-38: 2.375rem;    //size--800
+$font-size-21: 1.313rem;    //size--700
+$font-size-18: 1.125rem;    //size--600
+$font-size-16: 1rem;        //size--500
+$font-size-14: 0.875rem;    //size--400
+$font-size-13: 0.8125rem;   //size--300
+$font-size-12: 0.75rem;     //size--200
 
 // --- REDISEÑO ---
 $font-size--400: 0.875rem; //14px
@@ -20,3 +19,9 @@ $font-size--500: 1rem;     //16px
 $font-size--600: 1.125rem; //18px
 $font-size--700: 1.313rem; //21px
 $font-size--800: 2.375rem; //38px
+
+/* 
+
+@include rfs($font-size-14); 
+
+*/
