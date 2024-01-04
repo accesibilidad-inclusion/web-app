@@ -511,14 +511,6 @@ bus.on(listener)
   line-height: 1.33333;
   color: var(--color-neutral);
 }
-.venue-block__evaluation {
-  @include rfs($font-size-12);
-  grid-column: 1/4;
-  margin-top: var(--spacer-sm);
-  line-height: 1.33333;
-  text-transform: uppercase;
-  color: var(--color--blue-dark);
-}
 .venue__evaluation-grade {
   display: flex;
   justify-content: center;
@@ -544,13 +536,5 @@ bus.on(listener)
   &[data-grade='0'] {
     background: var(--color-grade-0);
   }
-}
-.venue-block__evaluation-grade {
-  display: inline-block;
-  width: 1.1875rem;
-  height: 1.1875rem;
-  margin-right: 0.15rem;
-  line-height: 1.1875rem;
-  color: var(--color--blue-dark);
 }
 </style>
