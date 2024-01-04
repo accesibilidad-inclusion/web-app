@@ -2,7 +2,8 @@
   position: relative;
   display: block;
   input {
-    font-size: var(--font-size--500);
+    @include rfs($font-size-16);
+    font-family: var(--font-family);
     font-weight: 600;
     width: 100%;
     padding: var(--spacer--500);
@@ -19,7 +20,7 @@
   }
 }
 .custom-control__label {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   cursor: pointer;
   position: relative;
   display: flex;
@@ -69,17 +70,23 @@
 // Teaxtarea
 .custom-control--text {
   textarea {
-    min-height: 180px;
-    font-size: var(--font-size--500);
+    @include rfs($font-size-16); 
+    font-family: var(--font-family);
     font-weight: 600;
+    min-height: 180px;
     width: 100%;
     padding: var(--spacer--500);
-    border: 1px solid var(--color--blue-dark);
+    border: 1px solid var(--color--blue);
     border-radius: var(--spacer--500);
+    -webkit-border-radius: var(--spacer--500);
+    -moz-border-radius: var(--spacer--500);
     color: var(--color--blue-dark);
     &::placeholder {
       color: var(--color--blue-light);
       font-style: italic;
+    }
+    &:focus-visible {
+      outline: var(--color--blue) solid 1px;
     }
   }
 }

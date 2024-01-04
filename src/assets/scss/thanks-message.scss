@@ -63,8 +63,15 @@
     position: relative;
     padding-top: var(--spacer);
     margin-top: auto;
+    padding-right: var(--spacer--500);
+    padding-left: var(--spacer--500);
+    padding-bottom: var(--spacer--500);
 }
-
+.container .thanks-message-footer {
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+}
 
 .thanks-message__form {
     .subscription-form {
