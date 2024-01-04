@@ -231,7 +231,10 @@ const toggle = (id: number) => {
             ).length
           ">
           <div class="no-results-commune">
-            <icon-no-results class="no-results-commune__icon" />
+            <text-to-speech :text-audio="'No se han encontrado comunas con ese nombre. Prueba escribiendo otras palabras o buscando por las regiones disponibles'" />
+            <div class="no-results-commune__icon">
+              <span>!</span>
+            </div>
             <h2 class="no-results-commune__title">No se han encontrado comunas con ese nombre</h2>
             <p class="no-results-commune__description">
               Prueba escribiendo <strong>otras palabras</strong> o buscando por las
@@ -655,40 +658,43 @@ const toggle = (id: number) => {
   }
 }
 //sin resultados
-.no-results-commune {
-  margin: auto calc(var(--spacer-lg) / 1.5);
+.places > div.no-results-commune {
+  border: none;
   display: flex;
   flex-direction: column;
-  height: 60vh;
-  justify-content: center;
   align-items: center;
-  border-bottom: none !important;
-  padding-bottom: 0 !important;
-  @media screen and (min-width: 640px) {
-    max-width: 560px;
-    margin: 0 auto;
-  }
-  @media screen and (min-width: 1280px) {
-    max-width: 630px;
-  }
+  justify-content: center;
+  background-color: var(--color--skyblue-light);
+  padding: var(--spacer--700) var(--spacer--500) var(--spacer--600);
+  flex-grow: 1;
+  gap: var(--spacer--400);
 }
 .no-results-commune__icon {
-  width: var(--spacer-lg);
-  height: var(--spacer-lg);
-  margin: calc(var(--spacer-lg) / 3) auto;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color--skyblue);
+  border-radius: var(--spacer--300);
+  width: 55px;
+  height: 55px;
+  span {
+    font-size: 2.5rem;
+    color: var(--color--blue-dark);
+    font-weight: 700;
+  }
 }
 .no-results-commune__title {
-  @include rfs($font-size-18);
-  color: var(--color-brand);
-  margin-bottom: var(--spacer-sm);
-  text-transform: uppercase;
-  font-weight: 800;
+  @include rfs($font-size-21);
+  color: var(--color--blue-dark);
   text-align: center;
+  font-weight: 800;
 }
 .no-results-commune__description {
-  @include rfs($font-size-14);
+  @include rfs($font-size-16);
+  color: var(--color--blue-dark);
   text-align: center;
+  font-weight: 600;
+  margin-bottom: var(--spacer-xl);
 }
 .close-app {
   @include rfs($font-size-14);
