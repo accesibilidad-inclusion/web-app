@@ -7,23 +7,15 @@ defineEmits(['reply'])
 
 <template>
   <div class="custom-control custom-control--text">
-    <input
-      type="text"
+    <textarea
       placeholder="Escribe aquí tu respuesta"
-      class="custom-control__answer"
       :value="selected"
-      @change="$emit('reply', ($event.target as HTMLInputElement).value)" />
+      @change="$emit('reply', ($event.target as HTMLInputElement).value)" >
+    </textarea>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 
-.custom-control__answer {
-  width: 100%;
-  padding: var(--spacer--500);
-  border: 1px solid var(--color--blue-dark);
-  border-radius: var(--spacer--500);
-  min-height: 180px;
-}
 </style>
