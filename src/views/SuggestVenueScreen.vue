@@ -6,6 +6,7 @@ import {ref, watch} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {refDebounced, useEventBus, useFetch} from '@vueuse/core'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
+import IconSearch from '@/assets/img/app-icons/support/buscar.svg?component'
 
 const router = useRouter()
 const route = useRoute()
@@ -115,17 +116,16 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
         <div v-if="venue" class="page__place-name">
           {{ venue.displayName }}
         </div>
-        <div v-if="!searchAgain" class="page__search-again" @click="searchAgain = true">
-          <icon-search />Buscar nuevamente
+        <div v-if="!searchAgain" class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon" @click="searchAgain = true">
+          <icon-search /> Buscar nuevamente
         </div>
         <template v-else>
-          <div class="custom-control custom-control--text main-search__group">
+          <div class="custom-control custom-control--search">
             <input
               v-model="searchText"
               type="text"
-              placeholder="Ejemplo: Terminal de buses"
-              class="main-search__input custom-control" />
-            <button type="submit" class="main-search__button">
+              placeholder="Ejemplo: Terminal de buses" />
+            <button type="submit">
               <icon-search />
             </button>
             <div
@@ -155,7 +155,7 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
           <p class="thanks-message__description">
             Estás ayudando al mundo a ser un lugar más accesible
           </p>
-          <router-link :to="'/home'" class="btn btn--as-link"> Volver </router-link>         
+          <router-link :to="'/home'" class="btn btn--primary btn--block btn--large btn--filled--skyblue"> Volver </router-link>         
         </div>
         <footer class="thanks-message-footer">
           <template v-if="subscription_submitted">
@@ -170,31 +170,33 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
             <template v-if="!show_subscription_form">
               <button
                 type="button"
-                class="btn btn--large btn--primary btn--block btn--filled--skyblue"
+                class="btn btn--large btn--block btn--primary"
                 @click="show_subscription_form = true">
                 Sí, avísame
               </button>
             </template>
             <template v-else>
-              <form class="subscription-form" @submit="submitSubscription">
-                <input
-                  v-model="subscription_email"
-                  type="email"
-                  class="subscription-form__control"
-                  placeholder="Escribe tu email aquí" />
-                <button
-                  type="submit"
-                  class="btn btn--ghost subscription-form__submit"
-                  :disabled="submitting_subscription">
-                  Enviar
-                  <template v-if="submitting_subscription">
-                    <clip-loader
-                      :loading="submitting_subscription"
-                      :color="'#fff'"
-                      :size="'1rem'"></clip-loader>
-                  </template>
-                </button>
-              </form>
+              <div class="thanks-message__form">
+                <form class="subscription-form custom-control" @submit="submitSubscription">
+                  <input
+                    v-model="subscription_email"
+                    type="email"
+                    class="thanks-message__email"
+                    placeholder="Escribe tu email aquí" />
+                  <button
+                    type="submit"
+                    class="btn btn--large btn--primary btn--icon"
+                    :disabled="submitting_subscription">
+                    Enviar
+                    <template v-if="submitting_subscription">
+                      <clip-loader
+                        :loading="submitting_subscription"
+                        :color="'#fff'"
+                        :size="'1rem'"></clip-loader>
+                    </template>
+                  </button>
+                </form>
+              </div>
             </template>
           </template>
         </footer>
@@ -206,124 +208,34 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 
-//search-result
-
-.page__title {
-  @include rfs($font-size--800);
-}
 .page__place-name {
-  @include rfs($font-size--400);
-  color: var(--color-brand-darkest);
-  font-weight: bold;
-  border: 2px solid var(--color-brand-light);
-  border-radius: var(--border-radius);
+  margin-bottom: var(--spacer--400);
+  border: 1px solid transparent;
+  background-color: var(--color--skyblue-light);
+  border-radius: var(--spacer--500);
   box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.25);
   transition: var(--transition-base);
-  padding: var(--spacer-sm) var(--spacer);
-  margin-bottom: var(--spacer-sm);
+  padding: var(--spacer--400) var(--spacer--400);
+  font-weight: 700;
+  position: relative;
   & + .main-search__group {
-    margin-top: var(--spacer-sm);
-  }
-}
-.page__search-again {
-  @include rfs($font-size-16);
-  color: var(--color-brand-darkest);
-  font-weight: 600;
-  padding: var(--spacer-sm) 0;
-  cursor: pointer;
-  svg {
-    width: 1rem;
-    height: 1rem;
-    margin-right: var(--spacer-sm);
-    path {
-      fill: var(--color-brand);
-    }
-  }
-}
-.main-search__input {
-  font-size: var(--font-size--500);
-  width: 100%;
-  padding: var(--spacer--500);
-  border: 1px solid var(--color--blue-dark);
-  border-radius: var(--spacer--500);
-}
-
-.main-search__button {
-  top: var(--spacer);
-}
-
-.main-search__group {
-  transition: var(--transition-base);
-  &.active {
-    border: 1px solid var(--color-brand);
-    border-radius: var(--border-radius);
-    .main-search__input {
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-      border-top: none;
-      border-right: none;
-      border-left: none;
-      border-color: var(--color-brand);
-    }
+    margin-top: var(--spacer--400);
   }
 }
 .search-result__item {
-  margin: var(--spacer-sm);
-  padding: var(--spacer-sm) 0;
+  margin: 0 var(--spacer--200);
+  padding: var(--spacer--400) var(--spacer--200);
   p {
-    @include rfs($font-size-16);
-    color: var(--color-brand-darkest);
+    font-size: var(--font-size--600);
+    line-height: 1.25;
+    color: var(--color--blue-dark);
     font-weight: 600;
   }
   & + .search-result__item {
-    border-top: 1px solid var(--color-brand-light);
+    border-top: 1px solid var(--color--carolinablue);
   }
 }
-
-.onboarding ::v-deep .onboarding__title {
-  @include rfs($font-size-21);
+.onboarding__footer {
   margin-top: auto;
-  text-transform: uppercase;
-}
-.onboarding__description {
-  @include rfs($font-size-16);
-  font-weight: bold;
-  line-height: calc(22 / 16);
-  color: var(--color-background);
-}
-.onboarding__link {
-  @include rfs($font-size-16);
-  font-weight: bold;
-  color: var(--color-highlight);
-}
-.subscription-form {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-gap: var(--spacer-sm);
-}
-.subscription-form__description {
-  margin-bottom: var(--spacer);
-  color: var(--color-highlight);
-}
-.subscription-form__control {
-  @include rfs($font-size-14);
-  padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
-  border: 2px solid var(--color-background);
-  border-radius: var(--border-radius);
-  &::placeholder {
-    color: #848484;
-    opacity: 1;
-    font-style: italic;
-    font-family: var(--font-family);
-  }
-}
-.subscription-form__submit {
-  @include rfs($font-size-14);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .v-spinner {
-    margin-left: var(--spacer-sm);
-  }
 }
 </style>
