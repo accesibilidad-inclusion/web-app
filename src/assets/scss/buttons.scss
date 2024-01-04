@@ -37,11 +37,6 @@
     color: var(--color--blue-gray);
     border-color: transparent;
   }
-  &.btn--icon {
-    path {
-      fill: var(--color--white);
-    }
-  }
 }
 .btn--secondary {
   background: transparent;
@@ -82,6 +77,9 @@
   text-decoration: underline;
   background: transparent;
   border: none;
+  &:hover {
+    opacity: .8;
+  }
 }
 .btn--icon {
   display: flex;
@@ -89,10 +87,11 @@
   align-items: center;
   gap: var(--spacer--200);
   svg {
-    width: 13px;
-    height: auto;
+    width: auto;
+    height: 13px;
     path {
-      fill: var(--color--blue-dark);
+      fill: currentColor;
+      transition: var(--transition-base);
     }
   }
 }

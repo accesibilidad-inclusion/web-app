@@ -1,6 +1,22 @@
 .custom-control {
   position: relative;
   display: block;
+  input {
+    font-size: var(--font-size--500);
+    font-weight: 600;
+    width: 100%;
+    padding: var(--spacer--500);
+    border: 1px solid var(--color--blue-dark);
+    border-radius: var(--spacer--500);
+    color: var(--color--blue-dark);
+    &::placeholder {
+      color: var(--color--blue-light);
+      font-style: italic;
+    }
+    &:focus-visible {
+      outline: var(--color--blue-dark) solid 1px;
+    }
+  }
 }
 .custom-control__label {
   font-size: var(--font-size--500);
@@ -26,4 +42,52 @@
   position: absolute;
   z-index: -1;
   opacity: 0;
+}
+
+// search
+.custom-control--search {
+  input {
+    padding-right: var(--spacer--700);
+  }
+  button {
+    position: absolute;
+    right: 0;
+    top: 3px;
+    background-color: transparent;
+    border: none;
+    z-index: 9;
+    padding: var(--spacer--500);
+    display: block;
+    cursor: pointer;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// Teaxtarea
+.custom-control--text {
+  textarea {
+    min-height: 180px;
+    font-size: var(--font-size--500);
+    font-weight: 600;
+    width: 100%;
+    padding: var(--spacer--500);
+    border: 1px solid var(--color--blue-dark);
+    border-radius: var(--spacer--500);
+    color: var(--color--blue-dark);
+    &::placeholder {
+      color: var(--color--blue-light);
+      font-style: italic;
+    }
+  }
+}
+
+// Add
+.custom-control--with-btn {
+  margin-bottom: var(--spacer--500);
+  .btn {
+    margin-top: var(--spacer--400);
+  }
 }
