@@ -388,7 +388,7 @@ const toggle = (id: number) => {
     .commune-header__title {
       text-align: left;
       margin-bottom: var(--spacer--300);
-      font-size: var(--font-size--700);
+      @include rfs($font-size-21);
       color: var(--color--blue-dark);
       font-weight: 700;
     }
@@ -435,7 +435,7 @@ const toggle = (id: number) => {
   gap: var(--spacer--300);
   > span {
     font-weight: 700;
-    font-size: var(--font-size--600);
+    @include rfs($font-size-18);
     margin: 0 0 calc(var(--spacer--700) * 0.5);
     display: block;
     text-align: center;
@@ -451,7 +451,7 @@ const toggle = (id: number) => {
   position: relative;
 }
 .main-search__input {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   width: 100%;
   padding: var(--spacer--500);
   border: 1px solid var(--color--blue-dark);
@@ -553,14 +553,14 @@ const toggle = (id: number) => {
     padding: var(--spacer--200) var(--spacer--400);
   }
   .place__name {
-    font-size: var(--font-size--600);
+    @include rfs($font-size-18);
     line-height: 1.25;
     color: var(--color--blue-dark);
     border-radius: var(--spacer--500);
   }
   .name-commune {
     cursor: pointer;
-    font-size: var(--font-size--600);
+    @include rfs($font-size-18);
     line-height: 1.25;
     color: var(--color--blue-dark);
     font-weight: 600;

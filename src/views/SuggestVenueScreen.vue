@@ -226,7 +226,7 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
   margin: 0 var(--spacer--200);
   padding: var(--spacer--400) var(--spacer--200);
   p {
-    font-size: var(--font-size--600);
+    @include rfs($font-size-18);
     line-height: 1.25;
     color: var(--color--blue-dark);
     font-weight: 600;

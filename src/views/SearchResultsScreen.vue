@@ -156,14 +156,14 @@ bus.on(listener)
       grid-area: icon;
     }
     .block-header__title {
-      font-size: var(--font-size--700);
+      @include rfs($font-size-21);
       line-height: calc(25 / 18);
       color: var(--color-brand-darkest);
       grid-area: name;
       margin: 0;
     }
     .block-header__description {
-      font-size: var(--font-size--400);
+      @include rfs($font-size-14);
       color: var(--color--blue-dark);
       grid-area: description;
       margin: 0;
@@ -216,14 +216,14 @@ bus.on(listener)
   }
 }
 .search-no-results__title {
-  font-size: var(--font-size--700);
+  @include rfs($font-size-21);
   line-height: 1.3rem;
   color: var(--color--blue-dark);
   font-weight: 800;
   text-align: center;
 }
 .search-no-results__description {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   line-height: 1.5;
   text-align: center;
 }

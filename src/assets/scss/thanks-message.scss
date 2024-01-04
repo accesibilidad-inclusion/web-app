@@ -51,7 +51,7 @@
 }
 
 .thanks-message__description {
-    font-size: var(--font-size--500);
+    @include rfs($font-size-16);
     color: var(--color--blue-dark);
     text-align: center;
     font-weight: 600;

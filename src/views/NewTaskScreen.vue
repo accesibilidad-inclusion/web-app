@@ -331,7 +331,7 @@ bus.on(listener)
   }
 }
 .step-block-inserted__title {
-  @include rfs($font-size--500);
+  @include rfs($font-size-16);
   font-weight: 700;
   color: var(--color--blue-dark);
 }

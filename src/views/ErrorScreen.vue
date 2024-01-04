@@ -29,6 +29,8 @@ const router = useRouter()
 </template>
 
 <style lang="scss">
+@import '@/assets/scss/rfs.scss';
+
 .onboarding-error {
   display: flex;
   flex-flow: column;
@@ -72,11 +74,11 @@ const router = useRouter()
   }
   .onboarding-error-item__title {
     font-weight: 800;
-    font-size: var(--font-size--600);
+    @include rfs($font-size-18);
     color: var(--color--blue-dark);
     position: relative;
     @media screen and (min-width: 640px) {
-      font-size: var(--font-size--700);
+      @include rfs($font-size-21);
       line-height: 1.3rem;
     }
     .tts {
@@ -86,10 +88,10 @@ const router = useRouter()
     }
   }
   .onboarding-error-item__text {
-    font-size: var(--font-size--400);
+    @include rfs($font-size-14);
     font-weight: 600;
     @media screen and (min-width: 640px) {
-      font-size: var(--font-size--600);
+      @include rfs($font-size-18);
       line-height: 1.5;
     }
   }
