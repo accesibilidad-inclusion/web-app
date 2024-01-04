@@ -40,44 +40,7 @@ const setCategory = (category: Category) => {
 </template>
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
-// .your-location {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding-left: calc(var(--spacer-lg) / 3);
-//   border-radius: 5px;
-//   background-color: var(--color-illustration-bg);
-//   margin-bottom: var(--spacer);
-//   color: #1a4571;
-//   .your-location__change {
-//     @include rfs($font-size-14);
-//     font-weight: 700;
-//     color: var(--color-brand-dark);
-//     padding: calc(var(--spacer-lg) / 3);
-//   }
-//   .your-location__content {
-//     display: flex;
-//     align-items: center;
-//     width: 100%;
-//     gap: var(--spacer-sm);
-//     padding-right: var(--spacer-sm);
-//     border-right: 1px solid var(--color-brand-lighter);
-//     span {
-//       @include rfs($font-size-14);
-//     }
-//     svg {
-//       width: 11px;
-//       height: 15px;
-//       @media screen and (min-width: 640px) {
-//         width: var(--spacer);
-//         height: var(--spacer);
-//       }
-//       path {
-//         fill: var(--color-brand-dark);
-//       }
-//     }
-//   }
-// }
+
 .main-categories {
   padding: var(--spacer--700) var(--spacer--400) var(--spacer--500);
   position: relative;
@@ -91,7 +54,7 @@ const setCategory = (category: Category) => {
   }
 }
 .main-categories__title {
-  font-size: var(--font-size--800);
+  @include rfs($font-size-38);
   color: var(--color--blue-dark);
   font-weight: 800;
   line-height: 105.263%;
@@ -105,7 +68,7 @@ const setCategory = (category: Category) => {
     a {
       border: 1px solid var(--color--blue-dark);
       padding: var(--spacer--500) var(--spacer--400);
-      background: white;
+      background: var(--color--white);
       border-radius: var(--spacer--500);
       color: var(--color--blue-dark);
       display: grid;
@@ -121,7 +84,7 @@ const setCategory = (category: Category) => {
   }
 }
 .main-categories__description {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   font-weight: 700;
   line-height: 1.11;
   margin: var(--spacer--600) 0 calc(var(--spacer--700) * 0.5);
@@ -131,13 +94,13 @@ const setCategory = (category: Category) => {
   grid-area: icon;
 }
 .category__name {
+  @include rfs($font-size-16);
   grid-area: name;
   display: block;
-  font-size: var(--font-size--500);
   font-weight: 700;
 }
 .category__description {
+  @include rfs($font-size-14);
   grid-area: description;
-  font-size: var(--font-size--400);
 }
 </style>
