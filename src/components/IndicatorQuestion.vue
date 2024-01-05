@@ -98,7 +98,7 @@ defineEmits(['reply'])
   }
 }
 .evaluation-block__grade {
-  font-size: var(--font-size--800);
+  @include rfs($font-size-38);
   font-weight: 800;
   line-height: 1.1;
   text-align: center;
@@ -135,7 +135,7 @@ defineEmits(['reply'])
   color: var(--color--blue-light);
   display: block;
   strong {
-    @include rfs($font-size--500);
+    @include rfs($font-size-16);
     font-weight: 700;
     display: block;
     color: var(--color--blue-dark);

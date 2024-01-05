@@ -88,13 +88,13 @@ defineProps<{
   background-color: var(--color--yellow);
 }
 .block-header__title {
-  font-size: var(--font-size--700);
+  @include rfs($font-size-21);
   margin-bottom: var(--spacer--200);
   line-height: calc(25 / 18);
   color: var(--color--blue-dark);
 }
 .block-header__description {
-  font-size: var(--font-size--400);
+  @include rfs($font-size-14);
   color: var(--color--blue-dark);
   margin: var(--spacer--200) 0;
 }

@@ -39,7 +39,7 @@ defineEmits(['click'])
   }
 }
 .item-clickable__title {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   line-height: 1.25;
   color: var(--color--blue-dark);
   grid-area: title;
@@ -47,7 +47,7 @@ defineEmits(['click'])
 .item-clickable__meta {
   grid-area: meta;
   line-height: 1.2;
-  font-size: var(--font-size--400);
+  @include rfs($font-size-14);
   display: flex;
   flex-flow: column;
   gap: var(--spacer--200);

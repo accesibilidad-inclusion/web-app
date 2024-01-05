@@ -56,7 +56,7 @@ venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
   }
 }
 .place__tasks-description {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   font-weight: 700;
   text-align: center;
   display: flex;

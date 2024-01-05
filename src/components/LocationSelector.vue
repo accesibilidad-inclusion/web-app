@@ -48,7 +48,7 @@ const changeLocation = () => {
     margin: var(--spacer--500) var(--spacer--500) 0;
   }
   .your-location__change {
-    font-size: var(--font-size--400);
+    @include rfs($font-size-14);
     font-weight: 600;
     color: var(--color--blue);
     padding: var(--spacer--400) var(--spacer--400);
@@ -61,7 +61,7 @@ const changeLocation = () => {
     padding-right: var(--spacer-sm);
     border-right: 1px solid var(--color--blue);
     span {
-      font-size: var(--font-size--400);
+      @include rfs($font-size-14);
       font-weight: 600;
     }
     svg {

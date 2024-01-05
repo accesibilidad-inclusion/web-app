@@ -62,7 +62,7 @@ defineExpose({
   gap: var(--spacer--400);
 }
 .custom-control__label {
-  font-size: var(--font-size--800);
+  @include rfs($font-size-38);
   font-weight: 800;
   justify-content: center;
   padding: var(--spacer--500) var(--spacer--300);

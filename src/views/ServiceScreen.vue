@@ -154,12 +154,12 @@ bus.on(listener)
 .service__title {
   grid-area: name;
   display: block;
-  font-size: var(--font-size--700);
+  @include rfs($font-size-21);
   font-weight: 700;
 }
 .service__description {
   grid-area: description;
-  font-size: var(--font-size--400);
+  @include rfs($font-size-14);
   font-weight: 600;
 }
 .service__header .tts {
@@ -177,7 +177,7 @@ bus.on(listener)
   flex-grow: 1;
 }
 .items-title {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   font-weight: 700;
   text-align: center;
   margin-top: var(--spacer--600);
@@ -195,7 +195,7 @@ bus.on(listener)
   grid-row: 1/2;
 }
 .venue-block__distance {
-  font-size: var(--font-size--400);
+  @include rfs($font-size-14);
   grid-column: 1/3;
   grid-row: 2/3;
   line-height: 1.33333;

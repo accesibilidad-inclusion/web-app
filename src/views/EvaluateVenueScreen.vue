@@ -337,7 +337,7 @@ const backToVenue = () => {
   }
 }
 .feedback-evaluation__title {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   color: var(--color--blue-dark);
   text-align: center;
   font-weight: 800;
@@ -346,7 +346,7 @@ const backToVenue = () => {
   }
 }
 .feedback-evaluation__description {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   color: var(--color--blue-dark);
   text-align: center;
   font-weight: 600;

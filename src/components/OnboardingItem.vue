@@ -24,6 +24,8 @@ defineProps<{
 </template>
 
 <style lang="scss">
+@import '@/assets/scss/rfs.scss';
+
 .onboarding-item {
   width: 100%;
   line-height: 1.25rem;
@@ -52,20 +54,20 @@ defineProps<{
   }
   .onboarding-item__title {
     font-weight: 700;
-    font-size: var(--font-size--500);
+    @include rfs($font-size-16);
     color: var(--color--blue-dark);
     display: flex;
     justify-content: space-between;
     @media screen and (min-width: 640px) {
-      font-size: var(--font-size--700);
+      @include rfs($font-size-21);
       line-height: 1.3rem;
     }
   }
   .onboarding-item__text {
-    font-size: var(--font-size--400);
+    @include rfs($font-size-14);
     font-weight: 600;
     @media screen and (min-width: 640px) {
-      font-size: var(--font-size--600);
+      @include rfs($font-size-18);
       line-height: 1.5;
     }
   }

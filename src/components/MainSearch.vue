@@ -104,7 +104,7 @@ const doSearch = () => {
   gap: var(--spacer--300);
   > span {
     font-weight: 700;
-    font-size: var(--font-size--600);
+    @include rfs($font-size-18);
     margin: 0 0 calc(var(--spacer--700) * 0.5);
     display: block;
     text-align: center;
@@ -121,13 +121,13 @@ const doSearch = () => {
   gap: var(--spacer--300);
 }
 .main-search__type {
+  @include rfs($font-size-16);
   background: var(--color--white);
   font-weight: 700;
   color: var(--color--blue-dark);
   padding: var(--spacer--400);
   border-radius: var(--spacer--500);
   border: 1px solid var(--color--blue-dark);
-  font-size: var(--font-size--500);
   line-height: 125%;
   display: flex;
   flex-flow: column;
@@ -161,7 +161,7 @@ const doSearch = () => {
   margin: var(--spacer--500) 0;
 }
 .main-search__input {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   width: 100%;
   padding: var(--spacer--500);
   border: 1px solid var(--color--blue-dark);

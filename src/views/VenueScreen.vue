@@ -281,7 +281,7 @@ bus.on(listener)
   }
 }
 .venue__tasks-description {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   font-weight: 700;
   margin: 0 0 var(--spacer--500);
   display: grid;
@@ -368,7 +368,7 @@ bus.on(listener)
   }
 }
 .venue__evaluation-title {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   font-weight: bold;
   line-height: calc(25 / 18);
 }
@@ -454,7 +454,7 @@ bus.on(listener)
   }
 }
 .venue__no-information-desc {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   color: var(--color--blue-dark);
   text-align: center;
   font-weight: 800;

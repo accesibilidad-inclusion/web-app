@@ -45,7 +45,7 @@ bus.on(listener)
     }
     ol {
       padding-left: var(--spacer--500);
-      @include rfs($font-size--500);
+      @include rfs($font-size-16);
       li {
         margin-bottom: var(--spacer--300);
       }
