@@ -292,7 +292,7 @@ const toggle = (id: number) => {
   }
 }
 .activate-location {
-  background-color: var(--color-background);
+  background-color: var(--color--white);
   border-radius: var(--border-radius-lg);
   padding: calc(var(--spacer-lg) / 1.5) calc(var(--spacer-lg) / 3);
   @media screen and (min-width: 640px) {
@@ -513,7 +513,7 @@ const toggle = (id: number) => {
   display: flex;
   box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
   z-index: 100000;
-  background-color: var(--color-background);
+  background-color: var(--color--white);
   @media screen and (min-width: 1280px) {
     max-width: 545px;
   }
@@ -586,7 +586,7 @@ const toggle = (id: number) => {
   }
   .entry-block {
     font-weight: 700;
-    background-color: var(--color-background);
+    background-color: var(--color--white);
     transition: all 0.3s linear;
     padding-bottom: calc(var(--spacer) / 2);
   }
@@ -698,7 +698,7 @@ const toggle = (id: number) => {
 }
 .close-app {
   @include rfs($font-size-14);
-  color: var(--color-background);
+  color: var(--color--white);
   font-weight: 600;
   position: absolute;
   bottom: var(--spacer-sm);
