@@ -33,6 +33,8 @@ defineEmits(['reply'])
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/rfs.scss';
+
 .options-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
