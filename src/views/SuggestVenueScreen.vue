@@ -93,14 +93,14 @@ const submitSubscription = async (event: Event) => {
 }
 
 const bus = useEventBus('close')
-const listener = () => {
+const close = () => {
   router.push(
     appNav.selected.service
       ? '/' + appNav.selected.category?.slug + '/' + appNav.selected.service?.slug
       : '/' + appNav.selected.category?.slug
   )
 }
-bus.on(listener)
+bus.on(close)
 
 watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : {}))
 </script>
@@ -116,15 +116,15 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
         <div v-if="venue" class="page__place-name">
           {{ venue.displayName }}
         </div>
-        <div v-if="!searchAgain" class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon" @click="searchAgain = true">
+        <div
+          v-if="!searchAgain"
+          class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon"
+          @click="searchAgain = true">
           <icon-search /> Buscar nuevamente
         </div>
         <template v-else>
           <div class="custom-control custom-control--search">
-            <input
-              v-model="searchText"
-              type="text"
-              placeholder="Ejemplo: Terminal de buses" />
+            <input v-model="searchText" type="text" placeholder="Ejemplo: Terminal de buses" />
             <button type="submit">
               <icon-search />
             </button>
@@ -149,13 +149,15 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
           <span class="thanks-message__icon">
             <icon-like></icon-like>
           </span>
-          <h2 class="thanks-message__title">
-            Gracias por tu aporte
-          </h2>
+          <h2 class="thanks-message__title">Gracias por tu aporte</h2>
           <p class="thanks-message__description">
             Estás ayudando al mundo a ser un lugar más accesible
           </p>
-          <router-link :to="'/home'" class="btn btn--primary btn--block btn--large btn--filled--skyblue"> Volver </router-link>         
+          <button
+            class="btn btn--primary btn--block btn--large btn--filled--skyblue"
+            @click="close">
+            Volver
+          </button>
         </div>
         <footer class="thanks-message-footer">
           <template v-if="subscription_submitted">
