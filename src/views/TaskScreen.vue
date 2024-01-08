@@ -410,7 +410,7 @@ bus.on(listener)
               </button>
               <form
                 v-if="!state.submitted_feedback"
-                class="task-feedback__form"
+                class="task-feedback__form custom-control--text"
                 @submit.prevent="submitFeedback">
                 <h2 class="task-feedback__title">Reportar un problema con esta tarea</h2>
                 <textarea
@@ -428,14 +428,21 @@ bus.on(listener)
                   <clip-loader :loading="false" :color="'#fff'" :size="'1rem'"></clip-loader>
                 </button>
               </form>
-              <div v-if="state.submitted_feedback" class="task-feedback__response">
-                <p class="task-feedback__response-message">
-                  ¡Gracias!<br />
+              <div v-if="state.submitted_feedback" class="thanks-message">
+                <text-to-speech
+                :text-audio="
+                  '¡Gracias!\n\n\n\n\n\n' +
+                  'tu comentario ha sido enviado'" />
+                <span class="thanks-message__icon">
+                  <icon-like></icon-like>
+                </span>
+                <p class="thanks-message__title">
+                  ¡Gracias!
                   tu comentario ha sido enviado
                 </p>
                 <button
                   type="button"
-                  class="task-feedback__response-close btn btn--large btn--block btn--primary btn--filled--skyblue"
+                  class="btn btn--large btn--primary btn--block"
                   @click="closeFeedback">
                   Cerrar
                 </button>
@@ -464,13 +471,13 @@ bus.on(listener)
   font-weight: 600;
 }
 .task__title {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   margin-bottom: var(--spacer--200);
   line-height: 1.3888888889;
   color: var(--color--blue-dark);
 }
 .task__description {
-  font-size: var(--font-size--400);
+  @include rfs($font-size-14);
   color: var(--color--blue-dark);
   margin: var(--spacer--200) 0;
   a {
@@ -752,13 +759,12 @@ li.task__step-indicator--active {
 }
 // Botón de feedback
 .task__step-feedback {
-  font-size: var(--font-size--400);
+  @include rfs($font-size-14);
   font-weight: 700;
   cursor: pointer;
   position: fixed;
   display: block;
   width: calc(100% - var(--spacer));
-  max-width: calc(560px - var(--spacer));
   bottom: 0;
   left: 0;
   right: 0;
@@ -774,8 +780,12 @@ li.task__step-indicator--active {
     bottom: -100%;
     opacity: 0;
   }
+  @media screen and (min-width: 620px) {
+    max-width: calc(620px - var(--spacer--400));
+  }
   @media screen and (min-width: 1280px) {
     max-width: calc(560px - var(--spacer--600));
+
   }
 }
 // Modal de feedback
@@ -806,8 +816,8 @@ li.task__step-indicator--active {
       animation: quickScaleDown 0s 0.5s linear forwards;
     }
   }
-  @media screen and (min-width: 400px) {
-    max-width: calc(400px - var(--spacer));
+  @media screen and (min-width: 620px) {
+    max-width: calc(620px - var(--spacer--400));
     margin-left: auto;
     margin-right: auto;
     padding: var(--spacer--600) var(--spacer--500) var(--spacer--400);
@@ -844,20 +854,13 @@ li.task__step-indicator--active {
   height: 100%;
 }
 .task-feedback__title {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   margin-bottom: var(--spacer);
 }
 .task-feedback__control {
-  font-size: var(--font-size--400);
-  width: 100%;
   height: 40vh;
   min-height: 80px;
   max-height: 250px;
-  margin-bottom: var(--spacer);
-  padding: var(--spacer);
-  font-family: var(--font-family);
-  border: none;
-  border-radius: var(--spacer--500);
 }
 .task-feedback__submit {
   margin-top: auto;
@@ -879,10 +882,6 @@ li.task__step-indicator--active {
   font-weight: bold;
   line-height: calc(25 / 18);
   text-transform: uppercase;
-}
-.task-feedback__response-close {
-  margin-top: auto;
-  margin-bottom: var(--spacer--600);
 }
 
 /*Tarea sin pictogramas*/
@@ -909,14 +908,14 @@ li.task__step-indicator--active {
   }
 }
 .without-pictogram__title {
-  font-size: var(--font-size--700);
+  @include rfs($font-size-21);
   line-height: 1.3rem;
   font-weight: 800;
   text-align: center;
   margin-bottom: var(--spacer-sm);
 }
 .without-pictogram__description {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   line-height: 1.5;
   text-align: center;
   @media screen and (min-width: 640px) {
@@ -939,11 +938,6 @@ li.task__step-indicator--active {
 /*Tarea sin pasos*/
 .task-empty--hidden {
   display: none;
-}
-.task__main {
-  .task-empty & {
-    background-color: red !important;
-  }
 }
 .task-empty {
   display: flex;
@@ -972,7 +966,7 @@ li.task__step-indicator--active {
   }
 }
 .task-empty__title {
-  font-size: var(--font-size--600);
+  @include rfs($font-size-18);
   color: var(--color--blue-dark);
   text-align: center;
   font-weight: 800;
@@ -981,7 +975,7 @@ li.task__step-indicator--active {
   }
 }
 .task-empty__description {
-  font-size: var(--font-size--500);
+  @include rfs($font-size-16);
   color: var(--color--blue-dark);
   text-align: center;
   font-weight: 600;
