@@ -1,3 +1,4 @@
+import {PresentialTask} from './presential_task'
 import {Venue} from './venue'
 
 export class PresentialVenue extends Venue {
@@ -7,6 +8,7 @@ export class PresentialVenue extends Venue {
   constructor(init?: Partial<PresentialVenue>) {
     super(init)
     Object.assign(this, init)
+    this.tasks = this.tasks?.map((t) => new PresentialTask(t as PresentialTask))
   }
 
   distanceToText = () => {

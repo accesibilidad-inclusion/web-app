@@ -30,7 +30,7 @@ const selectTask = () => {
 <template>
   <div class="task task-block" tag="article" @click="selectTask()">
     <DrawPictogram
-      v-if="preview && task instanceof PresentialTask"
+      v-if="preview && task instanceof PresentialTask && task.preview"
       class="task-block__preview"
       :layers="task.preview" />
     <p class="task-block__title">{{ task.title }}</p>

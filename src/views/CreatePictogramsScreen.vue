@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, reactive, ref} from 'vue'
+import {computed, defineComponent, reactive, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useEventBus, useFetch} from '@vueuse/core'
 
@@ -39,7 +39,12 @@ const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/images`
   .get()
   .json()
 
-images.value = data.value
+images.value = data.value.map((d: Image) => {
+  return {
+    ...d,
+    component: defineComponent(() => import(d.path + d.filename + '?component'))
+  }
+})
 
 const active_step = ref(0)
 const tab = ref<'subject' | 'landmark' | 'context'>('subject')
@@ -146,10 +151,10 @@ const submitSubscription = async () => {
               </div>
               <div class="task-step-main">
                 <figcaption class="task-step__legend">
-                    <div class="task-step__number">
-                      Paso {{ active_step + 1 }} de {{ task.steps.length }}
-                    </div>
-                    <div class="task-text__description">{{ step.label }}</div>
+                  <div class="task-step__number">
+                    Paso {{ active_step + 1 }} de {{ task.steps.length }}
+                  </div>
+                  <div class="task-text__description">{{ step.label }}</div>
                   <text-to-speech :text-audio="step.label" />
                 </figcaption>
               </div>
@@ -191,7 +196,8 @@ const submitSubscription = async () => {
               :class="{
                 image__active: image.id === pictograms[active_step][tab]
               }">
-              <img :src="`${image.path}${image.filename}`" style="width: 40%" />
+              <!-- <img :src="`${image.path}${image.filename}`" style="width: 40%" /> -->
+              <component :is="image.component" />
               <div>{{ image.label }}</div>
             </div>
           </div>
@@ -234,9 +240,7 @@ const submitSubscription = async () => {
         <span class="thanks-message__icon">
           <icon-like></icon-like>
         </span>
-        <h2 class="thanks-message__title">
-          Gracias por tu aporte
-        </h2>
+        <h2 class="thanks-message__title">Gracias por tu aporte</h2>
         <p class="thanks-message__description">
           Estás ayudando al mundo a ser un lugar más accesible
         </p>
@@ -371,11 +375,10 @@ const submitSubscription = async () => {
   height: 100%;
   transform: translateX(100%);
   transition:
-  opacity 0.25s 0.25s ease-out,
-  transform 0 0;
+    opacity 0.25s 0.25s ease-out,
+    transform 0 0;
   list-style: none;
   opacity: 0;
-  
 }
 .task-step--active {
   position: relative;
@@ -588,7 +591,7 @@ const submitSubscription = async () => {
 
 .select-pictogram__img {
   display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacer--400);
   padding: var(--spacer--500) var(--spacer--500) var(--spacer--500);
   div {
@@ -605,7 +608,7 @@ const submitSubscription = async () => {
     }
   }
   .image__active {
-    position: relative;   
+    position: relative;
     img {
       border-width: 2px;
     }
@@ -613,7 +616,7 @@ const submitSubscription = async () => {
       content: '';
       background-image: url("data:image/svg+xml,%0A%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='15' cy='15' r='14.5' fill='%23F6C254' stroke='%23041C42'/%3E%3Cpath d='M12.3464 21.3786L12.7 21.7321L13.0536 21.3786L23.6536 10.7786L24.0071 10.425L23.6536 10.0714L22.2286 8.64645L21.875 8.29289L21.5214 8.64645L12.7 17.4679L8.77855 13.5464L8.425 13.1929L8.07145 13.5464L6.64645 14.9714L6.29289 15.325L6.64645 15.6786L12.3464 21.3786Z' fill='%23CAE0FF' stroke='%23041C42'/%3E%3C/svg%3E%0A");
       background-repeat: no-repeat;
-      position: absolute; 
+      position: absolute;
       top: var(--spacer--400);
       right: var(--spacer--400);
       width: 2rem;

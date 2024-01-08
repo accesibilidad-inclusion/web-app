@@ -38,6 +38,9 @@ type.value = data.value.type
 appNav.theme = type.value
 category.value = new Category(data.value.category)
 service.value = new Service(data.value.service)
+delete Object.assign(data.value.venue, {['tasks']: data.value.venue['published_tasks']})[
+  'published_tasks'
+]
 venue.value =
   data.value.type === 'online'
     ? new OnlineVenue(data.value.venue)
