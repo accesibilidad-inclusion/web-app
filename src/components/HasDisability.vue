@@ -56,6 +56,8 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/rfs.scss';
+
 .form-radio {
   display: grid;
   grid-template-columns: 1fr 1fr;

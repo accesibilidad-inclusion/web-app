@@ -194,7 +194,7 @@ bus.on(listener)
   padding: var(--spacer);
   text-align: center;
   line-height: calc(22 / 16);
-  color: var(--color-background);
+  color: var(--color--white);
   background: var(--color-brand-darkest);
   @media screen and (min-width: 640px) {
     margin-left: 0;
@@ -248,7 +248,7 @@ bus.on(listener)
   @include rfs($font-size-12);
   position: relative;
   font-weight: bold;
-  color: var(--color-background);
+  color: var(--color--white);
   z-index: 10;
   svg {
     position: relative;
