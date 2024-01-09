@@ -61,7 +61,7 @@ const doSearch = () => {
       <div v-if="filterSelected">
         <InputSearch :type="filterSelected" v-model="query" @search="doSearch" />
         <button
-          v-bind:class="'main-search__button' + ' main-search__button--' + filterSelected"
+          v-bind:class="'btn btn--large btn--block main-search__button' + ' main-search__button--' + filterSelected"
           :disabled="query.trim() == ''"
           @click="doSearch">
           Ver resultados
@@ -78,17 +78,6 @@ const doSearch = () => {
   padding: calc(var(--spacer--400) * 3) var(--spacer--400);
   background: var(--color--blue);
   color: var(--color--white);
-  // @media screen and (min-width: 640px) {
-  //   margin-left: calc(var(--spacer-lg) * -1);
-  //   margin-right: calc(var(--spacer-lg) * -1);
-  //   padding: calc(var(--spacer-lg) / 2) var(--spacer-lg) var(--spacer-xl);
-  // }
-  // @media screen and (min-width: 1280px) {
-  //   margin-left: calc(var(--spacer-xl) * -1);
-  //   margin-right: calc(var(--spacer-xl) * -1);
-  //   padding-left: var(--spacer-xl);
-  //   padding-right: var(--spacer-xl);
-  // }
 }
 .main-search__label {
   display: flex;
@@ -100,11 +89,6 @@ const doSearch = () => {
     margin: 0 0 calc(var(--spacer--700) * 0.5);
     display: block;
     text-align: center;
-  }
-  .tts {
-    svg path {
-      fill: var(--color--white);
-    }
   }
 }
 .main-search__types {
@@ -149,28 +133,34 @@ const doSearch = () => {
   }
 }
 .main-search__button {
-  width: 100%;
-  border: 1px solid var(--color--skyblue-light);
-  border-radius: var(--spacer--700);
-  color: var(--color--skyblue-light);
-  background: transparent;
-  padding: var(--spacer--400);
   font-weight: 700;
 }
-.main-search__button--online {
-  border-color: var(--color--yellow-light);
-  color: var(--color--yellow-light);
-}
-@media screen and (max-width: 640px) {
-  input[type='email'],
-  input[type='search'],
-  input[type='text'],
-  select:focus,
-  textarea {
-    font-size: 16px;
+.main-search__button--presential {
+  background: var(--color--skyblue-light);
+  color: var(--color--blue-dark);
+  border-color: currentColor;
+  &:hover {
+    background: var(--color--skyblue);
+  }
+  &:disabled {
+    background: transparent;
+    color: var(--color--skyblue-light);
+    border: 1px solid var(--color--skyblue-light);
   }
 }
-
+.main-search__button--online {
+  background: var(--color--yellow-light);
+  color: var(--color--blue-dark);
+  border-color: currentColor;
+  &:hover {
+    background: var(--color--yellow);
+  }
+  &:disabled {
+    background: transparent;
+    color: var(--color--yellow-light);
+    border: 1px solid var(--color--yellow-light);
+  }
+}
 .tts :deep(path) {
   fill: var(--color--white);
 }

@@ -1,6 +1,6 @@
 // Buttons
 .btn {
-  @include rfs($font-size--400);
+  @include rfs($font-size-14);
   display: inline-block;
   padding: var(--spacer--300) var(--spacer--400);
   font-family: var(--font-family);
