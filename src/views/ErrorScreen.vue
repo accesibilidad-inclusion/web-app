@@ -35,6 +35,12 @@ const router = useRouter()
   display: flex;
   flex-flow: column;
   background-color: var(--color--skyblue);
+  margin-top: -50px;
+  padding-top: 50px;
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
 }
 .onboarding-error__body {
   flex-grow: 1;
