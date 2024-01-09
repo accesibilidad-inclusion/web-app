@@ -108,7 +108,6 @@ const back = () => {
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .app-nav {
-  position: sticky;
   display: flex;
   justify-content: space-between;
   top: 0;
@@ -117,14 +116,14 @@ const back = () => {
   z-index: var(--z-index-navbar);
   align-items: center;
   @media screen and (min-width: 640px) {
-    padding: var(--spacer--500) var(--spacer--500);
+    padding: var(--spacer--500) var(--spacer--400);
   }
 }
 .app-nav__presential {
-  background: var(--color--skyblue);
+  // background: var(--color--skyblue);
 }
 .app-nav__online {
-  background: var(--color--yellow-light);
+  // background: var(--color--yellow-light);
 }
 .app-nav > .router-link-active:not(:first-child) {
   text-align: left;

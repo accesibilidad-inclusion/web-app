@@ -46,7 +46,7 @@ const appNav = useAppNavStore()
 }
 
 #app-wrap.theme-presential {
-  background: var(--color--skyblue);
+  background: var(--color--skyblue-light);
 }
 #app-wrap.theme-online {
   background: var(--color--yellow-light);
