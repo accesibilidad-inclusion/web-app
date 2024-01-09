@@ -6,10 +6,23 @@ import RecommendedVenues from '@/components/RecommendedVenues.vue'
 </script>
 
 <template>
-  <main>
+  <main class="main-site">
     <LocationSelector />
     <CategoriesList />
     <MainSearch />
     <RecommendedVenues />
   </main>
 </template>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/rfs.scss';
+.main-site {
+  background-color: var(--color--skyblue);
+  margin-top: -50px;
+  padding-top: 50px;
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
+}
+</style>

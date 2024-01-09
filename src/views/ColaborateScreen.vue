@@ -39,17 +39,5 @@ bus.on(listener)
   .onboarding-item__title {
     font-weight: 800;
   }
-  .onboarding-item__text {
-    p {
-      margin-bottom: var(--spacer--400);
-    }
-    ol {
-      padding-left: var(--spacer--500);
-      @include rfs($font-size-16);
-      li {
-        margin-bottom: var(--spacer--300);
-      }
-    }
-  }
 }
 </style>

@@ -679,7 +679,7 @@ bus.on(listener)
   display: block;
   padding: var(--spacer--400);
   text-align: center;
-  color: var(--color-brand-darker);
+  color: var(--color--blue-dark);
   background-color: var(--color-brand-light);
   border: 1px solid var(--color--blue-dark);
   border-radius: var(--spacer--300);

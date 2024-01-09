@@ -18,28 +18,24 @@
   --color-neutral: #727272;
   --color-neutral-light: #b7b7b7;
   --color-neutral-lighter: #d0d0d0;
-  --color-neutral-lightest: #eee;
   --color-brand-darkest: #041c42;
-  --color-brand-darker: #1d3355;
   --color-brand-dark: #004079;
   --color-brand: #5b7fa1;
   --color-brand-light: #a1c9ff;
   --color-brand-lighter: #cae0ff;
   --color-brand-lightest: #f1f7ff;
   --color-highlight: #f6c254;
-  --color-score-bg: #ff8684;
-  --color-score-text: #2a8600;
-  --color-score-bg: #aaf886;
+
+
+
+
   --color-grade-0: #ffffff;
   --color-grade-1: #e2343f;
   --color-grade-2: #ff8a3d;
   --color-grade-3: #ffe830;
   --color-grade-4: #8fc44c;
   --color-grade-5: #0ca1ad;
-  --color-illustration-bg: #e9f2ff;
-  --cyan-blue-lighter: #d8e8ff;
-  --cyan-blue-lightest: #ecf4ff;
-  --blue-medium-light: #8dadf1;
+
 
   // Font sizes and Line height
   --subtitle-font-size: 18px;
@@ -63,12 +59,12 @@
   --font-size--700: 1.313rem; //21px
   --font-size--800: 2.375rem; //38px
 
-  --spacer--200: 5px;
-  --spacer--300: 10px;
-  --spacer--400: 15px;
-  --spacer--500: 20px;
-  --spacer--600: 35px;
-  --spacer--700: 50px;
+  --spacer--200: 0.313rem;  //5px  -xs
+  --spacer--300: 0.625rem;  //10px -sm
+  --spacer--400: 0.938rem;  //15px
+  --spacer--500: 1.25rem;   //20px spacer
+  --spacer--600: 2.188rem;  //35px -lg
+  --spacer--700: 3.125rem;  //50px -xl
 
   --color--blue-dark: #041c42;
   --color--blue: #004079;

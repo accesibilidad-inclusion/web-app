@@ -41,12 +41,9 @@ const changeLocation = () => {
   padding: 0 0 0 var(--spacer--400);
   border-radius: var(--spacer--500);
   background-color: var(--color--skyblue-light);
-  margin: var(--spacer--500) var(--spacer--400) 0;
+  margin: var(--spacer--300) var(--spacer--400) 0;
   color: var(--color--blue);
   right: var(--spacer--400);
-  @media screen and (min-width: 640px) {
-    margin: var(--spacer--500) var(--spacer--500) 0;
-  }
   .your-location__change {
     @include rfs($font-size-14);
     font-weight: 600;

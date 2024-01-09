@@ -127,6 +127,17 @@ bus.on(listener)
   display: flex;
   flex-flow: column nowrap;
   padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
+  background-color: var(--color--skyblue);
+  margin-top: -50px;
+  padding-top: 50px;
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
+  .actions {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 .service__header {
   padding: var(--spacer--500) var(--spacer--400);

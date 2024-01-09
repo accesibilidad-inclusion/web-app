@@ -129,7 +129,7 @@ bus.on(listener)
               ><icon-delete
             /> Eliminar</span>
           </div>
-          <div v-if="addStep" class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon page__add-new-steps" @click="steps.push('')">
+          <div v-if="addStep" class="btn btn--large btn--primary btn--filled--skyblue btn--icon page__add-new-steps" @click="steps.push('')">
             <icon-plus /> Agregar otro paso
           </div>
         </template>
@@ -264,7 +264,7 @@ bus.on(listener)
   text-align: center;
   color: var(--color--blue-dark);
   border-radius: var(--spacer--500);
-  background-color: var(--color--skyblue-light);
+  background-color: var(--color--skyblue);
   padding: var(--spacer--500);
   position: relative;
   .tts {
@@ -305,7 +305,7 @@ bus.on(listener)
   align-items: center;
   margin-bottom: var(--spacer--400);
   border: 1px solid transparent;
-  background-color: var(--color--skyblue-light);
+  background-color: var(--color--white);
   border-radius: var(--spacer--500);
   box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.25);
   transition: var(--transition-base);

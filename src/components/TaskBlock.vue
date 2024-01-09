@@ -74,10 +74,10 @@ const selectTask = () => {
   min-height: 100px;
   overflow: hidden;
   align-items: center;
+  border-bottom: 1px solid var(--color--blue);
 }
 .task-block__content {
   padding: var(--spacer--500) var(--spacer--400);
-  border-top: 1px solid var(--color--blue);
   position: relative;
   display: flex;
   flex-direction: column;
