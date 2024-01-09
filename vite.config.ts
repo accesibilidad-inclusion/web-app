@@ -11,7 +11,9 @@ export default defineConfig({
     vue(),
     svgLoader({
       defaultImport: 'component',
-      svgo: false
+      svgoConfig: {
+        multipass: true
+      }
     }),
     VitePWA({
       registerType: 'autoUpdate',
