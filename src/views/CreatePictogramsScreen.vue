@@ -193,7 +193,7 @@ const submitSubscription = async () => {
               }">
               <!-- <img :src="`${image.path}${image.filename}`" style="width: 40%" /> -->
               <component :is="image.component" />
-              <div>{{ image.label }}</div>
+              <div class="select-pictogram__label">{{ image.label }}</div>
             </div>
           </div>
         </div>
@@ -248,7 +248,7 @@ const submitSubscription = async () => {
             '/' +
             appNav.selected.venue?.slug
           "
-          class="btn btn--as-link">
+          class="btn btn--primary btn--block btn--large btn--filled--skyblue">
           Volver a {{ appNav.selected.venue?.name }}
         </router-link>
       </div>
@@ -265,31 +265,33 @@ const submitSubscription = async () => {
           <template v-if="!show_subscription_form">
             <button
               type="button"
-              class="btn btn--large btn--primary btn--block btn--filled--skyblue"
+              class="btn btn--large btn--block btn--primary"
               @click="show_subscription_form = true">
               Sí, avísame
             </button>
           </template>
           <template v-else>
-            <form class="subscription-form" @submit="submitSubscription">
-              <input
-                v-model="subscription_email"
-                type="email"
-                class="subscription-form__control"
-                placeholder="Escribe tu email aquí" />
-              <button
-                type="submit"
-                class="btn btn--ghost subscription-form__submit"
-                :disabled="submitting_subscription">
-                Enviar
-                <template v-if="submitting_subscription">
-                  <clip-loader
-                    :loading="submitting_subscription"
-                    :color="'#fff'"
-                    :size="'1rem'"></clip-loader>
-                </template>
-              </button>
-            </form>
+            <div class="thanks-message__form">
+              <form class="subscription-form custom-control" @submit="submitSubscription">
+                <input
+                  v-model="subscription_email"
+                  type="email"
+                  class="thanks-message__email"
+                  placeholder="Escribe tu email aquí" />
+                <button
+                  type="submit"
+                  class="btn btn--large btn--primary btn--icon"
+                  :disabled="submitting_subscription">
+                  Enviar
+                  <template v-if="submitting_subscription">
+                    <clip-loader
+                      :loading="submitting_subscription"
+                      :color="'#fff'"
+                      :size="'1rem'"></clip-loader>
+                  </template>
+                </button>
+              </form>
+            </div>
           </template>
         </template>
       </footer>
@@ -370,8 +372,8 @@ const submitSubscription = async () => {
   height: 100%;
   transform: translateX(100%);
   transition:
-    opacity 0.25s 0.25s ease-out,
-    transform 0 0;
+  opacity 0.25s 0.25s ease-out,
+  transform 0 0;
   list-style: none;
   opacity: 0;
 }
@@ -452,116 +454,20 @@ const submitSubscription = async () => {
   gap: 0 var(--spacer-sm);
   grid-template-columns: 1fr 1fr;
   padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
-  }
-}
-// Modal de feedback
-.task-feedback {
-  position: absolute;
-  width: calc(100vw - var(--spacer));
-  height: 100%;
-  top: 100%;
-  left: 0;
+  background-color: var(--color--skyblue-light);
+  position: fixed;
+  width: 100%;
   right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  padding: var(--spacer);
-  background-color: var(--color-brand-lighter);
-  transition: top 0.35s ease;
-  border-top-left-radius: var(--spacer);
-  border-top-right-radius: var(--spacer);
-  overflow: hidden;
-  .modal--fade:not(.modal--fade-out) & {
-    top: var(--spacer-lg);
-    overflow: unset;
-  }
-  &.task-feedback--submitted {
-    color: var(--color-highlight);
-    background-color: var(--color-brand-darkest);
-    transition: var(--transition-base);
-    .task-feedback__form {
-      animation: quickScaleDown 0s 0.5s linear forwards;
-    }
-  }
-  @media screen and (min-width: 640px) {
-    max-width: calc(640px - var(--spacer));
-    margin-left: auto;
-    margin-right: auto;
-    padding: var(--spacer-lg);
+  left: 0;
+  bottom: 0;
+  margin: 0 auto;
+  @media screen and (min-width: 620px) {
+    padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
+    max-width: 620px;
   }
   @media screen and (min-width: 1280px) {
-    max-width: calc(750px - var(--spacer-lg));
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+    max-width: 560px;
   }
-  .modal__close {
-    cursor: pointer;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: var(--spacer-lg);
-    height: var(--spacer-lg);
-    top: calc(var(--spacer-lg) * -1);
-    right: var(--spacer-xs);
-    line-height: 0;
-    background: none;
-    border: none;
-    svg {
-      width: 1rem;
-      height: 1rem;
-    }
-    path {
-      fill: #fff;
-    }
-  }
-}
-.task-feedback__form {
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100%;
-}
-.task-feedback__title {
-  font-size: var(--font-size--500);
-  margin-bottom: var(--spacer);
-}
-.task-feedback__control {
-  font-size: var(--font-size--400);
-  width: 100%;
-  height: 40vh;
-  min-height: 80px;
-  max-height: 250px;
-  margin-bottom: var(--spacer);
-  padding: var(--spacer);
-  font-family: var(--font-family);
-  border: none;
-  border-radius: var(--spacer--500);
-}
-.task-feedback__submit {
-  margin-top: auto;
-  margin-bottom: var(--spacer-lg);
-}
-.task-feedback__response {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-}
-.task-feedback__response-message {
-  @include rfs($font-size-18);
-  max-width: 75%;
-  margin-top: auto;
-  margin-bottom: var(--spacer-lg);
-  font-weight: bold;
-  line-height: calc(25 / 18);
-  text-transform: uppercase;
-}
-.task-feedback__response-close {
-  margin-top: auto;
-  margin-bottom: var(--spacer-lg);
 }
 
 .pictogram__layer--action {
@@ -595,6 +501,7 @@ const submitSubscription = async () => {
     align-items: center;
     justify-content: flex-start;
     gap: var(--spacer--300);
+    cursor: pointer;
     img {
       width: 100% !important;
       background-color: var(--color--white);
@@ -618,5 +525,9 @@ const submitSubscription = async () => {
       height: 2rem;
     }
   }
+}
+.select-pictogram__label {
+  @include rfs($font-size-14);
+  font-weight: 600;
 }
 </style>
