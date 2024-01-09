@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {RouterView} from 'vue-router'
 import AppNav from './components/AppNav.vue'
-import SpinnerLoader from '@/components/SpinnerLoader.vue'
+import LoadingLayer from '@/components/LoadingLayer.vue'
 import {useAppNavStore} from './stores/app-nav'
 
 const appNav = useAppNavStore()
@@ -17,7 +17,7 @@ const appNav = useAppNavStore()
             <component :is="Component" />
           </template>
           <template #fallback>
-            <SpinnerLoader />
+            <LoadingLayer />
           </template>
         </Suspense>
       </Transition>

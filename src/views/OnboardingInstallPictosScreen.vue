@@ -2,9 +2,14 @@
 import {useRouter} from 'vue-router'
 
 import OnboardingNav from '@/components/OnboardingNav.vue'
-import OnboardingImage1 from '@/assets/img/illustrations/nueva-tarea 1.svg?component'
+import InstalaPictos from '@/assets/img/illustrations/instala-pictos.svg?component'
+import InstalaIphone1 from '@/assets/img/illustrations/instala-iphone1.svg?component'
+import InstalaIphone2 from '@/assets/img/illustrations/instala-iphone2.svg?component'
+import InstalaIphone3 from '@/assets/img/illustrations/instala-iphone3.svg?component'
+import InstalaAndroid1 from '@/assets/img/illustrations/instala-android1.svg?component'
+import InstalaAndroid2 from '@/assets/img/illustrations/instala-android2.svg?component'
+import InstalaAndroid3 from '@/assets/img/illustrations/instala-android3.svg?component'
 import {useAppNavStore} from '@/stores/app-nav.js'
-import type {OnboardingOrComponent} from '@/types/onboarding'
 import {useEventBus} from '@vueuse/core'
 import DeviceSelector from '@/components/DeviceSelector.vue'
 import {useAppSessionStore} from '@/stores/app-session'
@@ -18,7 +23,7 @@ const sequence = computed(() => [
   {
     title: 'Instala PICTOS en tu dispositivo',
     body: 'Te ayudamos a instalar un acceso directo a PICTOS en tu dispositivo',
-    image: OnboardingImage1
+    image: InstalaPictos
   },
   DeviceSelector,
   {
@@ -28,7 +33,7 @@ const sequence = computed(() => [
       appSession.user.device == 'Iphone'
         ? 'Cuando estés en PICTOS presiona el botón central del menú inferior'
         : 'Cuando estés en PICTOS presiona los tres puntos que se encuentran a la derecha en el menú superior',
-    image: appSession.user.device == 'Iphone' ? OnboardingImage1 : OnboardingImage1
+    image: appSession.user.device == 'Iphone' ? InstalaIphone1 : InstalaAndroid1
   },
   {
     title: appSession.user.device == 'Iphone' ? 'Agregar a Inicio' : 'Instalar Aplicación',
@@ -36,7 +41,7 @@ const sequence = computed(() => [
       appSession.user.device == 'Iphone'
         ? 'Cuando se abra el menú inferior, presiona la opción Agregar a Inicio'
         : 'Cuando se abra el menú lateral, presiona la opción Instalar aplicación',
-    image: appSession.user.device == 'Iphone' ? OnboardingImage1 : OnboardingImage1
+    image: appSession.user.device == 'Iphone' ? InstalaIphone2 : InstalaAndroid2
   },
   {
     title: appSession.user.device == 'Iphone' ? 'Agregar a Inicio' : 'Confirma la instalación',
@@ -44,7 +49,7 @@ const sequence = computed(() => [
       appSession.user.device == 'Iphone'
         ? 'Cuando se abra la opción Agregar a Inicio, presiona el botón “Agregar” en la esquina superior derecha'
         : 'Cuando se abra la opción Instalar aplicación, presiona el botón “Instalar”',
-    image: appSession.user.device == 'Iphone' ? OnboardingImage1 : OnboardingImage1
+    image: appSession.user.device == 'Iphone' ? InstalaIphone3 : InstalaAndroid3
   }
 ])
 

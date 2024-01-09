@@ -17,6 +17,7 @@ import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 import IconDislike from '@/assets/img/app-icons/instructions/dislike.svg?component'
 import {Category} from '@/model/category'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
+import SpinnerLoader from '@/components/SpinnerLoader.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -410,27 +411,22 @@ bus.on(listener)
                   placeholder="Ejemplo: El pictograma no coincide con la instrucción"
                   required></textarea>
                 <button
+                  :disabled="state.submitting_feedback"
                   :class="
                     'task-feedback__submit btn btn--large btn--block' +
-                    (feedback.body === '' ? ' btn--ghost-primary' : ' btn--primary') +
-                    (state.submitting_feedback ? ' btn--loading' : '')
+                    (feedback.body === '' ? ' btn--ghost-primary' : ' btn--primary')
                   ">
                   Enviar
-                  <clip-loader :loading="false" :color="'#fff'" :size="'1rem'"></clip-loader>
+                  <SpinnerLoader v-if="state.submitting_feedback" />
                 </button>
               </form>
               <div v-if="state.submitted_feedback" class="thanks-message">
                 <text-to-speech
-                :text-audio="
-                  '¡Gracias!\n\n\n\n\n\n' +
-                  'tu comentario ha sido enviado'" />
+                  :text-audio="'¡Gracias!\n\n\n\n\n\n' + 'tu comentario ha sido enviado'" />
                 <span class="thanks-message__icon">
                   <icon-like></icon-like>
                 </span>
-                <p class="thanks-message__title">
-                  ¡Gracias!
-                  tu comentario ha sido enviado
-                </p>
+                <p class="thanks-message__title">¡Gracias! tu comentario ha sido enviado</p>
                 <button
                   type="button"
                   class="btn btn--large btn--primary btn--block"
@@ -776,7 +772,6 @@ li.task__step-indicator--active {
   }
   @media screen and (min-width: 1280px) {
     max-width: calc(560px - var(--spacer--600));
-
   }
 }
 // Modal de feedback

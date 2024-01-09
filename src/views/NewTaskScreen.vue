@@ -8,6 +8,7 @@ import IconCheck from '@/assets/img/app-icons/support/check2.svg?component'
 import IconDelete from '@/assets/img/app-icons/support/error.svg?component'
 import IconMenu from '@/assets/img/app-icons/support/menu.svg?component'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
+import SpinnerLoader from '@/components/SpinnerLoader.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {useEventBus, useFetch} from '@vueuse/core'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
@@ -29,11 +30,12 @@ const stepEdit = ref('')
 const editing = ref<number | null>(null)
 const submited = ref(false)
 const show_subscription_form = ref(false)
-const submitting_subscription = ref(false)
+const submitting = ref(false)
 const subscription_email = ref('')
 const id = ref<number | null>(null)
 
 const sendTask = async () => {
+  submitting.value = true
   const {data} = await useFetch(
     `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/contribution`
   )
@@ -46,6 +48,7 @@ const sendTask = async () => {
 
   id.value = data.value.id
   showStep.value = 4
+  submitting.value = false
 }
 const editStep = (i: number) => {
   editing.value = i
@@ -53,7 +56,7 @@ const editStep = (i: number) => {
 }
 const submitSubscription = async (event: Event) => {
   event.preventDefault()
-  submitting_subscription.value = true
+  submitting.value = true
   await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/addNotification`)
     .post({
       id: id.value,
@@ -62,7 +65,7 @@ const submitSubscription = async (event: Event) => {
     .json()
 
   submited.value = true
-  submitting_subscription.value = false
+  submitting.value = false
 }
 
 const setStep = (i: number) => {
@@ -78,11 +81,11 @@ const bus = useEventBus('close')
 const listener = () => {
   router.push(
     '/' +
-    appNav.selected.category?.slug +
-    '/' +
-    appNav.selected.service?.slug +
-    '/' +
-    appNav.selected.venue?.slug 
+      appNav.selected.category?.slug +
+      '/' +
+      appNav.selected.service?.slug +
+      '/' +
+      appNav.selected.venue?.slug
   )
 }
 bus.on(listener)
@@ -99,7 +102,12 @@ bus.on(listener)
           </h2>
           <div class="custom-control custom-control--with-btn">
             <input v-model="task" type="text" placeholder="Ejemplo: Comprar tarjeta" />
-            <span v-if="task.trim() != ''" @click="showStep = 2" class="btn btn--primary btn--block btn--large btn--icon"><icon-plus /> Agregar</span>
+            <span
+              v-if="task.trim() != ''"
+              @click="showStep = 2"
+              class="btn btn--primary btn--block btn--large btn--icon"
+              ><icon-plus /> Agregar</span
+            >
           </div>
         </template>
         <template v-else-if="showStep == 2">
@@ -126,10 +134,13 @@ bus.on(listener)
               v-if="steps.length > 3"
               class="btn btn--large btn--icon btn--as-link page__delete-new-steps"
               @click="steps.splice(index, 1)"
-              ><icon-delete
-            /> Eliminar</span>
+              ><icon-delete /> Eliminar</span
+            >
           </div>
-          <div v-if="addStep" class="btn btn--large btn--primary btn--filled--skyblue btn--icon page__add-new-steps" @click="steps.push('')">
+          <div
+            v-if="addStep"
+            class="btn btn--large btn--primary btn--filled--skyblue btn--icon page__add-new-steps"
+            @click="steps.push('')">
             <icon-plus /> Agregar otro paso
           </div>
         </template>
@@ -151,12 +162,11 @@ bus.on(listener)
             {{ index + 1 }}
             <template v-if="editing != index"
               ><p class="step-block-inserted__title">{{ step }}</p>
-              <span @click="editStep(index)" class="step-block-inserted__edit"><icon-menu/></span
+              <span @click="editStep(index)" class="step-block-inserted__edit"><icon-menu /></span
             ></template>
-            <template v-else
-              >
+            <template v-else>
               <div class="custom-control">
-                <input v-model="stepEdit" type="text"/>
+                <input v-model="stepEdit" type="text" />
               </div>
               <div class="step-block-inserted__actions">
                 <span class="step-block-inserted__btn" @click="setStep(index)"
@@ -181,9 +191,7 @@ bus.on(listener)
             <span class="thanks-message__icon">
               <icon-like></icon-like>
             </span>
-            <h2 class="thanks-message__title">
-              Gracias por tu aporte
-            </h2>
+            <h2 class="thanks-message__title">Gracias por tu aporte</h2>
             <p class="thanks-message__description">
               Estás ayudando al mundo a ser un lugar más accesible
             </p>
@@ -229,14 +237,9 @@ bus.on(listener)
                 <button
                   type="submit"
                   class="btn btn--large btn--primary btn--icon"
-                  :disabled="submitting_subscription">
+                  :disabled="submitting">
                   Enviar
-                  <template v-if="submitting_subscription">
-                    <clip-loader
-                      :loading="submitting_subscription"
-                      :color="'#fff'"
-                      :size="'1rem'" ></clip-loader>
-                  </template>
+                  <SpinnerLoader v-if="submitting" />
                 </button>
               </form>
             </div>
@@ -246,10 +249,10 @@ bus.on(listener)
           v-else
           :tag="'button'"
           class="btn btn--large btn--block btn--primary page__footer"
-          :disabled="!addStep"
+          :disabled="!addStep || submitting"
           @click="showStep < 3 ? (showStep = 3) : sendTask()">
           <span v-if="showStep < 3">Listo</span>
-          <span v-else>Confirmar</span>
+          <span v-else>Confirmar <SpinnerLoader v-if="submitting" /></span>
         </button>
       </footer>
     </div>
@@ -383,5 +386,4 @@ bus.on(listener)
   width: auto;
   height: 11px;
 }
-
 </style>

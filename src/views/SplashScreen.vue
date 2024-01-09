@@ -3,6 +3,7 @@ import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import {useRouter} from 'vue-router'
 import LogoPictos from '@/assets/img/app-icons/logo-pictos-light.svg?component'
+import SpinnerLoader from '@/components/SpinnerLoader.vue'
 
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
@@ -28,7 +29,7 @@ if (appData.initialized) {
     </header>
     <div class="splash__tagline">
       <p>Servicio de navegación y evaluación para la accesibilidad cognitiva</p>
-      <!-- <clip-loader :loading="loading" :color="color" :size="size"></clip-loader> -->
+      <SpinnerLoader class="splash__spinner" />
     </div>
   </div>
 </template>
@@ -83,9 +84,7 @@ if (appData.initialized) {
     max-width: 400px;
   }
 }
-
-.v-spinner {
-  margin-top: auto;
-  margin-bottom: auto;
+.splash__spinner {
+  margin-top: 20px;
 }
 </style>

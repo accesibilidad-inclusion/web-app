@@ -4,6 +4,7 @@ import {useRouter} from 'vue-router'
 import {useEventBus, useFetch} from '@vueuse/core'
 
 import DrawPictogram from '@/components/DrawPictogram.vue'
+import SpinnerLoader from '@/components/SpinnerLoader.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppNavStore} from '@/stores/app-nav'
@@ -31,7 +32,7 @@ const pictograms = reactive<
 )
 
 const show_subscription_form = ref<boolean>(false)
-const submitting_subscription = ref<boolean>(false)
+const submitting = ref<boolean>(false)
 const notification_submitted = ref<boolean>(false)
 const subscription_email = ref<string>('')
 
@@ -102,6 +103,7 @@ const getImages = computed(() => {
 })
 
 const saveProposal = async () => {
+  submitting.value = true
   const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/proposal_tasks/store`)
     .post({
       presential_task_id: task.value.id,
@@ -115,10 +117,11 @@ const saveProposal = async () => {
     .json()
   proposalId.value = data.value.id
   submitted.value = true
+  submitting.value = false
 }
 
 const submitSubscription = async () => {
-  submitting_subscription.value = true
+  submitting.value = true
   await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/proposal_tasks/addNotification`)
     .post({
       id: proposalId.value,
@@ -126,7 +129,7 @@ const submitSubscription = async () => {
     })
     .json()
   notification_submitted.value = true
-  submitting_subscription.value = false
+  submitting.value = false
 }
 </script>
 
@@ -191,8 +194,8 @@ const submitSubscription = async () => {
               :class="{
                 image__active: image.id === pictograms[active_step][tab]
               }">
-              <!-- <img :src="`${image.path}${image.filename}`" style="width: 40%" /> -->
-              <component :is="image.component" />
+              <img :src="`${image.path}${image.filename}`" style="width: 40%" />
+              <!-- <component :is="image.component" /> -->
               <div class="select-pictogram__label">{{ image.label }}</div>
             </div>
           </div>
@@ -215,10 +218,11 @@ const submitSubscription = async () => {
           </button>
           <button
             v-if="active_step === task.steps.length - 1"
-            :disabled="!canContinue()"
+            :disabled="!canContinue() || submitting"
             class="btn btn--large btn--primary btn--block"
             @click="saveProposal">
             Guardar
+            <SpinnerLoader v-if="submitting" />
           </button>
         </div>
       </main>
@@ -272,25 +276,20 @@ const submitSubscription = async () => {
           </template>
           <template v-else>
             <div class="thanks-message__form">
-              <form class="subscription-form custom-control" @submit="submitSubscription">
+              <div class="subscription-form custom-control">
                 <input
                   v-model="subscription_email"
                   type="email"
                   class="thanks-message__email"
                   placeholder="Escribe tu email aquí" />
                 <button
-                  type="submit"
                   class="btn btn--large btn--primary btn--icon"
-                  :disabled="submitting_subscription">
+                  @click="submitSubscription"
+                  :disabled="submitting">
                   Enviar
-                  <template v-if="submitting_subscription">
-                    <clip-loader
-                      :loading="submitting_subscription"
-                      :color="'#fff'"
-                      :size="'1rem'"></clip-loader>
-                  </template>
+                  <SpinnerLoader v-if="submitting" />
                 </button>
-              </form>
+              </div>
             </div>
           </template>
         </template>
@@ -372,8 +371,8 @@ const submitSubscription = async () => {
   height: 100%;
   transform: translateX(100%);
   transition:
-  opacity 0.25s 0.25s ease-out,
-  transform 0 0;
+    opacity 0.25s 0.25s ease-out,
+    transform 0 0;
   list-style: none;
   opacity: 0;
 }

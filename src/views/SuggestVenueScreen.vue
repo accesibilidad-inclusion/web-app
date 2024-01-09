@@ -7,6 +7,7 @@ import {useRouter, useRoute} from 'vue-router'
 import {refDebounced, useEventBus, useFetch} from '@vueuse/core'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 import IconSearch from '@/assets/img/app-icons/support/buscar.svg?component'
+import SpinnerLoader from '@/components/SpinnerLoader.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -34,7 +35,7 @@ const searchAgain = ref(true)
 const submitted = ref(false)
 const subscription_submitted = ref(false)
 const show_subscription_form = ref(false)
-const submitting_subscription = ref(false)
+const submitting = ref(false)
 const id = ref(null)
 const subscription_email = ref('')
 
@@ -65,6 +66,7 @@ const setVenue = (place: google.maps.places.Place) => {
 }
 
 const next = async () => {
+  submitting.value = true
   const {data} = await useFetch(
     `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/store_by_user`
   )
@@ -77,11 +79,12 @@ const next = async () => {
     .json()
   submitted.value = true
   id.value = data.value.id
+  submitting.value = false
 }
 
 const submitSubscription = async (event: Event) => {
   event.preventDefault()
-  submitting_subscription.value = true
+  submitting.value = true
   await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/addNotification`)
     .post({
       id: id.value,
@@ -89,7 +92,7 @@ const submitSubscription = async (event: Event) => {
     })
     .json()
   subscription_submitted.value = true
-  submitting_subscription.value = false
+  submitting.value = false
 }
 
 const bus = useEventBus('close')
@@ -139,8 +142,11 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
         </template>
         <div id="map"></div>
         <footer class="onboarding__footer">
-          <button class="btn btn--large btn--block btn--primary" :disabled="!venue" @click="next">
-            Listo
+          <button
+            class="btn btn--large btn--block btn--primary"
+            :disabled="!venue || submitting"
+            @click="next">
+            Listo <SpinnerLoader v-if="submitting" />
           </button>
         </footer>
       </template>
@@ -188,14 +194,9 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
                   <button
                     type="submit"
                     class="btn btn--large btn--primary btn--icon"
-                    :disabled="submitting_subscription">
+                    :disabled="submitting">
                     Enviar
-                    <template v-if="submitting_subscription">
-                      <clip-loader
-                        :loading="submitting_subscription"
-                        :color="'#fff'"
-                        :size="'1rem'"></clip-loader>
-                    </template>
+                    <SpinnerLoader v-if="submitting" />
                   </button>
                 </form>
               </div>
