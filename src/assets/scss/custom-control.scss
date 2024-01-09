@@ -7,7 +7,7 @@
     font-weight: 600;
     width: 100%;
     padding: var(--spacer--500);
-    border: 1px solid var(--color--blue-dark);
+    border: 1px solid var(--color--blue);
     border-radius: var(--spacer--500);
     color: var(--color--blue-dark);
     &::placeholder {
@@ -16,6 +16,13 @@
     }
     &:focus-visible {
       outline: var(--color--blue-dark) solid 1px;
+    }
+    input[type='email'],
+    input[type='search'],
+    input[type='text'],
+    select:focus,
+    textarea {
+      @include rfs($font-size-16);
     }
   }
 }
