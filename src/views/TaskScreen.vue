@@ -320,21 +320,23 @@ bus.on(listener)
             </li>
           </ol>
           <div
-            v-if="!task.steps.filter((s) => s.label).length"
+            v-if="!task.steps.length"
             :class="'task-empty' + (state.active_step < 0 ? '' : ' task-step--active')">
             <div class="task-empty__icon">
               <span>!</span>
             </div>
             <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
-            <p class="task-empty__description">
-              Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y
-              apoyos.
-            </p>
-            <router-link
-              to="/agregar-tarea"
-              class="btn btn--primary btn--large btn--block btn--icon">
-              <IconPlus /> Crear una tarea nueva
-            </router-link>
+            <template v-if="task instanceof PresentialTask">
+              <p class="task-empty__description">
+                Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y
+                apoyos.
+              </p>
+              <router-link
+                to="/agregar-tarea"
+                class="btn btn--primary btn--large btn--block btn--icon">
+                <IconPlus /> Crear una tarea nueva
+              </router-link>
+            </template>
           </div>
           <div class="task__nav">
             <button
@@ -357,6 +359,8 @@ bus.on(listener)
           </div>
           <div
             v-if="
+              task instanceof PresentialTask &&
+              task.steps.length &&
               !task.steps.filter(
                 (s) => s.pictogram && s.pictogram.images.filter((i: any) => i.layout <= 3).length
               ).length
