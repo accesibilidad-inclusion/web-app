@@ -48,12 +48,6 @@ bus.on(listener)
   .onboarding-item__title {
     font-weight: 800;
   }
-  .onboarding-item__text ul {
-    padding-left: var(--spacer--500);
-    li {
-      margin-bottom: var(--spacer--300);
-    }
-  }
 }
 .onboarding__logos {
   background-color: var(--color--blue);
