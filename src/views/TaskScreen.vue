@@ -169,17 +169,7 @@ bus.on(listener)
       <header
         :class="{'header--prerequisites': show_prerequisites}"
         class="task__header entries-list__header">
-        <text-to-speech
-          :text-audio="`${task.title}.\n\n\n\n\n ${venue.name}, en ${service.name}`" />
-        <p class="entries-list__description task__description">
-          <router-link :to="{name: 'venue-screen', params: {placeId: venue.id}}">{{
-            venue.name
-          }}</router-link>
-          en
-          <router-link :to="{name: 'service-screen', params: {serviceId: service.id}}">{{
-            service.name
-          }}</router-link>
-        </p>
+        <text-to-speech :text-audio="`${task.title}.`" />
         <h1 class="task__title entries-list__title">{{ task.title }}</h1>
       </header>
       <template v-if="show_prerequisites">
@@ -230,9 +220,8 @@ bus.on(listener)
                 <div class="task-step-main">
                   <figcaption class="task-step__legend">
                     <span
-                      v-if="
-                        step.pictogram && step.pictogram.images.find((i: any) => i.layout == 4)
-                      " class="task-action">
+                      v-if="step.pictogram && step.pictogram.images.find((i: any) => i.layout == 4)"
+                      class="task-action">
                       <img
                         :src="`${step.pictogram.images.find((i: any) => i.layout == 4)?.path}${
                           step.pictogram.images.find((i: any) => i.layout == 4)?.filename
@@ -340,7 +329,9 @@ bus.on(listener)
               Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y
               apoyos.
             </p>
-            <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block btn--icon">
+            <router-link
+              to="/agregar-tarea"
+              class="btn btn--primary btn--large btn--block btn--icon">
               <IconPlus /> Crear una tarea nueva
             </router-link>
           </div>
@@ -554,8 +545,8 @@ bus.on(listener)
   height: 100%;
   transform: translateX(100%);
   transition:
-  opacity 0.25s 0.25s ease-out,
-  transform 0 0;
+    opacity 0.25s 0.25s ease-out,
+    transform 0 0;
   list-style: none;
   opacity: 0;
   background-color: var(--color--white);
@@ -568,8 +559,8 @@ bus.on(listener)
   flex-grow: 1;
   transform: translateX(0%);
   transition:
-  opacity 0.25s ease-in,
-  transform 0 0.5s;
+    opacity 0.25s ease-in,
+    transform 0 0.5s;
   opacity: 1;
 }
 .task-step__layer {
@@ -814,7 +805,6 @@ li.task__step-indicator--active {
   }
   @media screen and (min-width: 1280px) {
     max-width: calc(560px - var(--spacer--600));
-
   }
   .modal__close {
     cursor: pointer;
@@ -920,7 +910,6 @@ li.task__step-indicator--active {
   line-height: 1.5;
   text-align: center;
   @media screen and (min-width: 640px) {
-    
   }
 }
 .without-pictogram--hidden {
@@ -1017,7 +1006,7 @@ li.task__step-indicator--active {
           margin-bottom: var(--spacer--300);
         }
       }
-    } 
+    }
   }
 }
 .task__single .page__footer {

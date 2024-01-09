@@ -48,6 +48,11 @@ const tutorials = () => {
   closeMenu()
 }
 
+const install = () => {
+  router.push('/instala-pictos')
+  closeMenu()
+}
+
 const close = () => {
   busClose.emit()
 }
@@ -95,6 +100,9 @@ const back = () => {
                 </li>
                 <li>
                   <a href="javascript:void(0)" @click="tutorials">Reactivar tutoriales</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" @click="install">Instala PICTOS en tu dispositivo</a>
                 </li>
               </ul>
             </nav>

@@ -39,12 +39,7 @@ const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/images`
   .get()
   .json()
 
-images.value = data.value.map((d: Image) => {
-  return {
-    ...d,
-    component: defineComponent(() => import(d.path + d.filename + '?component'))
-  }
-})
+images.value = data.value
 
 const active_step = ref(0)
 const tab = ref<'subject' | 'landmark' | 'context'>('subject')

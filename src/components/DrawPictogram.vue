@@ -8,9 +8,14 @@ const props = defineProps<{
 
 const images = ref<Array<Image>>([])
 
+/* const components = ref<Array<Component>>([]) */
+
 watchEffect(() => {
   images.value = props.layers.filter((l: any) => l.layout !== 4)
   images.value.sort((a: any, b: any) => b.layout - a.layout)
+  /* components.value = images.value.map((i: Image) =>
+    defineAsyncComponent(() => import('../../public' + i.path + i.filename + '?component'))
+  ) */
 })
 </script>
 
@@ -19,6 +24,9 @@ watchEffect(() => {
     <template v-for="layer in images" :key="layer.id">
       <img v-bind:src="`${layer.path}${layer.filename}`" class="pictogram__layer" />
     </template>
+    <!-- <template v-for="comp in components" :key="comp">
+      <component :is="comp" class="pictogram__layer" />
+    </template> -->
   </div>
 </template>
 

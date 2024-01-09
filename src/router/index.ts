@@ -58,6 +58,12 @@ const router = createRouter({
       meta: {title: 'Colabora con nosotros', navbar: {logo: true, close: true}}
     },
     {
+      path: '/instala-pictos',
+      name: 'install-pictos-screen',
+      component: () => import('../views/OnboardingInstallPictosScreen.vue'),
+      meta: {title: 'Instala Pictos', navbar: {logo: true, close: true}}
+    },
+    {
       path: '/aprende-a-evaluar/:type',
       name: 'onboarding-evaluation-screen',
       component: () => import('../views/OnboardingEvaluationScreen.vue'),
