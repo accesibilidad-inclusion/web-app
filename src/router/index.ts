@@ -82,6 +82,12 @@ const router = createRouter({
       meta: {title: 'Evalua este lugar', navbar: {logo: true, close: true}}
     },
     {
+      path: '/definir-evaluacion/:score',
+      name: 'define-evaluation-screen',
+      component: () => import('../views/DefineEvaluationScreen.vue'),
+      meta: {title: '¿Qué significa esta evaluación?', navbar: {logo: true, close: true}}
+    },
+    {
       path: '/aprende-a-sugerir-lugares/',
       name: 'onboarding-add-venue-screen',
       component: () => import('../views/OnboardingSuggestVenuesScreen.vue'),

@@ -102,7 +102,7 @@ bus.on(listener)
         <footer class="venue__footer">
           <router-link
             v-if="evaluation"
-            :to="'/evaluacion/' + evaluation.grade"
+            :to="'/definir-evaluacion/' + evaluation.grade"
             class="venue__evaluation">
             <text-to-speech
               :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`" />
@@ -149,7 +149,7 @@ bus.on(listener)
           <footer class="venue__footer">
             <router-link
               v-if="evaluation"
-              :to="'/evaluacion/' + evaluation.grade"
+              :to="'/definir-evaluacion/' + evaluation.grade"
               class="venue__evaluation">
               <text-to-speech
                 :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`" />
