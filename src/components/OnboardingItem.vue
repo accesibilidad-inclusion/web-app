@@ -29,6 +29,10 @@ defineProps<{
 .onboarding-item {
   width: 100%;
   line-height: 1.25rem;
+  margin-top: -50px;
+  @media screen and (min-width: 640px) {
+    margin-top: -61px;
+  }
 }
 .onboarding-item__content-image {
   width: 100%;
@@ -66,6 +70,22 @@ defineProps<{
   .onboarding-item__text {
     @include rfs($font-size-14);
     font-weight: 600;
+    ul {
+      padding-left: var(--spacer--500);
+      li {
+        margin-bottom: var(--spacer--300);
+      }
+    }
+    p {
+      margin-bottom: var(--spacer--400);
+    }
+    ol {
+      padding-left: var(--spacer--500);
+      @include rfs($font-size-16);
+      li {
+        margin-bottom: var(--spacer--300);
+      }
+    }
     @media screen and (min-width: 640px) {
       @include rfs($font-size-18);
       line-height: 1.5;

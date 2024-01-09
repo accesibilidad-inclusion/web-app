@@ -88,29 +88,17 @@ bus.on(listener)
 .category {
   display: flex;
   flex-flow: column nowrap;
+  background-color: var(--color--skyblue);
+  margin-top: -50px;
+  padding-top: 50px;
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
 }
 .category__items {
   flex-grow: 1;
 }
-// .entry-block {
-// display: grid;
-// grid-template-columns: auto 1fr auto;
-// align-items: center;
-// justify-content: flex-start;
-// gap: 0 var(--spacer-sm);
-// padding: var(--spacer);
-// color: var(--color-brand-darkest);
-// border-bottom: 1px solid var(--color-brand-light);
-// transition: all 0.15s linear;
-
-// @media screen and (min-width: 640px) {
-//   padding: 1.75rem var(--spacer-lg);
-// }
-// @media screen and (min-width: 1280px) {
-//   padding-left: var(--spacer-xl);
-//   padding-right: var(--spacer-xl);
-// }
-// }
 .category__items {
   margin: calc(var(--spacer--700) * 0.5) var(--spacer--400);
 }

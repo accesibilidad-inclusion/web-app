@@ -352,7 +352,7 @@ bus.on(listener)
   position: relative;
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacer--500);
+  row-gap: var(--spacer--300);
   text-decoration: none;
   color: var(--color--white);
   .theme-online & {
@@ -415,9 +415,7 @@ bus.on(listener)
 .venue__no-information {
   display: flex;
   flex-direction: column;
-  background-color: var(--color--skyblue);
   .actions--venue {
-    background-color: var(--color--skyblue);
     padding-top: 0;
     .actions__title {
       color: var(--color--white);
@@ -446,7 +444,7 @@ bus.on(listener)
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--color--carolinablue);
+  background: var(--color--skyblue);
   border-radius: var(--spacer--300);
   width: 55px;
   height: 55px;

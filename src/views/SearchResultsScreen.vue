@@ -91,7 +91,6 @@ bus.on(listener)
 .search-results {
   position: relative;
   padding: calc(var(--spacer--700) * 0.5) var(--spacer--400);
-  background-color: var(--color--skyblue);
   &:deep(.block-header) {
     position: relative;
     text-align: center;
@@ -205,7 +204,7 @@ bus.on(listener)
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--color--carolinablue);
+  background: var(--color--skyblue);
   border-radius: var(--spacer--300);
   width: 55px;
   height: 55px;

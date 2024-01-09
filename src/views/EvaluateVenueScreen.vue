@@ -291,7 +291,6 @@ const backToVenue = () => {
   flex-direction: column;
   .block-header__compact {
     display: grid;
-    mix-blend-mode: multiply;
     .block-header__description {
       grid-row: 1;
     }
