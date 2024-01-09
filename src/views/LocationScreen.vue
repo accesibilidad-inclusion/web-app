@@ -110,9 +110,7 @@ const toggle = (id: number) => {
       <template v-if="appData.location.isGpsActivated()">
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
-          <h2 class="activate-location__title">
-            {{ $t('yourLocation.gpsSelected.title') }}
-          </h2>
+          <h2 class="activate-location__title" v-html="$t('yourLocation.gpsTitle')"></h2>
           <button
             class="btn btn--large btn--block btn--primary"
             @click="router.push(appNav.redirectTo).catch(() => {})">
@@ -231,7 +229,8 @@ const toggle = (id: number) => {
             ).length
           ">
           <div class="no-results-commune">
-            <text-to-speech :text-audio="'No se han encontrado comunas con ese nombre. Prueba escribiendo otras palabras o buscando por las regiones disponibles'" />
+            <text-to-speech
+              :text-audio="'No se han encontrado comunas con ese nombre. Prueba escribiendo otras palabras o buscando por las regiones disponibles'" />
             <div class="no-results-commune__icon">
               <span>!</span>
             </div>

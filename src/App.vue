@@ -10,7 +10,7 @@ const appNav = useAppNavStore()
 <template>
   <div id="app-wrap" :class="`theme-${appNav.theme}`">
     <AppNav />
-    <RouterView v-slot="{Component}">
+    <RouterView v-slot="{Component}" :key="$route.fullPath">
       <Transition name="slide-fade">
         <Suspense timeout="0">
           <template #default>

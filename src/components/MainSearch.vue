@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
+import InputSearch from '@/components/InputSearch.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
-import IconSearch from '@/assets/img/app-icons/search.svg?component'
 import IconInternetTasks from '@/assets/img/app-icons/instructions/internet.svg?component'
 import IconPresentialTasks from '@/assets/img/app-icons/instructions/presencial.svg?component'
 
@@ -26,7 +26,7 @@ const doSearch = () => {
 </script>
 
 <template>
-  <form class="main-search" @submit.prevent="doSearch">
+  <div class="main-search">
     <label class="main-search__label" for="s">
       <span>Encuentra ayuda para tareas en internet o presenciales</span>
       <TextToSpeech :text-audio="'Encuentra ayuda para tareas en internet o presenciales'" />
@@ -59,24 +59,16 @@ const doSearch = () => {
     </div>
     <Transition>
       <div v-if="filterSelected">
-        <div class="main-search__group">
-          <input
-            id="s"
-            v-model="query"
-            class="main-search__input"
-            type="search"
-            placeholder="Ejemplo: Viajar en metro" />
-          <icon-search class="main-search__icon" />
-        </div>
+        <InputSearch :type="filterSelected" v-model="query" @search="doSearch" />
         <button
           v-bind:class="'main-search__button' + ' main-search__button--' + filterSelected"
           :disabled="query.trim() == ''"
-          type="submit">
+          @click="doSearch">
           Ver resultados
         </button>
       </div>
     </Transition>
-  </form>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -154,37 +146,6 @@ const doSearch = () => {
   svg {
     width: 27px;
     height: 28px;
-  }
-}
-.main-search__group {
-  position: relative;
-  margin: var(--spacer--500) 0;
-}
-.main-search__input {
-  @include rfs($font-size-16);
-  width: 100%;
-  padding: var(--spacer--500);
-  border: 1px solid var(--color--blue-dark);
-  border-radius: var(--spacer--500);
-  &::placeholder {
-    color: #848484;
-    opacity: 1;
-    font-style: italic;
-    font-family: inherit;
-  }
-}
-.main-search__icon {
-  position: absolute;
-  top: 50%;
-  right: var(--spacer--500);
-  background: none;
-  border: none;
-  z-index: 9;
-  width: var(--font-size--500);
-  height: var(--font-size--500);
-  transform: translateY(-50%);
-  path {
-    fill: var(--color--blue);
   }
 }
 .main-search__button {

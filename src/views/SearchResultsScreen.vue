@@ -4,6 +4,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {useEventBus, useFetch} from '@vueuse/core'
 
 import BlockHeader from '@/components/BlockHeader.vue'
+import InputSearch from '@/components/InputSearch.vue'
 import TaskBlock from '@/components/TaskBlock.vue'
 import {OnlineTask} from '@/model/online_task'
 import {PresentialTask} from '@/model/presential_task'
@@ -23,6 +24,7 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
     route.query.t === 'presential'
       ? appData.location.getCoordinates()
       : {commune_id: appData.location.commune?.id}
+
   const {data} = await useFetch(
     `${import.meta.env.VITE_APP_API_DOMAIN}api/${route.query.t}_tasks/search`
   )
@@ -35,6 +37,22 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
     route.query.t === 'online'
       ? data.value.map((task: OnlineTask) => new OnlineTask(task))
       : data.value.map((task: PresentialTask) => new PresentialTask(task))
+}
+
+const query = ref(route.query.s as string)
+const type = route.query.t as string
+
+const doSearch = () => {
+  if (query.value === '') {
+    return
+  }
+  router.push({
+    path: 'busqueda',
+    query: {
+      s: query.value,
+      t: route.query.t
+    }
+  })
 }
 
 const bus = useEventBus('back')
@@ -60,6 +78,7 @@ bus.on(listener)
       </template>
     </BlockHeader>
     <main class="search-results__hits">
+      <InputSearch :type="type" v-model="query" @search="doSearch" />
       <template v-if="!tasks.length">
         <div class="search-no-results">
           <div class="search-no-results__content">
@@ -108,7 +127,7 @@ bus.on(listener)
     gap: var(--spacer--200) var(--spacer--300);
 
     // Ubicación
-     .your-location {
+    .your-location {
       margin: 0;
       background: transparent;
       padding: 0;
