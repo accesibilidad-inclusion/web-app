@@ -32,11 +32,13 @@ const toHome = () => {
 }
 
 const toColaborateWithUs = () => {
+  appNav.redirectTo = route.fullPath
   router.push('/colabora-con-nosotros')
   closeMenu()
 }
 
 const toAbout = () => {
+  appNav.redirectTo = route.fullPath
   router.push('/acerca-de')
   closeMenu()
 }
@@ -49,6 +51,7 @@ const tutorials = () => {
 }
 
 const install = () => {
+  appNav.redirectTo = route.fullPath
   router.push('/instala-pictos')
   closeMenu()
 }
