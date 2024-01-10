@@ -61,9 +61,9 @@ const advanceStep = () => {
 }
 
 const rewindStep = () => {
-  if (state.active_step === 0) {
+  if (state.active_step === 0 && task.value?.prerequisites.trim() !== '') {
     show_prerequisites.value = true
-  } else {
+  } else if (state.active_step >= 1) {
     state.active_step--
     if (task.value !== undefined && state.active_step < task.value.steps.length) {
       state.active_helpful = false
