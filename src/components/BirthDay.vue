@@ -62,43 +62,64 @@ defineExpose({
 </script>
 
 <template>
-  <BlockHeader description="Sobre ti"> </BlockHeader>
-  <div class="onboarding-item__container">
-    <h2 class="onboarding__title">
-      Fecha de nacimiento <TextToSpeech :text-audio="`Fecha de nacimiento: Día, Mes y Año`" />
-    </h2>
-    <form>
-      <div class="form-group">
-        <label for="day">Día</label>
-        <FormSelect
-          :id="'day'"
-          :options="days"
-          :optionDefault="'Selecciona el día'"
-          v-model="appSession.user.dayBirth" />
-      </div>
-      <div class="form-group">
-        <label for="month">Mes</label>
-        <FormSelect
-          :id="'month'"
-          :options="months"
-          :optionDefault="'Selecciona el mes'"
-          v-model="appSession.user.monthBirth" />
-      </div>
-      <div class="form-group">
-        <label for="ano">Año</label>
-        <FormSelect
-          :id="'year'"
-          :options="years"
-          :optionDefault="'Selecciona el año'"
-          v-model="appSession.user.yearBirth" />
-      </div>
-    </form>
+  <div class="onboarding-skyblue">
+    <BlockHeader description="Sobre ti"> </BlockHeader>
+    <div class="onboarding-item__container">
+      <h2 class="onboarding__title">
+        Fecha de nacimiento <TextToSpeech :text-audio="`Fecha de nacimiento: Día, Mes y Año`" />
+      </h2>
+      <form>
+        <div class="form-group">
+          <label for="day">Día</label>
+          <FormSelect
+            :id="'day'"
+            :options="days"
+            :optionDefault="'Selecciona el día'"
+            v-model="appSession.user.dayBirth" />
+        </div>
+        <div class="form-group">
+          <label for="month">Mes</label>
+          <FormSelect
+            :id="'month'"
+            :options="months"
+            :optionDefault="'Selecciona el mes'"
+            v-model="appSession.user.monthBirth" />
+        </div>
+        <div class="form-group">
+          <label for="ano">Año</label>
+          <FormSelect
+            :id="'year'"
+            :options="years"
+            :optionDefault="'Selecciona el año'"
+            v-model="appSession.user.yearBirth" />
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
+
+.onboarding-skyblue {
+  background-color: var(--color--skyblue);
+  margin-top: -50px;
+  padding-top: 50px;
+  flex-grow: 1;
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
+  .block-header {
+    margin-top: var(--spacer--300);
+    font-weight: 600;
+    p {
+      margin: 0;
+    }
+  }
+}
 label {
+  font-weight: 700;
   @include rfs(0.3125rem, margin-bottom);
   display: block;
 }

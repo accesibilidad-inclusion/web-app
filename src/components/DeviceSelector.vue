@@ -16,40 +16,57 @@ defineExpose({
 </script>
 
 <template>
-  <BlockHeader description="Instalando PICTOS"> </BlockHeader>
-  <div class="onboarding-item__container">
-    <h2 class="onboarding__title">
-      Selecciona tu dispositivo
-      <text-to-speech
-        :text-audio="'Selecciona tu dispositivo\n\n\n\n\n\n' + 'Iphone\n\n\n\n\n' + 'Android'" />
-    </h2>
-    <div class="custom-control custom-control--radio">
-      <input
-        type="radio"
-        name="device"
-        id="iphone"
-        value="Iphone"
-        class="custom-control__input"
-        v-model="appSession.user.device"
-        :checked="appSession.user.device == 'Iphone'" />
-      <label for="iphone" class="custom-control__label">Iphone</label>
-    </div>
-    <div class="custom-control custom-control--radio">
-      <input
-        type="radio"
-        name="device"
-        id="android"
-        value="Android"
-        class="custom-control__input"
-        v-model="appSession.user.device"
-        :checked="appSession.user.device == 'Android'" />
-      <label for="android" class="custom-control__label">Android</label>
+  <div class="onboarding-skyblue">
+    <BlockHeader description="Instalando PICTOS"> </BlockHeader>
+    <div class="onboarding-item__container">
+      <h2 class="onboarding__title">
+        Selecciona tu dispositivo
+        <text-to-speech
+          :text-audio="'Selecciona tu dispositivo\n\n\n\n\n\n' + 'Iphone\n\n\n\n\n' + 'Android'" />
+      </h2>
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="device"
+          id="iphone"
+          value="Iphone"
+          class="custom-control__input"
+          v-model="appSession.user.device"
+          :checked="appSession.user.device == 'Iphone'" />
+        <label for="iphone" class="custom-control__label">Iphone</label>
+      </div>
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="device"
+          id="android"
+          value="Android"
+          class="custom-control__input"
+          v-model="appSession.user.device"
+          :checked="appSession.user.device == 'Android'" />
+        <label for="android" class="custom-control__label">Android</label>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
+
+.onboarding-skyblue {
+  background-color: var(--color--skyblue);
+  margin-top: -50px;
+  padding-top: 50px;
+  flex-grow: 1;
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
+  .block-header {
+    margin-top: var(--spacer--300);
+  }
+}
+
 label {
   @include rfs(0.3125rem, margin-bottom);
   display: block;

@@ -45,5 +45,8 @@ defineEmits(['reply'])
   font-weight: 800;
   justify-content: center;
   padding: var(--spacer--500) var(--spacer--300);
+  display: block;
+  text-align: center;
+  width: 100%;
 }
 </style>
