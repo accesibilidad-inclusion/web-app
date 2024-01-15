@@ -32,38 +32,37 @@ const classes = computed(() => {
 @import '@/assets/scss/rfs.scss';
 
 .custom-select {
-  @include rfs($font-size-14);
-  display: inline-block;
+  @include rfs($font-size-16);
+  font-family: var(--font-family);
+  font-weight: 600;
   width: 100%;
-  padding: 0.5rem 1.75rem 0.5rem 0.75rem;
-  font-weight: 400;
-  line-height: 1.5;
-  vertical-align: middle;
-  color: var(--color-neutral);
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
-    no-repeat right 0.75rem center/8px 10px;
-  background-color: #fff;
-  border: 1px solid var(--color-neutral-light);
-  border-radius: 0.25rem;
-  appearance: none;
-
+  padding: var(--spacer--500);
   border: 1px solid var(--color--blue);
-  background: var(--color--white);
-  padding: var(--spacer--400) var(--spacer--500);
-  position: relative;
   border-radius: var(--spacer--500);
-  margin-top: var(--spacer--300);
+  color: var(--color--blue-dark);
+  background-color: var(--color--white);
+  &::placeholder {
+    color: var(--color--blue-light);
+    font-style: italic;
+  }
+  &:focus-visible {
+    outline: var(--color--blue-dark) solid 1px;
+  }
+  appearance: none;
 
   &:valid {
     font-style: normal;
   }
   &:required:invalid {
+    color: var(--color--blue-light);
     font-style: italic;
-    color: var(--color-neutral-light);
   }
   option {
     font-style: normal;
-    color: var(--color-neutral);
+    color: var(--color--blue-dark);
   }
+}
+.form-group select:focus + label {
+  display: none;
 }
 </style>
