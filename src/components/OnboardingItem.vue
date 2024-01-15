@@ -41,7 +41,7 @@ defineProps<{
   overflow: hidden;
   position: relative;
   @media screen and (min-width: 550px) {
-    max-height: initial;
+    max-height: 650px;
   }
 }
 .onboarding-item__image {
