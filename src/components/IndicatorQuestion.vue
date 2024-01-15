@@ -93,6 +93,7 @@ defineEmits(['reply'])
   background-color: var(--color--white);
   border: 1px solid var(--color--blue);
   transition: var(--transition-base);
+  cursor: pointer;
   &.active {
     background-color: var(--color--skyblue);
   }

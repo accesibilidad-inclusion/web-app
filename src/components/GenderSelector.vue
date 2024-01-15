@@ -16,68 +16,84 @@ defineExpose({
 </script>
 
 <template>
-  <BlockHeader description="Sobre ti"> </BlockHeader>
-  <div class="onboarding-item__container">
-    <h2 class="onboarding__title">
-      ¿Con qué género te identificas?
-      <text-to-speech
-        :text-audio="
-          '¿Con qué género te identificas?\n\n\n\n\n\n' +
-          'Masculino\n\n\n\n\n' +
-          'Femenino\n\n\n\n\n' +
-          'No binario\n\n\n\n\n' +
-          'Prefiero no decirlo'
-        " />
-    </h2>
-    <div class="custom-control custom-control--radio">
-      <input
-        type="radio"
-        name="gender"
-        id="man"
-        value="Masculino"
-        class="custom-control__input"
-        v-model="appSession.user.gender"
-        :checked="appSession.user.gender == 'Masculino'" />
-      <label for="man" class="custom-control__label">Masculino</label>
-    </div>
-    <div class="custom-control custom-control--radio">
-      <input
-        type="radio"
-        name="gender"
-        id="woman"
-        value="Femenino"
-        class="custom-control__input"
-        v-model="appSession.user.gender"
-        :checked="appSession.user.gender == 'Femenino'" />
-      <label for="woman" class="custom-control__label">Femenino</label>
-    </div>
-    <div class="custom-control custom-control--radio">
-      <input
-        type="radio"
-        name="gender"
-        id="non-binary"
-        value="No binario"
-        class="custom-control__input"
-        v-model="appSession.user.gender"
-        :checked="appSession.user.gender == 'No binario'" />
-      <label for="non-binary" class="custom-control__label">No binario</label>
-    </div>
-    <div class="custom-control custom-control--radio">
-      <input
-        type="radio"
-        name="gender"
-        id="prefer-not-to-say"
-        value="Prefiero no decirlo"
-        class="custom-control__input"
-        v-model="appSession.user.gender"
-        :checked="appSession.user.gender == 'Prefiero no decirlo'" />
-      <label for="prefer-not-to-say" class="custom-control__label">Prefiero no decirlo</label>
+  <div class="onboarding-skyblue">
+    <BlockHeader description="Sobre ti"> </BlockHeader>
+    <div class="onboarding-item__container">
+      <h2 class="onboarding__title">
+        ¿Con qué género te identificas?
+        <text-to-speech
+          :text-audio="
+            '¿Con qué género te identificas?\n\n\n\n\n\n' +
+            'Masculino\n\n\n\n\n' +
+            'Femenino\n\n\n\n\n' +
+            'No binario\n\n\n\n\n' +
+            'Prefiero no decirlo'
+          " />
+      </h2>
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="gender"
+          id="man"
+          value="Masculino"
+          class="custom-control__input"
+          v-model="appSession.user.gender"
+          :checked="appSession.user.gender == 'Masculino'" />
+        <label for="man" class="custom-control__label">Masculino</label>
+      </div>
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="gender"
+          id="woman"
+          value="Femenino"
+          class="custom-control__input"
+          v-model="appSession.user.gender"
+          :checked="appSession.user.gender == 'Femenino'" />
+        <label for="woman" class="custom-control__label">Femenino</label>
+      </div>
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="gender"
+          id="non-binary"
+          value="No binario"
+          class="custom-control__input"
+          v-model="appSession.user.gender"
+          :checked="appSession.user.gender == 'No binario'" />
+        <label for="non-binary" class="custom-control__label">No binario</label>
+      </div>
+      <div class="custom-control custom-control--radio">
+        <input
+          type="radio"
+          name="gender"
+          id="prefer-not-to-say"
+          value="Prefiero no decirlo"
+          class="custom-control__input"
+          v-model="appSession.user.gender"
+          :checked="appSession.user.gender == 'Prefiero no decirlo'" />
+        <label for="prefer-not-to-say" class="custom-control__label">Prefiero no decirlo</label>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
+
+.onboarding-skyblue {
+  background-color: var(--color--skyblue);
+  margin-top: -50px;
+  padding-top: 50px;
+  flex-grow: 1;
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
+  .block-header {
+    margin-top: var(--spacer--300);
+  }
+}
 label {
   @include rfs(0.3125rem, margin-bottom);
   display: block;

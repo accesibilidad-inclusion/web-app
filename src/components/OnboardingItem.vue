@@ -29,9 +29,10 @@ defineProps<{
 .onboarding-item {
   width: 100%;
   line-height: 1.25rem;
+  flex-grow: 1;
   margin-top: -50px;
   @media screen and (min-width: 640px) {
-    margin-top: -61px;
+    margin-top: -62px;
   }
 }
 .onboarding-item__content-image {
@@ -39,6 +40,9 @@ defineProps<{
   max-height: 500px;
   overflow: hidden;
   position: relative;
+  @media screen and (min-width: 550px) {
+    max-height: initial;
+  }
 }
 .onboarding-item__image {
   width: 100%;
@@ -52,9 +56,9 @@ defineProps<{
   padding: var(--spacer--500) var(--spacer--400);
   width: 100%;
   // height: 100%;
+  flex-grow: 1;
   @media screen and (min-width: 640px) {
     padding: var(--spacer--600) var(--spacer--500);
-    gap: var(--spacer--400);
   }
   .onboarding-item__title {
     font-weight: 700;
@@ -66,6 +70,10 @@ defineProps<{
       @include rfs($font-size-21);
       line-height: 1.3rem;
     }
+  }
+  .onboarding__title {
+    margin-bottom: var(--spacer--400);
+    text-align: center
   }
   .onboarding-item__text {
     @include rfs($font-size-14);

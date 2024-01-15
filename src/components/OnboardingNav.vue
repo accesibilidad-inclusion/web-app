@@ -33,7 +33,7 @@ const advanceStep = async () => {
 
 <template>
   <div class="onboarding-nav">
-    <div class="onboarding-nav__body">
+    
       <OnboardingItem
         v-if="isOnboarding(sequence[currentStep])"
         :data="sequence[currentStep] as Onboarding" />
@@ -41,7 +41,7 @@ const advanceStep = async () => {
         v-if="!isOnboarding(sequence[currentStep])"
         :is="sequence[currentStep] as Component"
         ref="comp" />
-    </div>
+    
     <footer class="onboarding__footer">
       <button class="btn btn--large btn--secondary" v-if="currentStep > 0" @click="rewindStep">
         Atrás
@@ -74,6 +74,9 @@ const advanceStep = async () => {
   @media screen and (min-width: 640px) {
     margin-top: -62px;
     padding-top: 62px;
+  }
+  .onboarding-skyblue + .onboarding__footer {
+    background-color: var(--color--skyblue);
   }
 }
 .onboarding-nav__body {
