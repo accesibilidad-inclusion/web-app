@@ -305,7 +305,7 @@ bus.on(listener)
               <template v-else>
                 <router-link
                   :to="{name: 'venue-screen', params: {placeId: venue.id}}"
-                  class="btn btn--large btn--block btn--secondary">
+                  class="btn btn--large btn--block btn--primary btn--filled--skyblue-light">
                   Volver a {{ venue.name }}
                 </router-link>
               </template>
@@ -457,7 +457,7 @@ bus.on(listener)
 .task__header {
   position: relative;
   text-align: center;
-  padding: var(--spacer--500);
+  padding: var(--spacer--200) var(--spacer--400) var(--spacer--400);
   border-radius: var(--spacer--500);
   font-weight: 600;
 }
@@ -477,7 +477,7 @@ bus.on(listener)
 }
 .tts {
   position: absolute;
-  top: var(--spacer--400);
+  top: var(--spacer--200);
   right: var(--spacer--400);
   path {
     fill: var(--color--blue-dark);
@@ -566,8 +566,8 @@ bus.on(listener)
   flex-grow: 1;
   transform: translateX(0%);
   transition:
-    opacity 0.25s ease-in,
-    transform 0 0.5s;
+  opacity 0.25s ease-in,
+  transform 0 0.5s;
   opacity: 1;
 }
 .task-step__layer {
@@ -679,20 +679,18 @@ bus.on(listener)
   display: block;
   padding: var(--spacer--400);
   text-align: center;
-  color: var(--color--blue-dark);
-  background-color: var(--color-brand-light);
-  border: 1px solid var(--color--blue-dark);
+  background-color: transparent;
+  border: 1px solid var(--color--blue);
   border-radius: var(--spacer--300);
   display: flex;
   align-items: center;
   justify-content: center;
   &:hover {
-    background-color: var(--color-brand-lighter);
-    transition: var(--transition-base);
+    background: var(--color--skyblue);
   }
   &.task-helpful__answer--active {
-    background-color: var(--color--skyblue);
-    border-color: var(--color--blue-dark);
+    background: var(--color--skyblue-light);
+    color: var(--color--blue-dark);
   }
   @media screen and (max-width: 400px) {
     // Hack Safari
@@ -781,21 +779,21 @@ li.task__step-indicator--active {
 // Modal de feedback
 .task-feedback {
   position: absolute;
-  width: calc(100vw - var(--spacer));
+  width: calc(100vw - var(--spacer--400));
   height: 100%;
   top: 100%;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  padding: var(--spacer);
+  padding: var(--spacer--400);
   background-color: var(--color-brand-lighter);
   transition: top 0.35s ease;
-  border-top-left-radius: var(--spacer);
-  border-top-right-radius: var(--spacer);
+  border-top-left-radius: var(--spacer--400);
+  border-top-right-radius: var(--spacer--400);
   overflow: hidden;
   .modal--fade:not(.modal--fade-out) & {
-    top: var(--spacer--600);
+    top: var(--spacer--700);
     overflow: unset;
   }
   &.task-feedback--submitted {
@@ -810,7 +808,7 @@ li.task__step-indicator--active {
     max-width: calc(620px - var(--spacer--400));
     margin-left: auto;
     margin-right: auto;
-    padding: var(--spacer--600) var(--spacer--500) var(--spacer--400);
+    padding: var(--spacer--600) var(--spacer--400) var(--spacer--400);
   }
   @media screen and (min-width: 1280px) {
     max-width: calc(560px - var(--spacer--600));
@@ -821,9 +819,9 @@ li.task__step-indicator--active {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--spacer--600);
-    height: var(--spacer--600);
-    top: calc(var(--spacer--600) * -1);
+    width: var(--spacer--700);
+    height: var(--spacer--700);
+    top: calc(var(--spacer--700) * -1);
     right: var(--spacer-xs);
     line-height: 0;
     background: none;
@@ -831,7 +829,7 @@ li.task__step-indicator--active {
     svg {
       width: 1rem;
       height: 1rem;
-      path {
+      &:deep(path) {
         fill: var(--color--white);
       }
     }
@@ -853,7 +851,7 @@ li.task__step-indicator--active {
 }
 .task-feedback__submit {
   margin-top: auto;
-  margin-bottom: var(--spacer--600);
+  margin-bottom: var(--spacer--700);
 }
 .task-feedback__response {
   display: flex;
