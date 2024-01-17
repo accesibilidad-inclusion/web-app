@@ -17,11 +17,11 @@ defineProps<{
 
 <template>
   <header
-    class="block-header entries-list__header"
+    class="block-header"
     :class="[{'block-header__compact': compact}, `block-header__${appNav.theme}`]">
     <slot name="icon" class="block-header__icon"></slot>
-    <h1 class="block-header__title entries-list__title" v-if="title !== undefined">{{ title }}</h1>
-    <p class="block-header__description entries-list__description">
+    <h1 class="block-header__title" v-if="title !== undefined">{{ title }}</h1>
+    <p class="block-header__description">
       {{ description }}
     </p>
     <a v-if="link !== undefined" :href="link.url" class="block-header__link" target="_blank">
@@ -39,14 +39,17 @@ defineProps<{
 .block-header {
   position: relative;
   text-align: center;
-  padding: var(--spacer--500);
+  padding: var(--spacer--500) var(--spacer--600);
   border-radius: var(--spacer--500);
   background-color: var(--color--carolinablue);
   margin: var(--spacer--600) var(--spacer--400) 0;
   font-weight: 600;
   @media screen and (min-width: 640px) {
-    margin-left: var(--spacer--500);
-    margin-right: var(--spacer--500);
+    margin-left: var(--spacer--400);
+    margin-right: var(--spacer--400);
+  }
+  .theme-online & {
+    background-color: var(--color--yellow);
   }
   // Ubicación
   .your-location {
@@ -61,7 +64,6 @@ defineProps<{
     }
     svg {
       position: relative;
-      top: 2px;
       width: 10px !important;
       height: 16px !important;
       path {
@@ -76,12 +78,8 @@ defineProps<{
   // Audio
   .tts {
     position: absolute;
-    top: var(--spacer--400);
+    top: calc(var(--spacer--500) + 2px);
     right: var(--spacer--400);
-    @media screen and (min-width: 640px) {
-      top: var(--spacer--500);
-      right: var(--spacer--500);
-    }
   }
 }
 .block-header__online {
@@ -97,33 +95,40 @@ defineProps<{
   @include rfs($font-size-14);
   color: var(--color--blue-dark);
   margin: var(--spacer--200) 0;
+  font-weight: 600;
 }
 .block-header__link {
   color: var(--color--blue-dark);
+  display: flex;
+  justify-content: center;
+  line-height: 1;
+  gap: 4px;
+  svg {
+    width: 10px;
+    height: 16px;
+  }
 }
 .block-header__compact {
   margin: 0;
-  padding: var(--spacer--400);
-  padding-top: var(--spacer--400);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer--500);
-    padding-top: var(--spacer--500);
-  }
+  padding: var(--spacer--500) var(--spacer--600) var(--spacer--500) var(--spacer--400);
 }
 
 // Category
 .category {
   .block-header {
-    padding-top: var(--spacer-lg);
+    padding-top: var(--spacer--600);
     @media screen and (min-width: 1280px) {
-      padding-left: var(--spacer-xl);
-      padding-right: var(--spacer-xl);
+      padding-left: var(--spacer--700);
+      padding-right: var(--spacer--700);
     }
     .category-icon {
       position: absolute;
       top: 0;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+    .tts {
+      top: calc(var(--spacer--600) + 4px);
     }
   }
 }
