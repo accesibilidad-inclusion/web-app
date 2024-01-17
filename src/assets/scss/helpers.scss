@@ -46,6 +46,21 @@
 .mb-5 {
   margin-bottom: var(--spacer-xl);
 }
+.mt-1 {
+  margin-top: var(--spacer-xs);
+}
+.mt-2 {
+  margin-top: var(--spacer-sm);
+}
+.mt-3 {
+  margin-top: var(--spacer);
+}
+.mt-4 {
+  margin-top: var(--spacer-lg);
+}
+.mt-5 {
+  margin-top: var(--spacer-xl);
+}
 // Screen readers
 .sr-only {
   display: none;

@@ -86,3 +86,38 @@ li.onboarding__step-indicator--active {
     left: 0;
   }
 }
+
+.evaluation__grade-description {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  strong {
+    margin-right: 3px;
+  }
+}
+.evaluation__grade-square {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--color--blue);
+  border-radius: 4px;
+  margin-right: 5px;
+  &[data-grade='5'] {
+    background: var(--color-grade-5);
+  }
+  &[data-grade='4'] {
+    background: var(--color-grade-4);
+  }
+  &[data-grade='3'] {
+    background: var(--color-grade-3);
+  }
+  &[data-grade='2'] {
+    background: var(--color-grade-2);
+  }
+  &[data-grade='1'] {
+    background: var(--color-grade-1);
+  }
+  &[data-grade='0'] {
+    background: var(--color-grade-0);
+  }
+}

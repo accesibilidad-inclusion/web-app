@@ -2,10 +2,12 @@
 import {useRoute, useRouter} from 'vue-router'
 
 import OnboardingNav from '@/components/OnboardingNav.vue'
-import OnboardingImage1 from '@/assets/img/illustrations/activar-tutoriales 1.svg?component'
-import OnboardingImage2 from '@/assets/img/illustrations/activar-tutoriales 2.svg?component'
-import OnboardingImage3 from '@/assets/img/illustrations/activar-tutoriales 3.svg?component'
-import OnboardingImage4 from '@/assets/img/illustrations/activar-tutoriales 4.svg?component'
+import OnboardingInternetImage1 from '@/assets/img/illustrations/evaluación-internet 1.svg?component'
+import OnboardingInternetImage2 from '@/assets/img/illustrations/evaluación-internet 2.svg?component'
+import OnboardingPresencialImage1 from '@/assets/img/illustrations/evaluación-presencial 1.svg?component'
+import OnboardingPresencialImage2 from '@/assets/img/illustrations/evaluación-presencial 2.svg?component'
+import OnboardingPresencialImage3 from '@/assets/img/illustrations/evaluación-presencial 3.svg?component'
+import OnboardingPresencialImage4 from '@/assets/img/illustrations/evaluación-presencial 4.svg?component'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import type {Onboarding} from '@/types/onboarding'
 import {useEventBus} from '@vueuse/core'
@@ -16,24 +18,26 @@ const router = useRouter()
 
 const sequence: Array<Onboarding> = [
   {
-    title: 'Activa el audio',
-    body: 'Si tienes dificultad o no quieres leer, no te preocupes. Puedes <b>activar la opción de sonido, pulsando el ícono de altavoz</b>.',
-    image: OnboardingImage1
+    title: '¡Hola!',
+    body: 'Acá te explicamos cómo debes hacer la evaluación de un lugar con PICTOS. A continuación, encontrarás los pasos que debes seguir.',
+    image:
+      route.params.type === 'presencial' ? OnboardingPresencialImage1 : OnboardingInternetImage1
   },
   {
-    title: '¿Para qué sirve PICTOS?',
-    body: 'Pictos te ayudará a realizar tareas en distintos servicios, mostrándote una lista de todas las cosas que puedes hacer en cada lugar.',
-    image: OnboardingImage2
+    title: '¿Qué necesitas para evaluar?',
+    body: '<ul><li>Debes estar en el lugar o servicio a evaluar</li><li>Observa atentamente tu entorno</li><li>Responde todas las preguntas</li><li>Evalúa poniendo nota</li></ul><div class="text-center mt-3">Ahora te explicamos cómo funciona el <strong>método de puntuación</strong></div>',
+    image:
+      route.params.type === 'presencial' ? OnboardingPresencialImage2 : OnboardingInternetImage2
   },
   {
-    title: '¿Cómo funciona?',
-    body: 'Pictos te explica paso a paso qué puedes hacer en cada lugar, a través de pictogramas.',
-    image: OnboardingImage3
+    title: 'Reglas de puntuación',
+    body: '<div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="5"></span><strong>Excelente: </strong> No necesita mejoras</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="4"></span><strong>Bueno: </strong> Necesita pocas mejoras</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="3"></span><strong>Regular: </strong> Ni bueno ni malo</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="2"></span><strong>Malo: </strong> Necesita muchas mejoras</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="1"></span><strong>Pésimo: </strong> Tiene que mejorar todo</div>',
+    image: OnboardingPresencialImage3
   },
   {
-    title: '¡Tú nos puedes ayudar!',
-    body: 'Queremos entregar a la comunidad las herramientas para apoyarnos entre todos.',
-    image: OnboardingImage4
+    title: 'Activar permisos',
+    body: 'Necesitamos que nos permitas acceder a la cámara de tu dispositivo para que puedas tomar fotos durante la evaluación',
+    image: OnboardingPresencialImage4
   }
 ]
 
