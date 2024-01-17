@@ -176,7 +176,7 @@ bus.on(listener)
     .block-header__title {
       @include rfs($font-size-21);
       line-height: calc(25 / 18);
-      color: var(--color-brand-darkest);
+      color: var(--color--blue-dark);
       grid-area: name;
       margin: 0;
     }

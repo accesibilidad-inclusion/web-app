@@ -280,7 +280,7 @@ const toggle = (id: number) => {
   right: 0;
   left: 0;
   top: 0;
-  background-color: var(--color-brand-darkest);
+  background-color: var(--color--blue-dark);
   max-width: 560px;
   padding: 0 calc(var(--spacer-lg) / 3);
   z-index: 100000;
@@ -301,7 +301,7 @@ const toggle = (id: number) => {
   }
   .btn--primary {
     @include rfs($font-size-16);
-    background-color: var(--color-brand-darkest);
+    background-color: var(--color--blue-dark);
     @media screen and (min-width: 640px) {
       @include rfs($font-size-14);
     }
@@ -316,7 +316,7 @@ const toggle = (id: number) => {
 }
 .activate-location__title {
   @include rfs($font-size-18);
-  color: var(--color-brand-darkest);
+  color: var(--color--blue-dark);
   margin-bottom: var(--spacer-sm);
   @media screen and (min-width: 640px) {
     @include rfs($font-size-16);
@@ -515,22 +515,7 @@ const toggle = (id: number) => {
   background-color: var(--color--white);
   @media screen and (min-width: 1280px) {
     max-width: 545px;
-  }
-  .btn {
-    @include rfs($font-size-14);
-  }
-  .btn--as-link {
-    color: var(--color-text);
-    margin: 0;
-  }
-  .btn--primary {
-    &:disabled {
-      pointer-events: none;
-      background: transparent;
-      border: 1px solid var(--color-neutral-lighter);
-      color: var(--color-neutral-lighter);
-    }
-  }
+  } 
 }
 
 // Main
@@ -543,7 +528,7 @@ const toggle = (id: number) => {
     position: relative;
     border-radius: var(--spacer--500);
     margin-top: var(--spacer--300);
-    padding: var(--spacer--300) 0;
+    padding: var(--spacer--400) 0;
   }
   .place {
     display: block;
@@ -599,7 +584,7 @@ const toggle = (id: number) => {
         height: 1rem;
       }
       path {
-        fill: var(--color-brand-dark);
+        fill: var(--color--blue-dark);
         transition: all 0.15s linear;
       }
     }

@@ -33,6 +33,10 @@ bus.on(listener)
   grid-row: 2/-1;
   flex-direction: column;
 }
+.page:deep(.onboarding-item) {
+  display: flex;
+  flex-direction: column;
+}
 .page:deep(.onboarding-item__container) {
   background-color: var(--color--white);
   padding-bottom: var(--spacer--700);

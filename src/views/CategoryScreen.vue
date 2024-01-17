@@ -46,7 +46,7 @@ bus.on(listener)
 </script>
 
 <template>
-  <div class="category entries-list">
+  <div class="category">
     <template v-if="category">
       <BlockHeader
         :title="category.name"

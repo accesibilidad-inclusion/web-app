@@ -47,7 +47,7 @@ if (appData.initialized) {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--color-brand-darkest);
+  background-color: var(--color--blue-dark);
   z-index: 100000;
 }
 
@@ -78,7 +78,7 @@ if (appData.initialized) {
   line-height: calc(26 / 18);
   color: #fff;
   text-align: center;
-  background-color: var(--color-brand-darkest);
+  background-color: var(--color--blue-dark);
 
   p {
     max-width: 400px;

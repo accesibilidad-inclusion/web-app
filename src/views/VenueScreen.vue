@@ -187,6 +187,14 @@ bus.on(listener)
 .presential-venue {
   position: relative;
 }
+.presential-venue ,
+.online-venue {
+  display: flex;
+  flex-direction: column;
+  .venue__footer {
+    margin-top: auto;
+  }
+}
 
 .venue__header {
   position: relative;
@@ -195,7 +203,7 @@ bus.on(listener)
   text-align: center;
   line-height: calc(22 / 16);
   color: var(--color--white);
-  background: var(--color-brand-darkest);
+  background: var(--color--blue-dark);
   @media screen and (min-width: 640px) {
     margin-left: 0;
     margin-right: 0;
@@ -221,7 +229,7 @@ bus.on(listener)
   &::after {
     left: calc(var(--spacer) * -1);
     right: calc(var(--spacer) * -1);
-    background: var(--color-brand-darkest);
+    background: var(--color--blue-dark);
     border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
     z-index: 2;
   }
@@ -278,10 +286,6 @@ bus.on(listener)
 }
 .venue__tasks {
   padding: var(--spacer--600) var(--spacer--400);
-  @media screen and (min-width: 640px) {
-    padding-left: var(--spacer--500);
-    padding-right: var(--spacer--500);
-  }
 }
 .venue__tasks-description {
   @include rfs($font-size-16);
@@ -304,7 +308,9 @@ bus.on(listener)
     padding-top: calc(var(--spacer-lg) * 1.25);
     padding-bottom: calc(var(--spacer-lg) * 1.25);
   }
-
+  .theme-online & {
+    background-color: var(--color--yellow-light);
+  }
   .actions__header {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -326,17 +332,10 @@ bus.on(listener)
 }
 .venue__footer {
   position: relative;
-  padding: var(--spacer-lg) var(--spacer);
+  padding: var(--spacer--700) var(--spacer--400);
   text-align: center;
   color: var(--color--white);
   background-color: var(--color--blue);
-  @media screen and (min-width: 640px) {
-    padding-left: var(--spacer-lg);
-    padding-right: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding: var(--spacer-xl);
-  }
   .theme-online & {
     background-color: var(--color--yellow);
     color: var(--color--blue-dark);
@@ -352,14 +351,11 @@ bus.on(listener)
   position: relative;
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacer--300);
+  row-gap: var(--spacer--400);
   text-decoration: none;
   color: var(--color--white);
   .theme-online & {
     color: var(--color--blue-dark);
-  }
-  @media screen and (min-width: 1280px) {
-    row-gap: var(--spacer--600);
   }
 }
 .venue__footer .tts {
@@ -371,9 +367,8 @@ bus.on(listener)
   }
 }
 .venue__evaluation-title {
-  @include rfs($font-size-18);
+  @include rfs($font-size-21);
   font-weight: bold;
-  line-height: calc(25 / 18);
 }
 .venue__evaluation-grade--lg {
   width: 3.125rem;
@@ -393,16 +388,15 @@ bus.on(listener)
   }
 }
 .venue__evaluation-description {
-  @include rfs($font-size-14);
-  max-width: 15rem;
+  @include rfs($font-size-16);
+  max-width: 30rem;
   margin-left: auto;
   margin-right: auto;
   font-weight: 600;
-  line-height: calc(19 / 14);
 }
 .venue__evaluation-question {
   @include rfs($font-size-16);
-  padding: calc(var(--spacer) + var(--spacer-sm));
+  padding: calc(var(--spacer--400) + var(--spacer--400));
   font-weight: 600;
   line-height: 1.33333;
   color: var(--color--white);
@@ -448,6 +442,9 @@ bus.on(listener)
   border-radius: var(--spacer--300);
   width: 55px;
   height: 55px;
+  .theme-online & {
+    background-color: var(--color--yellow);
+  }
   span {
     font-size: 2.5rem;
     color: var(--color--blue-dark);
@@ -462,34 +459,6 @@ bus.on(listener)
   span {
     font-weight: 700;
   }
-  svg {
-    width: var(--spacer-lg);
-    height: var(--spacer-lg);
-    margin: var(--spacer-sm) auto;
-    path {
-      fill: var(--color-highlight);
-    }
-  }
-}
-
-.service {
-  display: flex;
-  flex-flow: column nowrap;
-}
-.service__header .tts {
-  position: absolute;
-  top: var(--spacer);
-  right: var(--spacer);
-  @media screen and (min-width: 640px) {
-    right: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    right: var(--spacer-xl);
-  }
-}
-.service__icon {
-  width: 1rem;
-  height: 1rem;
 }
 .service__items {
   flex-grow: 1;
@@ -510,7 +479,7 @@ bus.on(listener)
   grid-column: 1/3;
   grid-row: 2/3;
   line-height: 1.33333;
-  color: var(--color-neutral);
+  color: var(--color--blue-gray);
 }
 .venue__evaluation-grade {
   display: flex;

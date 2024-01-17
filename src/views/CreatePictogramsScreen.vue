@@ -371,8 +371,8 @@ const submitSubscription = async () => {
   height: 100%;
   transform: translateX(100%);
   transition:
-    opacity 0.25s 0.25s ease-out,
-    transform 0 0;
+  opacity 0.25s 0.25s ease-out,
+  transform 0 0;
   list-style: none;
   opacity: 0;
 }

@@ -73,6 +73,8 @@ onMounted(() => {
 
 .tts :deep(.stop-img) {
   animation: pulse 1s linear infinite;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 .tts :deep(path) {
   fill: var(--color--blue);

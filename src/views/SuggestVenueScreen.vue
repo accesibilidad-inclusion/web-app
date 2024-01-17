@@ -214,7 +214,7 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 .page__place-name {
   margin-bottom: var(--spacer--400);
   border: 1px solid transparent;
-  background-color: var(--color--skyblue-light);
+  background-color: var(--color--skyblue);
   border-radius: var(--spacer--500);
   box-shadow: 0px 1px 5px rgba(148, 148, 148, 0.25);
   transition: var(--transition-base);
@@ -228,6 +228,10 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 .search-result__item {
   margin: 0 var(--spacer--200);
   padding: var(--spacer--400) var(--spacer--200);
+  cursor: pointer;
+  &:hover p {
+    color: var(--color--blue)
+  }
   p {
     @include rfs($font-size-18);
     line-height: 1.25;
@@ -235,7 +239,7 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
     font-weight: 600;
   }
   & + .search-result__item {
-    border-top: 1px solid var(--color--carolinablue);
+    border-top: 1px solid var(--color--inactive);
   }
 }
 .onboarding__footer {
