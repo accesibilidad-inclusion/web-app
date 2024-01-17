@@ -5,6 +5,7 @@ import BirthDay from '@/components/BirthDay.vue'
 import GenderSelector from '@/components/GenderSelector.vue'
 import HasDisability from '@/components/HasDisability.vue'
 import DisabilityDetails from '@/components/DisabilityDetails.vue'
+import InformationThanks from '@/components/InformationThanks.vue'
 import type {OnboardingOrComponent} from '@/types/onboarding'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import {useAppSessionStore} from '@/stores/app-session.js'
@@ -25,11 +26,7 @@ const sequence: Array<OnboardingOrComponent> = [
   GenderSelector,
   HasDisability,
   DisabilityDetails,
-  {
-    title: 'Cuéntanos un poco de ti',
-    body: 'Registra tu fecha de nacimiento, género y si tienes algún tipo de discapacidad. Toda la información será estrictamente confidencial.',
-    image: PerfilImage
-  }
+  InformationThanks
 ]
 const finishing = async () => {
   const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/app_users/store`)
@@ -60,7 +57,8 @@ bus.on(listener)
   <main class="page">
     <OnboardingNav
       :sequence="sequence"
-      finish-button-text="Empezar a usar PICTOS"
+      finish-button-text="Empieza la evaluación"
+      :hideLastBackButton="true"
       @finished="finishing()" />
   </main>
 </template>

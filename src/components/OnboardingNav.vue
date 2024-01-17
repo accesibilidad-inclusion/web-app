@@ -5,6 +5,7 @@ import type {Onboarding, OnboardingOrComponent} from '@/types/onboarding'
 
 defineProps<{
   sequence: Array<OnboardingOrComponent>
+  hideLastBackButton?: boolean
   finishButtonText?: string
 }>()
 defineEmits(['finished'])
@@ -33,17 +34,22 @@ const advanceStep = async () => {
 
 <template>
   <div class="onboarding-nav">
-    
-      <OnboardingItem
-        v-if="isOnboarding(sequence[currentStep])"
-        :data="sequence[currentStep] as Onboarding" />
-      <component
-        v-if="!isOnboarding(sequence[currentStep])"
-        :is="sequence[currentStep] as Component"
-        ref="comp" />
-    
+    <OnboardingItem
+      v-if="isOnboarding(sequence[currentStep])"
+      :data="sequence[currentStep] as Onboarding" />
+    <component
+      v-if="!isOnboarding(sequence[currentStep])"
+      :is="sequence[currentStep] as Component"
+      ref="comp" />
+
     <footer class="onboarding__footer">
-      <button class="btn btn--large btn--secondary" v-if="currentStep > 0" @click="rewindStep">
+      <button
+        class="btn btn--large btn--secondary"
+        v-if="
+          (currentStep > 0 && currentStep < sequence.length - 1) ||
+          (!hideLastBackButton && currentStep === sequence.length - 1)
+        "
+        @click="rewindStep">
         Atrás
       </button>
       <button
