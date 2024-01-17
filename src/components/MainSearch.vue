@@ -96,6 +96,9 @@ const doSearch = () => {
     display: block;
     text-align: center;
   }
+  .tts :deep(path) {
+    fill: var(--color--white);
+  }
 }
 .main-search__types {
   display: grid;
@@ -117,6 +120,11 @@ const doSearch = () => {
   text-align: center;
   gap: var(--spacer--300);
   cursor: pointer;
+  .tts {
+    path {
+      fill: var(--color--blue-dark);
+    }
+  }
 }
 .main-search__type--online.main-search__type--active {
   background: var(--color--yellow-light);
@@ -166,8 +174,5 @@ const doSearch = () => {
     color: var(--color--yellow-light);
     border: 1px solid var(--color--yellow-light);
   }
-}
-.tts :deep(path) {
-  fill: var(--color--white);
 }
 </style>

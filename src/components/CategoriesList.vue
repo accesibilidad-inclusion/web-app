@@ -80,6 +80,7 @@ const setCategory = (category: Category) => {
       grid-template-columns: 55px auto;
       grid-template-rows: auto 1fr;
       gap: var(--spacer--200) var(--spacer--300);
+      position: relative;
       &:hover {
         background: var(--color--skyblue);
         cursor: pointer;
@@ -102,6 +103,7 @@ const setCategory = (category: Category) => {
   grid-area: name;
   display: block;
   font-weight: 700;
+  padding-right: var(--spacer--600)
 }
 .category__description {
   @include rfs($font-size-14);
