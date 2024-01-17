@@ -27,10 +27,10 @@ bus.on(listener)
   <main class="page">
   <OnboardingItem :data="data" />
   <div class="onboarding__logos">
-    <LogoAccesibilidadInclusionImage />
-    <LogoPucvImage />
-    <LogoUandesImage />
-    <LogoGobiernoImage />
+    <LogoAccesibilidadInclusionImage class="logo-inclusion" />
+    <LogoPucvImage class="logo-pucv" />
+    <LogoUandesImage class="logo-uandes" />
+    <LogoGobiernoImage class="logo-gobierno" />
   </div>
 </main>
 </template>
@@ -56,5 +56,39 @@ bus.on(listener)
   gap: var(--spacer--600);
   flex-direction: column;
   padding: var(--spacer--700) var(--spacer--400);
+  @media screen and (min-width: 640px) {
+    gap: var(--spacer--700);
+  }
+}
+.onboarding__logo image {
+  width: 100px;
+}
+.logo-inclusion {
+  width: 141px;
+  height: auto;
+  @media screen and (min-width: 640px) {
+    width: 190px;
+  }
+}
+.logo-pucv {
+  width: 135px;
+  height: auto;
+  @media screen and (min-width: 640px) {
+    width: 190px;
+  }
+}
+.logo-uandes {
+  width: 179px;
+  height: auto;
+  @media screen and (min-width: 640px) {
+    width: 250px;
+  }
+}
+.logo-gobierno {
+  width: 154px;
+  height: auto;
+  @media screen and (min-width: 640px) {
+    width: 200px;
+  }
 }
 </style>
