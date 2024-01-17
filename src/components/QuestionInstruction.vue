@@ -36,6 +36,9 @@ const iconSvg = computed(() => {
   justify-content: center;
   gap: var(--spacer--500);
   height: 100%;
+  .theme-online & {
+    background-color: var(--color--yellow);
+  }
 }
 .instruction__icon {
   background: var(--color--yellow);
@@ -46,6 +49,9 @@ const iconSvg = computed(() => {
   display: grid;
   align-items: center;
   justify-content: center;
+  .theme-online & {
+    background-color: var(--color--yellow-light);
+  }
 }
 .instruction__title {
   @include rfs($font-size--600);

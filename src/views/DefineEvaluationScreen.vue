@@ -82,17 +82,26 @@ bus.on(listener)
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
+
+.evaluation {
+  display: flex;
+  flex-direction: column;
+  .actions {
+    margin-top: auto;
+    padding-bottom: var(--spacer--500);
+  }
+}
 .evaluation__header {
   position: relative;
   padding: var(--spacer);
   text-align: center;
   line-height: calc(22 / 16);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer-lg);
-  }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+  background-color: var(--color--skyblue);
+  margin: var(--spacer--300) var(--spacer--400) 0;
+  border-radius: var(--spacer--500);
+  padding: var(--spacer--500) var(--spacer--400);
+  .theme-online & {
+    background-color: var(--color--yellow);
   }
 }
 .evaluation__service {
@@ -116,47 +125,79 @@ bus.on(listener)
 }
 
 .evaluation__summary {
-  margin-bottom: var(--spacer-sm);
-  padding: var(--spacer);
+  padding: var(--spacer--600) var(--spacer--400) var(--spacer--700);
   text-align: center;
-  @media screen and (min-width: 640px) {
-    padding-left: var(--spacer-lg);
-    padding-right: var(--spacer-lg);
+  .place__evaluation-grade--lg {
+    width: 3.125rem;
+    height: 3.125rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2rem;
+    line-height: 3.125rem;
+    color: var(--color--blue-dark);
+    @media screen and (min-width: 640px) {
+      width: 3.5rem;
+      height: 3.5rem;
+      font-size: 2.5rem;
+    }
+    .theme-online & {
+      border: 1px solid var(--color--blue);
+    }
   }
-  @media screen and (min-width: 1280px) {
-    padding: var(--spacer-xl);
-  }
-}
-.place__evaluation-grade {
-  .evaluation__summary & {
-    margin-bottom: var(--spacer-sm);
+  .place__evaluation-grade {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    text-align: center;
+    border-radius: var(--spacer--300);
+    margin-bottom: var(--spacer--400);
+    &[data-grade='5'] {
+      background: var(--color-grade-5);
+    }
+    &[data-grade='4'] {
+      background: var(--color-grade-4);
+    }
+    &[data-grade='3'] {
+      background: var(--color-grade-3);
+    }
+    &[data-grade='2'] {
+      background: var(--color-grade-2);
+    }
+    &[data-grade='1'] {
+      background: var(--color-grade-1);
+    }
+    &[data-grade='0'] {
+      background: var(--color-grade-0);
+    }
   }
 }
 .evaluation__text {
   @include rfs($font-size-14);
   line-height: calc(19 / 14);
+  font-weight: 600;
 }
 .evaluation__body {
   position: relative;
-  padding: var(--spacer);
+  padding: 0 var(--spacer--400);
   line-height: calc(22 / 16);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer-lg);
+  @media screen and (min-width: 500px) {
+    padding-left: var(--spacer--600);
+    padding-right: var(--spacer--600);
   }
-  @media screen and (min-width: 1280px) {
-    padding-left: var(--spacer-xl);
-    padding-right: var(--spacer-xl);
+  @media screen and (min-width: 640px) {
+    padding-left: var(--spacer--700);
+    padding-right: var(--spacer--700);
   }
 }
 .evaluation__explanation {
-  @include rfs($font-size-18);
-  margin-bottom: var(--spacer);
-  color: var(--color-brand-darkest);
+  @include rfs($font-size-21);
+  margin-bottom: var(--spacer--500);
+  color: var(--color--blue-dark);
 }
 .evaluation__longdesc {
-  @include rfs($font-size-16);
-  line-height: 1.45;
-  margin-bottom: var(--spacer);
+  @include rfs($font-size-18);
+  margin-bottom: var(--spacer--600);
 }
 .evaluation__body .tts {
   position: absolute;
@@ -171,12 +212,11 @@ bus.on(listener)
   }
 }
 .evaluation__feature {
-  @include rfs($font-size-16);
-  line-height: 1.45;
+  @include rfs($font-size-18);
+  color: var(--color--blue-dark);
   margin-bottom: var(--spacer);
 }
 .evaluation__feature-name {
-  color: var(--color-brand-darkest);
   font-weight: 700;
 }
 </style>

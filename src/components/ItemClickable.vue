@@ -26,7 +26,7 @@ defineEmits(['click'])
   display: grid;
   border: 1px solid var(--color--blue);
   background: var(--color--white);
-  padding: var(--spacer--400) var(--spacer--500);
+  padding: var(--spacer--500) var(--spacer--400);
   position: relative;
   border-radius: var(--spacer--500);
   margin-top: var(--spacer--300);
@@ -63,33 +63,11 @@ defineEmits(['click'])
   align-items: flex-end;
   gap: var(--spacer--200);
 }
-// .item-clickable__meta div :deep(svg) {
-//   // position: relative;
-//   // top: 2px;
-// }
-.item-clickable__meta div :deep(svg) {
-  fill: var(--color--blue-gray);
+.item-clickable__meta svg {
+  width: 10px;
+  height: 16px;
+  path {
+    fill: var(--color--blue-gray);
+  }
 }
-// .entry-block__name {
-//   @include rfs($font-size-16);
-//   line-height: 1.375;
-// }
-// .service-block__icon {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 1.25rem;
-//   height: 1.25rem;
-//   line-height: 1;
-//   text-align: center;
-//   border-radius: 50%;
-//   background: var(--color-brand-darkest);
-//   svg {
-//     width: 0.7rem;
-//     height: 0.7rem;
-//     path {
-//       fill: #fff;
-//     }
-//   }
-// }
 </style>

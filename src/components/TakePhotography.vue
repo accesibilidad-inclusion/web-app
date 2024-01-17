@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconCamera from '@/assets/img/app-icons/camera.svg?component'
+import IconCamera from '@/assets/img/app-icons/camera-filled.svg?component'
 import QuestionInstruction from '@/components/QuestionInstruction.vue'
 
 defineProps<{
@@ -50,10 +50,14 @@ defineEmits(['change'])
   overflow: hidden;
   position: relative;
   border-radius: var(--border-radius-md);
+  background-color: var(--color--skyblue);
+  .theme-online & {
+    background-color: var(--color--yellow);
+  }
   img {
     height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
+    -o-object-fit: contain;
+    object-fit: contain;
     width: 100%;
   }
 }
@@ -62,5 +66,9 @@ defineEmits(['change'])
   right: var(--spacer--300);
   left: var(--spacer--300);
   bottom: var(--spacer--300);
+  svg {
+    width: 15px;
+    height: auto;
+  }
 }
 </style>

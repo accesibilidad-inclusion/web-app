@@ -270,6 +270,9 @@ bus.on(listener)
   background-color: var(--color--skyblue);
   padding: var(--spacer--500);
   position: relative;
+  .theme-online & {
+    background-color: var(--color--yellow);
+  }
   .tts {
     position: absolute;
     top: var(--spacer--500);
@@ -280,9 +283,9 @@ bus.on(listener)
   @include rfs($font-size-16);
   font-weight: 700;
   display: grid;
-  grid-template-columns: var(--spacer--500) 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto auto;
-  column-gap: var(--spacer--200);
+  column-gap: var(--spacer--300);
   align-items: center;
   margin-bottom: var(--spacer--400);
   position: relative;
@@ -325,7 +328,7 @@ bus.on(listener)
     grid-row: 1 / 2;
     input {
       padding: var(--spacer--300);
-      border: none;
+      border-color: var(--color--blue-light);
       border-radius: var(--spacer--300);
       color: var(--color--blue-light);
       font-weight: 700;
@@ -371,6 +374,9 @@ bus.on(listener)
   font-weight: 600;
   text-decoration: underline;
   padding: var(--spacer-sm) var(--spacer) var(--spacer-xs) var(--spacer);
+  &:hover {
+    color: var(--color--blue);
+  }
   svg {
     margin-right: var(--spacer-xs);
     path {
