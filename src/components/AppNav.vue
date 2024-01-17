@@ -146,6 +146,9 @@ const back = () => {
   background: none;
   border: 0;
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacer--300);
 }
 .app-nav__toggle-back {
   @include rfs($font-size-16);
@@ -154,10 +157,13 @@ const back = () => {
   background: none;
   border: 0;
   margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacer--200);
   svg {
     margin-left: 0;
-    height: 10px;
-    width: 6px;
+    height: 12px;
+    width: auto;
   }
 }
 .app-nav__logo-wrapper {
@@ -176,11 +182,9 @@ const back = () => {
 }
 .app-nav__toggle-icon {
   width: 17px;
-  height: 12px;
-  margin-left: 0.2rem;
+  height: auto;
   @media screen and (min-width: 640px) {
-    width: 24px;
-    height: 17px;
+    width: 22px;
   }
 }
 .app-menu {
@@ -219,42 +223,44 @@ const back = () => {
 }
 .app-menu__header {
   display: flex;
-  margin-bottom: var(--spacer-lg);
-  padding-top: var(--spacer-sm);
-  padding-left: var(--spacer-sm);
-  padding-bottom: var(--spacer-sm);
-  border-bottom: 1px solid var(--color-brand-lighter);
+  margin-bottom: var(--spacer--600);
+  padding-top: var(--spacer--500);
+  padding-bottom: var(--spacer--500);
+  padding-left: var(--spacer--300);
+  border-bottom: 1px solid var(--color--skyblue-light);
   @media screen and (min-width: 640px) {
-    padding-top: var(--spacer);
-    padding-bottom: var(--spacer);
+    padding-top: var(--spacer--500);
+    padding-bottom: var(--spacer--500);
   }
 }
 .app-menu__title {
   @include rfs($font-size-16);
-  font-weight: 600;
-  color: var(--color-text);
+  font-weight: 800;
+  color: var(--color--blue-dark);
 }
 .app-menu__items {
-  padding-left: var(--spacer-sm);
-  padding-right: var(--spacer-sm);
+  padding-left: var(--spacer--300);
+  padding-right: var(--spacer--300);
   list-style: none;
   li {
-    margin-top: var(--spacer-sm);
-    margin-bottom: var(--spacer-sm);
+    margin-top: var(--spacer--300);
+    margin-bottom: var(--spacer--300);
   }
   a {
+    @include rfs($font-size-16);
     display: block;
-    padding-top: var(--spacer-sm);
-    padding-bottom: var(--spacer-sm);
+    padding-top: var(--spacer--400);
+    padding-bottom: var(--spacer--400);
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--color--blue-dark);
+    font-weight: 600;
     &:hover {
-      color: var(--color-brand);
+      color: var(--color--blue);
       text-decoration: underline;
     }
     &.router-link-exact-active {
       font-weight: 700;
-      color: var(--color-brand);
+      color: var(--color--blue);
     }
   }
 }
@@ -268,10 +274,10 @@ const back = () => {
   border: 0;
 }
 .app-menu__toggle-icon {
-  width: 15px;
-  height: 15px;
-  path {
-    fill: var(--color-neutral);
+  width: 17px;
+  height: 17px;
+  &:deep(path) {
+    fill: var(--color--blue-gray);
   }
 }
 </style>
