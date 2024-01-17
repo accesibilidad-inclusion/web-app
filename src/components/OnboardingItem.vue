@@ -41,7 +41,7 @@ defineProps<{
   overflow: hidden;
   position: relative;
   @media screen and (min-width: 550px) {
-    max-height: 650px;
+    max-height: 597px;
   }
 }
 .onboarding-item__image {
@@ -52,7 +52,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: var(--spacer--300);
+  gap: var(--spacer--400);
   padding: var(--spacer--500) var(--spacer--400);
   width: 100%;
   // height: 100%;

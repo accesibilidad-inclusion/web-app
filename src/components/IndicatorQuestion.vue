@@ -96,6 +96,9 @@ defineEmits(['reply'])
   cursor: pointer;
   &.active {
     background-color: var(--color--skyblue);
+    .theme-online & {
+      background-color: var(--color--yellow);
+    }
   }
 }
 .evaluation-block__grade {

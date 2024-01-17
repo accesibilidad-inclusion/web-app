@@ -21,7 +21,7 @@ const sequence: Array<Onboarding> = [
   },
   {
     title: 'Ten en cuenta',
-    body: '<ul><li>Una tarea no puede tener menos de 3 pasos, ni mas de 9 pasos.</li><li>Cuando ya los hayas escrito todos, presionas el botón “Listo”</li></ul>',
+    body: '<ul><li>Una tarea no puede tener menos de 3 pasos, ni más de 9 pasos.</li><li>Cuando ya los hayas escrito todos, presionas el botón “Listo”</li></ul>',
     image: OnboardingImage2
   },
   {

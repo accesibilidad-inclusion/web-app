@@ -100,6 +100,10 @@ defineExpose({
   }
   .block-header {
     margin-top: var(--spacer--300);
+    font-weight: 600;
+    p {
+      margin: 0;
+    }
   }
 }
 </style>
