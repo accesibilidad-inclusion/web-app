@@ -26,6 +26,10 @@ const setCategory = (category: Category) => {
     <ul class="main-categories__list">
       <li class="category" v-for="category in appData.categories" :key="category.id">
         <a @click="setCategory(category)">
+          <TextToSpeech
+            :text-audio="
+              category.name + '. ' + $t('categoriesList.list.descriptions.' + category.slug)
+            " />
           <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
           <h3 class="category__name">
             {{ category.name }}

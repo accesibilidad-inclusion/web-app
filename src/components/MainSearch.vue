@@ -39,6 +39,7 @@ const doSearch = () => {
             : 'main-search__type main-search__type--online'
         "
         @click="filterSelected = 'online'">
+        <TextToSpeech text-audio="Buscar tareas en internet" />
         <span class="main-search__type-icon">
           <IconInternetTasks></IconInternetTasks>
         </span>
@@ -51,6 +52,7 @@ const doSearch = () => {
             : 'main-search__type main-search__type--presential'
         "
         @click="filterSelected = 'presential'">
+        <TextToSpeech text-audio="Buscar tareas presenciales" />
         <span class="main-search__type-icon">
           <IconPresentialTasks></IconPresentialTasks>
         </span>
@@ -61,7 +63,11 @@ const doSearch = () => {
       <div v-if="filterSelected">
         <InputSearch :type="filterSelected" v-model="query" @search="doSearch" />
         <button
-          v-bind:class="'btn btn--large btn--block main-search__button' + ' main-search__button--' + filterSelected"
+          v-bind:class="
+            'btn btn--large btn--block main-search__button' +
+            ' main-search__button--' +
+            filterSelected
+          "
           :disabled="query.trim() == ''"
           @click="doSearch">
           Ver resultados
