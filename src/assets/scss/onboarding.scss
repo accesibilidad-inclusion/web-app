@@ -80,7 +80,7 @@ li.onboarding__step-indicator--active {
   }
   &:before {
     content: counter(list-item) '. ';
-    color: var(--color-brand-darkest);
+    color: var(--color--blue-dark);
     font-weight: bold;
     position: absolute;
     left: 0;
