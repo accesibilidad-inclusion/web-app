@@ -1014,7 +1014,7 @@ li.task__step-indicator--active {
       top: var(--spacer--500);
     }
   }
-  :deep(.text-formatted) {
+  .text-formatted {
     h2 {
       @include rfs($font-size-16);
       font-weight: 700;
