@@ -106,4 +106,7 @@ defineExpose({
     }
   }
 }
+.custom-control__input:checked ~ .custom-control__label {
+  background-color: var(--color--skyblue-light);
+}
 </style>

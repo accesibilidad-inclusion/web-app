@@ -105,4 +105,7 @@ label {
 .form-group {
   @include rfs(1.25rem, margin-bottom);
 }
+.custom-control__input:checked ~ .custom-control__label {
+  background-color: var(--color--skyblue-light);
+}
 </style>

@@ -87,5 +87,9 @@ defineExpose({
   font-weight: 800;
   justify-content: center;
   padding: var(--spacer--500) var(--spacer--300);
+  text-align: center;
+}
+.custom-control__input:checked ~ .custom-control__label {
+  background-color: var(--color--skyblue-light);
 }
 </style>
