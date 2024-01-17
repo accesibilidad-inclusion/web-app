@@ -36,9 +36,14 @@
   color: var(--color--blue-dark);
   display: block;
   transition: var(--transition-base);
+  background-color: var(--color--white);
 }
 .custom-control__input:checked ~ .custom-control__label {
   background-color: var(--color--skyblue);
+  transition: var(--transition-base);
+  .theme-online & {
+    background-color: var(--color--yellow);
+  }
 }
 .custom-control__input {
   position: absolute;
@@ -50,6 +55,7 @@
 .custom-control--search {
   input {
     padding-right: var(--spacer--700);
+    margin-bottom: var(--spacer--400);
   }
   button {
     position: absolute;

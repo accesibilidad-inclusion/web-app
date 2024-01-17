@@ -17,6 +17,9 @@
     margin-left: auto;
     margin-right: auto;
     padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
+    .theme-online & {
+        background-color: var(--color--yellow-light);
+    }
     .btn {
         font-weight: 700;
     }
@@ -76,17 +79,16 @@
 .thanks-message__form {
     .subscription-form {
         display: grid;
-        grid-template-columns: 1fr 150px;
-        column-gap: var(--spacer--400);
+        grid-template-columns: 3fr 1fr;
+        column-gap: var(--spacer--300);
         transition: var(--transition-base);
-    }
-
-    .btn {
-        display: flex;
         align-items: center;
-
-        .v-spinner {
-            margin-left: var(--spacer--400);
+    }
+    .btn {
+        transition: var(--transition-base);
+        .spinner {
+            margin-bottom: var(--spacer--200);
+            transition: var(--transition-base);
         }
     }
 }
