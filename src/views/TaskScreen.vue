@@ -169,9 +169,9 @@ bus.on(listener)
     <template v-if="task && venue && service">
       <header
         :class="{'header--prerequisites': show_prerequisites}"
-        class="task__header entries-list__header">
+        class="task__header">
         <text-to-speech :text-audio="`${task.title}.`" />
-        <h1 class="task__title entries-list__title">{{ task.title }}</h1>
+        <h1 class="task__title">{{ task.title }}</h1>
       </header>
       <template v-if="show_prerequisites">
         <div class="task__prerequisites">
@@ -239,28 +239,32 @@ bus.on(listener)
               </figure>
               <figure
                 v-if="task instanceof OnlineTask"
-                class="task-step__figure"
+                class="task-step__figure task-step__figure--online-focus"
                 :class="{'task-step__figure--without-pictogram': !step.image}">
-                <div v-if="step.screenshot">
+                <div v-if="step.screenshot" class="step-canvas">
                   <ImageFocus
                     :image="step.screenshot"
                     :focus-size="step.focus_size"
                     :focus-x="step.focus_x"
                     :focus-y="step.focus_y" />
                 </div>
-                <figcaption class="task-step__legend">
-                  <span v-if="step.image" class="task-action">
-                    <img
-                      :src="`${step.image.path}${step.image.filename}`"
-                      class="pictogram__layer--action" />
-                  </span>
-                  <div class="task-step__number">
-                    Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
-                  </div>
-                  <div class="task-text__description">{{ step.label }}</div>
-                  <div v-html="step.details"></div>
-                  <text-to-speech :text-audio="step.label" />
-                </figcaption>
+                <div class="task-step-main">
+                  <figcaption class="task-step__legend">
+                    <span v-if="step.image" class="task-action">
+                      <img
+                        :src="`${step.image.path}${step.image.filename}`"
+                        class="pictogram__layer--action" />
+                    </span>
+                    <div class="task-text__number">
+                      Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
+                    </div>
+                    <div class="task-text__description">
+                      <span>{{ step.label }}</span>
+                      <div v-html="step.details" class="task-text__details"></div>
+                    </div>
+                    <text-to-speech :text-audio="step.label" />
+                  </figcaption>
+                </div>
               </figure>
             </li>
             <li
@@ -446,13 +450,16 @@ bus.on(listener)
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 @import '@/assets/scss/rfs.scss';
 .task__single {
   display: flex;
   flex-flow: column nowrap;
   overflow-x: hidden;
   background-color: var(--color--skyblue-light);
+  .theme-online & {
+    background-color: var(--color--yellow-light);
+  }
 }
 .task__header {
   position: relative;
@@ -466,6 +473,8 @@ bus.on(listener)
   margin-bottom: var(--spacer--200);
   line-height: 1.3888888889;
   color: var(--color--blue-dark);
+  padding-left: var(--spacer--500);
+  padding-right: var(--spacer--500);
 }
 .task__description {
   @include rfs($font-size-14);
@@ -507,6 +516,8 @@ bus.on(listener)
   display: grid;
   grid-template-rows: auto 1fr;
   flex-grow: 1;
+  background-color: var(--color--white);
+  border-radius: var(--spacer--500);
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
@@ -552,11 +563,10 @@ bus.on(listener)
   height: 100%;
   transform: translateX(100%);
   transition:
-    opacity 0.25s 0.25s ease-out,
-    transform 0 0;
+  opacity 0.25s 0.25s ease-out,
+  transform 0 0;
   list-style: none;
   opacity: 0;
-  background-color: var(--color--white);
   border-radius: var(--spacer--500);
 }
 .task-step--active {
@@ -587,10 +597,7 @@ bus.on(listener)
 }
 .task-step-main {
   position: relative;
-  padding: var(--spacer--500) var(--spacer--400) var(--spacer--500);
-  @media screen and (min-width: 640px) {
-    padding: var(--spacer--500) var(--spacer--400) var(--spacer--600);
-  }
+  padding: var(--spacer--500) var(--spacer--400) var(--spacer--600);
 }
 .task-step__legend {
   min-height: 8vh;
@@ -609,7 +616,7 @@ bus.on(listener)
     margin-left: var(--spacer);
     position: absolute;
     right: var(--spacer--400);
-    top: var(--spacer--400);
+    top: var(--spacer--500);
   }
 }
 .task-action {
@@ -632,6 +639,12 @@ bus.on(listener)
   grid-column: 2/3;
   grid-row: 2/3;
 }
+.task-text__details {
+  @include rfs($font-size-14);
+  font-weight: 600;
+  grid-column: 2/3;
+  grid-row: 3;
+}
 
 // Último paso, donde se pregunta si fue de ayuda
 .task-helpful {
@@ -643,6 +656,9 @@ bus.on(listener)
   color: var(--color--blue-dark);
   background-color: var(--color--carolinablue);
   height: 55vh;
+  .theme-online & {
+    background-color: var(--color--yellow);
+  }
   @media screen and (min-width: 640px) {
     padding-left: var(--spacer--600);
     padding-right: var(--spacer--600);
@@ -687,10 +703,16 @@ bus.on(listener)
   justify-content: center;
   &:hover {
     background: var(--color--skyblue);
+    .theme-online & {
+      background-color: var(--color--yellow);
+    }
   }
   &.task-helpful__answer--active {
     background: var(--color--skyblue-light);
     color: var(--color--blue-dark);
+    .theme-online & {
+      background-color: var(--color--yellow-light);
+    }
   }
   @media screen and (max-width: 400px) {
     // Hack Safari
@@ -744,7 +766,7 @@ bus.on(listener)
   }
 }
 li.task__step-indicator--active {
-  background: var(--color-brand);
+  background: var(--color--blue);
 }
 // Botón de feedback
 .task__step-feedback {
@@ -769,6 +791,9 @@ li.task__step-indicator--active {
     bottom: -100%;
     opacity: 0;
   }
+  .theme-online & {
+    background-color: var(--color--yellow);
+  }
   @media screen and (min-width: 620px) {
     max-width: calc(620px - var(--spacer--400));
   }
@@ -787,18 +812,20 @@ li.task__step-indicator--active {
   margin-left: auto;
   margin-right: auto;
   padding: var(--spacer--400);
-  background-color: var(--color-brand-lighter);
+  background-color: var(--color--skyblue-light);
   transition: top 0.35s ease;
   border-top-left-radius: var(--spacer--400);
   border-top-right-radius: var(--spacer--400);
   overflow: hidden;
+  .theme-online & {
+    background-color: var(--color--yellow-light);
+  }
   .modal--fade:not(.modal--fade-out) & {
     top: var(--spacer--700);
     overflow: unset;
   }
   &.task-feedback--submitted {
-    color: var(--color-highlight);
-    background-color: var(--color-brand-darkest);
+
     transition: var(--transition-base);
     .task-feedback__form {
       animation: quickScaleDown 0s 0.5s linear forwards;
@@ -829,7 +856,7 @@ li.task__step-indicator--active {
     svg {
       width: 1rem;
       height: 1rem;
-      &:deep(path) {
+      path {
         fill: var(--color--white);
       }
     }
@@ -981,21 +1008,31 @@ li.task__step-indicator--active {
   .task__header {
     background-color: var(--color--white);
     text-align: left;
-    margin: var(--spacer--400);
-    &:deep(.text-formatted) {
-      h2 {
-        @include rfs($font-size-16);
-        font-weight: 700;
-        color: var(--color--blue-dark);
-        margin-bottom: var(--spacer--500);
-      }
-      ul {
-        @include rfs($font-size-14);
-        color: var(--color--blue-dark);
-        margin-left: var(--spacer--500);
-        li {
-          margin-bottom: var(--spacer--300);
-        }
+    margin: 0 var(--spacer--400);
+    padding-top: var(--spacer--500);
+    .tts {
+      top: var(--spacer--500);
+    }
+  }
+  :deep(.text-formatted) {
+    h2 {
+      @include rfs($font-size-16);
+      font-weight: 700;
+      color: var(--color--blue-dark);
+      margin-bottom: var(--spacer--500);
+    }
+    h3 {
+      @include rfs($font-size-16);
+      font-weight: 700;
+      color: var(--color--blue-dark);
+      margin-bottom: var(--spacer--500);
+    }
+    ul, ol {
+      @include rfs($font-size-14);
+      color: var(--color--blue-dark);
+      margin-left: var(--spacer--500);
+      li {
+        margin-bottom: var(--spacer--300);
       }
     }
   }
@@ -1003,7 +1040,30 @@ li.task__step-indicator--active {
 .task__single .page__footer {
   padding: var(--spacer--600) var(--spacer--400) var(--spacer--400);
 }
-.header--prerequisites {
-  padding-bottom: var(--spacer-sm) !important;
+.task-feedback--submitted {
+  .thanks-message {
+    position: relative;
+    .tts {
+      position: relative;
+      top: initial;
+      right: initial;
+      margin-bottom: var(--spacer--500);
+    }
+  }
+}
+
+.task-step__figure--online-focus {
+  .step-canvas {
+    display: block;
+  }
+  .task-text__description {
+    span {
+      display: block;
+      margin-bottom: var(--spacer--200);
+    }
+    .task-text__details {
+      font-weight: 600;
+    }
+  }
 }
 </style>
