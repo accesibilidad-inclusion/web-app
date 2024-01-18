@@ -18,6 +18,7 @@ import {OnlineVenue} from '@/model/online_venue'
 import {PresentialVenue} from '@/model/presential_venue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
+import IconInternet from '@/assets/img/app-icons/instructions/internet.svg?component'
 
 const router = useRouter()
 const route = useRoute()
@@ -168,14 +169,22 @@ const backToVenue = () => {
 <template>
   <div :class="questionsType + '-evaluation'">
     <template v-if="!started">
-      <BlockHeader
-        :title="venue.name"
-        description="Evaluación"
-        compact
-        :link="{
-          text: venue instanceof PresentialVenue ? 'Ver en el Mapa' : 'Ir a sitio web',
-          url: venue instanceof PresentialVenue ? venue.mapLink : venue.url
-        }" />
+      <div class="first-step-evaluation">
+        <BlockHeader
+          :title="venue.name"
+          description="Evaluación"
+          compact
+          :link="{
+            text: venue instanceof PresentialVenue ? 'Ver en el Mapa' : 'Ir a sitio web',
+            url: venue instanceof PresentialVenue ? venue.mapLink : venue.url
+          }">
+          <template #icon>
+          <span class="category-icon">
+            <IconInternet class="block-header__icon" />
+          </span>
+        </template>
+        </BlockHeader>
+      </div>
     </template>
     <template v-else-if="finished">
       <div class="feedback-evaluation">
@@ -291,8 +300,38 @@ const backToVenue = () => {
   flex-direction: column;
   .block-header__compact {
     display: grid;
+    background-color: var(--color--skyblue);
     .block-header__description {
       grid-row: 1;
+    }    
+  }
+  .first-step-evaluation {
+    background-color: var(--color--skyblue);
+    border-radius: var(--spacer--500);
+    height: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .block-header__compact {
+      position: initial;
+      max-width: 500px;
+      row-gap: var(--spacer--300);
+      padding: var(--spacer--500);
+      .category-icon {
+        background: var(--color--yellow);
+        border: 1px solid var(--color--blue);
+        border-radius: var(--spacer--300);
+        width: 55px;
+        height: 55px;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto; 
+      }
+      .block-header__description {
+        grid-row: 2;
+      }
     }
   }
   footer {
