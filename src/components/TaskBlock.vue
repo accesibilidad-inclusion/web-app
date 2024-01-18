@@ -77,14 +77,14 @@ const selectTask = () => {
   border-bottom: 1px solid var(--color--blue);
 }
 .task-block__content {
-  padding: var(--spacer--500) var(--spacer--400);
+  padding: var(--spacer--500) var(--spacer--600) var(--spacer--500) var(--spacer--400);
   position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--spacer--200);
   .tts {
     position: absolute;
-    top: var(--spacer--500);
+    top: calc(var(--spacer--500) + 4px);
     right: var(--spacer--400);
   }
 }

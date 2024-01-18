@@ -624,11 +624,10 @@ bus.on(listener)
   grid-row: 2/3;
 }
 .task-text__number {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   opacity: 0.7;
   font-weight: 700;
   color: var(--color--blue-dark);
-  letter-spacing: 0.0625rem;
   text-transform: uppercase;
   grid-column: 2/3;
   grid-row: 1/2;
