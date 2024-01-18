@@ -21,12 +21,20 @@ const i18n = createI18n({
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
+app.config.errorHandler = () => {
+  router.push('/error')
+}
+
 Sentry.init({
+  app,
   dsn: 'https://a1b0ebf4bf574f1809cb589f2683bda8@o236494.ingest.sentry.io/4506593433092096',
   integrations: [
     new Sentry.BrowserTracing({
       // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-      tracePropagationTargets: ['localhost', /^https:\/\/yourserver\.io\/api/]
+      tracePropagationTargets: [
+        /^https:\/\/local.app.pictos\.cl\//,
+        /^https:\/\/dev.app.pictos\.cl\//
+      ]
     }),
     new Sentry.Replay({
       maskAllText: false,
@@ -43,12 +51,5 @@ Sentry.init({
 app.use(pinia)
 app.use(router)
 app.use(i18n)
-
-app.config.errorHandler = (err, instance, info) => {
-  /* console.log(err)
-  console.log(instance)
-  console.log(info) */
-  router.push('/error')
-}
 
 app.mount('#app')
