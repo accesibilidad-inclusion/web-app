@@ -4,32 +4,45 @@ import TextToSpeech from '@/components/TextToSpeech.vue'
 </script>
 
 <template>
-  <div class="instruction">
-    <TextToSpeech text-audio="Gracias por la información" />
-    <span class="instruction__icon">
-      <LikeIcon />
-    </span>
-    <div class="instruction__title">¡Gracias por la información!</div>
+  <div class="onboarding-skyblue">
+    <div class="instruction">
+      <TextToSpeech text-audio="Gracias por la información" />
+      <span class="instruction__icon">
+        <LikeIcon />
+      </span>
+      <div class="instruction__title">¡Gracias por la información!</div>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 @import '@/assets/scss/rfs.scss';
 
-.instruction {
+.onboarding-skyblue {
   background-color: var(--color--skyblue);
-  border-radius: var(--border-radius-md);
+  margin-top: -50px;
+  padding-top: 50px;
   flex-grow: 1;
-  padding: var(--spacer--500);
+  @media screen and (min-width: 640px) {
+    margin-top: -62px;
+    padding-top: 62px;
+  }
+  .block-header {
+    margin-top: var(--spacer--300);
+    font-weight: 600;
+    p {
+      margin: 0;
+    }
+  }
+}
+.instruction {
+  padding: var(--spacer--400);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: var(--spacer--500);
   height: 100%;
-  .theme-online & {
-    background-color: var(--color--yellow);
-  }
 }
 .instruction__icon {
   background: var(--color--yellow);
