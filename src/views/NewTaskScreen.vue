@@ -154,25 +154,28 @@ bus.on(listener)
             <text-to-speech
               :text-audio="
                 'Revisa los pasos ingresados\n\n\n\n\n\n' +
-                'Edita o reordena los pasos en caso de ser necesario'
+                'Edita los pasos en caso de ser necesario'
               " />
           </p>
-          <p class="page__indication">Edita o reordena los pasos en caso de ser necesario</p>
-          <div v-for="(step, index) in steps" :key="index" class="step-block-inserted">
+          <p class="page__indication">Edita los pasos en caso de ser necesario</p>
+          <div
+            v-for="(step, index) in steps"
+            @click="editing ? () => {} : editStep(index)"
+            :key="index"
+            class="step-block-inserted">
             {{ index + 1 }}
             <template v-if="editing != index"
               ><p class="step-block-inserted__title">{{ step }}</p>
-              <span @click="editStep(index)" class="step-block-inserted__edit"><icon-menu /></span
-            ></template>
+            </template>
             <template v-else>
               <div class="custom-control">
                 <input v-model="stepEdit" type="text" />
               </div>
               <div class="step-block-inserted__actions">
-                <span class="step-block-inserted__btn" @click="setStep(index)"
+                <span class="step-block-inserted__btn" @click.stop="setStep(index)"
                   ><icon-check class="step-block-inserted__icon-check" />Listo</span
                 >
-                <span class="step-block-inserted__btn" @click="editing = null"
+                <span class="step-block-inserted__btn" @click.stop="editing = null"
                   ><icon-delete class="step-block-inserted__icon-cancel" />Cancelar</span
                 >
               </div>
