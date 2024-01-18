@@ -49,6 +49,10 @@ const changeLocation = () => {
     font-weight: 600;
     color: var(--color--blue);
     padding: var(--spacer--400) var(--spacer--400);
+    text-decoration: underline;
+    &:hover {
+      color: var(--color--blue-dark);
+    }
   }
   .your-location__content {
     display: flex;
