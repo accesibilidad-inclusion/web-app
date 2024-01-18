@@ -17,6 +17,7 @@
   "dependencies": {
     "@fontsource-variable/open-sans": "^5.0.16",
     "@googlemaps/js-api-loader": "^1.16.2",
+    "@sentry/vue": "^7.93.0",
     "@vueuse/core": "^10.6.0",
     "pictos": "github:accesibilidad-inclusion/pictogramas#qa",
     "pinia": "^2.1.6",
