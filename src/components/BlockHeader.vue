@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import IconLocationPin from '@/assets/img/app-icons/support/lugar.svg?component'
+import IconExternalLink from '@/assets/img/app-icons/support/link-externo.svg?component'
 import LocationSelector from '@/components/LocationSelector.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {useAppNavStore} from '@/stores/app-nav'
@@ -12,6 +12,7 @@ defineProps<{
   link?: {text: string; url: string}
   compact?: boolean
   location?: boolean
+  firstDescription?: boolean
 }>()
 </script>
 
@@ -20,13 +21,22 @@ defineProps<{
     class="block-header"
     :class="[{'block-header__compact': compact}, `block-header__${appNav.theme}`]">
     <slot name="icon" class="block-header__icon"></slot>
-    <h1 class="block-header__title" v-if="title !== undefined">{{ title }}</h1>
-    <p class="block-header__description">
-      {{ description }}
-    </p>
+    <template v-if="firstDescription">
+      <p class="block-header__description">
+        {{ description }}
+      </p>
+      <h1 class="block-header__title" v-if="title !== undefined">{{ title }}</h1>
+    </template>
+    <template v-else>
+      <h1 class="block-header__title" v-if="title !== undefined">{{ title }}</h1>
+      <p class="block-header__description">
+        {{ description }}
+      </p>
+    </template>
+
     <a v-if="link !== undefined" :href="link.url" class="block-header__link" target="_blank">
       {{ link.text }}
-      <IconLocationPin />
+      <IconExternalLink />
     </a>
     <LocationSelector v-if="location" dense />
     <TextToSpeech :text-audio="title + '.\n\n ' + description" />
@@ -101,11 +111,13 @@ defineProps<{
   color: var(--color--blue-dark);
   display: flex;
   justify-content: center;
+  align-items: end;
   line-height: 1;
   gap: 4px;
   svg {
     width: 10px;
-    height: 16px;
+    height: 10px;
+    margin-bottom: 3px;
   }
 }
 .block-header__compact {

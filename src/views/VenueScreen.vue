@@ -74,7 +74,8 @@ bus.on(listener)
         :link="{
           text: venue instanceof PresentialVenue ? 'Ver en el Mapa' : 'Ir a sitio web',
           url: venue instanceof PresentialVenue ? venue.mapLink : venue.url
-        }">
+        }"
+        :first-description="true">
       </BlockHeader>
       <template v-if="venue.tasks !== undefined && venue.tasks.length">
         <main class="venue__tasks">
@@ -187,7 +188,7 @@ bus.on(listener)
 .presential-venue {
   position: relative;
 }
-.presential-venue ,
+.presential-venue,
 .online-venue {
   display: flex;
   flex-direction: column;
