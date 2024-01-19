@@ -10,6 +10,7 @@ import {PresentialTask} from '@/model/presential_task'
 import {useAppNavStore} from '@/stores/app-nav'
 import type {Image} from '@/model/image'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
+import IconCheck from '@/assets/img/app-icons/support/check2.svg?component'
 
 const router = useRouter()
 
@@ -135,6 +136,10 @@ const submitSubscription = async () => {
 
 <template>
   <div class="task__single">
+    <header class="task__header">
+      <text-to-speech :text-audio="`${task.title}.`" />
+      <h1 class="task__title">{{ task.title }}</h1>
+    </header>
     <template v-if="!submitted">
       <main class="task__main">
         <ol v-touch:swipe.left="advanceStep" v-touch:swipe.right="rewindStep" class="task__steps">
@@ -167,7 +172,7 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'subject'
               }"
               @click="tab = 'subject'">
-              Persona
+              Persona <icon-check class="select-pictogram__check" />
             </button>
             <button
               class="btn btn--primary btn--block btn--filled--skyblue-light"
@@ -175,7 +180,7 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'landmark'
               }"
               @click="tab = 'landmark'">
-              Objeto
+              Objeto <icon-check class="select-pictogram__check" />
             </button>
             <button
               class="btn btn--primary btn--block btn--filled--skyblue-light"
@@ -183,9 +188,10 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'context'
               }"
               @click="tab = 'context'">
-              Espacio
+              Espacio <icon-check class="select-pictogram__check" />
             </button>
           </div>
+          <h2 class="select-pictogram__title">Elige una persona para esta capa</h2>
           <div class="select-pictogram__img">
             <div
               v-for="(image, index) in showImages"
@@ -201,6 +207,7 @@ const submitSubscription = async () => {
           </div>
         </div>
         <div class="task__nav">
+          <span class="task__nav-selection">Capa <strong>1</strong> de <strong>3</strong> seleccionada</span>
           <button
             class="btn btn--large btn--secondary"
             :class="{
@@ -305,6 +312,7 @@ const submitSubscription = async () => {
   flex-flow: column nowrap;
   overflow-x: hidden;
   background-color: var(--color--skyblue-light);
+  padding-bottom: var(--spacer--700);
 }
 .task__single--pictogram {
   background-color: var(--color--skyblue);
@@ -322,7 +330,7 @@ const submitSubscription = async () => {
   flex-grow: 1;
   max-height: 55vh;
   // Hack Safari
-  padding: var(--spacer--400) var(--spacer--500);
+  padding: 0 var(--spacer--400) var(--spacer--400);
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
       height: 100%;
@@ -450,8 +458,9 @@ const submitSubscription = async () => {
 // Navegación
 .task__nav {
   display: grid;
-  gap: 0 var(--spacer-sm);
+  gap: var(--spacer--300);
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
   padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
   background-color: var(--color--skyblue-light);
   position: fixed;
@@ -460,12 +469,28 @@ const submitSubscription = async () => {
   left: 0;
   bottom: 0;
   margin: 0 auto;
-  @media screen and (min-width: 620px) {
+  box-shadow: 0px -4px 30px 0px rgba(4, 28, 66, 0.40);
+  aspect-ratio: 320/568;
+  max-width: 568px;
+  max-height: 112px;
+  @media screen and (min-width: 560px) {
     padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
-    max-width: 620px;
+    max-width: 640px;
   }
   @media screen and (min-width: 1280px) {
-    max-width: 560px;
+    max-width: 495px;
+  }
+  .btn {
+    grid-row: 2;
+  }
+  .task__nav-selection {
+    @include rfs($font-size-14);
+    font-weight: 600;
+    color: var(--color--blue-dark);
+    grid-row: 1;
+    grid-column: 1/3;
+    display: block;
+    text-align: center;
   }
 }
 
@@ -486,14 +511,45 @@ const submitSubscription = async () => {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacer--300);
-  padding: var(--spacer--300) var(--spacer--500) var(--spacer--500);
+  padding: var(--spacer--300) var(--spacer--400) var(--spacer--500);
+  .btn {
+    padding-left: var(--spacer--200);
+    padding-right: var(--spacer--200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacer--200);
+    &.btn--active {
+      :deep(path) {
+        fill: var(--color--white);
+      }
+    }
+  }
 }
-
+.select-pictogram__check {
+  width: auto;
+  height: 11px;
+  @media screen and (min-width: 640px) {
+    height: 14px;
+    margin-left: var(--spacer--200);
+  }
+  :deep(path) {
+    fill: var(--color--blue-dark);
+  }
+}
+.select-pictogram__title {
+  @include rfs($font-size-16);
+  font-weight: 700;
+  color: var(--color--blue-dark);
+  text-align: center;
+  margin-top: var(--spacer--200);
+}
 .select-pictogram__img {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacer--400);
-  padding: var(--spacer--500) var(--spacer--500) var(--spacer--500);
+  padding: var(--spacer--500) var(--spacer--400) var(--spacer--700);
+  margin-bottom: var(--spacer--700);
   div {
     display: flex;
     flex-direction: column;
