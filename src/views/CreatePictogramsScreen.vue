@@ -330,6 +330,26 @@ const submitSubscription = async () => {
   overflow-x: hidden;
   background-color: var(--color--skyblue-light);
   padding-bottom: var(--spacer--700);
+  .task__header {
+    position: relative;
+    text-align: center;
+    padding: var(--spacer--200) var(--spacer--400) var(--spacer--400);
+    border-radius: var(--spacer--500);
+    font-weight: 600;
+    .task__title {
+      @include rfs($font-size-16);
+      margin-bottom: var(--spacer--200);
+      line-height: 1.3888888889;
+      color: var(--color--blue-dark);
+      padding-left: var(--spacer--500);
+      padding-right: var(--spacer--500);
+    }
+    .tts {
+      position: absolute;
+      top: var(--spacer--200);
+      right: var(--spacer--400);
+    }
+  }
 }
 .task__single--pictogram {
   background-color: var(--color--skyblue);
