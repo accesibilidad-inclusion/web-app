@@ -2,6 +2,9 @@
 .actions {
   padding: var(--spacer--700) var(--spacer--400) 0;
   text-align: center;
+  .tts {
+    position: relative;
+  }
 }
 .actions__title {
   @include rfs($font-size-18);
