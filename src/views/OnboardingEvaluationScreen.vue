@@ -45,6 +45,7 @@ const finishing = () => {
   if (route.params.type === 'presencial') appNav.onboarding.presentialEvaluation = false
   if (route.params.type === 'en-internet') appNav.onboarding.onlineEvaluation = false
   router.push(appNav.redirectTo)
+  appNav.redirectTo = '/inicio'
 }
 const bus = useEventBus('close')
 const listener = () => {

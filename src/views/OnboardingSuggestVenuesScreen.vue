@@ -27,6 +27,7 @@ const sequence: Array<Onboarding> = [
 const finishing = () => {
   appNav.onboarding.suggestVenue = false
   router.push(appNav.redirectTo)
+  appNav.redirectTo = '/inicio'
 }
 
 const bus = useEventBus('close')

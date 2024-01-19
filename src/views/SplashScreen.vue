@@ -12,10 +12,12 @@ const router = useRouter()
 if (appData.initialized) {
   setTimeout(() => {
     router.push(appNav.redirectTo).catch(() => {})
+    appNav.redirectTo = '/inicio'
   }, 1200)
 } else {
   appData.initiation().then(() => {
     router.push(appNav.redirectTo).catch(() => {})
+    appNav.redirectTo = '/inicio'
   })
 }
 </script>

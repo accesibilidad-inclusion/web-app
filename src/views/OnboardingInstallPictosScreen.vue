@@ -56,6 +56,7 @@ const sequence = computed(() => [
 const finishing = () => {
   appNav.onboarding.newTask = false
   router.push(appNav.redirectTo)
+  appNav.redirectTo = '/inicio'
 }
 
 const bus = useEventBus('close')

@@ -38,6 +38,7 @@ const finishing = async () => {
     .json()
   appSession.user.id = data.value.id
   router.push(appNav.redirectTo)
+  appNav.redirectTo = '/inicio'
 }
 const bus = useEventBus('close')
 const listener = () => {

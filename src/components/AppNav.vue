@@ -32,13 +32,11 @@ const toHome = () => {
 }
 
 const toColaborateWithUs = () => {
-  appNav.redirectTo = route.fullPath
   router.push('/colabora-con-nosotros')
   closeMenu()
 }
 
 const toAbout = () => {
-  appNav.redirectTo = route.fullPath
   router.push('/acerca-de')
   closeMenu()
 }
@@ -129,12 +127,6 @@ const back = () => {
   @media screen and (min-width: 640px) {
     padding: var(--spacer--500) var(--spacer--400);
   }
-}
-.app-nav__presential {
-  // background: var(--color--skyblue);
-}
-.app-nav__online {
-  // background: var(--color--yellow-light);
 }
 .app-nav > .router-link-active:not(:first-child) {
   text-align: left;

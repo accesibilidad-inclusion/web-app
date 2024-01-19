@@ -92,7 +92,12 @@ const confirmCommune = () => {
     gpsLng: '',
     commune: commune.value
   })
+  redirect()
+}
+
+const redirect = () => {
   router.push(appNav.redirectTo).catch(() => {})
+  appNav.redirectTo = '/inicio'
 }
 
 const toggle = (id: number) => {
@@ -111,9 +116,7 @@ const toggle = (id: number) => {
         <div class="activate-location activate-location--gps">
           <icon-location-pin class="activate-location__icon" />
           <h2 class="activate-location__title" v-html="$t('yourLocation.gpsTitle')"></h2>
-          <button
-            class="btn btn--large btn--block btn--primary"
-            @click="router.push(appNav.redirectTo).catch(() => {})">
+          <button class="btn btn--large btn--block btn--primary" @click="redirect()">
             {{ $t('yourLocation.continue') }}
           </button>
           <button class="btn btn--large btn--block btn--as-link" @click="selectCommune()">
@@ -515,7 +518,7 @@ const toggle = (id: number) => {
   background-color: var(--color--white);
   @media screen and (min-width: 1280px) {
     max-width: 545px;
-  } 
+  }
 }
 
 // Main
