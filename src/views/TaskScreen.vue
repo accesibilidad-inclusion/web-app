@@ -448,7 +448,7 @@ bus.on(listener)
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
 .task__single {
   display: flex;
@@ -1010,7 +1010,7 @@ li.task__step-indicator--active {
       top: var(--spacer--500);
     }
   }
-  .text-formatted {
+  :deep(.text-formatted) {
     h2 {
       @include rfs($font-size-16);
       font-weight: 700;
