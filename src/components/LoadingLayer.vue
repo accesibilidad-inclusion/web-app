@@ -23,6 +23,13 @@
   align-items: center;
   justify-content: center;
   background-color: rgba($color: #cae0ff, $alpha: 0.5);
+  width: 100%;
+  @media screen and (min-width: 560px) {
+    max-width: 640px;
+  }
+  @media screen and (min-width: 1280px) {
+    max-width: 495px;
+  }
 }
 .lds-ring {
   display: inline-block;

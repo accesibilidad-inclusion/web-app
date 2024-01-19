@@ -318,6 +318,7 @@ const backToVenue = () => {
       max-width: 500px;
       row-gap: var(--spacer--300);
       padding: var(--spacer--500);
+      background-color: transparent;
       .category-icon {
         background: var(--color--yellow);
         border: 1px solid var(--color--blue);
@@ -328,10 +329,16 @@ const backToVenue = () => {
         align-items: center;
         justify-content: center;
         margin: 0 auto; 
+        .theme-online & {
+          background-color: var(--color--yellow-light);
+        }
       }
       .block-header__description {
         grid-row: 2;
       }
+    }
+    .theme-online & {
+      background-color: var(--color--yellow);
     }
   }
   footer {
