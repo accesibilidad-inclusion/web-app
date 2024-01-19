@@ -9,8 +9,6 @@ const appData = useAppDataStore()
 const appNav = useAppNavStore()
 const router = useRouter()
 
-appNav.redirectTo = '/inicio'
-
 if (appData.initialized) {
   setTimeout(() => {
     router.push(appNav.redirectTo).catch(() => {})

@@ -158,9 +158,11 @@ router.beforeEach((to, from, next) => {
     to.name === 'venue-screen' ||
     to.name === 'task-screen' ||
     to.path.includes('/agregar-tarea') ||
-    to.path.includes('/evaluacion-lugar') ||
-    to.path.includes('/personal-information') ||
-    to.path.includes('/nuevo-apoyo')
+    to.path.includes('/aprender-a-agregar-tareas') ||
+    to.path.includes('/evaluar-lugar') ||
+    to.path.includes('/aprende-a-evaluar') ||
+    to.path.includes('/informacion-personal') ||
+    to.path.includes('/crear-pictogramas')
   ) {
     next()
   } else if (to.name !== 'welcome-screen' && to.name !== 'splash' && appNav.onboarding.welcome) {

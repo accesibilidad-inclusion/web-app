@@ -29,9 +29,9 @@ const type = ref<'online' | 'presential'>()
 const state = reactive({
   active_step: route.hash === '' ? 0 : parseInt(route.hash.replace('#', '')) - 1,
   active_helpful: false,
-  was_helpful: false,
-  was_liked: false,
-  was_disliked: false,
+  was_helpful: null as boolean | null,
+  was_liked: null as boolean | null,
+  was_disliked: null as boolean | null,
   shown_modal: false,
   opened_modal: false,
   closed_modal: false,
@@ -167,9 +167,7 @@ bus.on(listener)
 <template>
   <div class="task__single">
     <template v-if="task && venue && service">
-      <header
-        :class="{'header--prerequisites': show_prerequisites}"
-        class="task__header">
+      <header :class="{'header--prerequisites': show_prerequisites}" class="task__header">
         <text-to-speech :text-audio="`${task.title}.`" />
         <h1 class="task__title">{{ task.title }}</h1>
       </header>
@@ -450,7 +448,7 @@ bus.on(listener)
   </div>
 </template>
 
-<style lang="scss" >
+<style lang="scss">
 @import '@/assets/scss/rfs.scss';
 .task__single {
   display: flex;
@@ -563,8 +561,8 @@ bus.on(listener)
   height: 100%;
   transform: translateX(100%);
   transition:
-  opacity 0.25s 0.25s ease-out,
-  transform 0 0;
+    opacity 0.25s 0.25s ease-out,
+    transform 0 0;
   list-style: none;
   opacity: 0;
   border-radius: var(--spacer--500);
@@ -576,8 +574,8 @@ bus.on(listener)
   flex-grow: 1;
   transform: translateX(0%);
   transition:
-  opacity 0.25s ease-in,
-  transform 0 0.5s;
+    opacity 0.25s ease-in,
+    transform 0 0.5s;
   opacity: 1;
 }
 .task-step__layer {
@@ -824,7 +822,6 @@ li.task__step-indicator--active {
     overflow: unset;
   }
   &.task-feedback--submitted {
-
     transition: var(--transition-base);
     .task-feedback__form {
       animation: quickScaleDown 0s 0.5s linear forwards;
@@ -1026,7 +1023,8 @@ li.task__step-indicator--active {
       color: var(--color--blue-dark);
       margin-bottom: var(--spacer--500);
     }
-    ul, ol {
+    ul,
+    ol {
       @include rfs($font-size-14);
       color: var(--color--blue-dark);
       margin-left: var(--spacer--500);
