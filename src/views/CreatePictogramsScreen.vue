@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, defineComponent, reactive, ref} from 'vue'
+import {computed, reactive, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useEventBus, useFetch} from '@vueuse/core'
 
@@ -172,7 +172,10 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'subject'
               }"
               @click="tab = 'subject'">
-              Persona <icon-check class="select-pictogram__check" />
+              Persona
+              <icon-check
+                class="select-pictogram__check"
+                v-if="pictograms[active_step]['subject']" />
             </button>
             <button
               class="btn btn--primary btn--block btn--filled--skyblue-light"
@@ -180,7 +183,10 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'landmark'
               }"
               @click="tab = 'landmark'">
-              Objeto <icon-check class="select-pictogram__check" />
+              Objeto
+              <icon-check
+                class="select-pictogram__check"
+                v-if="pictograms[active_step]['landmark']" />
             </button>
             <button
               class="btn btn--primary btn--block btn--filled--skyblue-light"
@@ -188,7 +194,10 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'context'
               }"
               @click="tab = 'context'">
-              Espacio <icon-check class="select-pictogram__check" />
+              Espacio
+              <icon-check
+                class="select-pictogram__check"
+                v-if="pictograms[active_step]['context']" />
             </button>
           </div>
           <h2 class="select-pictogram__title">Elige una persona para esta capa</h2>
@@ -207,7 +216,15 @@ const submitSubscription = async () => {
           </div>
         </div>
         <div class="task__nav">
-          <span class="task__nav-selection">Capa <strong>1</strong> de <strong>3</strong> seleccionada</span>
+          <span class="task__nav-selection"
+            >Capa
+            <strong>{{
+              Number(pictograms[active_step]['subject'] !== null) +
+              Number(pictograms[active_step]['context'] !== null) +
+              Number(pictograms[active_step]['landmark'] !== null)
+            }}</strong>
+            de <strong>3</strong> seleccionada</span
+          >
           <button
             class="btn btn--large btn--secondary"
             :class="{
@@ -379,8 +396,8 @@ const submitSubscription = async () => {
   height: 100%;
   transform: translateX(100%);
   transition:
-  opacity 0.25s 0.25s ease-out,
-  transform 0 0;
+    opacity 0.25s 0.25s ease-out,
+    transform 0 0;
   list-style: none;
   opacity: 0;
 }
@@ -469,7 +486,7 @@ const submitSubscription = async () => {
   left: 0;
   bottom: 0;
   margin: 0 auto;
-  box-shadow: 0px -4px 30px 0px rgba(4, 28, 66, 0.40);
+  box-shadow: 0px -4px 30px 0px rgba(4, 28, 66, 0.4);
   aspect-ratio: 320/568;
   max-width: 568px;
   max-height: 112px;
