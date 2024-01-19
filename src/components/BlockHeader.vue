@@ -155,10 +155,7 @@ defineProps<{
     grid-template-rows: auto;
     gap: var(--spacer--200) var(--spacer--300);
     .tts {
-      right: var(--spacer);
-      @media screen and (min-width: 1280px) {
-        right: var(--spacer);
-      }
+      right: var(--spacer--400);
     }
   }
   .category-icon {

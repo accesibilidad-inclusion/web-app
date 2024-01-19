@@ -113,5 +113,8 @@ bus.on(listener)
 }
 .actions--category .actions__title {
   margin: 0;
+  .tts {
+    position: relative;
+  }
 }
 </style>

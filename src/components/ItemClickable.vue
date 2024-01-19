@@ -37,6 +37,10 @@ defineEmits(['click'])
     cursor: pointer;
     background: var(--color-brand-lightest);
   }
+  .tts {
+    top: var(--spacer--500);
+    right: var(--spacer--400);
+  }
 }
 .item-clickable__title {
   @include rfs($font-size-16);
