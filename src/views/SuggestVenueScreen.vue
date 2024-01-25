@@ -109,108 +109,131 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 </script>
 
 <template>
-  <div class="page">
-    <div class="container">
-      <template v-if="!submitted">
-        <h2 class="page__title">
-          Busca un lugar para agregarlo a Pictos
-          <text-to-speech :text-audio="'Busca un lugar para agregarlo a Pictos'" />
-        </h2>
-        <div v-if="venue" class="page__place-name">
-          {{ venue.displayName }}
-        </div>
-        <div
-          v-if="!searchAgain"
-          class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon"
-          @click="searchAgain = true">
-          <icon-search /> Buscar nuevamente
-        </div>
-        <template v-else>
-          <div class="custom-control custom-control--search">
-            <input v-model="searchText" type="text" placeholder="Ejemplo: Terminal de buses" />
-            <button type="submit">
-              <icon-search />
-            </button>
-            <div
-              v-for="venue in venues"
-              :key="venue.id"
-              class="search-result__item"
-              @click="setVenue(venue)">
-              <p>{{ venue.displayName }}</p>
-            </div>
-          </div>
-        </template>
-        <div id="map"></div>
-        <footer class="onboarding__footer">
-          <button
-            class="btn btn--large btn--block btn--primary"
-            :disabled="!venue || submitting"
-            @click="next">
-            Listo <SpinnerLoader v-if="submitting" />
-          </button>
-        </footer>
-      </template>
+  <div class="page-place"> 
+    <template v-if="!submitted">
+      <h2 class="page__title">
+        Busca un lugar para agregarlo a Pictos
+        <text-to-speech :text-audio="'Busca un lugar para agregarlo a Pictos'" />
+      </h2>
+      <div v-if="venue" class="page__place-name">
+        {{ venue.displayName }}
+      </div>
+      <div
+        v-if="!searchAgain"
+        class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon"
+        @click="searchAgain = true">
+        <icon-search /> Buscar nuevamente
+      </div>
       <template v-else>
-        <div class="thanks-message">
-          <span class="thanks-message__icon">
-            <icon-like></icon-like>
-          </span>
-          <h2 class="thanks-message__title">Gracias por tu aporte</h2>
-          <p class="thanks-message__description">
-            Estás ayudando al mundo a ser un lugar más accesible
-          </p>
-          <button
-            class="btn btn--primary btn--block btn--large btn--filled--skyblue"
-            @click="close">
-            Volver
+        <div class="custom-control custom-control--search">
+          <input v-model="searchText" type="text" placeholder="Ejemplo: Terminal de buses" />
+          <button type="submit">
+            <icon-search />
           </button>
+          <div
+            v-for="venue in venues"
+            :key="venue.id"
+            class="search-result__item"
+            @click="setVenue(venue)">
+            <p>{{ venue.displayName }}</p>
+          </div>
         </div>
-        <footer class="thanks-message-footer">
-          <template v-if="subscription_submitted">
-            <p class="thanks-message__description">
-              Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
-            </p>
+      </template>
+      <div id="map"></div>
+      <footer class="onboarding__footer">
+        <button
+          class="btn btn--large btn--block btn--primary"
+          :disabled="!venue || submitting"
+          @click="next">
+          Listo <SpinnerLoader v-if="submitting" />
+        </button>
+      </footer>
+    </template>
+    <template v-else>
+      <div class="thanks-message">
+        <span class="thanks-message__icon">
+          <icon-like></icon-like>
+        </span>
+        <h2 class="thanks-message__title">Gracias por tu aporte</h2>
+        <p class="thanks-message__description">
+          Estás ayudando al mundo a ser un lugar más accesible
+        </p>
+        <button
+          class="btn btn--primary btn--block btn--large btn--filled--skyblue"
+          @click="close">
+          Volver
+        </button>
+      </div>
+      <footer class="thanks-message-footer">
+        <template v-if="subscription_submitted">
+          <p class="thanks-message__description">
+            Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+          </p>
+        </template>
+        <template v-else>
+          <p class="thanks-message__description">
+            ¿Quieres que te avisemos cuando publiquemos tu aporte?
+          </p>
+          <template v-if="!show_subscription_form">
+            <button
+              type="button"
+              class="btn btn--large btn--block btn--primary"
+              @click="show_subscription_form = true">
+              Sí, avísame
+            </button>
           </template>
           <template v-else>
-            <p class="thanks-message__description">
-              ¿Quieres que te avisemos cuando publiquemos tu aporte?
-            </p>
-            <template v-if="!show_subscription_form">
-              <button
-                type="button"
-                class="btn btn--large btn--block btn--primary"
-                @click="show_subscription_form = true">
-                Sí, avísame
-              </button>
-            </template>
-            <template v-else>
-              <div class="thanks-message__form">
-                <form class="subscription-form custom-control" @submit="submitSubscription">
-                  <input
-                    v-model="subscription_email"
-                    type="email"
-                    class="thanks-message__email"
-                    placeholder="Escribe tu email aquí" />
-                  <button
-                    type="submit"
-                    class="btn btn--large btn--primary btn--icon"
-                    :disabled="submitting">
-                    Enviar
-                    <SpinnerLoader v-if="submitting" />
-                  </button>
-                </form>
-              </div>
-            </template>
+            <div class="thanks-message__form">
+              <form class="subscription-form custom-control" @submit="submitSubscription">
+                <input
+                  v-model="subscription_email"
+                  type="email"
+                  class="thanks-message__email"
+                  placeholder="Escribe tu email aquí" />
+                <button
+                  type="submit"
+                  class="btn btn--large btn--primary btn--icon"
+                  :disabled="submitting">
+                  Enviar
+                  <SpinnerLoader v-if="submitting" />
+                </button>
+              </form>
+            </div>
           </template>
-        </footer>
-      </template>
-    </div>
+        </template>
+      </footer>
+    </template>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
-
+.page-place {
+  padding-top: calc(var(--spacer--600) + 50px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 640px) {
+    padding-top: calc(var(--spacer--600) + 62px);
+  }
+}
+.page__title {
+  margin-left: var(--spacer--400);
+  margin-right: var(--spacer--400);
+  .tts {
+    position: absolute;
+    top: var(--spacer--500);
+    right: var(--spacer--500);
+  }
+}
+.btn--filled--skyblue-light {
+  margin-left: var(--spacer--400);
+  margin-right: var(--spacer--400);
+}
+.custom-control--search {
+  margin-left: var(--spacer--400);
+  margin-right: var(--spacer--400);
+}
 .page__place-name {
   margin-bottom: var(--spacer--400);
   border: 1px solid transparent;
@@ -221,12 +244,13 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
   padding: var(--spacer--400) var(--spacer--400);
   font-weight: 700;
   position: relative;
+  margin-left: var(--spacer--400);
+  margin-right: var(--spacer--400);
   & + .main-search__group {
     margin-top: var(--spacer--400);
   }
 }
 .search-result__item {
-  margin: 0 var(--spacer--200);
   padding: var(--spacer--400) var(--spacer--200);
   cursor: pointer;
   &:hover p {
@@ -244,5 +268,6 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 }
 .onboarding__footer {
   margin-top: auto;
+  padding: var(--spacer--500) var(--spacer--400);
 }
 </style>
