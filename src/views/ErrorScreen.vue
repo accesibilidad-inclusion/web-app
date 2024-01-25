@@ -35,10 +35,9 @@ const router = useRouter()
   display: flex;
   flex-flow: column;
   background-color: var(--color--skyblue);
-  margin-top: -50px;
   padding-top: 50px;
+  min-height: 100vh;
   @media screen and (min-width: 640px) {
-    margin-top: -62px;
     padding-top: 62px;
   }
 }
@@ -83,10 +82,6 @@ const router = useRouter()
     @include rfs($font-size-18);
     color: var(--color--blue-dark);
     position: relative;
-    @media screen and (min-width: 640px) {
-      @include rfs($font-size-21);
-      line-height: 1.3rem;
-    }
     .tts {
       position: absolute;
       top: var(--spacer--200);
@@ -94,12 +89,9 @@ const router = useRouter()
     }
   }
   .onboarding-error-item__text {
-    @include rfs($font-size-14);
+    @include rfs($font-size-16);
     font-weight: 600;
-    @media screen and (min-width: 640px) {
-      @include rfs($font-size-18);
-      line-height: 1.5;
-    }
+    line-height: 1.5;
   }
 }
 </style>

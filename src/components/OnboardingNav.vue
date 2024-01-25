@@ -75,12 +75,7 @@ const advanceStep = async () => {
   flex-flow: column;
   background-color: var(--color--white);
   width: 100%;
-  margin-top: -50px;
-  padding-top: 50px;
-  @media screen and (min-width: 640px) {
-    margin-top: -62px;
-    padding-top: 62px;
-  }
+  justify-content: space-between;
   .onboarding-skyblue + .onboarding__footer {
     background-color: var(--color--skyblue);
   }

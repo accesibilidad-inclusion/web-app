@@ -109,7 +109,10 @@ bus.on(listener)
 @import '@/assets/scss/rfs.scss';
 .search-results {
   position: relative;
-  padding: calc(var(--spacer--700) * 0.5) var(--spacer--400);
+  padding: calc(var(--spacer--400) + 50px) var(--spacer--400);
+  @media screen and (min-width: 640px) {
+    padding-top: calc(var(--spacer--400) + 62px);
+  }
   &:deep(.block-header) {
     position: relative;
     text-align: center;

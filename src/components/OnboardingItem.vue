@@ -30,10 +30,6 @@ defineProps<{
   width: 100%;
   line-height: 1.25rem;
   flex-grow: 1;
-  margin-top: -50px;
-  @media screen and (min-width: 640px) {
-    margin-top: -62px;
-  }
 }
 .onboarding-item__content-image {
   width: 100%;
@@ -62,22 +58,19 @@ defineProps<{
   }
   .onboarding-item__title {
     font-weight: 700;
-    @include rfs($font-size-16);
+    @include rfs($font-size-18);
     color: var(--color--blue-dark);
     display: flex;
     justify-content: space-between;
-    @media screen and (min-width: 640px) {
-      @include rfs($font-size-21);
-      line-height: 1.3rem;
-    }
   }
   .onboarding__title {
     margin-bottom: var(--spacer--400);
     text-align: center
   }
   .onboarding-item__text {
-    @include rfs($font-size-14);
+    @include rfs($font-size-16);
     font-weight: 600;
+    line-height: 1.5;
     ul {
       padding-left: var(--spacer--500);
       li {
@@ -93,10 +86,6 @@ defineProps<{
       li {
         margin-bottom: var(--spacer--300);
       }
-    }
-    @media screen and (min-width: 640px) {
-      @include rfs($font-size-18);
-      line-height: 1.5;
     }
   }
 }

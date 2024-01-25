@@ -91,11 +91,9 @@ defineExpose({
 <style lang="scss" scoped>
 .onboarding-skyblue {
   background-color: var(--color--skyblue);
-  margin-top: -50px;
   padding-top: 50px;
   flex-grow: 1;
   @media screen and (min-width: 640px) {
-    margin-top: -62px;
     padding-top: 62px;
   }
   .block-header {

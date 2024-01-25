@@ -25,7 +25,7 @@ const sequence: Array<Onboarding> = [
   },
   {
     title: '¿Qué necesitas para evaluar?',
-    body: '<ul><li>Debes estar en el lugar o servicio a evaluar</li><li>Observa atentamente tu entorno</li><li>Responde todas las preguntas</li><li>Evalúa poniendo nota</li></ul><div class="text-center mt-3">Ahora te explicamos cómo funciona el <strong>método de puntuación</strong></div>',
+    body: '<ul><li>Debes estar en el lugar o servicio a evaluar</li><li>Observa atentamente tu entorno</li><li>Responde todas las preguntas</li><li>Evalúa poniendo nota</li></ul><div class="text-center mt-4">Ahora te explicamos cómo funciona el <strong>método de puntuación</strong></div>',
     image:
       route.params.type === 'presencial' ? OnboardingPresencialImage2 : OnboardingInternetImage2
   },

@@ -330,6 +330,11 @@ const submitSubscription = async () => {
   overflow-x: hidden;
   background-color: var(--color--skyblue-light);
   padding-bottom: var(--spacer--700);
+  padding-top: calc(var(--spacer--500) + 50px);
+  min-height: 100vh;
+  @media screen and (min-width: 640px) {
+    padding-top: calc(var(--spacer--500) + 62px);
+  }
   .task__header {
     position: relative;
     text-align: center;
@@ -476,7 +481,7 @@ const submitSubscription = async () => {
   grid-row: 2/3;
 }
 .task-step__number {
-  font-size: 0.625rem;
+  @include rfs($font-size-13);
   opacity: 0.7;
   font-weight: 700;
   color: var(--color--blue-dark);

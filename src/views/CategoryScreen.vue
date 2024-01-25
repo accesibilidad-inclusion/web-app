@@ -89,11 +89,27 @@ bus.on(listener)
   display: flex;
   flex-flow: column nowrap;
   background-color: var(--color--skyblue);
-  margin-top: -50px;
-  padding-top: 50px;
+  padding-top: calc(var(--spacer--200) + 50px);
+  height: 100%;
+  min-height: 100vh;
   @media screen and (min-width: 640px) {
-    margin-top: -62px;
-    padding-top: 62px;
+    padding-top: calc(var(--spacer--200) + 62px);
+  }
+  .block-header {
+    padding-top: var(--spacer--600);
+    @media screen and (min-width: 1280px) {
+      padding-left: var(--spacer--700);
+      padding-right: var(--spacer--700);
+    }
+    .category-icon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .tts {
+      top: calc(var(--spacer--600) + 4px);
+    }
   }
 }
 .category__items {

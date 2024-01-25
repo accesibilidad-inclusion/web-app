@@ -298,6 +298,11 @@ const backToVenue = () => {
   padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
   display: flex;
   flex-direction: column;
+  padding-top: 50px;
+  height: 100vh;
+  @media screen and (min-width: 640px) {
+    padding-top: 62px;
+  }
   .block-header__compact {
     display: grid;
     background-color: var(--color--skyblue);

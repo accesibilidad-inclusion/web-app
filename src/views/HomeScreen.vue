@@ -18,10 +18,8 @@ import RecommendedVenues from '@/components/RecommendedVenues.vue'
 @import '@/assets/scss/rfs.scss';
 .main-site {
   background-color: var(--color--skyblue);
-  margin-top: -50px;
   padding-top: 50px;
   @media screen and (min-width: 640px) {
-    margin-top: -62px;
     padding-top: 62px;
   }
 }

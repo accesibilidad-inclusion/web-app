@@ -125,49 +125,4 @@ defineProps<{
   padding: var(--spacer--500) var(--spacer--600) var(--spacer--500) var(--spacer--400);
 }
 
-// Category
-.category {
-  .block-header {
-    padding-top: var(--spacer--600);
-    @media screen and (min-width: 1280px) {
-      padding-left: var(--spacer--700);
-      padding-right: var(--spacer--700);
-    }
-    .category-icon {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .tts {
-      top: calc(var(--spacer--600) + 4px);
-    }
-  }
-}
-// Service
-.service {
-  .block-header {
-    padding-top: var(--spacer);
-    text-align: left;
-    display: grid;
-    grid-template-areas: 'icon name' 'icon description';
-    grid-template-columns: 55px auto;
-    grid-template-rows: auto;
-    gap: var(--spacer--200) var(--spacer--300);
-    .tts {
-      right: var(--spacer--400);
-    }
-  }
-  .category-icon {
-    grid-area: icon;
-  }
-  .block-header__title {
-    grid-area: name;
-    margin: 0;
-  }
-  .block-header__description {
-    grid-area: description;
-    margin: 0;
-  }
-}
 </style>

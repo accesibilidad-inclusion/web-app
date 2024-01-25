@@ -131,11 +131,34 @@ bus.on(listener)
   flex-flow: column nowrap;
   padding: var(--spacer--400) var(--spacer--400) var(--spacer--500);
   background-color: var(--color--skyblue);
-  margin-top: -50px;
-  padding-top: 50px;
+  padding-top: calc(var(--spacer--400) + 50px);
+  height: 100%;
+  min-height: 100vh;
   @media screen and (min-width: 640px) {
-    margin-top: -62px;
-    padding-top: 62px;
+    padding-top: calc(var(--spacer--400) + 62px);
+  }
+  .block-header {
+    padding-top: var(--spacer);
+    text-align: left;
+    display: grid;
+    grid-template-areas: 'icon name' 'icon description';
+    grid-template-columns: 55px auto;
+    grid-template-rows: auto;
+    gap: var(--spacer--200) var(--spacer--300);
+    .tts {
+      right: var(--spacer--400);
+    }
+    .category-icon {
+      grid-area: icon;
+    }
+    .block-header__title {
+      grid-area: name;
+      margin: 0;
+    }
+    .block-header__description {
+      grid-area: description;
+      margin: 0;
+    }
   }
   .actions {
     padding-left: 0;

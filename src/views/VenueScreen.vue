@@ -192,6 +192,13 @@ bus.on(listener)
 .online-venue {
   display: flex;
   flex-direction: column;
+  padding-top: calc(var(--spacer--400) + 50px);
+  @media screen and (min-width: 640px) {
+    padding-top: calc(var(--spacer--400) + 62px);
+  }
+  .block-header {
+    margin-top: var(--spacer--300);
+  }
   .venue__footer {
     margin-top: auto;
   }
@@ -236,7 +243,7 @@ bus.on(listener)
   }
 }
 .venue__service {
-  @include rfs($font-size-12);
+  @include rfs($font-size-14);
   display: inline-block;
   padding: var(--spacer-sm);
   text-decoration: none;
@@ -254,7 +261,7 @@ bus.on(listener)
   position: relative;
 }
 .venue__map-link {
-  @include rfs($font-size-12);
+  @include rfs($font-size-14);
   position: relative;
   font-weight: bold;
   color: var(--color--white);
@@ -476,7 +483,7 @@ bus.on(listener)
   grid-row: 1/2;
 }
 .venue-block__distance {
-  @include rfs($font-size-12);
+  @include rfs($font-size-14);
   grid-column: 1/3;
   grid-row: 2/3;
   line-height: 1.33333;

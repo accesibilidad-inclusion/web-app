@@ -86,6 +86,12 @@ bus.on(listener)
 .evaluation {
   display: flex;
   flex-direction: column;
+  padding-top: calc(var(--spacer--200) + 50px);
+  height: 100%;
+  min-height: 100vh;
+  @media screen and (min-width: 640px) {
+    padding-top: calc(var(--spacer--200) + 62px);
+  }
   .actions {
     margin-top: auto;
     padding-bottom: var(--spacer--500);
@@ -105,7 +111,7 @@ bus.on(listener)
   }
 }
 .evaluation__service {
-  @include rfs($font-size-12);
+  @include rfs($font-size-14);
   margin-bottom: var(--spacer-sm);
 }
 .evaluation__place {
