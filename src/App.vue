@@ -47,9 +47,11 @@ const appNav = useAppNavStore()
 
 #app-wrap.theme-presential {
   background: var(--color--skyblue-light);
+  position: relative;
 }
 #app-wrap.theme-online {
   background: var(--color--yellow-light);
+  position: relative;
 }
 .slide-fade-enter-active {
   transition: all 0.5s ease-out;

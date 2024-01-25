@@ -124,6 +124,9 @@ const back = () => {
   background: transparent;
   z-index: var(--z-index-navbar);
   align-items: center;
+  position: absolute;
+  right: 0;
+  left: 0;
   @media screen and (min-width: 640px) {
     padding: var(--spacer--500) var(--spacer--400);
   }

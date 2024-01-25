@@ -59,7 +59,7 @@
   }
   button {
     position: absolute;
-    right: 0;
+    right: var(--spacer--400);
     top: 3px;
     background-color: transparent;
     border: none;
