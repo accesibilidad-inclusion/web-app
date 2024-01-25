@@ -455,6 +455,11 @@ bus.on(listener)
   flex-flow: column nowrap;
   overflow-x: hidden;
   background-color: var(--color--skyblue-light);
+  padding-top: 50px;
+  min-height: 100vh;
+  @media screen and (min-width: 640px) {
+    padding-top: 62px;
+  }
   .theme-online & {
     background-color: var(--color--yellow-light);
   }
@@ -852,7 +857,7 @@ li.task__step-indicator--active {
     svg {
       width: 1rem;
       height: 1rem;
-      path {
+      :deep(path) {
         fill: var(--color--white);
       }
     }
