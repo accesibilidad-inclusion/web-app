@@ -216,6 +216,24 @@ bus.on(listener)
                   <DrawPictogram
                     :layers="step.pictogram.images.filter((i: any) => i.layout <= 3)" />
                 </div>
+                <div v-if="
+                    task instanceof PresentialTask &&
+                    task.steps.length &&
+                    !task.steps.filter(
+                      (s) => s.pictogram && s.pictogram.images.filter((i: any) => i.layout <= 3).length
+                    ).length
+                  "
+                  :class="
+                    'without-pictogram' +
+                    (state.active_helpful === true ? ' without-pictogram--hidden' : '')
+                  ">
+                  <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
+                  <router-link
+                    :to="'/crear-pictogramas/' + task.id"
+                    class="btn btn--block btn--as-link">
+                    Crear el apoyo gráfico
+                  </router-link>
+                </div>
                 <div class="task-step-main">
                   <figcaption class="task-step__legend">
                     <span
@@ -300,7 +318,7 @@ bus.on(listener)
                 <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
                 <router-link
                   :to="'/crear-pictogramas/' + task.id"
-                  class="btn btn--large btn--block btn--secondary">
+                  class="btn btn--large btn--block btn--primary btn--filled--skyblue-light">
                   Crear el apoyo gráfico
                 </router-link>
               </template>
@@ -358,26 +376,6 @@ bus.on(listener)
               @click="advanceStep">
               Siguiente
             </button>
-          </div>
-          <div
-            v-if="
-              task instanceof PresentialTask &&
-              task.steps.length &&
-              !task.steps.filter(
-                (s) => s.pictogram && s.pictogram.images.filter((i: any) => i.layout <= 3).length
-              ).length
-            "
-            :class="
-              'without-pictogram' +
-              (state.active_helpful === true ? ' without-pictogram--hidden' : '')
-            ">
-            <div class="task-empty__icon">
-              <span>!</span>
-            </div>
-            <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
-            <p class="without-pictogram__description">
-              Al terminar la tarea podrás colaborar en la creación del apoyo gráfico
-            </p>
           </div>
         </main>
         <!-- Pestaña inferior para feedback -->
@@ -509,11 +507,6 @@ bus.on(listener)
   max-height: 55vh;
   // Hack Safari
   padding: 0 var(--spacer--400);
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      height: 100%;
-    }
-  }
 }
 .task-step__figure {
   display: grid;
@@ -521,17 +514,8 @@ bus.on(listener)
   flex-grow: 1;
   background-color: var(--color--white);
   border-radius: var(--spacer--500);
-  // Hack Safari
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      position: absolute;
-      display: flex;
-      flex-flow: column nowrap;
-      flex-grow: unset;
-      width: 100%;
-      height: 100%;
-    }
-  }
+  overflow: hidden;
+  grid-template-columns: 1fr;
 }
 .task-step__figure--without-pictogram {
   .task-step__legend {
@@ -669,6 +653,9 @@ bus.on(listener)
     padding-left: var(--spacer-xl);
     padding-right: var(--spacer-xl);
   }
+  .btn--as-link {
+    margin-top: var(--spacer--500)
+  }
 }
 .task-helpful__title {
   @include rfs($font-size-18);
@@ -726,16 +713,15 @@ bus.on(listener)
   }
 }
 .task-helpful__label {
-  @include rfs(14px);
+  @include rfs($font-size-14);
   margin-bottom: var(--spacer);
-  font-weight: bold;
+  font-weight: 700;
 }
 [class^='task-helpful__answer__icon'] {
   width: 27px;
   height: 27px;
 }
 .btn--as-link {
-  margin-top: var(--spacer);
   color: var(--color--blue-dark);
   font-weight: 600;
   &.task-helpful__toggle-feedback--hidden {
@@ -867,6 +853,10 @@ li.task__step-indicator--active {
   display: flex;
   flex-flow: column nowrap;
   height: 100%;
+  padding-bottom: var(--spacer--700);
+  @media screen and (min-width: 640px) {
+    padding-bottom: 0;
+  }
 }
 .task-feedback__title {
   @include rfs($font-size-16);
@@ -908,33 +898,22 @@ li.task__step-indicator--active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 5rem;
   gap: var(--spacer--300);
-  padding: 0 var(--spacer--400);
+  padding: var(--spacer--500) var(--spacer--400);
+  background-color: var(--color--skyblue);
+  min-height: 41vh;
   & + .task-step__legend {
     grid-column: 1/3;
   }
-  // Hack Safari
-  @media not all and (min-resolution: 0.001dpcm) {
-    @supports (-webkit-appearance: none) {
-      height: 100%;
-      min-height: 41vh;
-    }
+  .theme-online & {
+    background-color: var(--color--yellow);
   }
 }
 .without-pictogram__title {
-  @include rfs($font-size-21);
-  line-height: 1.3rem;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: var(--spacer-sm);
-}
-.without-pictogram__description {
   @include rfs($font-size-18);
-  line-height: 1.5;
+  line-height: 1.3rem;
+  font-weight: 700;
   text-align: center;
-  @media screen and (min-width: 640px) {
-  }
 }
 .without-pictogram--hidden {
   display: none;
