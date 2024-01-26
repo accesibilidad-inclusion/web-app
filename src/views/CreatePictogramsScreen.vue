@@ -136,6 +136,10 @@ const submitSubscription = async () => {
 
 <template>
   <div class="task__single">
+    <div class="block-header">
+      <text-to-speech :text-audio="'Crear el apoyo gráfico'" />
+      <h2 class="block-header__title">Crear el apoyo gráfico</h2>
+    </div>
     <header class="task__header">
       <text-to-speech :text-audio="`${task.title}.`" />
       <h1 class="task__title">{{ task.title }}</h1>
@@ -344,17 +348,34 @@ const submitSubscription = async () => {
     .task__title {
       @include rfs($font-size-16);
       margin-bottom: var(--spacer--200);
-      line-height: 1.3888888889;
       color: var(--color--blue-dark);
       padding-left: var(--spacer--500);
       padding-right: var(--spacer--500);
     }
     .tts {
       position: absolute;
-      top: var(--spacer--200);
+      top: var(--spacer--300);
       right: var(--spacer--400);
     }
   }
+  .block-header {
+  margin-top: 0;
+  position: relative;
+  text-align: center;
+  padding: var(--spacer--500);
+  border-radius: var(--spacer--500);
+  background-color: var(--color--skyblue);
+  margin: 0 var(--spacer--400) var(--spacer--500);
+  .block-header__title {
+    @include rfs($font-size-14);
+    font-weight: 600;
+  }
+  .tts {
+    position: absolute;
+    top: calc(var(--spacer--500) + 2px);
+    right: var(--spacer--400);
+  }
+}
 }
 .task__single--pictogram {
   background-color: var(--color--skyblue);
@@ -562,8 +583,10 @@ const submitSubscription = async () => {
     justify-content: center;
     gap: var(--spacer--200);
     &.btn--active {
+      background-color: var(--color--yellow);
+      color: var(--color--blue-dark);
       :deep(path) {
-        fill: var(--color--white);
+        fill: var(--color--blue-dark);
       }
     }
   }
@@ -616,8 +639,8 @@ const submitSubscription = async () => {
       background-image: url("data:image/svg+xml,%0A%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='15' cy='15' r='14.5' fill='%23F6C254' stroke='%23041C42'/%3E%3Cpath d='M12.3464 21.3786L12.7 21.7321L13.0536 21.3786L23.6536 10.7786L24.0071 10.425L23.6536 10.0714L22.2286 8.64645L21.875 8.29289L21.5214 8.64645L12.7 17.4679L8.77855 13.5464L8.425 13.1929L8.07145 13.5464L6.64645 14.9714L6.29289 15.325L6.64645 15.6786L12.3464 21.3786Z' fill='%23CAE0FF' stroke='%23041C42'/%3E%3C/svg%3E%0A");
       background-repeat: no-repeat;
       position: absolute;
-      top: var(--spacer--400);
-      right: var(--spacer--400);
+      top: var(--spacer--300);
+      right: var(--spacer--300);
       width: 2rem;
       height: 2rem;
     }
