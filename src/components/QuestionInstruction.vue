@@ -54,7 +54,7 @@ const iconSvg = computed(() => {
   }
 }
 .instruction__title {
-  @include rfs($font-size--600);
+  @include rfs($font-size-18);
   font-weight: 700;
   text-align: center;
 }

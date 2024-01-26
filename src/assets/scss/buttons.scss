@@ -73,7 +73,7 @@
   }
 }
 .btn--as-link {
-  @include rfs($font-size--400);
+  @include rfs($font-size-14);
   text-decoration: underline;
   background: transparent;
   border: none;

@@ -116,7 +116,7 @@ bus.on(listener)
   &:deep(.block-header) {
     position: relative;
     text-align: center;
-    padding: var(--spacer--500);
+    padding: var(--spacer--500) var(--spacer--400);
     border-radius: var(--spacer--500);
     background: var(--color--carolinablue);
     margin: 0;
@@ -137,13 +137,13 @@ bus.on(listener)
       justify-content: flex-start;
       grid-area: location;
       .your-location__content {
+        @include rfs($font-size-14);
         width: auto;
         color: var(--color--blue-dark);
         gap: var(--spacer--200);
       }
       svg {
         position: relative;
-        top: 2px;
         width: 10px !important;
         height: 16px !important;
         path {

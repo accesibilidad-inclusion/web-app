@@ -213,8 +213,10 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-bottom: var(--spacer--700);
   @media screen and (min-width: 640px) {
     padding-top: calc(var(--spacer--600) + 62px);
+    padding-bottom: 0;
   }
 }
 .page__title {

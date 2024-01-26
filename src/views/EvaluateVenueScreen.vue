@@ -354,7 +354,7 @@ const backToVenue = () => {
   }
 }
 .evaluation__title {
-  @include rfs($font-size--600);
+  @include rfs($font-size-18);
   font-weight: 700;
   text-align: center;
   padding: var(--spacer--500) 0 var(--spacer--500);

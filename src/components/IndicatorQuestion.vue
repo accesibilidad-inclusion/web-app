@@ -134,7 +134,7 @@ defineEmits(['reply'])
   }
 }
 .evaluation-block__description {
-  @include rfs($font-size--400);
+  @include rfs($font-size-14);
   font-weight: 600;
   color: var(--color--blue-light);
   display: block;

@@ -94,7 +94,10 @@ bus.on(listener)
   }
   .actions {
     margin-top: auto;
-    padding-bottom: var(--spacer--500);
+    padding-bottom: var(--spacer--700);
+    @media screen and (min-width: 640px) {
+      padding-bottom: 0;
+    }
   }
 }
 .evaluation__header {
