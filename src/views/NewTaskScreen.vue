@@ -264,13 +264,11 @@ bus.on(listener)
 @import '@/assets/scss/rfs.scss';
 .page-task {
   padding-top: calc(var(--spacer--500) + 50px);
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding-bottom: var(--spacer--700);
   @media screen and (min-width: 640px) {
     padding-top: calc(var(--spacer--500) + 62px);
-    padding-bottom: 0;
   }
   form {
     height: 100%;

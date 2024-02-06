@@ -335,7 +335,7 @@ const submitSubscription = async () => {
   background-color: var(--color--skyblue-light);
   padding-bottom: var(--spacer--700);
   padding-top: calc(var(--spacer--500) + 50px);
-  min-height: 100vh;
+  min-height: 100dvh;
   @media screen and (min-width: 640px) {
     padding-top: calc(var(--spacer--500) + 62px);
   }

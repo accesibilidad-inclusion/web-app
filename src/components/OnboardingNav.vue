@@ -86,7 +86,7 @@ const advanceStep = async () => {
 .onboarding__footer {
   display: flex;
   gap: var(--spacer--300);
-  padding: 0 var(--spacer--400) var(--spacer--700);
+  padding: 0 var(--spacer--400) var(--spacer--400);
   @media screen and (min-width: 640px) {
     padding: 0 var(--spacer--500) var(--spacer--500);
   }

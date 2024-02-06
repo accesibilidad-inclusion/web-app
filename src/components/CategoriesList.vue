@@ -82,7 +82,6 @@ const setCategory = (category: Category) => {
       gap: var(--spacer--200) var(--spacer--300);
       position: relative;
       &:hover {
-        background: var(--color--skyblue);
         cursor: pointer;
       }
     }

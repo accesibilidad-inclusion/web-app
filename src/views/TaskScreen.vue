@@ -24,7 +24,7 @@ const router = useRouter()
 
 const appNav = useAppNavStore()
 
-const type = ref<'online' | 'presential'>()
+const type = ref<'online' | 'presential'>('presential')
 
 const state = reactive({
   active_step: route.hash === '' ? 0 : parseInt(route.hash.replace('#', '')) - 1,
@@ -133,6 +133,7 @@ const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/g
   .json()
 
 type.value = data.value.type
+appNav.theme = type.value
 task.value =
   data.value.type === 'online'
     ? new OnlineTask(data.value.task)
@@ -454,7 +455,7 @@ bus.on(listener)
   overflow-x: hidden;
   background-color: var(--color--skyblue-light);
   padding-top: 50px;
-  min-height: 100vh;
+  min-height: 100dvh;
   @media screen and (min-width: 640px) {
     padding-top: 62px;
   }

@@ -299,7 +299,7 @@ const backToVenue = () => {
   display: flex;
   flex-direction: column;
   padding-top: 50px;
-  height: 100vh;
+  height: 100dvh;
   @media screen and (min-width: 640px) {
     padding-top: 62px;
   }

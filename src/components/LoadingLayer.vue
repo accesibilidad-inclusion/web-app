@@ -18,7 +18,7 @@
   max-height: 100svh;
   aspect-ratio: 320/568;
   max-width: 640px;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;

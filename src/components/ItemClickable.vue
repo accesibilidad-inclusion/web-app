@@ -35,7 +35,6 @@ defineEmits(['click'])
   gap: var(--spacer--300);
   &:hover {
     cursor: pointer;
-    background: var(--color-brand-lightest);
   }
   .tts {
     top: var(--spacer--500);

@@ -30,7 +30,7 @@ const appNav = useAppNavStore()
 @import '@/assets/scss/global.scss';
 
 #app-wrap {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr;
   overflow-x: hidden;

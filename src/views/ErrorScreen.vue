@@ -36,7 +36,7 @@ const router = useRouter()
   flex-flow: column;
   background-color: var(--color--skyblue);
   padding-top: 50px;
-  min-height: 100vh;
+  min-height: 100dvh;
   @media screen and (min-width: 640px) {
     padding-top: 62px;
   }
@@ -48,10 +48,8 @@ const router = useRouter()
   display: flex;
   gap: var(--spacer--300);
   padding: 0 var(--spacer--400) var(--spacer--400);
-  margin-bottom: var(--spacer--700);
   @media screen and (min-width: 640px) {
     padding: 0 var(--spacer--500) var(--spacer--400);
-    margin-bottom: 0;
   }
   button {
     flex-basis: 50%;

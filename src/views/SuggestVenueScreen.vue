@@ -210,10 +210,9 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 @import '@/assets/scss/rfs.scss';
 .page-place {
   padding-top: calc(var(--spacer--600) + 50px);
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding-bottom: var(--spacer--700);
   @media screen and (min-width: 640px) {
     padding-top: calc(var(--spacer--600) + 62px);
     padding-bottom: 0;

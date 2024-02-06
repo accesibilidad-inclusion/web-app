@@ -133,7 +133,7 @@ bus.on(listener)
   background-color: var(--color--skyblue);
   padding-top: calc(var(--spacer--400) + 50px);
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   @media screen and (min-width: 640px) {
     padding-top: calc(var(--spacer--400) + 62px);
   }

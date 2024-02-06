@@ -88,13 +88,13 @@ bus.on(listener)
   flex-direction: column;
   padding-top: calc(var(--spacer--200) + 50px);
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   @media screen and (min-width: 640px) {
     padding-top: calc(var(--spacer--200) + 62px);
   }
   .actions {
     margin-top: auto;
-    padding-bottom: var(--spacer--700);
+    padding-bottom: var(--spacer--400);
     @media screen and (min-width: 640px) {
       padding-bottom: 0;
     }
