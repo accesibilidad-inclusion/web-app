@@ -19,7 +19,7 @@ import RecommendedVenues from '@/components/RecommendedVenues.vue'
 .main-site {
   background-color: var(--color--skyblue);
   padding-top: 50px;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: 62px;
   }
 }

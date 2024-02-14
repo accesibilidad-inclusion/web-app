@@ -53,7 +53,7 @@ defineProps<{
   width: 100%;
   // height: 100%;
   flex-grow: 1;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding: var(--spacer--600) var(--spacer--500);
   }
   .onboarding-item__title {

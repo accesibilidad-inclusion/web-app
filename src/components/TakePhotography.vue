@@ -41,7 +41,7 @@ defineEmits(['change'])
 .photo-block__content {
   height: 100%;
   position: relative;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
   }
 }
 .photo-block__wrapper {

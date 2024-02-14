@@ -54,7 +54,7 @@ defineProps<{
   background-color: var(--color--carolinablue);
   margin: var(--spacer--600) var(--spacer--400) 0;
   font-weight: 600;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     margin-left: var(--spacer--400);
     margin-right: var(--spacer--400);
   }

@@ -297,7 +297,7 @@ const toggle = (id: number) => {
   background-color: var(--color--white);
   border-radius: var(--border-radius-lg);
   padding: calc(var(--spacer-lg) / 1.5) calc(var(--spacer-lg) / 3);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     max-width: 450px;
     padding-left: var(--spacer);
     padding-right: var(--spacer);
@@ -305,7 +305,7 @@ const toggle = (id: number) => {
   .btn--primary {
     @include rfs($font-size-16);
     background-color: var(--color--blue-dark);
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 540px) {
       @include rfs($font-size-14);
     }
     & + .btn--primary {
@@ -321,7 +321,7 @@ const toggle = (id: number) => {
   @include rfs($font-size-18);
   color: var(--color--blue-dark);
   margin-bottom: var(--spacer-sm);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     @include rfs($font-size-16);
   }
   & + .btn {
@@ -332,7 +332,7 @@ const toggle = (id: number) => {
   @include rfs($font-size-16);
   color: var(--color-text);
   margin-bottom: calc(var(--spacer-lg) / 1.5);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     @include rfs($font-size-14);
   }
   .font-weight-medium {
@@ -377,7 +377,7 @@ const toggle = (id: number) => {
     background: var(--color--carolinablue);
     padding: var(--spacer--500) var(--spacer--400) var(--spacer--400);
     position: relative;
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 540px) {
       padding: var(--spacer--600) var(--spacer--500) var(--spacer--500);
     }
     .commune-header__title {
@@ -391,7 +391,7 @@ const toggle = (id: number) => {
       position: absolute;
       top: var(--spacer--500);
       right: var(--spacer--400);
-      @media screen and (min-width: 640px) {
+      @media screen and (min-width: 540px) {
         top: var(--spacer--600);
         right: var(--spacer--500);
       }
@@ -462,7 +462,7 @@ const toggle = (id: number) => {
   padding: var(--spacer--400);
   font-weight: 700;
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 540px) {
   input[type='email'],
   input[type='search'],
   input[type='text'],
@@ -483,7 +483,7 @@ const toggle = (id: number) => {
   right: 0;
   left: 0;
   bottom: 0;
-  max-width: 640px;
+  max-width: 540px;
   margin: 0 auto;
   padding: calc(var(--spacer-lg) / 3) var(--spacer);
   display: flex;
@@ -556,7 +556,7 @@ const toggle = (id: number) => {
     svg {
       width: 12px;
       height: 7px;
-      @media screen and (min-width: 640px) {
+      @media screen and (min-width: 540px) {
         width: 1rem;
         height: 1rem;
       }
@@ -571,7 +571,7 @@ const toggle = (id: number) => {
     position: relative;
     border-bottom: none;
     padding: calc(var(--spacer-lg) / 3) calc(var(--spacer-xl) / 2);
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 540px) {
       padding-left: calc(var(--spacer-lg) + 10px);
       padding-right: calc(var(--spacer-lg) + 10px);
     }
@@ -587,7 +587,7 @@ const toggle = (id: number) => {
       bottom: 0;
       right: calc(var(--spacer-lg) / 2);
       left: calc(var(--spacer-lg) / 2);
-      @media screen and (min-width: 640px) {
+      @media screen and (min-width: 540px) {
         right: var(--spacer-lg);
         left: var(--spacer-lg);
       }

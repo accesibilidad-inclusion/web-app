@@ -50,7 +50,7 @@ venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
 .place__tasks {
   background-color: var(--color--yellow);
   padding: calc(var(--spacer--400) * 3) var(--spacer--400);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-left: var(--spacer--500);
     padding-right: var(--spacer--500);
   }

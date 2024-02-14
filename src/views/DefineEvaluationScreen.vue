@@ -89,13 +89,13 @@ bus.on(listener)
   padding-top: calc(var(--spacer--200) + 50px);
   height: 100%;
   min-height: 100dvh;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: calc(var(--spacer--200) + 62px);
   }
   .actions {
     margin-top: auto;
     padding-bottom: var(--spacer--400);
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 540px) {
       padding-bottom: 0;
     }
   }
@@ -124,7 +124,7 @@ bus.on(listener)
   position: absolute;
   top: var(--spacer);
   right: var(--spacer);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     top: var(--spacer-lg);
     right: var(--spacer-lg);
   }
@@ -144,7 +144,7 @@ bus.on(listener)
     font-size: 2rem;
     line-height: 3.125rem;
     color: var(--color--blue-dark);
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 540px) {
       width: 3.5rem;
       height: 3.5rem;
       font-size: 2.5rem;
@@ -194,7 +194,7 @@ bus.on(listener)
     padding-left: var(--spacer--600);
     padding-right: var(--spacer--600);
   }
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-left: var(--spacer--700);
     padding-right: var(--spacer--700);
   }
@@ -212,7 +212,7 @@ bus.on(listener)
   position: absolute;
   top: var(--spacer);
   right: var(--spacer);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     top: var(--spacer-lg);
     right: var(--spacer-lg);
   }

@@ -37,7 +37,7 @@ const router = useRouter()
   background-color: var(--color--skyblue);
   padding-top: 50px;
   min-height: 100dvh;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: 62px;
   }
 }
@@ -48,7 +48,7 @@ const router = useRouter()
   display: flex;
   gap: var(--spacer--300);
   padding: 0 var(--spacer--400) var(--spacer--400);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding: 0 var(--spacer--500) var(--spacer--400);
   }
   button {
@@ -73,7 +73,7 @@ const router = useRouter()
   padding: var(--spacer--500) var(--spacer--400);
   width: 100%;
   height: 100%;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding: var(--spacer--600) var(--spacer--500);
     gap: var(--spacer--400);
   }

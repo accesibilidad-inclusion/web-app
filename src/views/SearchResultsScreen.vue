@@ -110,7 +110,7 @@ bus.on(listener)
 .search-results {
   position: relative;
   padding: calc(var(--spacer--400) + 50px) var(--spacer--400);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: calc(var(--spacer--400) + 62px);
   }
   &:deep(.block-header) {
@@ -193,7 +193,7 @@ bus.on(listener)
       margin: 0;
       padding: var(--spacer--400);
       padding-top: var(--spacer--400);
-      @media screen and (min-width: 640px) {
+      @media screen and (min-width: 540px) {
         padding: var(--spacer--500);
         padding-top: var(--spacer--500);
       }

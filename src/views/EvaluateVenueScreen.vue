@@ -300,7 +300,7 @@ const backToVenue = () => {
   flex-direction: column;
   padding-top: 50px;
   height: 100dvh;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: 62px;
   }
   .block-header__compact {
@@ -391,7 +391,7 @@ const backToVenue = () => {
   color: var(--color--blue-dark);
   text-align: center;
   font-weight: 800;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     margin-bottom: var(--spacer);
   }
 }

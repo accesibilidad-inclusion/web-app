@@ -34,15 +34,15 @@ const appNav = useAppNavStore()
   display: grid;
   grid-template-rows: auto 1fr;
   overflow-x: hidden;
-  @media screen and (min-width: 640px) {
-    max-width: 640px;
+  @media screen and (min-width: 540px) {
+    max-width: 540px;
     margin-left: auto;
     margin-right: auto;
   }
-  @media screen and (min-width: 1280px) {
-    max-height: 100svh;
-    aspect-ratio: 320/568;
-  }
+  // @media screen and (min-width: 1280px) {
+  //   max-height: 100svh;
+  //   aspect-ratio: 320/568;
+  // }
 }
 
 #app-wrap.theme-presential {
