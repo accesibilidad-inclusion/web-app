@@ -27,9 +27,9 @@
   @media screen and (min-width: 560px) {
     max-width: 540px;
   }
-  @media screen and (min-width: 1280px) {
+  /* @media screen and (min-width: 1280px) {
     max-width: 495px;
-  }
+  } */
 }
 .lds-ring {
   display: inline-block;
