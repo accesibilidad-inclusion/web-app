@@ -27,8 +27,8 @@
 .modal__backdrop {
   display: table-cell;
   background-color: rgba(4, 28, 66, 0.75);
-  @media screen and (min-width: 640px) {
-    max-width: 640px;
+  @media screen and (min-width: 540px) {
+    max-width: 540px;
     margin-left: auto;
     margin-right: auto;
   }

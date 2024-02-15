@@ -267,7 +267,7 @@ bus.on(listener)
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: calc(var(--spacer--500) + 62px);
   }
   form {

@@ -85,7 +85,7 @@ defineExpose({
   background-color: var(--color--skyblue);
   padding-top: 50px;
   flex-grow: 1;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: 62px;
   }
   .block-header {
