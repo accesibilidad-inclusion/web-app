@@ -56,7 +56,7 @@ bus.on(listener)
   gap: var(--spacer--600);
   flex-direction: column;
   padding: var(--spacer--700) var(--spacer--400);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     gap: var(--spacer--700);
   }
 }
@@ -66,28 +66,28 @@ bus.on(listener)
 .logo-inclusion {
   width: 141px;
   height: auto;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     width: 190px;
   }
 }
 .logo-pucv {
   width: 135px;
   height: auto;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     width: 190px;
   }
 }
 .logo-uandes {
   width: 179px;
   height: auto;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     width: 250px;
   }
 }
 .logo-gobierno {
   width: 154px;
   height: auto;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     width: 200px;
   }
 }

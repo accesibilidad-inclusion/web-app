@@ -456,7 +456,7 @@ bus.on(listener)
   background-color: var(--color--skyblue-light);
   padding-top: 50px;
   min-height: 100dvh;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: 62px;
   }
   .theme-online & {
@@ -646,7 +646,7 @@ bus.on(listener)
   .theme-online & {
     background-color: var(--color--yellow);
   }
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-left: var(--spacer--600);
     padding-right: var(--spacer--600);
   }
@@ -855,7 +855,7 @@ li.task__step-indicator--active {
   flex-flow: column nowrap;
   height: 100%;
   padding-bottom: var(--spacer--700);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-bottom: 0;
   }
 }
@@ -964,7 +964,7 @@ li.task__step-indicator--active {
   color: var(--color--blue-dark);
   text-align: center;
   font-weight: 800;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     margin-bottom: var(--spacer);
   }
 }

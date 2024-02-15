@@ -52,7 +52,7 @@ const setCategory = (category: Category) => {
     position: absolute;
     top: var(--spacer--500);
     right: var(--spacer--400);
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 540px) {
       right: var(--spacer--500);
     }
   }

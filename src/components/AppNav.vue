@@ -127,7 +127,7 @@ const back = () => {
   position: absolute;
   right: 0;
   left: 0;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding: var(--spacer--500) var(--spacer--400);
   }
 }
@@ -170,7 +170,7 @@ const back = () => {
 .app-nav__logo {
   width: 75px;
   height: 15px;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     width: 86px;
     height: 17px;
   }
@@ -178,7 +178,7 @@ const back = () => {
 .app-nav__toggle-icon {
   width: 17px;
   height: auto;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     width: 22px;
   }
 }
@@ -188,8 +188,8 @@ const back = () => {
   height: 100%;
   overflow: hidden;
 
-  @media screen and (min-width: 640px) {
-    max-width: 640px;
+  @media screen and (min-width: 540px) {
+    max-width: 540px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -223,7 +223,7 @@ const back = () => {
   padding-bottom: var(--spacer--500);
   padding-left: var(--spacer--300);
   border-bottom: 1px solid var(--color--skyblue-light);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: var(--spacer--500);
     padding-bottom: var(--spacer--500);
   }

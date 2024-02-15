@@ -87,7 +87,7 @@ const advanceStep = async () => {
   display: flex;
   gap: var(--spacer--300);
   padding: 0 var(--spacer--400) var(--spacer--400);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding: 0 var(--spacer--500) var(--spacer--500);
   }
   button {

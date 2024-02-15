@@ -336,7 +336,7 @@ const submitSubscription = async () => {
   padding-bottom: var(--spacer--700);
   padding-top: calc(var(--spacer--500) + 50px);
   min-height: 100dvh;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: calc(var(--spacer--500) + 62px);
   }
   .task__header {
@@ -538,7 +538,7 @@ const submitSubscription = async () => {
   max-height: 112px;
   @media screen and (min-width: 560px) {
     padding: var(--spacer--400) var(--spacer--400) var(--spacer--400);
-    max-width: 640px;
+    max-width: 540px;
   }
   @media screen and (min-width: 1280px) {
     max-width: 495px;
@@ -559,7 +559,7 @@ const submitSubscription = async () => {
 
 .pictogram__layer--action {
   height: 30px;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     height: 40px;
   }
 }
@@ -594,7 +594,7 @@ const submitSubscription = async () => {
 .select-pictogram__check {
   width: auto;
   height: 11px;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     height: 14px;
     margin-left: var(--spacer--200);
   }

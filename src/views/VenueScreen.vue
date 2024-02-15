@@ -193,7 +193,7 @@ bus.on(listener)
   display: flex;
   flex-direction: column;
   padding-top: calc(var(--spacer--400) + 50px);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: calc(var(--spacer--400) + 62px);
   }
   .block-header {
@@ -212,7 +212,7 @@ bus.on(listener)
   line-height: calc(22 / 16);
   color: var(--color--white);
   background: var(--color--blue-dark);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     margin-left: 0;
     margin-right: 0;
     padding: var(--spacer-lg);
@@ -281,7 +281,7 @@ bus.on(listener)
   top: calc(var(--spacer) + (var(--spacer) / 2));
   right: var(--spacer);
   z-index: 10;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     top: calc(var(--spacer-lg) + (var(--spacer) / 2));
     right: var(--spacer-lg);
   }
@@ -312,7 +312,7 @@ bus.on(listener)
   padding-top: var(--spacer-lg);
   padding-bottom: var(--spacer-lg);
   background-color: var(--color-brand-lighter);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: calc(var(--spacer-lg) * 1.25);
     padding-bottom: calc(var(--spacer-lg) * 1.25);
   }
@@ -386,7 +386,7 @@ bus.on(listener)
   font-size: 2rem;
   line-height: 3.125rem;
   color: var(--color--blue-dark);
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     width: 3.5rem;
     height: 3.5rem;
     font-size: 2.5rem;

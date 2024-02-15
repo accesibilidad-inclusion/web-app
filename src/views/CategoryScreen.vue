@@ -92,7 +92,7 @@ bus.on(listener)
   padding-top: calc(var(--spacer--200) + 50px);
   height: 100%;
   min-height: 100dvh;
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 540px) {
     padding-top: calc(var(--spacer--200) + 62px);
   }
   .block-header {

@@ -17,7 +17,7 @@
   top: 0;
   max-height: 100svh;
   aspect-ratio: 320/568;
-  max-width: 640px;
+  max-width: 540px;
   height: 100dvh;
   display: flex;
   align-items: center;
@@ -25,11 +25,11 @@
   background-color: rgba($color: #cae0ff, $alpha: 0.5);
   width: 100%;
   @media screen and (min-width: 560px) {
-    max-width: 640px;
+    max-width: 540px;
   }
-  @media screen and (min-width: 1280px) {
+  /* @media screen and (min-width: 1280px) {
     max-width: 495px;
-  }
+  } */
 }
 .lds-ring {
   display: inline-block;
