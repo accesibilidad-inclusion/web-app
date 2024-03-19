@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import {useAppNavStore} from '@/stores/app-nav'
-import {ref} from 'vue'
+import {reactive, ref} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 import {computed} from 'vue'
 
 import IconCheck from '@/assets/img/app-icons/support/check2.svg?component'
 import IconDelete from '@/assets/img/app-icons/support/error.svg?component'
-import IconMenu from '@/assets/img/app-icons/support/menu.svg?component'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
+import BlockHeader from '@/components/BlockHeader.vue'
+import OnboardingItem from '@/components/OnboardingItem.vue'
 import SpinnerLoader from '@/components/SpinnerLoader.vue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import {useEventBus, useFetch} from '@vueuse/core'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
+import IconEdit from '@/assets/img/app-icons/edit.svg?component'
+import OnboardingImage from '@/assets/img/illustrations/nueva-tarea 1.svg?component'
+import type {Image} from '@/model/image'
 
 const router = useRouter()
 const route = useRoute()
@@ -51,6 +55,7 @@ const sendTask = async () => {
   submitting.value = false
 }
 const editStep = (i: number) => {
+  console.log(editing.value)
   editing.value = i
   stepEdit.value = steps.value[i]
 }
@@ -69,6 +74,7 @@ const submitSubscription = async (event: Event) => {
 }
 
 const setStep = (i: number) => {
+  if (stepEdit.value.trim() === '') return
   steps.value[i] = stepEdit.value
   editing.value = null
 }
@@ -76,6 +82,53 @@ const setStep = (i: number) => {
 const addStep = computed(() => {
   return steps.value.length < 9 && !steps.value.filter((s) => s.trim() === '').length
 })
+
+const canAdvance = computed(() => {
+  switch (showStep.value) {
+    case 1:
+      return task.value.trim() !== ''
+    case 2:
+      return !steps.value.filter((s) => s.trim() === '').length
+    default:
+      return true
+  }
+})
+
+const images = ref<Array<Image>>([])
+const pictograms = reactive<
+  Array<{
+    subject: number | null
+    context: number | null
+    landmark: number | null
+  }>
+>(
+  Array(steps.value.length)
+    .fill(null)
+    .map(() => ({subject: null, context: null, landmark: null}))
+)
+
+const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/images`)
+  .get()
+  .json()
+
+images.value = data.value
+
+const active_step = ref(0)
+const tab = ref<'subject' | 'landmark' | 'context'>('subject')
+
+const showImages = computed(() => {
+  return images.value.filter((i: Image) =>
+    tab.value === 'subject'
+      ? i.layout === 1
+      : tab.value === 'landmark'
+      ? i.layout === 2
+      : i.layout === 3
+  )
+})
+
+const setImage = (image: Image) => {
+  pictograms[active_step.value][tab.value] = image.id
+}
 
 const bus = useEventBus('close')
 const listener = () => {
@@ -92,37 +145,32 @@ bus.on(listener)
 </script>
 
 <template>
-  <div class="page-task">
+  <div :class="showStep !== 4 ? 'page-task' : 'onboarding-nav'">
     <form>
+      <BlockHeader
+        v-if="showStep !== 4"
+        compact
+        :first-description="true"
+        description="Crear tarea"
+        :title="showStep > 1 ? `&quot;${task}&quot;` : ''" />
       <template v-if="showStep == 1">
         <h2 class="page__title">
-          Agregar una nueva tarea
-          <text-to-speech :text-audio="'Agregar una nueva tarea'" />
+          Escribe el nombre de la tarea
+          <text-to-speech :text-audio="'Escribe el nombre de la tarea'" />
         </h2>
         <div class="custom-control custom-control--with-btn">
           <input v-model="task" type="text" placeholder="Ejemplo: Comprar tarjeta" />
-          <span
-            v-if="task.trim() != ''"
-            @click="showStep = 2"
-            class="btn btn--primary btn--block btn--large btn--icon"
-            ><icon-plus /> Agregar</span
-          >
         </div>
       </template>
       <template v-else-if="showStep == 2">
-        <h2 class="page__title-new-task">
-          {{ task }}
-          <TextToSpeech :text-audio="task" />
-        </h2>
         <p class="page__subtitle page__text-audio">
-          Enumera los pasos requeridos para completar esta acción
+          Enumera los pasos requeridos para completar esta acción. Mínimo 3 y máximo 9 pasos
           <text-to-speech
             :text-audio="
               'Enumera los pasos requeridos para completar esta acción\n\n\n\n\n\n' +
               'Mínimo 3 y máximo 9 pasos'
             " />
         </p>
-        <p class="page__indication">Mínimo 3 y máximo 9 pasos</p>
         <div v-for="(step, index) in steps" :key="index" class="custom-control page__new-steps">
           <span>{{ index + 1 }}</span>
           <input
@@ -144,27 +192,20 @@ bus.on(listener)
         </div>
       </template>
       <template v-else-if="showStep == 3">
-        <h2 class="page__title-new-task">
-          {{ task }}
-          <TextToSpeech :text-audio="task" />
-        </h2>
         <p class="page__subtitle page__text-audio">
-          Revisa los pasos ingresados
+          Revisa los pasos ingresados y edítalos en caso de ser necesario
           <text-to-speech
-            :text-audio="
-              'Revisa los pasos ingresados\n\n\n\n\n\n' +
-              'Edita los pasos en caso de ser necesario'
-            " />
+            :text-audio="'Revisa los pasos ingresados y edítalos en caso de ser necesario'" />
         </p>
-        <p class="page__indication">Edita los pasos en caso de ser necesario</p>
         <div
           v-for="(step, index) in steps"
-          @click="editing ? () => {} : editStep(index)"
+          @click="editing === index ? () => {} : editStep(index)"
           :key="index"
           class="step-block-inserted">
           {{ index + 1 }}
           <template v-if="editing != index"
             ><p class="step-block-inserted__title">{{ step }}</p>
+            <IconEdit />
           </template>
           <template v-else>
             <div class="custom-control">
@@ -182,6 +223,123 @@ bus.on(listener)
         </div>
       </template>
       <template v-else-if="showStep == 4">
+        <OnboardingItem
+          :data="{
+            title: 'Crear el apoyo gráfico',
+            body: '<ul><li>Ahora debes seleccionar los 3 elementos que arman tu pictograma (persona, objeto y espacio)</li><li>Podrás previsualizar en la misma pantalla cómo se va armando cada uno</li><li>Una vez que selecciones todas las capas de los pasos podrás guardar y enviar el apoyo a revisión</li></ul>',
+            image: OnboardingImage
+          }" />
+      </template>
+      <template v-else-if="showStep == 5">
+        <!-- <ol v-touch:swipe.left="advanceStep" v-touch:swipe.right="rewindStep" class="task__steps">
+          <li
+            v-for="(step, index) in task.steps"
+            :key="step.id"
+            :step="step"
+            :class="'task-step' + (index === active_step ? ' task-step--active' : '')">
+            <figure class="task-step__figure">
+              <div class="step-canvas">
+                <DrawPictogram :layers="getImages" />
+              </div>
+              <div class="task-step-main">
+                <figcaption class="task-step__legend">
+                  <div class="task-step__number">
+                    Paso {{ active_step + 1 }} de {{ task.steps.length }}
+                  </div>
+                  <div class="task-text__description">{{ step.label }}</div>
+                  <text-to-speech :text-audio="step.label" />
+                </figcaption>
+              </div>
+            </figure>
+          </li>
+        </ol> -->
+        <div class="select-pictogram">
+          <div class="select-pictogram__filter">
+            <button
+              class="btn btn--primary btn--block btn--filled--skyblue-light"
+              :class="{
+                'btn--active': tab === 'subject'
+              }"
+              @click="tab = 'subject'">
+              Persona
+              <icon-check
+                class="select-pictogram__check"
+                v-if="pictograms[active_step]['subject']" />
+            </button>
+            <button
+              class="btn btn--primary btn--block btn--filled--skyblue-light"
+              :class="{
+                'btn--active': tab === 'landmark'
+              }"
+              @click="tab = 'landmark'">
+              Objeto
+              <icon-check
+                class="select-pictogram__check"
+                v-if="pictograms[active_step]['landmark']" />
+            </button>
+            <button
+              class="btn btn--primary btn--block btn--filled--skyblue-light"
+              :class="{
+                'btn--active': tab === 'context'
+              }"
+              @click="tab = 'context'">
+              Espacio
+              <icon-check
+                class="select-pictogram__check"
+                v-if="pictograms[active_step]['context']" />
+            </button>
+          </div>
+          <h2 class="select-pictogram__title">Elige una persona para esta capa</h2>
+          <div class="select-pictogram__img">
+            <div
+              v-for="(image, index) in showImages"
+              :key="index"
+              @click="setImage(image)"
+              :class="{
+                image__active: image.id === pictograms[active_step][tab]
+              }">
+              <img :src="`${image.path}${image.filename}`" style="width: 40%" />
+              <!-- <component :is="image.component" /> -->
+              <div class="select-pictogram__label">{{ image.label }}</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="task__nav">
+          <span class="task__nav-selection"
+            >Capa
+            <strong>{{
+              Number(pictograms[active_step]['subject'] !== null) +
+              Number(pictograms[active_step]['context'] !== null) +
+              Number(pictograms[active_step]['landmark'] !== null)
+            }}</strong>
+            de <strong>3</strong> seleccionada</span
+          >
+          <button
+            class="btn btn--large btn--secondary"
+            :class="{
+              'btn--hidden': active_step === 0 && task.prerequisites.trim() === ''
+            }"
+            @click="rewindStep">
+            Anterior
+          </button>
+          <button
+            v-if="active_step < task.steps.length - 1"
+            :disabled="!canContinue()"
+            class="btn btn--large btn--primary btn--block"
+            @click="advanceStep">
+            Siguiente
+          </button>
+          <button
+            v-if="active_step === task.steps.length - 1"
+            :disabled="!canContinue() || submitting"
+            class="btn btn--large btn--primary btn--block"
+            @click="saveProposal">
+            Guardar
+            <SpinnerLoader v-if="submitting" />
+          </button>
+        </div> -->
+      </template>
+      <template v-else-if="showStep == 6">
         <div class="thanks-message">
           <text-to-speech
             :text-audio="
@@ -212,8 +370,9 @@ bus.on(listener)
         </div>
       </template>
     </form>
-    <footer class="thanks-message-footer">
-      <template v-if="showStep == 4">
+
+    <template v-if="showStep == 6">
+      <footer class="thanks-message-footer">
         <template v-if="submited">
           <p class="thanks-message__description">
             Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
@@ -246,17 +405,35 @@ bus.on(listener)
             </form>
           </div>
         </template>
-      </template>
-      <button
+      </footer>
+    </template>
+    <template v-else>
+      <footer>
+        <button
+          v-if="showStep > 1"
+          class="btn btn--large btn--secondary btn--block"
+          @click="showStep--">
+          Atras
+        </button>
+        <button
+          class="btn btn--large btn--primary btn--block"
+          :disabled="!canAdvance"
+          @click="showStep++">
+          <span v-if="![3, 5].includes(showStep)">Siguiente</span>
+          <span v-else-if="showStep === 3">Ir a crear apoyo gráfico</span>
+          <span v-else>Confirmar <SpinnerLoader v-if="submitting" /></span>
+        </button>
+      </footer>
+    </template>
+
+    <!-- <button
         v-else
-        :tag="'button'"
         class="btn btn--large btn--block btn--primary page__footer"
         :disabled="!addStep || submitting"
         @click="showStep < 3 ? (showStep = 3) : sendTask()">
-        <span v-if="showStep < 3">Listo</span>
+        <span v-if="showStep < 3">Siguiente</span>
         <span v-else>Confirmar <SpinnerLoader v-if="submitting" /></span>
-      </button>
-    </footer>
+      </button> -->
   </div>
 </template>
 
@@ -427,5 +604,11 @@ bus.on(listener)
 .step-block-inserted__icon-cancel {
   width: auto;
   height: 11px;
+}
+footer {
+  margin-top: auto;
+  display: flex;
+  gap: var(--spacer--300);
+  padding-top: var(--spacer--500);
 }
 </style>
