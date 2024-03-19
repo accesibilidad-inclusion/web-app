@@ -64,7 +64,14 @@ const back = () => {
 </script>
 
 <template>
-  <div id="nav" class="app-nav" :class="`app-nav__${appNav.theme}`">
+  <div
+    id="nav"
+    class="app-nav"
+    :class="{
+      'app-nav__presential': appNav.theme == 'presential',
+      'app-nav__online': appNav.theme == 'online',
+      'app-nav__centered': route.meta.navbar?.centered
+    }">
     <button v-if="route.meta.navbar?.back" class="app-nav__toggle-back" @click="back">
       <IconChevronLeft class="app-nav__toggle-icon" /> Volver
     </button>
@@ -116,6 +123,9 @@ const back = () => {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
+.app-nav__centered {
+  justify-content: center !important;
+}
 .app-nav {
   display: flex;
   justify-content: space-between;
