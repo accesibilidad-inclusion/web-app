@@ -504,10 +504,15 @@ bus.on(listener)
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  flex-grow: 1;
-  max-height: 55vh;
+  flex-grow: 0;
   // Hack Safari
   padding: 0 var(--spacer--400);
+  .step-canvas {
+    .container-img-preview {
+      min-height: 13rem;
+      max-height: 41vh;
+    }
+  }
 }
 .task-step__figure {
   display: grid;
@@ -531,14 +536,10 @@ bus.on(listener)
 .step-canvas {
   position: relative;
   width: 100%;
-  min-height: 13rem;
-  max-height: 41vh;
   height: 100%;
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
-      min-height: 13rem;
-      max-height: 41vh;
       width: 100%;
       height: 100%;
     }
