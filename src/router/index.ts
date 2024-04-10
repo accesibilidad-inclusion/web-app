@@ -118,6 +118,18 @@ const router = createRouter({
       meta: {title: 'Crear pictogramas a tarea', navbar: {logo: true, close: true}}
     },
     {
+      path: '/esperando-ayuda',
+      name: 'waiting-help',
+      component: () => import('../views/WaitingHelp.vue'),
+      meta: {title: 'Esperando ayuda', navbar: {logo: true, centered: true}}
+    },
+    {
+      path: '/ayuda-disponible',
+      name: 'help-available',
+      component: () => import('../views/HelpAvailable.vue'),
+      meta: {title: 'Ayuda disponible', navbar: {logo: true, centered: true}}
+    },
+    {
       path: '/:categorySlug/',
       name: 'category-screen',
       component: defineAsyncComponent(() => import('../views/CategoryScreen.vue')),

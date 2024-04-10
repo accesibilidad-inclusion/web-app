@@ -26,6 +26,8 @@ const appNav = useAppNavStore()
 
 const type = ref<'online' | 'presential'>('presential')
 
+const api_domain = import.meta.env.VITE_APP_API_DOMAIN
+
 const state = reactive({
   active_step: route.hash === '' ? 0 : parseInt(route.hash.replace('#', '')) - 1,
   active_helpful: false,
@@ -217,11 +219,13 @@ bus.on(listener)
                   <DrawPictogram
                     :layers="step.pictogram.images.filter((i: any) => i.layout <= 3)" />
                 </div>
-                <div v-if="
+                <div
+                  v-if="
                     task instanceof PresentialTask &&
                     task.steps.length &&
                     !task.steps.filter(
-                      (s) => s.pictogram && s.pictogram.images.filter((i: any) => i.layout <= 3).length
+                      (s) =>
+                        s.pictogram && s.pictogram.images.filter((i: any) => i.layout <= 3).length
                     ).length
                   "
                   :class="
@@ -258,9 +262,10 @@ bus.on(listener)
                 v-if="task instanceof OnlineTask"
                 class="task-step__figure task-step__figure--online-focus"
                 :class="{'task-step__figure--without-pictogram': !step.image}">
-                <div v-if="step.screenshot" class="step-canvas">
+                <div v-if="step.screenshot_url" class="step-canvas">
                   <ImageFocus
-                    :image="step.screenshot"
+                    :image="api_domain + step.screenshot_url"
+                    :thumbnails="step.thumbnails"
                     :focus-size="step.focus_size"
                     :focus-x="step.focus_x"
                     :focus-y="step.focus_y" />
@@ -504,10 +509,15 @@ bus.on(listener)
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  flex-grow: 1;
-  max-height: 55vh;
+  flex-grow: 0;
   // Hack Safari
   padding: 0 var(--spacer--400);
+  .step-canvas {
+    .container-img-preview {
+      min-height: 13rem;
+      max-height: 41vh;
+    }
+  }
 }
 .task-step__figure {
   display: grid;
@@ -531,14 +541,10 @@ bus.on(listener)
 .step-canvas {
   position: relative;
   width: 100%;
-  min-height: 13rem;
-  max-height: 41vh;
   height: 100%;
   // Hack Safari
   @media not all and (min-resolution: 0.001dpcm) {
     @supports (-webkit-appearance: none) {
-      min-height: 13rem;
-      max-height: 41vh;
       width: 100%;
       height: 100%;
     }
@@ -655,7 +661,7 @@ bus.on(listener)
     padding-right: var(--spacer-xl);
   }
   .btn--as-link {
-    margin-top: var(--spacer--500)
+    margin-top: var(--spacer--500);
   }
 }
 .task-helpful__title {

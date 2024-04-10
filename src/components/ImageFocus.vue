@@ -3,6 +3,7 @@ import {computed} from 'vue'
 
 const props = defineProps<{
   image: string
+  thumbnails: any
   focusSize: number | null
   focusX: number | null
   focusY: number | null
@@ -17,6 +18,8 @@ const cssVars = computed(() => {
       }
     : {}
 })
+
+const apiDomain = import.meta.env.VITE_APP_API_DOMAIN
 </script>
 
 <template>
@@ -26,8 +29,15 @@ const cssVars = computed(() => {
       class="img-preview"
       :src="image"
       alt=""
+      :srcset="`${apiDomain + thumbnails.small} 480w, ${apiDomain + thumbnails.medium} 640w`"
       :style="focusSize && focusX && focusY ? 'opacity:0.5' : ''" />
-    <img id="imgPreviewFocus" :style="cssVars" class="img-preview-focus" :src="image" alt="" />
+    <img
+      id="imgPreviewFocus"
+      :style="cssVars"
+      class="img-preview-focus"
+      :src="image"
+      :srcset="`${apiDomain + thumbnails.small} 480w, ${apiDomain + thumbnails.medium} 640w`"
+      alt="" />
   </div>
 </template>
 
