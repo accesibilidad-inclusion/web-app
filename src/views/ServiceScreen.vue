@@ -32,12 +32,14 @@ const setVenue = (venue: PresentialVenue | OnlineVenue) => {
   router.push(`/${route.params.categorySlug}/${route.params.serviceSlug}/${venue.slug}`)
 }
 
-const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues`)
-  .post({
-    ...appData.location.getCoordinates(),
-    category: route.params.categorySlug,
-    service: route.params.serviceSlug
-  })
+const {data} = await useFetch(
+  `${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues?category=${
+    route.params.categorySlug
+  }&service=${route.params.serviceSlug}&lat=${appData.location.getCoordinates().lat}&lng=${
+    appData.location.getCoordinates().lng
+  }`
+)
+  .get()
   .json()
 
 venues_presential.value = data.value.venues.map((v: PresentialVenue) => new PresentialVenue(v))
@@ -72,9 +74,7 @@ bus.on(listener)
                 <div
                   v-if="venue.evaluation && venue.show_evaluation"
                   class="venue-block__evaluation">
-                  <span
-                    class="venue-block__evaluation-grade"
-                    :data-grade="venue.evaluation.score">
+                  <span class="venue-block__evaluation-grade" :data-grade="venue.evaluation.score">
                     {{ venue.evaluation.score }}
                   </span>
                   <span class="venue-block__evaluation-description">
@@ -86,7 +86,9 @@ bus.on(listener)
           </template>
         </template>
         <template v-if="venues_presential.length">
-          <div class="items-title"><IconLocationPin class="icon-location"/> Lugares presenciales</div>
+          <div class="items-title">
+            <IconLocationPin class="icon-location" /> Lugares presenciales
+          </div>
           <template v-for="venue in venues_presential" :key="venue.id">
             <ItemClickable :title="venue.name" @click="setVenue(venue)">
               <template #meta>
@@ -94,9 +96,7 @@ bus.on(listener)
                 <div
                   v-if="venue.evaluation && venue.show_evaluation"
                   class="venue-block__evaluation">
-                  <span
-                    class="venue-block__evaluation-grade"
-                    :data-grade="venue.evaluation.score">
+                  <span class="venue-block__evaluation-grade" :data-grade="venue.evaluation.score">
                     {{ venue.evaluation.score }}
                   </span>
                   <span class="venue-block__evaluation-description">

@@ -26,12 +26,12 @@ const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
 const type = ref<'online' | 'presential'>('presential')
 
-const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements`)
-  .post({
-    category: route.params.categorySlug,
-    service: route.params.serviceSlug,
-    venue: route.params.venueSlug
-  })
+const {data} = await useFetch(
+  `${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements?category=${
+    route.params.categorySlug
+  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}`
+)
+  .get()
   .json()
 
 type.value = data.value.type

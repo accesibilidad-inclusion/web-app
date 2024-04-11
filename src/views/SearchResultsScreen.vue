@@ -20,18 +20,16 @@ const tasks = ref<Array<PresentialTask | OnlineTask>>([])
 if (route.query.t !== 'online' && route.query.t !== 'presential') {
   router.push('/inicio')
 } else {
-  const postData =
-    route.query.t === 'presential'
-      ? appData.location.getCoordinates()
-      : {commune_id: appData.location.commune?.id}
-
   const {data} = await useFetch(
-    `${import.meta.env.VITE_APP_API_DOMAIN}api/${route.query.t}_tasks/search`
+    route.query.t === 'presential'
+      ? `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/search?query=${
+          route.query.s
+        }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}`
+      : `${import.meta.env.VITE_APP_API_DOMAIN}api/online_tasks/search?query=${
+          route.query.s
+        }&commune_id=${appData.location.commune?.id}`
   )
-    .post({
-      query: route.query.s,
-      ...postData
-    })
+    .get()
     .json()
   tasks.value =
     route.query.t === 'online'
