@@ -77,7 +77,7 @@ const likedStep = async () => {
   state.was_helpful = true
   if (!state.was_liked) {
     await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/${type.value}_tasks/liked`)
-      .post({
+      .patch({
         id: appNav.selected.task?.id,
         was_disliked: state.was_disliked
       })
@@ -91,7 +91,7 @@ const dislikedStep = async () => {
   state.was_helpful = false
   if (!state.was_disliked) {
     await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/${type.value}_tasks/disliked`)
-      .post({
+      .patch({
         id: appNav.selected.task?.id,
         was_liked: state.was_liked
       })
@@ -125,13 +125,14 @@ const submitFeedback = async () => {
   state.submitting_feedback = false
 }
 
-const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements`)
-  .post({
-    category: route.params.categorySlug,
-    service: route.params.serviceSlug,
-    venue: route.params.venueSlug,
-    task: route.params.taskSlug
-  })
+const {data} = await useFetch(
+  `${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements?category=${
+    route.params.categorySlug
+  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}&task=${
+    route.params.taskSlug
+  }`
+)
+  .get()
   .json()
 
 type.value = data.value.type
