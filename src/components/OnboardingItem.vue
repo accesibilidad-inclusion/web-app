@@ -14,11 +14,10 @@ defineProps<{
     </div>
     <div class="onboarding-item__container">
       <h2 class="onboarding-item__title">
-        {{ data.title }}
-        <TextToSpeech
-          :text-audio="data.title + '.\n\n\n\n\n\n' + data.body.replace(/(<([^>]+)>)/gi, '')" />
+        {{ $t(data.title) }}
+        <TextToSpeech :text-audio="$t(data.title) + '.' + $t(data.body)" />
       </h2>
-      <p v-html="data.body" class="onboarding-item__text"></p>
+      <p v-html="$t(data.body)" class="onboarding-item__text"></p>
     </div>
   </div>
 </template>
@@ -65,7 +64,7 @@ defineProps<{
   }
   .onboarding__title {
     margin-bottom: var(--spacer--400);
-    text-align: center
+    text-align: center;
   }
   .onboarding-item__text {
     @include rfs($font-size-16);
@@ -89,5 +88,4 @@ defineProps<{
     }
   }
 }
-
 </style>

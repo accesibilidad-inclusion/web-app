@@ -186,7 +186,7 @@ bus.on(listener)
           <button
             class="btn btn--large btn--block btn--primary"
             @click="show_prerequisites = false">
-            Siguiente
+            {{ $t('general.next') }}
           </button>
         </footer>
       </template>
@@ -233,11 +233,11 @@ bus.on(listener)
                     'without-pictogram' +
                     (state.active_helpful === true ? ' without-pictogram--hidden' : '')
                   ">
-                  <h2 class="without-pictogram__title">Esta tarea aún no tiene apoyo gráfico</h2>
+                  <h2 class="without-pictogram__title">{{ $t('task.withoutPictos') }}</h2>
                   <router-link
                     :to="'/crear-pictogramas/' + task.id"
                     class="btn btn--block btn--as-link">
-                    Crear el apoyo gráfico
+                    {{ $t('task.createPictos') }}
                   </router-link>
                 </div>
                 <div class="task-step-main">
@@ -252,7 +252,12 @@ bus.on(listener)
                         class="pictogram__layer--action" />
                     </span>
                     <div class="task-text__number">
-                      Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
+                      {{
+                        $t('task.stepOf', {
+                          activeStep: state.active_step + 1,
+                          countSteps: task.steps.length
+                        })
+                      }}
                     </div>
                     <div class="task-text__description">{{ step.label }}</div>
                     <text-to-speech :text-audio="step.label" />
@@ -265,6 +270,8 @@ bus.on(listener)
                 :class="{'task-step__figure--without-pictogram': !step.image}">
                 <div v-if="step.screenshot_url" class="step-canvas">
                   <ImageFocus
+                    :lazy="state.active_step > 0"
+                    :alt="'Captura de pantalla de ' + task.title"
                     :image="api_domain + step.screenshot_url"
                     :thumbnails="step.thumbnails"
                     :focus-size="step.focus_size"
@@ -279,7 +286,12 @@ bus.on(listener)
                         class="pictogram__layer--action" />
                     </span>
                     <div class="task-text__number">
-                      Paso {{ state.active_step + 1 }} de {{ task.steps.length }}
+                      {{
+                        $t('task.stepOf', {
+                          activeStep: state.active_step + 1,
+                          countSteps: task.steps.length
+                        })
+                      }}
                     </div>
                     <div class="task-text__description">
                       <span>{{ step.label }}</span>
@@ -294,7 +306,7 @@ bus.on(listener)
               :class="
                 'task-step task-helpful' + (state.active_helpful ? ' task-step--active' : '')
               ">
-              <h2 class="task-helpful__title">¿Te ha servido este apoyo?</h2>
+              <h2 class="task-helpful__title">{{ $t('task.thisHelpedYou') }}</h2>
               <div class="task-helpful__answers">
                 <button
                   :class="
@@ -322,18 +334,22 @@ bus.on(listener)
                       s.pictogram && s.pictogram.images.filter((i: any) => i.layout <= 3).length
                   ).length
                 ">
-                <p class="task-helpful__label">Esta tarea aún no tiene apoyo gráfico</p>
+                <p class="task-helpful__label">{{ $t('task.withoutPictos') }}</p>
                 <router-link
                   :to="'/crear-pictogramas/' + task.id"
                   class="btn btn--large btn--block btn--primary btn--filled--skyblue-light">
-                  Crear el apoyo gráfico
+                  {{ $t('task.createPictos') }}
                 </router-link>
               </template>
               <template v-else>
                 <router-link
                   :to="{name: 'venue-screen', params: {placeId: venue.id}}"
                   class="btn btn--large btn--block btn--primary btn--filled--skyblue-light">
-                  Volver a {{ venue.name }}
+                  {{
+                    $t('general.comebackTo', {
+                      name: venue.name
+                    })
+                  }}
                 </router-link>
               </template>
               <button
@@ -342,7 +358,7 @@ bus.on(listener)
                   (state.was_helpful == false ? '' : ' task-helpful__toggle-feedback--hidden')
                 "
                 @click="openFeedback">
-                Reportar un problema
+                {{ $t('task.reportIssue') }}
               </button>
             </li>
           </ol>
@@ -352,16 +368,15 @@ bus.on(listener)
             <div class="task-empty__icon">
               <span>!</span>
             </div>
-            <h2 class="task-empty__title">Esta tarea todavía no tiene pasos ni apoyos gráficos.</h2>
+            <h2 class="task-empty__title">{{ $t('task.withoutSteps') }}</h2>
             <template v-if="task instanceof PresentialTask">
               <p class="task-empty__description">
-                Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y
-                apoyos.
+                {{ $t('task.createWithSteps') }}
               </p>
               <router-link
                 to="/agregar-tarea"
                 class="btn btn--primary btn--large btn--block btn--icon">
-                <IconPlus /> Crear una tarea nueva
+                <IconPlus /> {{ $t('task.createNewTask') }}
               </router-link>
             </template>
           </div>
@@ -373,7 +388,7 @@ bus.on(listener)
                   state.active_step === 0 && task.prerequisites.trim() === '' && !show_prerequisites
               }"
               @click="rewindStep">
-              Anterior
+              {{ $t('general.previous') }}
             </button>
             <button
               :class="
@@ -381,7 +396,7 @@ bus.on(listener)
                 (state.active_step + 1 < task.steps.length + 1 ? '' : ' btn--hidden')
               "
               @click="advanceStep">
-              Siguiente
+              {{ $t('general.next') }}
             </button>
           </div>
         </main>
@@ -394,7 +409,7 @@ bus.on(listener)
               : '')
           "
           @click="openFeedback">
-          Reportar un problema con esta tarea
+          {{ $t('task.reportIssueWith') }}
         </button>
         <!-- Bloque y formulario para feedback -->
         <div
@@ -415,11 +430,11 @@ bus.on(listener)
                 v-if="!state.submitted_feedback"
                 class="task-feedback__form custom-control--text"
                 @submit.prevent="submitFeedback">
-                <h2 class="task-feedback__title">Reportar un problema con esta tarea</h2>
+                <h2 class="task-feedback__title">{{ $t('task.reportIssueWith') }}</h2>
                 <textarea
                   v-model="feedback.body"
                   class="task-feedback__control"
-                  placeholder="Ejemplo: El pictograma no coincide con la instrucción"
+                  :placeholder="$t('task.exampleIssue')"
                   required></textarea>
                 <button
                   :disabled="state.submitting_feedback"
@@ -427,22 +442,21 @@ bus.on(listener)
                     'task-feedback__submit btn btn--large btn--block' +
                     (feedback.body === '' ? ' btn--ghost-primary' : ' btn--primary')
                   ">
-                  Enviar
+                  {{ $t('general.send') }}
                   <SpinnerLoader v-if="state.submitting_feedback" />
                 </button>
               </form>
               <div v-if="state.submitted_feedback" class="thanks-message">
-                <text-to-speech
-                  :text-audio="'¡Gracias!\n\n\n\n\n\n' + 'tu comentario ha sido enviado'" />
+                <text-to-speech :text-audio="$t('task.thanks')" />
                 <span class="thanks-message__icon">
                   <icon-like></icon-like>
                 </span>
-                <p class="thanks-message__title">¡Gracias! tu comentario ha sido enviado</p>
+                <p class="thanks-message__title">{{ $t('task.thanks') }}</p>
                 <button
                   type="button"
                   class="btn btn--large btn--primary btn--block"
                   @click="closeFeedback">
-                  Cerrar
+                  {{ $t('general.close') }}
                 </button>
               </div>
             </div>

@@ -15,23 +15,23 @@ const router = useRouter()
 
 const sequence: Array<Onboarding> = [
   {
-    title: 'Verás una lista de pasos. En esta lista tu puedes:',
-    body: '<ul><li>Ordenar los pasos de forma correcta.</li><li>Agregar un nuevo paso.</li><li>Volver a escribir un paso de forma más clara y precisa</li></ul>',
+    title: 'onboardingNewTask.title1',
+    body: 'onboardingNewTask.desc1',
     image: OnboardingImage1
   },
   {
-    title: 'Ten en cuenta',
-    body: '<ul><li>Una tarea no puede tener menos de 3 pasos, ni más de 9 pasos.</li><li>Cuando ya los hayas escrito todos, presionas el botón “Listo”</li></ul>',
+    title: 'onboardingNewTask.title2',
+    body: 'onboardingNewTask.desc2',
     image: OnboardingImage2
   },
   {
-    title: 'Recuerda revisar',
-    body: '<ul><li>Debes revisar que están bien, pensando en cómo los harías tú.</li><li>Si están bien, haz click en “Confirmar”</li></ul>',
+    title: 'onboardingNewTask.title3',
+    body: 'onboardingNewTask.desc3',
     image: OnboardingImage3
   },
   {
-    title: 'Avísame',
-    body: '<ul><li>Si quieres que te avisen escribe tu correo electrónico</li><li>Luego haz click en “Enviar”</li></ul>',
+    title: 'onboardingNewTask.title4',
+    body: 'onboardingNewTask.desc4',
     image: OnboardingImage4
   }
 ]

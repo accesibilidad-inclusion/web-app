@@ -96,16 +96,16 @@ bus.on(listener)
     <form>
       <template v-if="showStep == 1">
         <h2 class="page__title">
-          Agregar una nueva tarea
-          <text-to-speech :text-audio="'Agregar una nueva tarea'" />
+          {{ $t('newTask.addNewTask') }}
+          <text-to-speech :text-audio="$t('newTask.addNewTask')" />
         </h2>
         <div class="custom-control custom-control--with-btn">
-          <input v-model="task" type="text" placeholder="Ejemplo: Comprar tarjeta" />
+          <input v-model="task" type="text" :placeholder="$t('newTask.example')" />
           <span
             v-if="task.trim() != ''"
             @click="showStep = 2"
             class="btn btn--primary btn--block btn--large btn--icon"
-            ><icon-plus /> Agregar</span
+            ><icon-plus /> {{ $t('general.add') }}</span
           >
         </div>
       </template>
@@ -115,32 +115,29 @@ bus.on(listener)
           <TextToSpeech :text-audio="task" />
         </h2>
         <p class="page__subtitle page__text-audio">
-          Enumera los pasos requeridos para completar esta acción
+          {{ $t('newTask.enumSteps') }}
           <text-to-speech
-            :text-audio="
-              'Enumera los pasos requeridos para completar esta acción\n\n\n\n\n\n' +
-              'Mínimo 3 y máximo 9 pasos'
-            " />
+            :text-audio="$t('newTask.enumSteps') + '\n\n\n\n\n\n' + $t('newTask.minAndMax')" />
         </p>
-        <p class="page__indication">Mínimo 3 y máximo 9 pasos</p>
+        <p class="page__indication">{{ $t('newTask.minAndMax') }}</p>
         <div v-for="(step, index) in steps" :key="index" class="custom-control page__new-steps">
           <span>{{ index + 1 }}</span>
           <input
             v-model="steps[index]"
             type="text"
-            :placeholder="'Escribe el paso ' + (index + 1)" />
+            :placeholder="$t('newTask.writeTheStep', {stepNumber: index + 1})" />
           <span
             v-if="steps.length > 3"
             class="btn btn--large btn--icon btn--as-link page__delete-new-steps"
             @click="steps.splice(index, 1)"
-            ><icon-delete /> Eliminar</span
+            ><icon-delete /> {{ $t('general.delete') }}</span
           >
         </div>
         <div
           v-if="addStep"
           class="btn btn--large btn--primary btn--filled--skyblue btn--icon page__add-new-steps"
           @click="steps.push('')">
-          <icon-plus /> Agregar otro paso
+          <icon-plus /> {{ $t('newTask.addOtherStep') }}
         </div>
       </template>
       <template v-else-if="showStep == 3">
@@ -149,14 +146,13 @@ bus.on(listener)
           <TextToSpeech :text-audio="task" />
         </h2>
         <p class="page__subtitle page__text-audio">
-          Revisa los pasos ingresados
+          {{ $t('newTask.chackTheSteps') }}
           <text-to-speech
             :text-audio="
-              'Revisa los pasos ingresados\n\n\n\n\n\n' +
-              'Edita los pasos en caso de ser necesario'
+              $t('newTask.chackTheSteps') + '\n\n\n\n\n\n' + $t('newTask.editTheSteps')
             " />
         </p>
-        <p class="page__indication">Edita los pasos en caso de ser necesario</p>
+        <p class="page__indication">{{ $t('newTask.editTheSteps') }}</p>
         <div
           v-for="(step, index) in steps"
           @click="editing ? () => {} : editStep(index)"
@@ -172,10 +168,14 @@ bus.on(listener)
             </div>
             <div class="step-block-inserted__actions">
               <span class="step-block-inserted__btn" @click.stop="setStep(index)"
-                ><icon-check class="step-block-inserted__icon-check" />Listo</span
+                ><icon-check class="step-block-inserted__icon-check" />{{
+                  $t('general.ready')
+                }}</span
               >
               <span class="step-block-inserted__btn" @click.stop="editing = null"
-                ><icon-delete class="step-block-inserted__icon-cancel" />Cancelar</span
+                ><icon-delete class="step-block-inserted__icon-cancel" />{{
+                  $t('general.cancel')
+                }}</span
               >
             </div>
           </template>
@@ -185,17 +185,20 @@ bus.on(listener)
         <div class="thanks-message">
           <text-to-speech
             :text-audio="
-              'Gracias por tu aporte\n\n\n\n\n\n' +
-              'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n' +
-              'Volver\n\n\n\n\n\n' +
-              '¿Quieres que te avisemos cuando publiquemos tu aporte?'
+              $t('general.thanksForYourContribution') +
+              '\n\n\n\n\n\n' +
+              $t('general.youAreHelping') +
+              '\n\n\n\n\n\n' +
+              $t('general.comeback') +
+              '\n\n\n\n\n\n' +
+              $t('general.doYouWantUsNotifyYou')
             " />
           <span class="thanks-message__icon">
             <icon-like></icon-like>
           </span>
-          <h2 class="thanks-message__title">Gracias por tu aporte</h2>
+          <h2 class="thanks-message__title">{{ $t('general.thanksForYourContribution') }}</h2>
           <p class="thanks-message__description">
-            Estás ayudando al mundo a ser un lugar más accesible
+            {{ $t('general.youAreHelping') }}
           </p>
           <router-link
             :to="
@@ -207,7 +210,11 @@ bus.on(listener)
               appNav.selected.venue?.slug
             "
             class="btn btn--primary btn--block btn--large btn--filled--skyblue"
-            >Volver a {{ appNav.selected.venue?.name }}</router-link
+            >{{
+              $t('general.comebackTo', {
+                name: appNav.selected.venue?.name
+              })
+            }}</router-link
           >
         </div>
       </template>
@@ -216,18 +223,18 @@ bus.on(listener)
       <template v-if="showStep == 4">
         <template v-if="submited">
           <p class="thanks-message__description">
-            Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            {{ $t('general.weWillNotifyYou') }}
           </p>
         </template>
         <template v-else>
           <p class="thanks-message__description">
-            ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            {{ $t('general.doYouWantUsNotifyYou') }}
           </p>
           <button
             v-if="!show_subscription_form"
             class="btn btn--large btn--block btn--primary"
             @click="show_subscription_form = true">
-            Sí, avísame
+            {{ $t('general.yesNotifyMe') }}
           </button>
           <div v-else class="thanks-message__form">
             <form class="subscription-form custom-control" @submit="submitSubscription">
@@ -235,12 +242,12 @@ bus.on(listener)
                 v-model="subscription_email"
                 type="email"
                 class="thanks-message__email"
-                placeholder="Escribe tu email aquí" />
+                :placeholder="$t('general.writeYourEmail')" />
               <button
                 type="submit"
                 class="btn btn--large btn--primary btn--icon"
                 :disabled="submitting">
-                Enviar
+                {{ $t('general.send') }}
                 <SpinnerLoader v-if="submitting" />
               </button>
             </form>
@@ -253,8 +260,8 @@ bus.on(listener)
         class="btn btn--large btn--block btn--primary page__footer"
         :disabled="!addStep || submitting"
         @click="showStep < 3 ? (showStep = 3) : sendTask()">
-        <span v-if="showStep < 3">Listo</span>
-        <span v-else>Confirmar <SpinnerLoader v-if="submitting" /></span>
+        <span v-if="showStep < 3">{{ $t('general.ready') }}</span>
+        <span v-else>{{ $t('general.confirm') }} <SpinnerLoader v-if="submitting" /></span>
       </button>
     </footer>
   </div>

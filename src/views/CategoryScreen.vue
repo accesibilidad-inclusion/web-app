@@ -49,10 +49,7 @@ bus.on(listener)
 <template>
   <div class="category">
     <template v-if="category">
-      <BlockHeader
-        :title="category.name"
-        :description="$t('servicesByCategory.servicesNear')"
-        location>
+      <BlockHeader :title="category.name" :description="$t('category.servicesNear')" location>
         <template #icon>
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
@@ -62,22 +59,32 @@ bus.on(listener)
           <ItemClickable :title="service.name" @click="setService(service)">
             <template #meta>
               <div v-if="service.count_presential > 0">
-                <PresentialPlaceIcon /> {{ service.count_presential }} lugares presenciales
+                <PresentialPlaceIcon />
+                {{
+                  $tc('category.numberOfPresentialVenues', service.count_presential, {
+                    count: service.count_presential
+                  })
+                }}
               </div>
               <div v-if="service.count_online > 0">
-                <InternetPlaceIcon /> {{ service.count_online }} lugares en internet
+                <InternetPlaceIcon />
+                {{
+                  $tc('category.numberOfOnlineVenues', service.count_online, {
+                    count: service.count_online
+                  })
+                }}
               </div>
             </template>
           </ItemClickable>
         </template>
       </main>
       <aside class="actions actions--category">
-        <text-to-speech :text-audio="$t('servicesByCategory.cantFind')" />
+        <text-to-speech :text-audio="$t('category.cantFind')" />
         <p class="actions__title">
-          {{ $t('servicesByCategory.cantFind') }}
+          {{ $t('category.cantFind') }}
         </p>
         <router-link to="/sugerir-lugar" class="btn btn--primary btn--large btn--block">
-          {{ $t('servicesByCategory.addNew') }}
+          {{ $t('category.addNew') }}
         </router-link>
       </aside>
     </template>

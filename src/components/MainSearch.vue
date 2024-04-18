@@ -28,8 +28,8 @@ const doSearch = () => {
 <template>
   <div class="main-search">
     <label class="main-search__label" for="s">
-      <span>Encuentra ayuda para tareas en internet o presenciales</span>
-      <TextToSpeech :text-audio="'Encuentra ayuda para tareas en internet o presenciales'" />
+      <span>{{ $t('mainSearch.findHelp') }}</span>
+      <TextToSpeech :text-audio="$t('mainSearch.findHelp')" />
     </label>
     <div class="main-search__types">
       <div
@@ -39,11 +39,11 @@ const doSearch = () => {
             : 'main-search__type main-search__type--online'
         "
         @click="filterSelected = 'online'">
-        <TextToSpeech text-audio="Buscar tareas en internet" />
+        <TextToSpeech :text-audio="$t('mainSearch.searchOnline')" />
         <span class="main-search__type-icon">
           <IconInternetTasks></IconInternetTasks>
         </span>
-        Buscar tareas en internet
+        {{ $t('mainSearch.searchOnline') }}
       </div>
       <div
         :class="
@@ -52,11 +52,11 @@ const doSearch = () => {
             : 'main-search__type main-search__type--presential'
         "
         @click="filterSelected = 'presential'">
-        <TextToSpeech text-audio="Buscar tareas presenciales" />
+        <TextToSpeech :text-audio="$t('mainSearch.searchPresential')" />
         <span class="main-search__type-icon">
           <IconPresentialTasks></IconPresentialTasks>
         </span>
-        Buscar tareas presenciales
+        {{ $t('mainSearch.searchPresential') }}
       </div>
     </div>
     <Transition>
@@ -70,7 +70,7 @@ const doSearch = () => {
           "
           :disabled="query.trim() == ''"
           @click="doSearch">
-          Ver resultados
+          {{ $t('mainSearch.showResults') }}
         </button>
       </div>
     </Transition>

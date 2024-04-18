@@ -7,8 +7,8 @@ import {useRouter} from 'vue-router'
 const router = useRouter()
 
 const data = {
-  title: '¡Qué bueno que quieras colaborar!',
-  body: '<p>Tu ayuda es muy importante para hacer entre todos una ciudad más fácil y amigable.</p> <p>Las ayudas que puedes darnos son:</p><ol><li>Si falta un lugar, lo puedes agregar.</li><li>Si falta una tarea de un lugar, la puedes agregar.</li><li>Si no hay pictogramas, los puedes crear.</li><li>Puedes evaluar la accesibilidad de un lugar.</li></ol>',
+  title: 'colaborateWithUs.title',
+  body: 'colaborateWithUs.body',
   image: ColaboraImage
 }
 

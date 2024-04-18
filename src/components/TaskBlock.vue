@@ -35,9 +35,11 @@ const selectTask = () => {
       :layers="task.preview" />
     <div class="task-block__content">
       <p class="task-block__title">{{ task.title }}</p>
-      <p v-if="task.count_steps > 0" class="task-block__steps">{{ task.count_steps }} pasos</p>
+      <p class="task-block__steps">
+        {{ $tc('taskBlock.numberOfSteps', task.count_steps, {count: task.count_steps}) }}
+      </p>
       <p v-if="showParents" class="task-block__service">
-      {{ task.service.name }} / {{ task.venue.name }}
+        {{ task.service.name }} / {{ task.venue.name }}
       </p>
       <TextToSpeech :text-audio="`${task.title}.\n\n`" />
     </div>
@@ -56,7 +58,7 @@ const selectTask = () => {
   border-radius: var(--spacer--500);
   margin-top: var(--spacer--300);
   overflow: hidden;
-  grid-template-rows: repeat(minmax(100px,1fr), 1);
+  grid-template-rows: repeat(minmax(100px, 1fr), 1);
   &:hover {
     cursor: pointer;
     background: var(--color-brand-lightest);
