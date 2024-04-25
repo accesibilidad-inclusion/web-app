@@ -225,16 +225,12 @@ const submitSubscription = async () => {
           </div>
         </div>
         <div class="task__nav">
-          <span class="task__nav-selection">
-            {{
-              $t('createPictograms.layerSelected', {
+          <span class="task__nav-selection" v-html="$t('createPictograms.layerSelected', {
                 layerSelected:
                   Number(pictograms[active_step]['subject'] !== null) +
                   Number(pictograms[active_step]['context'] !== null) +
                   Number(pictograms[active_step]['landmark'] !== null)
-              })
-            }}</span
-          >
+              })"></span>
           <button
             class="btn btn--large btn--secondary"
             :class="{
