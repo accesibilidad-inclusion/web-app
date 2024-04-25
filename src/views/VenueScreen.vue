@@ -148,8 +148,7 @@ bus.on(listener)
             <div class="venue__no-information-icon">
               <span>!</span>
             </div>
-            <p class="venue__no-information-desc">
-              {{ $t('venue.noInformation') }}
+            <p class="venue__no-information-desc" v-html="$t('venue.noInformation')">
             </p>
           </main>
           <aside class="actions actions--venue" v-if="venue instanceof PresentialVenue">
