@@ -137,8 +137,8 @@ const submitSubscription = async () => {
 <template>
   <div class="task__single">
     <div class="block-header">
-      <text-to-speech :text-audio="'Crear el apoyo gráfico'" />
-      <h2 class="block-header__title">Crear el apoyo gráfico</h2>
+      <text-to-speech :text-audio="$t('createPictograms.createSupport')" />
+      <h2 class="block-header__title">{{ $t('createPictograms.createSupport') }}</h2>
     </div>
     <header class="task__header">
       <text-to-speech :text-audio="`${task.title}.`" />
@@ -159,7 +159,12 @@ const submitSubscription = async () => {
               <div class="task-step-main">
                 <figcaption class="task-step__legend">
                   <div class="task-step__number">
-                    Paso {{ active_step + 1 }} de {{ task.steps.length }}
+                    {{
+                      $t('task.stepOf', {
+                        activeStep: active_step + 1,
+                        countSteps: task.steps.length
+                      })
+                    }}
                   </div>
                   <div class="task-text__description">{{ step.label }}</div>
                   <text-to-speech :text-audio="step.label" />
@@ -176,7 +181,7 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'subject'
               }"
               @click="tab = 'subject'">
-              Persona
+              {{ $t('createPictograms.person') }}
               <icon-check
                 class="select-pictogram__check"
                 v-if="pictograms[active_step]['subject']" />
@@ -187,7 +192,7 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'landmark'
               }"
               @click="tab = 'landmark'">
-              Objeto
+              {{ $t('createPictograms.object') }}
               <icon-check
                 class="select-pictogram__check"
                 v-if="pictograms[active_step]['landmark']" />
@@ -198,13 +203,13 @@ const submitSubscription = async () => {
                 'btn--active': tab === 'context'
               }"
               @click="tab = 'context'">
-              Espacio
+              {{ $t('createPictograms.space') }}
               <icon-check
                 class="select-pictogram__check"
                 v-if="pictograms[active_step]['context']" />
             </button>
           </div>
-          <h2 class="select-pictogram__title">Elige una persona para esta capa</h2>
+          <h2 class="select-pictogram__title">{{ $t('createPictograms.chooseAPerson') }}</h2>
           <div class="select-pictogram__img">
             <div
               v-for="(image, index) in showImages"
@@ -220,14 +225,15 @@ const submitSubscription = async () => {
           </div>
         </div>
         <div class="task__nav">
-          <span class="task__nav-selection"
-            >Capa
-            <strong>{{
-              Number(pictograms[active_step]['subject'] !== null) +
-              Number(pictograms[active_step]['context'] !== null) +
-              Number(pictograms[active_step]['landmark'] !== null)
-            }}</strong>
-            de <strong>3</strong> seleccionada</span
+          <span class="task__nav-selection">
+            {{
+              $t('createPictograms.layerSelected', {
+                layerSelected:
+                  Number(pictograms[active_step]['subject'] !== null) +
+                  Number(pictograms[active_step]['context'] !== null) +
+                  Number(pictograms[active_step]['landmark'] !== null)
+              })
+            }}</span
           >
           <button
             class="btn btn--large btn--secondary"
@@ -235,21 +241,21 @@ const submitSubscription = async () => {
               'btn--hidden': active_step === 0 && task.prerequisites.trim() === ''
             }"
             @click="rewindStep">
-            Anterior
+            {{ $t('general.previous') }}
           </button>
           <button
             v-if="active_step < task.steps.length - 1"
             :disabled="!canContinue()"
             class="btn btn--large btn--primary btn--block"
             @click="advanceStep">
-            Siguiente
+            {{ $t('general.next') }}
           </button>
           <button
             v-if="active_step === task.steps.length - 1"
             :disabled="!canContinue() || submitting"
             class="btn btn--large btn--primary btn--block"
             @click="saveProposal">
-            Guardar
+            {{ $t('general.save') }}
             <SpinnerLoader v-if="submitting" />
           </button>
         </div>
@@ -259,17 +265,20 @@ const submitSubscription = async () => {
       <div class="thanks-message">
         <text-to-speech
           :text-audio="
-            'Gracias por tu aporte\n\n\n\n\n\n' +
-            'Estas ayudando al mundo a ser un lugar más accesible\n\n\n\n\n\n' +
-            'Volver\n\n\n\n\n\n' +
-            '¿Quieres que te avisemos cuando publiquemos tu aporte?'
+            $t('general.thanksForYourContribution') +
+            '\n\n\n\n\n\n' +
+            $t('general.youAreHelping') +
+            '\n\n\n\n\n\n' +
+            $t('general.comeback') +
+            '\n\n\n\n\n\n' +
+            $t('general.doYouWantUsNotifyYou')
           " />
         <span class="thanks-message__icon">
           <icon-like></icon-like>
         </span>
-        <h2 class="thanks-message__title">Gracias por tu aporte</h2>
+        <h2 class="thanks-message__title">{{ $t('general.thanksForYourContribution') }}</h2>
         <p class="thanks-message__description">
-          Estás ayudando al mundo a ser un lugar más accesible
+          {{ $t('general.youAreHelping') }}
         </p>
         <router-link
           :to="
@@ -281,25 +290,29 @@ const submitSubscription = async () => {
             appNav.selected.venue?.slug
           "
           class="btn btn--primary btn--block btn--large btn--filled--skyblue">
-          Volver a {{ appNav.selected.venue?.name }}
+          {{
+            $t('general.comebackTo', {
+              name: appNav.selected.venue?.name
+            })
+          }}
         </router-link>
       </div>
       <footer class="thanks-message-footer">
         <template v-if="notification_submitted">
           <p class="thanks-message__description">
-            Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            {{ $t('general.weWillNotifyYou') }}
           </p>
         </template>
         <template v-else>
           <p class="thanks-message__description">
-            ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            {{ $t('general.doYouWantUsNotifyYou') }}
           </p>
           <template v-if="!show_subscription_form">
             <button
               type="button"
               class="btn btn--large btn--block btn--primary"
               @click="show_subscription_form = true">
-              Sí, avísame
+              {{ $t('general.yesNotifyMe') }}
             </button>
           </template>
           <template v-else>
@@ -314,7 +327,7 @@ const submitSubscription = async () => {
                   class="btn btn--large btn--primary btn--icon"
                   @click="submitSubscription"
                   :disabled="submitting">
-                  Enviar
+                  {{ $t('general.send') }}
                   <SpinnerLoader v-if="submitting" />
                 </button>
               </div>
@@ -359,23 +372,23 @@ const submitSubscription = async () => {
     }
   }
   .block-header {
-  margin-top: 0;
-  position: relative;
-  text-align: center;
-  padding: var(--spacer--500);
-  border-radius: var(--spacer--500);
-  background-color: var(--color--skyblue);
-  margin: 0 var(--spacer--400) var(--spacer--500);
-  .block-header__title {
-    @include rfs($font-size-14);
-    font-weight: 600;
+    margin-top: 0;
+    position: relative;
+    text-align: center;
+    padding: var(--spacer--500);
+    border-radius: var(--spacer--500);
+    background-color: var(--color--skyblue);
+    margin: 0 var(--spacer--400) var(--spacer--500);
+    .block-header__title {
+      @include rfs($font-size-14);
+      font-weight: 600;
+    }
+    .tts {
+      position: absolute;
+      top: calc(var(--spacer--500) + 2px);
+      right: var(--spacer--400);
+    }
   }
-  .tts {
-    position: absolute;
-    top: calc(var(--spacer--500) + 2px);
-    right: var(--spacer--400);
-  }
-}
 }
 .task__single--pictogram {
   background-color: var(--color--skyblue);

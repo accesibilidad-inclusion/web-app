@@ -32,12 +32,14 @@ const setVenue = (venue: PresentialVenue | OnlineVenue) => {
   router.push(`/${route.params.categorySlug}/${route.params.serviceSlug}/${venue.slug}`)
 }
 
-const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues`)
-  .post({
-    ...appData.location.getCoordinates(),
-    category: route.params.categorySlug,
-    service: route.params.serviceSlug
-  })
+const {data} = await useFetch(
+  `${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues?category=${
+    route.params.categorySlug
+  }&service=${route.params.serviceSlug}&lat=${appData.location.getCoordinates().lat}&lng=${
+    appData.location.getCoordinates().lng
+  }`
+)
+  .get()
   .json()
 
 venues_presential.value = data.value.venues.map((v: PresentialVenue) => new PresentialVenue(v))
@@ -57,14 +59,14 @@ bus.on(listener)
 <template>
   <div class="service">
     <template v-if="category && service">
-      <BlockHeader :title="service.name" description="Lugares del servicio" compact>
+      <BlockHeader :title="service.name" :description="$t('service.venuesOfService')" compact>
         <template #icon>
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
       </BlockHeader>
       <main class="service__items venues">
         <template v-if="venues_online.length">
-          <div class="items-title"><InternetPlaceIcon /> Lugares en internet</div>
+          <div class="items-title"><InternetPlaceIcon /> {{ $t('service.onlineVenues') }}</div>
           <template v-for="venue in venues_online" :key="venue.id">
             <ItemClickable :title="venue.name" @click="setVenue(venue)">
               <template #meta>
@@ -72,9 +74,7 @@ bus.on(listener)
                 <div
                   v-if="venue.evaluation && venue.show_evaluation"
                   class="venue-block__evaluation">
-                  <span
-                    class="venue-block__evaluation-grade"
-                    :data-grade="venue.evaluation.score">
+                  <span class="venue-block__evaluation-grade" :data-grade="venue.evaluation.score">
                     {{ venue.evaluation.score }}
                   </span>
                   <span class="venue-block__evaluation-description">
@@ -86,17 +86,19 @@ bus.on(listener)
           </template>
         </template>
         <template v-if="venues_presential.length">
-          <div class="items-title"><IconLocationPin class="icon-location"/> Lugares presenciales</div>
+          <div class="items-title">
+            <IconLocationPin class="icon-location" /> {{ $t('service.presentialVenues') }}
+          </div>
           <template v-for="venue in venues_presential" :key="venue.id">
             <ItemClickable :title="venue.name" @click="setVenue(venue)">
               <template #meta>
-                <div>a {{ venue.distanceToText() }} de distancia</div>
+                <div>
+                  {{ $t('recommendedVenues.distance', {distance: venue.distanceToText()}) }}
+                </div>
                 <div
                   v-if="venue.evaluation && venue.show_evaluation"
                   class="venue-block__evaluation">
-                  <span
-                    class="venue-block__evaluation-grade"
-                    :data-grade="venue.evaluation.score">
+                  <span class="venue-block__evaluation-grade" :data-grade="venue.evaluation.score">
                     {{ venue.evaluation.score }}
                   </span>
                   <span class="venue-block__evaluation-description">
@@ -110,14 +112,13 @@ bus.on(listener)
       </main>
       <aside class="actions actions--category">
         <p class="actions__title">
-          ¿No encuentras el lugar que estás buscando?
-          <text-to-speech
-            :text-audio="'¿No encuentras el lugar que estás buscando? Agregar un lugar nuevo'" />
+          {{ $t('service.cantFind') }}
+          <text-to-speech :text-audio="$t('service.cantFind') + '. ' + $t('service.addNewVenue')" />
         </p>
         <router-link
           :to="'/sugerir-lugar/' + service.id"
           class="btn btn--primary btn--large btn--block btn--icon">
-          <IconPlus /> Agregar un lugar nuevo
+          <IconPlus /> {{ $t('service.addNewVenue') }}
         </router-link>
       </aside>
     </template>

@@ -18,8 +18,8 @@ const router = useRouter()
 
 const sequence: Array<OnboardingOrComponent> = [
   {
-    title: 'Cuéntanos un poco de ti',
-    body: 'Registra tu fecha de nacimiento, género y si tienes algún tipo de discapacidad. Toda la información será estrictamente confidencial.',
+    title: 'personalInformation.title',
+    body: 'personalInformation.body',
     image: PerfilImage
   },
   BirthDay,
@@ -58,7 +58,7 @@ bus.on(listener)
   <main class="page">
     <OnboardingNav
       :sequence="sequence"
-      finish-button-text="Empieza la evaluación"
+      :finish-button-text="$t('personalInformation.startEvaluation')"
       :hideLastBackButton="true"
       @finished="finishing()" />
   </main>

@@ -50,20 +50,20 @@ const advanceStep = async () => {
           (!hideLastBackButton && currentStep === sequence.length - 1)
         "
         @click="rewindStep">
-        Atrás
+        {{ $t('general.back') }}
       </button>
       <button
         class="btn btn--large btn--primary"
         v-if="currentStep < sequence.length - 1"
         :disabled="!!comp && !comp.canContinue"
         @click="advanceStep">
-        Siguiente
+        {{ $t('general.next') }}
       </button>
       <button
         class="btn btn--large btn--primary"
         v-if="currentStep === sequence.length - 1"
         @click="$emit('finished')">
-        {{ finishButtonText !== undefined ? finishButtonText : 'Finalizar' }}
+        {{ finishButtonText !== undefined ? finishButtonText : $t('general.finish') }}
       </button>
     </footer>
   </div>

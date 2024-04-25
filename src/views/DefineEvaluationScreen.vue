@@ -44,24 +44,24 @@ bus.on(listener)
         <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
         <span v-else>?</span>
       </div>
-      <p class="evaluation__text">Nivel de accesibilidad</p>
-      <h2 class="place__evaluation-title">{{ evaluation.title }}</h2>
+      <p class="evaluation__text">{{ $t('defineEvaluations.accesibilityLevel') }}</p>
+      <h2 class="place__evaluation-title">{{ $t(evaluation.title) }}</h2>
     </div>
     <div class="evaluation__body">
       <h3 class="evaluation__explanation">¿Qué significa esto?</h3>
-      <p class="evaluation__longdesc">{{ evaluation.longdesc }}</p>
-      <p class="evaluation__longdesc">{{ evaluation.change }}</p>
+      <p class="evaluation__longdesc">{{ $t(evaluation.longdesc) }}</p>
+      <p class="evaluation__longdesc">{{ $t(evaluation.change) }}</p>
       <p class="evaluation__feature">
-        <span class="evaluation__feature-name">{{ evaluation.feature1 }}</span
-        >{{ evaluation.visibility }}
+        <span class="evaluation__feature-name">{{ $t(evaluation.feature1) }}</span
+        >{{ $t(evaluation.visibility) }}
       </p>
       <p class="evaluation__feature">
-        <span class="evaluation__feature-name">{{ evaluation.feature2 }}</span
-        >{{ evaluation.understanding }}
+        <span class="evaluation__feature-name">{{ $t(evaluation.feature2) }}</span
+        >{{ $t(evaluation.understanding) }}
       </p>
       <p class="evaluation__feature">
-        <span class="evaluation__feature-name">{{ evaluation.feature3 }}</span
-        >{{ evaluation.spatiality }}
+        <span class="evaluation__feature-name">{{ $t(evaluation.feature3) }}</span
+        >{{ $t(evaluation.spatiality) }}
       </p>
       <text-to-speech
         :text-audio="`¿Qué significa esto?.\n\n${evaluation.longdesc}\n\n${evaluation.change}

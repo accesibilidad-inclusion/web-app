@@ -63,34 +63,44 @@ defineExpose({
 
 <template>
   <div class="onboarding-skyblue">
-    <BlockHeader description="Sobre ti"> </BlockHeader>
+    <BlockHeader :description="$t('personalInformation.aboutYou')"> </BlockHeader>
     <div class="onboarding-item__container">
       <h2 class="onboarding__title">
-        Fecha de nacimiento <TextToSpeech :text-audio="`Fecha de nacimiento: Día, Mes y Año`" />
+        {{ $t('personalInformation.birthday.title') }}
+        <TextToSpeech
+          :text-audio="
+            $t('personalInformation.birthday.title') +
+            ': ' +
+            $t('personalInformation.birthday.day') +
+            ', ' +
+            $t('personalInformation.birthday.month') +
+            ', ' +
+            $t('personalInformation.birthday.year')
+          " />
       </h2>
       <form>
         <div class="form-group">
-          <label for="day">Día</label>
+          <label for="day">{{ $t('personalInformation.birthday.day') }}</label>
           <FormSelect
             :id="'day'"
             :options="days"
-            :optionDefault="'Selecciona el día'"
+            :optionDefault="$t('personalInformation.birthday.optionDay')"
             v-model="appSession.user.dayBirth" />
         </div>
         <div class="form-group">
-          <label for="month">Mes</label>
+          <label for="month">{{ $t('personalInformation.birthday.month') }}</label>
           <FormSelect
             :id="'month'"
             :options="months"
-            :optionDefault="'Selecciona el mes'"
+            :optionDefault="$t('personalInformation.birthday.optionMonth')"
             v-model="appSession.user.monthBirth" />
         </div>
         <div class="form-group">
-          <label for="ano">Año</label>
+          <label for="ano">{{ $t('personalInformation.birthday.year') }}</label>
           <FormSelect
             :id="'year'"
             :options="years"
-            :optionDefault="'Selecciona el año'"
+            :optionDefault="$t('personalInformation.birthday.optionYear')"
             v-model="appSession.user.yearBirth" />
         </div>
       </form>

@@ -153,7 +153,7 @@ const toggle = (id: number) => {
             {{ $t('yourLocation.changeLocation') }}
           </p>
           <button class="btn btn--large btn--block btn--primary" @click="activateGps()">
-            {{ $t('yourLocation.activateGps') }}
+            {{ $t('yourLocation.activatingGps') }}
           </button>
           <span class="activate-location__or">{{ $t('yourLocation.or') }}</span>
           <button class="btn btn--large btn--block btn--primary" @click="selectCommune()">
@@ -166,26 +166,24 @@ const toggle = (id: number) => {
       </template>
       <template v-else>
         <div class="activate-location">
-          <h2 class="activate-location__title">Tu ubicación</h2>
-          <p class="activate-location__description">
-            <span class="font-weight-medium">Activa el GPS</span> o
-            <span class="font-weight-medium">ingresa una comuna</span> manualmente para ver los
-            servicios disponibles cerca tuyo.
-          </p>
+          <h2 class="activate-location__title">{{ $t('yourLocation.yourLocation') }}</h2>
+          <p
+            class="activate-location__description"
+            v-html="$t('yourLocation.chooseGpsOrCommune')"></p>
           <button class="btn btn--large btn--block btn--primary" @click="activateGps()">
-            Activar GPS
+            {{ $t('yourLocation.activateGps') }}
           </button>
           <button class="btn btn--large btn--block btn--primary" @click="selectCommune()">
-            Selecciona una comuna
+            {{ $t('yourLocation.selectCommune') }}
           </button>
         </div>
-        <a href="https://pictos.cl" class="close-app">Visita nuestro sitio web</a>
+        <a href="https://pictos.cl" class="close-app">{{ $t('yourLocation.visitOurWebsite') }}</a>
       </template>
     </div>
     <div v-else class="select-commune">
       <header class="commune-header">
-        <h1 class="commune-header__title">Elige o busca una comuna</h1>
-        <TextToSpeech :text-audio="'Elige o busca una comuna.'" />
+        <h1 class="commune-header__title">{{ $t('yourLocation.chooseACommune') }}</h1>
+        <TextToSpeech :text-audio="$t('yourLocation.chooseACommune')" />
         <div class="main-search__group">
           <input
             v-model="query"
@@ -233,27 +231,28 @@ const toggle = (id: number) => {
           ">
           <div class="no-results-commune">
             <text-to-speech
-              :text-audio="'No se han encontrado comunas con ese nombre. Prueba escribiendo otras palabras o buscando por las regiones disponibles'" />
+              :text-audio="
+                $t('yourLocation.notFindCommune') + '. ' + $t('yourLocation.testAnotherWords')
+              " />
             <div class="no-results-commune__icon">
               <span>!</span>
             </div>
-            <h2 class="no-results-commune__title">No se han encontrado comunas con ese nombre</h2>
-            <p class="no-results-commune__description">
-              Prueba escribiendo <strong>otras palabras</strong> o buscando por las
-              <strong>regiones</strong> disponibles
-            </p>
+            <h2 class="no-results-commune__title">{{ $t('yourLocation.notFindCommune') }}</h2>
+            <p
+              class="no-results-commune__description"
+              v-html="$t('yourLocation.testAnotherWords')"></p>
           </div>
         </template>
       </main>
       <footer class="footer-communes">
         <button class="btn btn--large btn--block btn--as-link" @click="cancelCommune()">
-          Cancelar
+          {{ $t('general.cancel') }}
         </button>
         <button
           class="btn btn--large btn--block btn--primary"
           :disabled="!commune"
           @click="confirmCommune()">
-          Listo
+          {{ $t('general.ready') }}
         </button>
       </footer>
     </div>

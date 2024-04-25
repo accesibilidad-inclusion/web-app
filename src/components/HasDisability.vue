@@ -21,12 +21,18 @@ defineExpose({
 
 <template>
   <div class="onboarding-skyblue">
-    <BlockHeader description="Sobre ti"> </BlockHeader>
+    <BlockHeader :description="$t('personalInformation.aboutYou')"> </BlockHeader>
     <div class="onboarding-item__container">
       <h2 class="onboarding__title">
-        ¿Tienes alguna discapacidad?
+        {{ $t('personalInformation.hasDisability.title') }}
         <text-to-speech
-          :text-audio="'¿Tienes alguna discapacidad?\n\n\n\n\n\n\n' + 'Sí\n\n\n\n\n\n' + 'No'" />
+          :text-audio="
+            $t('personalInformation.hasDisability.title') +
+            '\n\n\n\n\n\n\n' +
+            $t('general.yes') +
+            '\n\n\n\n\n\n' +
+            $t('general.no')
+          " />
       </h2>
       <form class="form-radio">
         <div class="custom-control custom-control--radio">
@@ -38,7 +44,7 @@ defineExpose({
             class="custom-control__input"
             v-model="appSession.user.disability"
             :checked="appSession.user.disability == 'yes'" />
-          <label for="yes" class="custom-control__label">Sí</label>
+          <label for="yes" class="custom-control__label">{{ $t('general.yes') }}</label>
         </div>
         <div class="custom-control custom-control--radio">
           <input
@@ -50,7 +56,7 @@ defineExpose({
             @input="clearDisabilities()"
             v-model="appSession.user.disability"
             :checked="appSession.user.disability == 'no'" />
-          <label for="no" class="custom-control__label">No</label>
+          <label for="no" class="custom-control__label">{{ $t('general.no') }}</label>
         </div>
       </form>
     </div>

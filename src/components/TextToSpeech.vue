@@ -17,7 +17,7 @@ const speak = () => {
     playing.value = false
     synth.cancel()
   } else {
-    utterance.text = props.textAudio
+    utterance.text = props.textAudio.replace(/<\/?[^>]+(>|$)/g, '')
     synth.speak(utterance)
   }
 }

@@ -11,65 +11,50 @@ defineEmits(['reply'])
       class="evaluation-block__item"
       :class="{active: selected === '5'}"
       @click="$emit('reply', '5')">
-      <span
-        class="evaluation-block__grade"
-        data-grade="5"
-        >5</span
-      >
+      <span class="evaluation-block__grade" data-grade="5">5</span>
       <span class="evaluation-block__description"
-        ><strong>Excelente:</strong> No necesita mejoras.</span
+        ><strong>{{ $t('indicatorQuestion.excelent') }}:</strong>
+        {{ $t('indicatorQuestion.dontNeedImpovements') }}.</span
       >
     </li>
     <li
       class="evaluation-block__item"
       :class="{active: selected === '4'}"
       @click="$emit('reply', '4')">
-      <span
-        class="evaluation-block__grade"
-        data-grade="4"
-        >4</span
-      >
+      <span class="evaluation-block__grade" data-grade="4">4</span>
       <span class="evaluation-block__description"
-        ><strong>Bueno:</strong> Necesita pocas mejoras.</span
+        ><strong>{{ $t('indicatorQuestion.good') }}:</strong>
+        {{ $t('indicatorQuestion.needFewImprovements') }}.</span
       >
     </li>
     <li
       class="evaluation-block__item"
       :class="{active: selected === '3'}"
       @click="$emit('reply', '3')">
-      <span
-        class="evaluation-block__grade"
-        data-grade="3"
-        >3</span
-      >
+      <span class="evaluation-block__grade" data-grade="3">3</span>
       <span class="evaluation-block__description"
-        ><strong>Regular:</strong> Ni bueno Ni malo.</span
+        ><strong>{{ $t('indicatorQuestion.regular') }}:</strong>
+        {{ $t('indicatorQuestion.notGoodNotBad') }}.</span
       >
     </li>
     <li
       class="evaluation-block__item"
       :class="{active: selected === '2'}"
       @click="$emit('reply', '2')">
-      <span
-        class="evaluation-block__grade"
-        data-grade="2"
-        >2</span
-      >
+      <span class="evaluation-block__grade" data-grade="2">2</span>
       <span class="evaluation-block__description"
-        ><strong>Malo:</strong> Necesita muchas mejoras.</span
+        ><strong>{{ $t('indicatorQuestion.bad') }}:</strong>
+        {{ $t('indicatorQuestion.needManyImpovements') }}.</span
       >
     </li>
     <li
       class="evaluation-block__item"
       :class="{active: selected === '1'}"
       @click="$emit('reply', '1')">
-      <span
-        class="evaluation-block__grade"
-        data-grade="1"
-        >1</span
-      >
+      <span class="evaluation-block__grade" data-grade="1">1</span>
       <span class="evaluation-block__description"
-        ><strong>Pésimo:</strong> Tiene que mejorar todo.</span
+        ><strong>{{ $t('indicatorQuestion.apalling') }}:</strong>
+        {{ $t('indicatorQuestion.everythingHasToImprove') }}.</span
       >
     </li>
   </ul>

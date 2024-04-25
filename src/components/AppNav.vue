@@ -64,17 +64,26 @@ const back = () => {
 </script>
 
 <template>
-  <div id="nav" class="app-nav" :class="`app-nav__${appNav.theme}`">
+  <div
+    id="nav"
+    class="app-nav"
+    :class="{
+      'app-nav__presential': appNav.theme == 'presential',
+      'app-nav__online': appNav.theme == 'online',
+      'app-nav__centered': route.meta.navbar?.centered
+    }">
     <button v-if="route.meta.navbar?.back" class="app-nav__toggle-back" @click="back">
-      <IconChevronLeft class="app-nav__toggle-icon" /> Volver
+      <IconChevronLeft class="app-nav__toggle-icon" /> {{ $t('general.comeback') }}
     </button>
     <router-link v-if="route.meta.navbar?.logo" to="/inicio" class="app-nav__logo-wrapper">
       <logo-pictos class="app-nav__logo" />
     </router-link>
     <button v-if="route.meta.navbar?.menu" class="app-nav__toggle" @click="openMenu">
-      Menú <icon-menu class="app-nav__toggle-icon" />
+      {{ $t('menu.title') }} <icon-menu class="app-nav__toggle-icon" />
     </button>
-    <button v-if="route.meta.navbar?.close" class="app-nav__toggle" @click="close">Cerrar</button>
+    <button v-if="route.meta.navbar?.close" class="app-nav__toggle" @click="close">
+      {{ $t('general.close') }}
+    </button>
     <div
       :class="
         'modal' + (shown_modal ? ' modal--fade' : '') + (closed_modal ? ' modal--fade-out' : '')
@@ -83,7 +92,7 @@ const back = () => {
         <div class="app-menu">
           <div class="app-menu__wrapper">
             <header class="app-menu__header">
-              <h3 class="app-menu__title">Menú</h3>
+              <h3 class="app-menu__title">{{ $t('menu.title') }}</h3>
               <button class="app-menu__toggle" aria-label="Menu" @click="closeMenu">
                 <icon-close class="app-menu__toggle-icon"></icon-close>
               </button>
@@ -91,19 +100,23 @@ const back = () => {
             <nav class="app-menu__body">
               <ul class="app-menu__items">
                 <li>
-                  <a href="javascript:void(0)" @click="toHome">Inicio</a>
+                  <a href="javascript:void(0)" @click="toHome">{{ $t('menu.home') }}</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" @click="toAbout">Acerca de</a>
+                  <a href="javascript:void(0)" @click="toAbout">{{ $t('menu.about') }}</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" @click="toColaborateWithUs">Colabora con nosotros</a>
+                  <a href="javascript:void(0)" @click="toColaborateWithUs">{{
+                    $t('menu.colaborateWithUs')
+                  }}</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" @click="tutorials">Reactivar tutoriales</a>
+                  <a href="javascript:void(0)" @click="tutorials">{{
+                    $t('menu.reactivateTutorials')
+                  }}</a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" @click="install">Instala PICTOS en tu dispositivo</a>
+                  <a href="javascript:void(0)" @click="install">{{ $t('menu.installPictos') }}</a>
                 </li>
               </ul>
             </nav>
@@ -116,6 +129,9 @@ const back = () => {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/rfs.scss';
+.app-nav__centered {
+  justify-content: center !important;
+}
 .app-nav {
   display: flex;
   justify-content: space-between;

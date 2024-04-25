@@ -18,9 +18,11 @@ const setVenue = (venue: PresentialVenue) => {
 }
 
 const {data} = await useFetch(
-  `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/recommended`
+  `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/recommended?lat=${
+    appData.location.getCoordinates().lat
+  }&lng=${appData.location.getCoordinates().lng}`
 )
-  .post(appData.location.getCoordinates())
+  .get()
   .json()
 
 venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
@@ -30,14 +32,16 @@ venues.value = data.value.map((t: PresentialVenue) => new PresentialVenue(t))
   <div class="place">
     <main class="place__tasks">
       <p class="place__tasks-description">
-        <span>Lugares con ayudas cerca de tu ubicación</span>
-        <TextToSpeech :text-audio="'Lugares con ayudas cerca de tu ubicación'" />
+        <span>{{ $t('recommendedVenues.venuesWithHelp') }}</span>
+        <TextToSpeech :text-audio="$t('recommendedVenues.venuesWithHelp')" />
       </p>
       <div v-for="venue in venues" :key="venue.id">
         <ItemClickable :title="venue.name" @click="setVenue(venue)">
           <template #meta>
-            <div>a {{ venue.distanceToText() }} de distancia</div>
-            <div>Pertenece a: {{ venue.service.name }}</div>
+            <div>{{ $t('recommendedVenues.distance', {distance: venue.distanceToText()}) }}</div>
+            <div>
+              {{ $t('recommendedVenues.belongsTo', {serviceName: venue.service.name}) }}
+            </div>
           </template>
         </ItemClickable>
       </div>

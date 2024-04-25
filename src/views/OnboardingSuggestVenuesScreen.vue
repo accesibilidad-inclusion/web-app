@@ -13,13 +13,13 @@ const router = useRouter()
 
 const sequence: Array<Onboarding> = [
   {
-    title: 'Escribe el nombre del lugar',
-    body: 'PICTOS  te mostrará los lugares similares a lo que buscaste',
+    title: 'onboardingSuggestVenues.title1',
+    body: 'onboardingSuggestVenues.desc1',
     image: OnboardingImage1
   },
   {
-    title: 'Guarda el lugar',
-    body: 'Para guardar el lugar que elegiste, presiona “Listo”',
+    title: 'onboardingSuggestVenues.title2',
+    body: 'onboardingSuggestVenues.desc2',
     image: OnboardingImage2
   }
 ]

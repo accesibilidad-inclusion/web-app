@@ -11,8 +11,8 @@ import {useRouter} from 'vue-router'
 const router = useRouter()
 
 const data = {
-  title: 'Acerca de PICTOS',
-  body: '<ul><li>PICTOS es una aplicación para hacer el mundo inclusivo y accesible.</li><li>PICTOS es una aplicación de uso gratuito.</li><li>Todos pueden aportar en PICTOS.</li><li>Tú participación es importante, ayuda a construir PICTOS.</li><li>Para hacer esta app, trabajaron investigadores, diseñadores y desarrolladores con y sin discapacidad.</li><li>Este es un proyecto del Núcleo de Accesibilidad e Inclusión de la Pontificia Universidad Católica de Valparaíso.</li><li>Este proyecto fue financiado por SENADIS y FONDEF IT.</li></ul>',
+  title: 'about.title',
+  body: 'about.body',
   image: AboutImage
 }
 
@@ -25,14 +25,14 @@ bus.on(listener)
 
 <template>
   <main class="page">
-  <OnboardingItem :data="data" />
-  <div class="onboarding__logos">
-    <LogoAccesibilidadInclusionImage class="logo-inclusion" />
-    <LogoPucvImage class="logo-pucv" />
-    <LogoUandesImage class="logo-uandes" />
-    <LogoGobiernoImage class="logo-gobierno" />
-  </div>
-</main>
+    <OnboardingItem :data="data" />
+    <div class="onboarding__logos">
+      <LogoAccesibilidadInclusionImage class="logo-inclusion" />
+      <LogoPucvImage class="logo-pucv" />
+      <LogoUandesImage class="logo-uandes" />
+      <LogoGobiernoImage class="logo-gobierno" />
+    </div>
+  </main>
 </template>
 
 <style lang="scss" scoped>

@@ -21,34 +21,42 @@ const router = useRouter()
 
 const sequence = computed(() => [
   {
-    title: 'Instala PICTOS en tu dispositivo',
-    body: 'Te ayudamos a instalar un acceso directo a PICTOS en tu dispositivo',
+    title: 'onboardingInstallPictos.title1',
+    body: 'onboardingInstallPictos.desc1',
     image: InstalaPictos
   },
   DeviceSelector,
   {
     title:
-      appSession.user.device == 'Iphone' ? 'Instala PICTOS en Iphone' : 'Instala PICTOS en Android',
+      appSession.user.device == 'Iphone'
+        ? 'onboardingInstallPictos.title2iphone'
+        : 'onboardingInstallPictos.title2android',
     body:
       appSession.user.device == 'Iphone'
-        ? 'Cuando estés en PICTOS presiona el botón central del menú inferior'
-        : 'Cuando estés en PICTOS presiona los tres puntos que se encuentran a la derecha en el menú superior',
+        ? 'onboardingInstallPictos.desc2iphone'
+        : 'onboardingInstallPictos.desc2android',
     image: appSession.user.device == 'Iphone' ? InstalaIphone1 : InstalaAndroid1
   },
   {
-    title: appSession.user.device == 'Iphone' ? 'Agregar a Inicio' : 'Instalar Aplicación',
+    title:
+      appSession.user.device == 'Iphone'
+        ? 'onboardingInstallPictos.title3iphone'
+        : 'onboardingInstallPictos.title3android',
     body:
       appSession.user.device == 'Iphone'
-        ? 'Cuando se abra el menú inferior, presiona la opción Agregar a Inicio'
-        : 'Cuando se abra el menú lateral, presiona la opción Instalar aplicación',
+        ? 'onboardingInstallPictos.desc3iphone'
+        : 'onboardingInstallPictos.desc3android',
     image: appSession.user.device == 'Iphone' ? InstalaIphone2 : InstalaAndroid2
   },
   {
-    title: appSession.user.device == 'Iphone' ? 'Agregar a Inicio' : 'Confirma la instalación',
+    title:
+      appSession.user.device == 'Iphone'
+        ? 'onboardingInstallPictos.title4iphone'
+        : 'onboardingInstallPictos.title4android',
     body:
       appSession.user.device == 'Iphone'
-        ? 'Cuando se abra la opción Agregar a Inicio, presiona el botón “Agregar” en la esquina superior derecha'
-        : 'Cuando se abra la opción Instalar aplicación, presiona el botón “Instalar”',
+        ? 'onboardingInstallPictos.desc4iphone'
+        : 'onboardingInstallPictos.desc4android',
     image: appSession.user.device == 'Iphone' ? InstalaIphone3 : InstalaAndroid3
   }
 ])

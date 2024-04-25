@@ -18,25 +18,25 @@ const router = useRouter()
 
 const sequence: Array<Onboarding> = [
   {
-    title: '¡Hola!',
-    body: 'Acá te explicamos cómo debes hacer la evaluación de un lugar con PICTOS. A continuación, encontrarás los pasos que debes seguir.',
+    title: 'onboardingEvaluation.title1',
+    body: 'onboardingEvaluation.desc1',
     image:
       route.params.type === 'presencial' ? OnboardingPresencialImage1 : OnboardingInternetImage1
   },
   {
-    title: '¿Qué necesitas para evaluar?',
-    body: '<ul><li>Debes estar en el lugar o servicio a evaluar</li><li>Observa atentamente tu entorno</li><li>Responde todas las preguntas</li><li>Evalúa poniendo nota</li></ul><div class="text-center mt-4">Ahora te explicamos cómo funciona el <strong>método de puntuación</strong></div>',
+    title: 'onboardingEvaluation.title2',
+    body: 'onboardingEvaluation.desc2',
     image:
       route.params.type === 'presencial' ? OnboardingPresencialImage2 : OnboardingInternetImage2
   },
   {
-    title: 'Reglas de puntuación',
-    body: '<div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="5"></span><strong>Excelente: </strong> No necesita mejoras</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="4"></span><strong>Bueno: </strong> Necesita pocas mejoras</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="3"></span><strong>Regular: </strong> Ni bueno ni malo</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="2"></span><strong>Malo: </strong> Necesita muchas mejoras</div><div class="evaluation__grade-description"><span class="evaluation__grade-square" data-grade="1"></span><strong>Pésimo: </strong> Tiene que mejorar todo</div>',
+    title: 'onboardingEvaluation.title3',
+    body: 'onboardingEvaluation.desc3',
     image: OnboardingPresencialImage3
   },
   {
-    title: 'Activar permisos',
-    body: 'Necesitamos que nos permitas acceder a la cámara de tu dispositivo para que puedas tomar fotos durante la evaluación',
+    title: 'onboardingEvaluation.title4',
+    body: 'onboardingEvaluation.desc4',
     image: OnboardingPresencialImage4
   }
 ]

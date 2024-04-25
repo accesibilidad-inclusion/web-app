@@ -6,11 +6,11 @@ import TextToSpeech from '@/components/TextToSpeech.vue'
 <template>
   <div class="onboarding-skyblue">
     <div class="instruction">
-      <TextToSpeech text-audio="Gracias por la información" />
+      <TextToSpeech :text-audio="$t('personalInformation.informationThanks.title')" />
       <span class="instruction__icon">
         <LikeIcon />
       </span>
-      <div class="instruction__title">¡Gracias por la información!</div>
+      <div class="instruction__title">{{ $t('personalInformation.informationThanks.title') }}</div>
     </div>
   </div>
 </template>

@@ -109,11 +109,11 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
 </script>
 
 <template>
-  <div class="page-place"> 
+  <div class="page-place">
     <template v-if="!submitted">
       <h2 class="page__title">
-        Busca un lugar para agregarlo a Pictos
-        <text-to-speech :text-audio="'Busca un lugar para agregarlo a Pictos'" />
+        {{ $t('suggestVenue.searchAVenue') }}
+        <text-to-speech :text-audio="$t('suggestVenue.searchAVenue')" />
       </h2>
       <div v-if="venue" class="page__place-name">
         {{ venue.displayName }}
@@ -122,11 +122,11 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
         v-if="!searchAgain"
         class="btn btn--large btn--primary btn--filled--skyblue-light btn--icon"
         @click="searchAgain = true">
-        <icon-search /> Buscar nuevamente
+        <icon-search /> {{ $t('suggestVenue.searchAgain') }}
       </div>
       <template v-else>
         <div class="custom-control custom-control--search">
-          <input v-model="searchText" type="text" placeholder="Ejemplo: Terminal de buses" />
+          <input v-model="searchText" type="text" :placeholder="$t('suggestVenue.example')" />
           <button type="submit">
             <icon-search />
           </button>
@@ -145,7 +145,7 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
           class="btn btn--large btn--block btn--primary"
           :disabled="!venue || submitting"
           @click="next">
-          Listo <SpinnerLoader v-if="submitting" />
+          {{ $t('general.ready') }} <SpinnerLoader v-if="submitting" />
         </button>
       </footer>
     </template>
@@ -154,32 +154,30 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
         <span class="thanks-message__icon">
           <icon-like></icon-like>
         </span>
-        <h2 class="thanks-message__title">Gracias por tu aporte</h2>
+        <h2 class="thanks-message__title">{{ $t('general.thanksForYourContribution') }}</h2>
         <p class="thanks-message__description">
-          Estás ayudando al mundo a ser un lugar más accesible
+          {{ $t('general.youAreHelping') }}
         </p>
-        <button
-          class="btn btn--primary btn--block btn--large btn--filled--skyblue"
-          @click="close">
-          Volver
+        <button class="btn btn--primary btn--block btn--large btn--filled--skyblue" @click="close">
+          {{ $t('general.comeback') }}
         </button>
       </div>
       <footer class="thanks-message-footer">
         <template v-if="subscription_submitted">
           <p class="thanks-message__description">
-            Muchas gracias, te avisaremos cuando tu aporte sea aprobado.
+            {{ $t('general.weWillNotifyYou') }}
           </p>
         </template>
         <template v-else>
           <p class="thanks-message__description">
-            ¿Quieres que te avisemos cuando publiquemos tu aporte?
+            {{ $t('general.doYouWantUsNotifyYou') }}
           </p>
           <template v-if="!show_subscription_form">
             <button
               type="button"
               class="btn btn--large btn--block btn--primary"
               @click="show_subscription_form = true">
-              Sí, avísame
+              {{ $t('general.yesNotifyMe') }}
             </button>
           </template>
           <template v-else>
@@ -189,12 +187,12 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
                   v-model="subscription_email"
                   type="email"
                   class="thanks-message__email"
-                  placeholder="Escribe tu email aquí" />
+                  :placeholder="$t('general.writeYourEmail')" />
                 <button
                   type="submit"
                   class="btn btn--large btn--primary btn--icon"
                   :disabled="submitting">
-                  Enviar
+                  {{ $t('general.send') }}
                   <SpinnerLoader v-if="submitting" />
                 </button>
               </form>
@@ -255,7 +253,7 @@ watch(searchDebounced, () => (searchText.value.trim() !== '' ? searchPlaces() : 
   padding: var(--spacer--400) var(--spacer--200);
   cursor: pointer;
   &:hover p {
-    color: var(--color--blue)
+    color: var(--color--blue);
   }
   p {
     @include rfs($font-size-18);

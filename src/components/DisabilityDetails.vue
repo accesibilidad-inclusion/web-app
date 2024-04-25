@@ -20,18 +20,23 @@ defineExpose({
 
 <template>
   <div class="onboarding-skyblue">
-    <BlockHeader description="Sobre ti"> </BlockHeader>
+    <BlockHeader :description="$t('personalInformation.aboutYou')"> </BlockHeader>
     <div class="onboarding-item__container">
       <h2 class="onboarding__title">
-        ¿Qué tipo de discapacidad tienes? Selecciona 1 o mas
+        {{ $t('personalInformation.disabilityDetails.title') }}
         <text-to-speech
           :text-audio="
-            '¿Qué tipo de discapacidad tienes? Selecciona 1 o mas\n\n\n\n\n\n' +
-            'Intelectual\n\n\n\n\n' +
-            'Física\n\n\n\n\n' +
-            'Visual\n\n\n\n\n' +
-            'Auditiva\n\n\n\n\n' +
-            'Otra'
+            $t('personalInformation.disabilityDetails.title') +
+            '\n\n\n\n\n\n' +
+            $t('personalInformation.disabilityDetails.intellectual') +
+            '\n\n\n\n\n' +
+            $t('personalInformation.disabilityDetails.physical') +
+            '\n\n\n\n\n' +
+            $t('personalInformation.disabilityDetails.visual') +
+            '\n\n\n\n\n' +
+            $t('personalInformation.disabilityDetails.auditory') +
+            '\n\n\n\n\n' +
+            $t('personalInformation.disabilityDetails.other')
           " />
       </h2>
       <div class="custom-control custom-control--checkbox">
@@ -42,7 +47,9 @@ defineExpose({
           value="Intelectual"
           class="custom-control__input"
           v-model="appSession.user.disabilities" />
-        <label for="intelectual" class="custom-control__label">Intelectual</label>
+        <label for="intelectual" class="custom-control__label">{{
+          $t('personalInformation.disabilityDetails.intellectual')
+        }}</label>
       </div>
       <div class="custom-control custom-control--checkbox">
         <input
@@ -52,7 +59,9 @@ defineExpose({
           value="Fisica"
           class="custom-control__input"
           v-model="appSession.user.disabilities" />
-        <label for="fisica" class="custom-control__label">Física</label>
+        <label for="fisica" class="custom-control__label">{{
+          $t('personalInformation.disabilityDetails.physical')
+        }}</label>
       </div>
       <div class="custom-control custom-control--checkbox">
         <input
@@ -62,7 +71,9 @@ defineExpose({
           value="Visual"
           class="custom-control__input"
           v-model="appSession.user.disabilities" />
-        <label for="visual" class="custom-control__label">Visual</label>
+        <label for="visual" class="custom-control__label">{{
+          $t('personalInformation.disabilityDetails.visual')
+        }}</label>
       </div>
       <div class="custom-control custom-control--checkbox">
         <input
@@ -72,7 +83,9 @@ defineExpose({
           value="Auditiva"
           class="custom-control__input"
           v-model="appSession.user.disabilities" />
-        <label for="auditiva" class="custom-control__label">Auditiva</label>
+        <label for="auditiva" class="custom-control__label">{{
+          $t('personalInformation.disabilityDetails.auditory')
+        }}</label>
       </div>
       <div class="custom-control custom-control--checkbox">
         <input
@@ -82,7 +95,9 @@ defineExpose({
           value="Otra"
           class="custom-control__input"
           v-model="appSession.user.disabilities" />
-        <label for="otra" class="custom-control__label">Otra</label>
+        <label for="otra" class="custom-control__label">{{
+          $t('personalInformation.disabilityDetails.other')
+        }}</label>
       </div>
     </div>
   </div>

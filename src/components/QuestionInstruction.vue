@@ -4,7 +4,10 @@ import {computed, defineAsyncComponent} from 'vue'
 const props = defineProps<{
   text: string
   icon: string
+  button?: boolean
 }>()
+
+defineEmits(['btnAction'])
 
 const iconSvg = computed(() => {
   return defineAsyncComponent(
@@ -18,7 +21,14 @@ const iconSvg = computed(() => {
     <span class="instruction__icon">
       <component :is="iconSvg"></component>
     </span>
-    <div v-html="text" class="instruction__title"></div>
+    <div v-html="$t(text)" class="instruction__title"></div>
+    <div v-if="button">
+      <button
+        class="btn btn--large btn--block btn--primary btn--filled--skyblue-light"
+        @click="$emit('btnAction')">
+        {{ $t('questionInstruction.btn') }}
+      </button>
+    </div>
   </div>
 </template>
 

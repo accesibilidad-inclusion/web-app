@@ -20,18 +20,16 @@ const tasks = ref<Array<PresentialTask | OnlineTask>>([])
 if (route.query.t !== 'online' && route.query.t !== 'presential') {
   router.push('/inicio')
 } else {
-  const postData =
-    route.query.t === 'presential'
-      ? appData.location.getCoordinates()
-      : {commune_id: appData.location.commune?.id}
-
   const {data} = await useFetch(
-    `${import.meta.env.VITE_APP_API_DOMAIN}api/${route.query.t}_tasks/search`
+    route.query.t === 'presential'
+      ? `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/search?query=${
+          route.query.s
+        }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}`
+      : `${import.meta.env.VITE_APP_API_DOMAIN}api/online_tasks/search?query=${
+          route.query.s
+        }&commune_id=${appData.location.commune?.id}`
   )
-    .post({
-      query: route.query.s,
-      ...postData
-    })
+    .get()
     .json()
   tasks.value =
     route.query.t === 'online'
@@ -65,9 +63,11 @@ bus.on(listener)
 <template>
   <div class="search-results" :class="$route.query.t">
     <BlockHeader
-      title="Resultados"
+      :title="$t('searchResults.results')"
       :description="
-        route.query.t === 'online' ? 'Tareas en internet cerca de' : 'Tareas presenciales cerca de'
+        route.query.t === 'online'
+          ? $t('searchResults.onlineTasksNear')
+          : $t('searchResults.presentialTasksNear')
       "
       location
       compact>
@@ -85,16 +85,15 @@ bus.on(listener)
             <div class="search-no-results__icon">
               <span>!</span>
             </div>
-            <h2 class="search-no-results__title">Búsqueda sin resultados</h2>
-            <p class="block-header__description search-no-results__description">
-              Prueba buscando con <strong>otras palabras</strong> o usando las
-              <strong>categorías</strong> disponibles
-            </p>
+            <h2 class="search-no-results__title">{{ $t('searchResults.noResults') }}</h2>
+            <p
+              class="block-header__description search-no-results__description"
+              v-html="$t('searchResults.testAnotherWords')"></p>
           </div>
           <div class="search-no-results__">
-            <router-link to="/inicio" class="btn btn--primary btn--large btn--block"
-              >Volver a Inicio</router-link
-            >
+            <router-link to="/inicio" class="btn btn--primary btn--large btn--block">{{
+              $t('searchResults.backToHome')
+            }}</router-link>
           </div>
         </div>
       </template>

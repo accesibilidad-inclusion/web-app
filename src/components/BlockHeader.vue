@@ -39,7 +39,7 @@ defineProps<{
       <IconExternalLink />
     </a>
     <LocationSelector v-if="location" dense />
-    <TextToSpeech :text-audio="title + '.\n\n ' + description" />
+    <TextToSpeech :text-audio="(title ? title + '.\n\n ' : '') + description" />
   </header>
 </template>
 
@@ -124,5 +124,4 @@ defineProps<{
   margin: 0;
   padding: var(--spacer--500) var(--spacer--600) var(--spacer--500) var(--spacer--400);
 }
-
 </style>
