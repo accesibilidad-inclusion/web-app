@@ -11,16 +11,13 @@ function setChoice(value: string) {
 	choice.value = value
 }
 async function submitAsk() {
-	const response = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/extension_comments/store`)
+	useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/extension_comments/store`)
 		.post({
 			url: new URLSearchParams(document.location.search)?.get('url') || '#',
 			comment: aidAsk.value,
 		}).json();
-	if ( response ) {
-		aidAsk.value = '';
-		setChoice('');
-		aidAskSent.value = true;
-	}
+	aidAsk.value = '';
+	aidAskSent.value = true;
 }
 </script>
 
