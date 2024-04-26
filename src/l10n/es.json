@@ -1,7 +1,7 @@
 {
   "general": {
     "cancel": "Cancelar",
-    "close": "Cerrar",
+    "close": "Salir",
     "comeback": "Volver",
     "next": "Siguiente",
     "previous": "Anterior",
@@ -115,6 +115,16 @@
     "reportIssueWith": "Reportar un problema con esta tarea",
     "exampleIssue": "Ejemplo: El pictograma no coincide con la instrucción",
     "thanks": "¡Gracias! tu comentario ha sido enviado"
+  },
+  "noHelpAvailable": {
+    "wantToHelp": "¿Quieres ayudarnos? Selecciona una estas opciones",
+    "askAid": "Solicitar apoyo",
+    "evaluateSite": "Evaluar sitio",
+    "howToAsk": "Describe la tarea en la que requieres apoyo, por ejemplo: Cómo solicitar pasaporte",
+    "askSent": "Tu solicitud ha sido enviada",
+    "sendAsk": "Enviar solicitud",
+    "evaluationDescription": "<p>Al evaluar este sitio web, contribuirás a medir su <strong>accesibilidad</strong> y a identificar posibles áreas de mejora. Se te guiará a través de una serie de preguntas diseñadas para <strong>orientar la evaluación</strong>.</p>",
+    "startEvaluation":"Comenzar evaluación"
   },
   "mainSearch": {
     "findHelp": "Encuentra ayuda para tareas en internet o presenciales",
