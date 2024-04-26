@@ -519,6 +519,7 @@ bus.on(listener)
   display: flex;
   flex-flow: column nowrap;
   flex-grow: 1;
+  justify-content: space-between;
 }
 .task__steps {
   position: relative;
@@ -756,7 +757,7 @@ bus.on(listener)
   gap: 0 var(--spacer-sm);
   grid-template-columns: 1fr 1fr;
   padding: var(--spacer--600) var(--spacer--400) var(--spacer--500);
-  margin-bottom: var(--spacer--600);
+  margin-bottom: var(--spacer--700);
 }
 .task__steps-indicator {
   margin-top: var(--spacer-xs);

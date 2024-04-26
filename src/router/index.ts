@@ -130,6 +130,12 @@ const router = createRouter({
       meta: {title: 'Ayuda disponible', navbar: {logo: true, centered: true}}
     },
     {
+      path: '/sin-ayuda-disponible',
+      name: 'no-help-available',
+      component: () => import('../views/NoHelpAvailable.vue'),
+      meta: { title: 'Sin ayudas disponibles', navbar: {logo: true, centered: true} }
+    },
+    {
       path: '/:categorySlug/',
       name: 'category-screen',
       component: defineAsyncComponent(() => import('../views/CategoryScreen.vue')),
