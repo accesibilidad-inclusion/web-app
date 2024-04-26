@@ -175,6 +175,7 @@ router.beforeEach((to, from, next) => {
   } else if (
     to.name === 'venue-screen' ||
     to.name === 'task-screen' ||
+    to.name === 'no-help-available' ||
     to.path.includes('/agregar-tarea') ||
     to.path.includes('/aprender-a-agregar-tareas') ||
     to.path.includes('/evaluar-lugar') ||
