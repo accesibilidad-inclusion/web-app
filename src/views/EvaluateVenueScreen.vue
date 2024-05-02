@@ -155,14 +155,17 @@ const listener = () => {
 bus.on(listener)
 
 const backToVenue = () => {
+  if(appNav.selected.category && appNav.selected.service && appNav.selected.venue)
   router.push(
-    '/' +
-      appNav.selected.category?.slug +
       '/' +
-      appNav.selected.service?.slug +
-      '/' +
-      appNav.selected.venue?.slug
-  )
+        appNav.selected.category?.slug +
+        '/' +
+        appNav.selected.service?.slug +
+        '/' +
+        appNav.selected.venue?.slug
+    )
+  else
+    router.push('/sin-ayuda-disponible')
 }
 </script>
 
@@ -205,11 +208,16 @@ const backToVenue = () => {
         <button
           class="btn btn--large btn--primary btn--block btn--filled--skyblue"
           @click="backToVenue">
-          {{
-            $t('general.comebackTo', {
-              name: appNav.selected.venue?.name
-            })
-          }}
+          <template v-if="appNav.selected.category && appNav.selected.service && appNav.selected.venue">
+            {{
+              $t('general.comebackTo', {
+                name: appNav.selected.venue?.name
+              })
+            }}
+          </template>
+          <template v-else>
+            {{ $t('general.comebackToMenu') }}
+          </template>
         </button>
       </div>
     </template>
