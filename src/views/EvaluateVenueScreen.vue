@@ -126,8 +126,8 @@ const sendEvaluation = async () => {
     .post({
       answers: answers.value,
       user_id: appSession.user.id,
-      presential_venue_id: questionsType === 'presential' ? appNav.selected.venue?.id : null,
-      online_venue_id: questionsType === 'online' ? appNav.selected.venue?.id : null
+      presential_venue_id: questionsType === 'presential' ? venue.id : null,
+      online_venue_id: questionsType === 'online' ? venue.id : null
     })
     .json()
   finished.value = true
