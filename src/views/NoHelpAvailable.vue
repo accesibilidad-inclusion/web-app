@@ -2,6 +2,9 @@
 import QuestionInstruction from '@/components/QuestionInstruction.vue'
 import { ref } from 'vue'
 import { useFetch } from '@vueuse/core'
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const choice = ref<string>('')
 const aidAsk = ref<string>('')
@@ -18,6 +21,14 @@ async function submitAsk() {
 		}).json();
 	aidAsk.value = '';
 	aidAskSent.value = true;
+}
+
+const evaluate = async () => {
+	const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/online_venues/store_by_user`)
+		.post({
+			url: new URLSearchParams(document.location.search)?.get('url') || 'https://www.google.cl',
+		}).json();
+	router.push('/evaluar-lugar/en-internet/' + data.value.id);
 }
 </script>
 
@@ -53,7 +64,7 @@ async function submitAsk() {
 			<div v-if="choice === 'evaluate'" class="no-help__choice no-help__choice--evaluate">
 				<div class="no-help__choice-description" v-html="$t('noHelpAvailable.evaluationDescription')">
 				</div>
-				<button type="button" class="btn btn--primary btn--large btn--block" disabled>
+				<button type="button" class="btn btn--primary btn--large btn--block" @click.prevent="evaluate">
 					{{ $t('noHelpAvailable.startEvaluation') }}
 				</button>
 			</div>
