@@ -37,7 +37,7 @@ const {data} = await useFetch(
     route.params.categorySlug
   }&service=${route.params.serviceSlug}&lat=${appData.location.getCoordinates().lat}&lng=${
     appData.location.getCoordinates().lng
-  }`
+  }&commune_id=${appData.location.commune?.id}`
 )
   .get()
   .json()

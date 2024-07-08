@@ -29,7 +29,7 @@ const type = ref<'online' | 'presential'>('presential')
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements?category=${
     route.params.categorySlug
-  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}`
+  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}&commune_id=${appData.location.commune?.id}`
 )
   .get()
   .json()

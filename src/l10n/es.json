@@ -44,6 +44,12 @@
       "description": "Encuentra ayuda por categoría"
     },
     "list": {
+      "names": {
+        "tramites": "Trámites",
+        "salud": "Salud",
+        "transporte": "Transporte",
+        "ocio": "Ocio"
+      },
       "descriptions": {
         "tramites": "Bancos, Registro Civil, entre otros",
         "salud": "Hospitales, Cesfam, entre otros",
@@ -385,6 +391,7 @@
     "newTask": "Agregar nueva tarea",
     "createPictograms": "Crear pictogramas a tarea",
     "waitingHelp": "Esperando ayuda",
-    "helpAvailable": "Ayuda disponible"
+    "helpAvailable": "Ayuda disponible",
+    "withoutHelpAvailable":"Sin ayudas disponibles"
   }
 }

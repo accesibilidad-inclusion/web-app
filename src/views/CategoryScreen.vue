@@ -29,7 +29,8 @@ const setService = (service: Service) => {
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearServices?category=${
     route.params.categorySlug
-  }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}`
+  }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}&
+  commune_id=${appData.location.commune?.id}&country_id=${appData.country?.id}`
 )
   .get()
   .json()
@@ -61,17 +62,17 @@ bus.on(listener)
               <div v-if="service.count_presential > 0">
                 <PresentialPlaceIcon />
                 {{
-                  $tc('category.numberOfPresentialVenues', service.count_presential, {
+                  $t('category.numberOfPresentialVenues', {
                     count: service.count_presential
-                  })
+                  }, service.count_presential)
                 }}
               </div>
-              <div v-if="service.count_online > 0">
+              <div v-if="service.count_online_available > 0">
                 <InternetPlaceIcon />
                 {{
-                  $tc('category.numberOfOnlineVenues', service.count_online, {
-                    count: service.count_online
-                  })
+                  $t('category.numberOfOnlineVenues', {
+                    count: service.count_online_available
+                  }, service.count_online_available)
                 }}
               </div>
             </template>

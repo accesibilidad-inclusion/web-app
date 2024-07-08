@@ -3,6 +3,7 @@ import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav.js'
 import {nextTick} from 'vue'
 import {defineAsyncComponent} from 'vue'
+import {useI18n} from 'vue-i18n'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,14 +17,14 @@ const router = createRouter({
       path: '/inicio',
       name: 'home-screen',
       component: () => import('../views/HomeScreen.vue'),
-      meta: {title: 'Facilitamos tu vida en pasos simples', navbar: {logo: true, menu: true}}
+      meta: {title: 'titles.home', navbar: {logo: true, menu: true}}
     },
     {
       path: '/tu-ubicacion',
       name: 'location-screen',
       component: () => import('../views/LocationScreen.vue'),
       meta: {
-        title: 'Configura tu ubicación geografica para resultados mas precisos',
+        title: 'titles.yourLocation',
         navbar: {logo: true, close: true}
       }
     },
@@ -31,109 +32,109 @@ const router = createRouter({
       path: '/bienvenida',
       name: 'welcome-screen',
       component: () => import('../views/WelcomeScreen.vue'),
-      meta: {title: 'Busca ayudas para realizar tareas', navbar: {close: true}}
+      meta: {title: 'titles.welcome', navbar: {close: true}}
     },
     {
       path: '/busqueda/',
       name: 'search-results-screen',
       component: defineAsyncComponent(() => import('../views/SearchResultsScreen.vue')),
-      meta: {title: 'Resultados de tu búsqueda', navbar: {logo: true, back: true, menu: true}}
+      meta: {title: 'titles.searchResults', navbar: {logo: true, back: true, menu: true}}
     },
     {
       path: '/error',
       name: 'error-screen',
       component: () => import('../views/ErrorScreen.vue'),
-      meta: {title: 'Ha ocurrido un error inesperado', navbar: {logo: true, menu: true}}
+      meta: {title: 'titles.error', navbar: {logo: true, menu: true}}
     },
     {
       path: '/acerca-de',
       name: 'about-screen',
       component: () => import('../views/AboutScreen.vue'),
-      meta: {title: 'Acerca de Pictos', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.about', navbar: {logo: true, close: true}}
     },
     {
       path: '/colabora-con-nosotros',
       name: 'colaborate-screen',
       component: () => import('../views/ColaborateScreen.vue'),
-      meta: {title: 'Colabora con nosotros', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.colaborate', navbar: {logo: true, close: true}}
     },
     {
       path: '/instala-pictos',
       name: 'install-pictos-screen',
       component: () => import('../views/OnboardingInstallPictosScreen.vue'),
-      meta: {title: 'Instala Pictos', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.installPictos', navbar: {logo: true, close: true}}
     },
     {
       path: '/aprende-a-evaluar/:type',
       name: 'onboarding-evaluation-screen',
       component: () => import('../views/OnboardingEvaluationScreen.vue'),
-      meta: {title: 'Aprende a evaluar', navbar: {close: true}}
+      meta: {title: 'titles.onboardingEvaluation', navbar: {close: true}}
     },
     {
       path: '/informacion-personal',
       name: 'personal-information-screen',
       component: () => import('../views/PersonalInformationScreen.vue'),
-      meta: {title: 'Completa tu información personal', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.personalInformation', navbar: {logo: true, close: true}}
     },
     {
       path: '/evaluar-lugar/:type/:id',
       name: 'evaluate-venue-screen',
       component: () => import('../views/EvaluateVenueScreen.vue'),
-      meta: {title: 'Evalua este lugar', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.evaluateVenue', navbar: {logo: true, close: true}}
     },
     {
       path: '/definir-evaluacion/:score',
       name: 'define-evaluation-screen',
       component: () => import('../views/DefineEvaluationScreen.vue'),
-      meta: {title: '¿Qué significa esta evaluación?', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.defineEvaluation', navbar: {logo: true, close: true}}
     },
     {
       path: '/aprende-a-sugerir-lugares/',
       name: 'onboarding-add-venue-screen',
       component: () => import('../views/OnboardingSuggestVenuesScreen.vue'),
-      meta: {title: 'Aprende a sugerir lugares', navbar: {close: true}}
+      meta: {title: 'titles.onboardingAddVenue', navbar: {close: true}}
     },
     {
       path: '/sugerir-lugar/:service_id?',
       name: 'add-venue-screen',
       component: () => import('../views/SuggestVenueScreen.vue'),
-      meta: {title: 'Sugiérenos un nuevo lugar', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.addVenue', navbar: {logo: true, close: true}}
     },
     {
       path: '/aprende-a-agregar-tareas/',
       name: 'onboarding-new-task-screen',
       component: () => import('../views/OnboardingNewTaskScreen.vue'),
-      meta: {title: 'Aprende a agregar nuevas tareas', navbar: {close: true}}
+      meta: {title: 'titles.onboardingNewTask', navbar: {close: true}}
     },
     {
       path: '/agregar-tarea',
       name: 'new-task-screen',
       component: () => import('../views/NewTaskScreen.vue'),
-      meta: {title: 'Agregar nueva tarea', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.newTask', navbar: {logo: true, close: true}}
     },
     {
       path: '/crear-pictogramas/:task_id',
       name: 'create-pictograms-screen',
       component: () => import('../views/CreatePictogramsScreen.vue'),
-      meta: {title: 'Crear pictogramas a tarea', navbar: {logo: true, close: true}}
+      meta: {title: 'titles.createPictograms', navbar: {logo: true, close: true}}
     },
     {
       path: '/esperando-ayuda',
       name: 'waiting-help',
       component: () => import('../views/WaitingHelp.vue'),
-      meta: {title: 'Esperando ayuda', navbar: {logo: true, centered: true}}
+      meta: {title: 'titles.waitingHelp', navbar: {logo: true, centered: true}}
     },
     {
       path: '/ayuda-disponible',
       name: 'help-available',
       component: () => import('../views/HelpAvailable.vue'),
-      meta: {title: 'Ayuda disponible', navbar: {logo: true, centered: true}}
+      meta: {title: 'titles.helpAvailable', navbar: {logo: true, centered: true}}
     },
     {
       path: '/sin-ayuda-disponible',
       name: 'no-help-available',
       component: () => import('../views/NoHelpAvailable.vue'),
-      meta: { title: 'Sin ayudas disponibles', navbar: {logo: true, centered: true} }
+      meta: { title: 'titles.withoutHelpAvailable', navbar: {logo: true, centered: true} }
     },
     {
       path: '/:categorySlug/',
@@ -198,15 +199,6 @@ router.beforeEach((to, from, next) => {
     next({name: 'location-screen'})
   } else {
     next()
-  }
-})
-
-router.afterEach((to) => {
-  if (to.meta !== undefined && to.meta.title) {
-    const {title} = to.meta
-    nextTick(() => {
-      document.title = `${title} | Pictos`
-    })
   }
 })
 

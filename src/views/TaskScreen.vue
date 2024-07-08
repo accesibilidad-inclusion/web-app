@@ -18,11 +18,13 @@ import IconDislike from '@/assets/img/app-icons/instructions/dislike.svg?compone
 import {Category} from '@/model/category'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 import SpinnerLoader from '@/components/SpinnerLoader.vue'
+import {useAppDataStore} from '@/stores/app-data'
 
 const route = useRoute()
 const router = useRouter()
 
 const appNav = useAppNavStore()
+const appData = useAppDataStore()
 
 const type = ref<'online' | 'presential'>('presential')
 
@@ -130,7 +132,7 @@ const {data} = await useFetch(
     route.params.categorySlug
   }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}&task=${
     route.params.taskSlug
-  }`
+  }&commune_id=${appData.location.commune?.id}`
 )
   .get()
   .json()

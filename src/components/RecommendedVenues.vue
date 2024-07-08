@@ -20,7 +20,8 @@ const setVenue = (venue: PresentialVenue) => {
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_venues/recommended?lat=${
     appData.location.getCoordinates().lat
-  }&lng=${appData.location.getCoordinates().lng}`
+  }&lng=${appData.location.getCoordinates().lng}
+  &country_id=${appData.country?.id}`
 )
   .get()
   .json()

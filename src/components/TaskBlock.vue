@@ -36,7 +36,7 @@ const selectTask = () => {
     <div class="task-block__content">
       <p class="task-block__title">{{ task.title }}</p>
       <p class="task-block__steps">
-        {{ $tc('taskBlock.numberOfSteps', task.count_steps, {count: task.count_steps}) }}
+        {{ $t('taskBlock.numberOfSteps', {count: task.count_steps}, task.count_steps) }}
       </p>
       <p v-if="showParents" class="task-block__service">
         {{ task.service.name }} / {{ task.venue.name }}
