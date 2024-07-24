@@ -17,17 +17,21 @@ defineExpose({
 
 <template>
   <div class="onboarding-skyblue">
-    <BlockHeader description="Sobre ti"> </BlockHeader>
+    <BlockHeader :description="$t('personalInformation.aboutYou')"> </BlockHeader>
     <div class="onboarding-item__container">
       <h2 class="onboarding__title">
-        ¿Con qué género te identificas?
+        {{ $t('personalInformation.gender.title') }}
         <text-to-speech
           :text-audio="
-            '¿Con qué género te identificas?\n\n\n\n\n\n' +
-            'Masculino\n\n\n\n\n' +
-            'Femenino\n\n\n\n\n' +
-            'No binario\n\n\n\n\n' +
-            'Prefiero no decirlo'
+            $t('personalInformation.gender.title') +
+            '\n\n\n\n\n\n' +
+            $t('personalInformation.gender.male') +
+            '\n\n\n\n\n' +
+            $t('personalInformation.gender.female') +
+            '\n\n\n\n\n' +
+            $t('personalInformation.gender.noBinary') +
+            '\n\n\n\n\n' +
+            $t('personalInformation.gender.preferNotToSay')
           " />
       </h2>
       <div class="custom-control custom-control--radio">
@@ -39,7 +43,9 @@ defineExpose({
           class="custom-control__input"
           v-model="appSession.user.gender"
           :checked="appSession.user.gender == 'Masculino'" />
-        <label for="man" class="custom-control__label">Masculino</label>
+        <label for="man" class="custom-control__label">{{
+          $t('personalInformation.gender.male')
+        }}</label>
       </div>
       <div class="custom-control custom-control--radio">
         <input
@@ -50,7 +56,9 @@ defineExpose({
           class="custom-control__input"
           v-model="appSession.user.gender"
           :checked="appSession.user.gender == 'Femenino'" />
-        <label for="woman" class="custom-control__label">Femenino</label>
+        <label for="woman" class="custom-control__label">{{
+          $t('personalInformation.gender.female')
+        }}</label>
       </div>
       <div class="custom-control custom-control--radio">
         <input
@@ -61,7 +69,9 @@ defineExpose({
           class="custom-control__input"
           v-model="appSession.user.gender"
           :checked="appSession.user.gender == 'No binario'" />
-        <label for="non-binary" class="custom-control__label">No binario</label>
+        <label for="non-binary" class="custom-control__label">{{
+          $t('personalInformation.gender.noBinary')
+        }}</label>
       </div>
       <div class="custom-control custom-control--radio">
         <input
@@ -72,7 +82,9 @@ defineExpose({
           class="custom-control__input"
           v-model="appSession.user.gender"
           :checked="appSession.user.gender == 'Prefiero no decirlo'" />
-        <label for="prefer-not-to-say" class="custom-control__label">Prefiero no decirlo</label>
+        <label for="prefer-not-to-say" class="custom-control__label">{{
+          $t('personalInformation.gender.preferNotToSay')
+        }}</label>
       </div>
     </div>
   </div>

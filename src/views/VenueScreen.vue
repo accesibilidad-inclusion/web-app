@@ -29,7 +29,7 @@ const type = ref<'online' | 'presential'>('presential')
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements?category=${
     route.params.categorySlug
-  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}`
+  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}&commune_id=${appData.location.commune?.id}`
 )
   .get()
   .json()
@@ -70,9 +70,12 @@ bus.on(listener)
     <template v-if="service && venue">
       <BlockHeader
         :title="venue.name"
-        description="Listado de tareas en:"
+        :description="$t('venue.tasksList')"
         :link="{
-          text: venue instanceof PresentialVenue ? 'Ver en el Mapa' : 'Ir a sitio web',
+          text:
+            venue instanceof PresentialVenue
+              ? $t('general.seeOnTheMap')
+              : $t('general.goToWebsite'),
           url: venue instanceof PresentialVenue ? venue.mapLink : venue.url
         }"
         :first-description="true">
@@ -80,8 +83,8 @@ bus.on(listener)
       <template v-if="venue.tasks !== undefined && venue.tasks.length">
         <main class="venue__tasks">
           <p class="venue__tasks-description">
-            <span>Selecciona lo que necesites hacer en este lugar</span>
-            <text-to-speech :text-audio="'Selecciona lo que necesites hacer en este lugar'" />
+            <span>{{ $t('venue.selectWhatToDo') }}</span>
+            <text-to-speech :text-audio="$t('venue.selectWhatToDo')" />
           </p>
           <task-block
             v-for="task in venue.tasks"
@@ -92,12 +95,18 @@ bus.on(listener)
         <aside class="actions actions--venue" v-if="venue instanceof PresentialVenue">
           <div class="actions__header">
             <text-to-speech
-              :text-audio="'¿No encuentras lo que estabas buscando?. Agrega otra cosa que puedas hacer en este lugar. Agregar una tarea nueva'" />
-            <p class="actions__title">¿No encuentras lo que estabas buscando?</p>
-            <p class="actions__description">Agrega otra cosa que puedas hacer en este lugar</p>
+              :text-audio="
+                $t('venue.cantFind') +
+                '. ' +
+                $t('venue.addAnotherThing') +
+                '. ' +
+                $t('venue.addNewTask')
+              " />
+            <p class="actions__title">{{ $t('venue.cantFind') }}</p>
+            <p class="actions__description">{{ $t('venue.addAnotherThing') }}</p>
           </div>
           <router-link to="/agregar-tarea" class="btn btn--primary btn--large btn--block btn--icon">
-            <IconPlus /> Agregar una tarea nueva
+            <IconPlus /> {{ $t('venue.addNewTask') }}
           </router-link>
         </aside>
         <footer class="venue__footer">
@@ -106,16 +115,20 @@ bus.on(listener)
             :to="'/definir-evaluacion/' + evaluation.grade"
             class="venue__evaluation">
             <text-to-speech
-              :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`" />
-            <div class="venue__evaluation-title">{{ evaluation.title }}</div>
+              :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${$t(
+                evaluation.title
+              )}`" />
+            <div class="venue__evaluation-title">{{ $t(evaluation.title) }}</div>
             <div
               class="venue__evaluation-grade venue__evaluation-grade--lg"
               :data-grade="evaluation.grade">
               <span v-if="evaluation.grade">{{ evaluation.grade }}</span>
               <span v-else>?</span>
             </div>
-            <p class="venue__evaluation-description">Nivel de accesibilidad de {{ venue.name }}</p>
-            <p class="venue__evaluation-question">¿Qué significa esto?</p>
+            <p class="venue__evaluation-description">
+              {{ $t('venue.accesibilityLevel', {venueName: venue.name}) }}
+            </p>
+            <p class="venue__evaluation-question">{{ $t('venue.whatMeanIt') }}</p>
           </router-link>
           <div class="venue__evaluation-actions">
             <router-link
@@ -123,7 +136,7 @@ bus.on(listener)
                 venue.id
               }`"
               class="btn btn--secondary btn--outlined--white btn--large btn--block">
-              Evaluar este lugar
+              {{ $t('venue.evaluateThisVenue') }}
             </router-link>
           </div>
         </footer>
@@ -131,12 +144,11 @@ bus.on(listener)
       <template v-else>
         <div class="venue__no-information">
           <main class="venue__no-information-content">
-            <text-to-speech :text-audio="'Este lugar no tiene información, ayúdanos a mejorar'" />
+            <text-to-speech :text-audio="$t('venue.noInformation')" />
             <div class="venue__no-information-icon">
               <span>!</span>
             </div>
-            <p class="venue__no-information-desc">
-              Este lugar no tiene información, <span>ayúdanos a mejorar</span>
+            <p class="venue__no-information-desc" v-html="$t('venue.noInformation')">
             </p>
           </main>
           <aside class="actions actions--venue" v-if="venue instanceof PresentialVenue">
@@ -144,7 +156,7 @@ bus.on(listener)
               to="/agregar-tarea"
               class="btn btn--primary btn--large btn--block btn--icon"
               style="color: var(--color--white)">
-              <IconPlus /> Agregar tareas a este lugar
+              <IconPlus /> {{ $t('venue.addTasks') }}
             </router-link>
           </aside>
           <footer class="venue__footer">
@@ -153,8 +165,14 @@ bus.on(listener)
               :to="'/definir-evaluacion/' + evaluation.grade"
               class="venue__evaluation">
               <text-to-speech
-                :text-audio="`Nivel de accesibilidad de ${venue.name}: ${evaluation.grade}, ${evaluation.title}`" />
-              <div class="venue__evaluation-title">{{ evaluation.title }}</div>
+                :text-audio="
+                  $t('venue.accesibilityLevel', {venueName: venue.name}) +
+                  ': ' +
+                  evaluation.grade +
+                  ', ' +
+                  $t(evaluation.title)
+                " />
+              <div class="venue__evaluation-title">{{ $t(evaluation.title) }}</div>
               <div
                 class="venue__evaluation-grade venue__evaluation-grade--lg"
                 :data-grade="evaluation.grade">
@@ -162,9 +180,9 @@ bus.on(listener)
                 <span v-else>?</span>
               </div>
               <p class="venue__evaluation-description">
-                Nivel de accesibilidad de {{ venue.name }}
+                {{ $t('venue.accesibilityLevel', {venueName: venue.name}) }}
               </p>
-              <p class="venue__evaluation-question">¿Qué significa esto?</p>
+              <p class="venue__evaluation-question">{{ $t('venue.whatMeanIt') }}</p>
             </router-link>
             <div class="venue__evaluation-actions">
               <router-link
@@ -172,7 +190,7 @@ bus.on(listener)
                   venue instanceof OnlineVenue ? 'en-internet' : 'presencial'
                 }/${venue.id}`"
                 class="btn btn--secondary btn--outlined--white btn--large btn--block">
-                Evaluar este lugar
+                {{ $t('venue.evaluateThisVenue') }}
               </router-link>
             </div>
           </footer>

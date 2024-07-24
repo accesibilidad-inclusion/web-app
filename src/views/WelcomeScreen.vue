@@ -21,23 +21,23 @@ bus.on(listener)
 
 const sequence: Array<Onboarding> = [
   {
-    title: 'Activa el audio',
-    body: 'Si tienes dificultad o no quieres leer, no te preocupes. Puedes <b>activar la opción de sonido, pulsando el ícono de altavoz</b>.',
+    title: 'welcome.title1',
+    body: 'welcome.desc1',
     image: OnboardingImage1
   },
   {
-    title: '¿Para qué sirve PICTOS?',
-    body: 'Pictos te ayudará a realizar tareas en distintos servicios, mostrándote una lista de todas las cosas que puedes hacer en cada lugar.',
+    title: 'welcome.title2',
+    body: 'welcome.desc2',
     image: OnboardingImage2
   },
   {
-    title: '¿Cómo funciona?',
-    body: 'Pictos te explica paso a paso qué puedes hacer en cada lugar, a través de pictogramas.',
+    title: 'welcome.title3',
+    body: 'welcome.desc3',
     image: OnboardingImage3
   },
   {
-    title: '¡Tú nos puedes ayudar!',
-    body: 'Queremos entregar a la comunidad las herramientas para apoyarnos entre todos.',
+    title: 'welcome.title4',
+    body: 'welcome.desc4',
     image: OnboardingImage4
   }
 ]

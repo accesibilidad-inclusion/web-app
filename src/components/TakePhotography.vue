@@ -24,7 +24,7 @@ defineEmits(['change'])
             class="btn btn--large btn--block btn--primary btn--filled--skyblue btn--icon"
             @click="$emit('change')">
             <IconCamera />
-            Reemplazar
+            {{ $t('takePhotography.replace') }}
           </button>
         </div>
       </div>

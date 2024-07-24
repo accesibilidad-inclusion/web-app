@@ -22,10 +22,14 @@ defineEmits(['search', 'update:modelValue'])
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       class="input-search__input"
       type="text"
-      :placeholder="type === 'presential' ? 'Ejemplo: Viajar en metro' : 'Ejemplo: Bloqueo de cédula'" />
-      <span class="input-search__icon">
-        <icon-search @click="$emit('search')" />
-      </span>
+      :placeholder="
+        type === 'presential'
+          ? $t('inputSearch.presentialExample')
+          : $t('inputSearch.onlineExample')
+      " />
+    <span class="input-search__icon">
+      <icon-search @click="$emit('search')" />
+    </span>
   </div>
 </template>
 

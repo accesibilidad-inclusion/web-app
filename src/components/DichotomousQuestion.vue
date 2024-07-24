@@ -16,7 +16,7 @@ defineEmits(['reply'])
         class="custom-control__input"
         :checked="'Si' === selected"
         @change="$emit('reply', 'Si')" />
-      <label for="dicotomico_si" class="custom-control__label">Si</label>
+      <label for="dicotomico_si" class="custom-control__label">{{ $t('general.yes') }}</label>
     </div>
     <div class="custom-control custom-control--radio">
       <input
@@ -27,7 +27,7 @@ defineEmits(['reply'])
         class="custom-control__input"
         :checked="'No' === selected"
         @change="$emit('reply', 'No')" />
-      <label for="dicotomico_no" class="custom-control__label">No</label>
+      <label for="dicotomico_no" class="custom-control__label">{{ $t('general.no') }}</label>
     </div>
   </div>
 </template>

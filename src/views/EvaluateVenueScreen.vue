@@ -126,8 +126,8 @@ const sendEvaluation = async () => {
     .post({
       answers: answers.value,
       user_id: appSession.user.id,
-      presential_venue_id: questionsType === 'presential' ? appNav.selected.venue?.id : null,
-      online_venue_id: questionsType === 'online' ? appNav.selected.venue?.id : null
+      presential_venue_id: questionsType === 'presential' ? venue.id : null,
+      online_venue_id: questionsType === 'online' ? venue.id : null
     })
     .json()
   finished.value = true
@@ -155,14 +155,17 @@ const listener = () => {
 bus.on(listener)
 
 const backToVenue = () => {
+  if(appNav.selected.category && appNav.selected.service && appNav.selected.venue)
   router.push(
-    '/' +
-      appNav.selected.category?.slug +
       '/' +
-      appNav.selected.service?.slug +
-      '/' +
-      appNav.selected.venue?.slug
-  )
+        appNav.selected.category?.slug +
+        '/' +
+        appNav.selected.service?.slug +
+        '/' +
+        appNav.selected.venue?.slug
+    )
+  else
+    router.push('/sin-ayuda-disponible')
 }
 </script>
 
@@ -172,42 +175,56 @@ const backToVenue = () => {
       <div class="first-step-evaluation">
         <BlockHeader
           :title="venue.name"
-          description="Evaluación"
+          :description="$t('evaluateVenue.title')"
           compact
           :link="{
-            text: venue instanceof PresentialVenue ? 'Ver en el Mapa' : 'Ir a sitio web',
+            text:
+              venue instanceof PresentialVenue
+                ? $t('general.seeOnTheMap')
+                : $t('general.goToWebsite'),
             url: venue instanceof PresentialVenue ? venue.mapLink : venue.url
           }">
           <template #icon>
-          <span class="category-icon">
-            <IconInternet class="block-header__icon" />
-          </span>
-        </template>
+            <span class="category-icon">
+              <IconInternet class="block-header__icon" />
+            </span>
+          </template>
         </BlockHeader>
       </div>
     </template>
     <template v-else-if="finished">
       <div class="feedback-evaluation">
         <text-to-speech
-          :text-audio="'Gracias por tu aporte \n\n\n\n\n Estás ayudando al mundo a ser un lugar más accesible'" />
+          :text-audio="
+            $t('general.thanksForYourContribution') + '\n\n\n\n\n ' + $t('general.youAreHelping')
+          " />
         <span class="evaluation__icon">
           <icon-like></icon-like>
         </span>
-        <p class="feedback-evaluation__title">Gracias por tu aporte</p>
+        <p class="feedback-evaluation__title">{{ $t('general.thanksForYourContribution') }}</p>
         <p class="feedback-evaluation__description">
-          Estás ayudando al mundo a ser un lugar más accesible
+          {{ $t('general.youAreHelping') }}
         </p>
         <button
           class="btn btn--large btn--primary btn--block btn--filled--skyblue"
           @click="backToVenue">
-          Volver a {{ appNav.selected.venue?.name }}
+          <template v-if="appNav.selected.category && appNav.selected.service && appNav.selected.venue">
+            {{
+              $t('general.comebackTo', {
+                name: appNav.selected.venue?.name
+              })
+            }}
+          </template>
+          <template v-else>
+            {{ $t('general.comebackToMenu') }}
+          </template>
         </button>
       </div>
     </template>
     <template v-else>
       <BlockHeader
         compact
-        description="Evaluación"
+        :description="$t('evaluateVenue.title')"
         v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)" />
       <div
         v-if="!['Instrucción', 'Fotografía'].includes(question.answer_type)"
@@ -247,7 +264,7 @@ const backToVenue = () => {
     <footer>
       <template v-if="!started">
         <button class="btn btn--large btn--primary btn--block" @click="started = true">
-          Comenzar evaluación
+          {{ $t('evaluateVenue.startEvaluation') }}
         </button>
       </template>
       <template v-else-if="!finished">
@@ -255,13 +272,13 @@ const backToVenue = () => {
           class="btn btn--large btn--secondary btn--block"
           v-if="currentQuestion > 0"
           @click="back">
-          Atrás
+          {{ $t('general.back') }}
         </button>
         <button
           class="btn btn--large btn--primary btn--block"
           v-if="question.answer_type === 'Fotografía' && answer === ''"
           @click="takePhoto">
-          Tomar foto
+          {{ $t('evaluateVenue.takePhotography') }}
         </button>
         <button
           class="btn btn--large btn--primary btn--block"
@@ -271,13 +288,13 @@ const backToVenue = () => {
             answer === ''
           "
           @click="next">
-          Siguiente
+          {{ $t('general.next') }}
         </button>
         <button
           class="btn btn--large btn--primary btn--block"
           v-if="currentQuestion === lastQuestion"
           @click="sendEvaluation">
-          Finalizar evaluación
+          {{ $t('evaluateVenue.finishEvaluation') }}
         </button>
       </template>
     </footer>
@@ -308,7 +325,7 @@ const backToVenue = () => {
     background-color: var(--color--skyblue);
     .block-header__description {
       grid-row: 1;
-    }    
+    }
   }
   .first-step-evaluation {
     background-color: var(--color--skyblue);
@@ -333,7 +350,7 @@ const backToVenue = () => {
         display: grid;
         align-items: center;
         justify-content: center;
-        margin: 0 auto; 
+        margin: 0 auto;
         .theme-online & {
           background-color: var(--color--yellow-light);
         }

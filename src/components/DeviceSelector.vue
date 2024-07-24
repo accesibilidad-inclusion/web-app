@@ -20,7 +20,7 @@ defineExpose({
     <BlockHeader description="Instalando PICTOS"> </BlockHeader>
     <div class="onboarding-item__container">
       <h2 class="onboarding__title">
-        Selecciona tu dispositivo
+        {{ $t('onboardingInstallPictos.selectDevice') }}
         <text-to-speech
           :text-audio="'Selecciona tu dispositivo\n\n\n\n\n\n' + 'Iphone\n\n\n\n\n' + 'Android'" />
       </h2>

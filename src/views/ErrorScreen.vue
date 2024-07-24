@@ -14,16 +14,17 @@ const router = useRouter()
         <ErrorImage class="onboarding-error-item__image" />
         <div class="onboarding-error-item__container">
           <h2 class="onboarding-error-item__title">
-            ¡Lo sentimos!
-            <TextToSpeech
-              :text-audio="'¡Lo sentimos!.\n\n\n\n\n\n Ha ocurrido un error inesperado, puedes volver a Inicio o recargar la página'" />
+            {{ $t('error.title') }}
+            <TextToSpeech :text-audio="$t('error.title') + '.\n\n\n\n\n\n' + $t('error.body')" />
           </h2>
-          <p class="onboarding-error-item__text">Ha ocurrido un error inesperado, puedes volver a Inicio o recargar la página</p>
+          <p class="onboarding-error-item__text">{{ $t('error.body') }}</p>
         </div>
       </div>
     </div>
     <footer class="onboarding__footer">
-      <button class="btn btn--large btn--primary" @click="router.push('/inicio')">Ir a inicio</button>
+      <button class="btn btn--large btn--primary" @click="router.push('/inicio')">
+        {{ $t('error.btn') }}
+      </button>
     </footer>
   </div>
 </template>

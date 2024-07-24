@@ -6,15 +6,18 @@ import * as Sentry from '@sentry/vue'
 
 import App from './App.vue'
 import router from './router'
-import langSPA from './l10n/es.json'
+import langEs from './l10n/es.json'
+import langEn from './l10n/en.json'
 
 const app = createApp(App)
 
 const i18n = createI18n({
   locale: 'es',
   legacy: false,
+  fallbackLocale: 'es',
   messages: {
-    es: langSPA
+    es: langEs,
+    en: langEn,
   }
 })
 
@@ -49,7 +52,7 @@ Sentry.init({
 })
 
 app.use(pinia)
-app.use(router)
 app.use(i18n)
+app.use(router)
 
 app.mount('#app')

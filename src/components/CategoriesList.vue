@@ -28,11 +28,11 @@ const setCategory = (category: Category) => {
         <a @click="setCategory(category)">
           <TextToSpeech
             :text-audio="
-              category.name + '. ' + $t('categoriesList.list.descriptions.' + category.slug)
+              $t('categoriesList.list.names.' + category.slug) + '. ' + $t('categoriesList.list.descriptions.' + category.slug)
             " />
           <CategoryIcon class="category__icon" v-bind:category="category.slug"></CategoryIcon>
           <h3 class="category__name">
-            {{ category.name }}
+            {{ $t('categoriesList.list.names.' + category.slug) }}
           </h3>
           <div class="category__description">
             {{ $t('categoriesList.list.descriptions.' + category.slug) }}

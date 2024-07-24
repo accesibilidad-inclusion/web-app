@@ -29,7 +29,8 @@ const setService = (service: Service) => {
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearServices?category=${
     route.params.categorySlug
-  }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}`
+  }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}&
+  commune_id=${appData.location.commune?.id}&country_id=${appData.country?.id}`
 )
   .get()
   .json()
@@ -49,10 +50,7 @@ bus.on(listener)
 <template>
   <div class="category">
     <template v-if="category">
-      <BlockHeader
-        :title="category.name"
-        :description="$t('servicesByCategory.servicesNear')"
-        location>
+      <BlockHeader :title="category.name" :description="$t('category.servicesNear')" location>
         <template #icon>
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
@@ -62,22 +60,32 @@ bus.on(listener)
           <ItemClickable :title="service.name" @click="setService(service)">
             <template #meta>
               <div v-if="service.count_presential > 0">
-                <PresentialPlaceIcon /> {{ service.count_presential }} lugares presenciales
+                <PresentialPlaceIcon />
+                {{
+                  $t('category.numberOfPresentialVenues', {
+                    count: service.count_presential
+                  }, service.count_presential)
+                }}
               </div>
-              <div v-if="service.count_online > 0">
-                <InternetPlaceIcon /> {{ service.count_online }} lugares en internet
+              <div v-if="service.count_online_available > 0">
+                <InternetPlaceIcon />
+                {{
+                  $t('category.numberOfOnlineVenues', {
+                    count: service.count_online_available
+                  }, service.count_online_available)
+                }}
               </div>
             </template>
           </ItemClickable>
         </template>
       </main>
       <aside class="actions actions--category">
-        <text-to-speech :text-audio="$t('servicesByCategory.cantFind')" />
+        <text-to-speech :text-audio="$t('category.cantFind')" />
         <p class="actions__title">
-          {{ $t('servicesByCategory.cantFind') }}
+          {{ $t('category.cantFind') }}
         </p>
         <router-link to="/sugerir-lugar" class="btn btn--primary btn--large btn--block">
-          {{ $t('servicesByCategory.addNew') }}
+          {{ $t('category.addNew') }}
         </router-link>
       </aside>
     </template>
