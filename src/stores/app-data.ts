@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import {useFetch} from '@vueuse/core'
+import {useRoute} from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 import {Category} from '@/model/category'
@@ -105,7 +106,9 @@ export const useAppDataStore = defineStore('appData', {
   actions: {
     async initiation() {
       const { locale } = useI18n({ useScope: 'global' })
-      const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/init`)
+      const route = useRoute()
+      const params = route.query.country !== undefined ? '?country=' + route.query.country : ''
+      const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/init${params}`)
         .get()
         .json()
 

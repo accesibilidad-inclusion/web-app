@@ -1,9 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav.js'
-import {nextTick} from 'vue'
 import {defineAsyncComponent} from 'vue'
-import {useI18n} from 'vue-i18n'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -170,7 +168,7 @@ router.beforeEach((to, from, next) => {
   const appNav = useAppNavStore()
   appNav.theme = 'presential'
 
-  if (!appData.initialized && to.fullPath !== '/') {
+  if (!appData.initialized && to.name !== 'splash') {
     appNav.redirectTo = to.path
     next({name: 'splash'})
   } else if (
