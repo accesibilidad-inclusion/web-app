@@ -379,6 +379,10 @@
     "createPictograms": "Create pictograms to task",
     "waitingHelp": "Waiting for help",
     "helpAvailable": "Help available",
-    "withoutHelpAvailable": "Without help available"
+    "withoutHelpAvailable": "Without help available",
+    "servicesOf": "Services of {category}",
+    "venuesOf": "Venues of {service}",
+    "tasksOf": "Tasks of {venue} ({service})",
+    "taskIn": "{task} in {venue} ({service})"
   }
 }

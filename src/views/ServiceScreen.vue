@@ -16,6 +16,7 @@ import {useAppNavStore} from '@/stores/app-nav.js'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 import IconLocationPin from '@/assets/img/app-icons/support/lugar.svg?component'
 import InternetPlaceIcon from '@/assets/img/app-icons/support/lugares-internet.svg?component'
+import {useI18n} from 'vue-i18n'
 
 const router = useRouter()
 const route = useRoute()
@@ -47,7 +48,11 @@ venues_online.value = data.value.venues_online.map((v: OnlineVenue) => new Onlin
 category.value = new Category(data.value.category)
 service.value = new Service(data.value.service)
 appNav.setSelecteds(category.value, service.value)
-document.title = `Lugares de ${data.value.service.name} | Pictos`
+
+const { t } = useI18n({ useScope: 'global' })
+document.title = `${t('titles.venuesOf', {
+  service: data.value.service.name
+})} | Pictos`
 
 const bus = useEventBus('back')
 const listener = () => {

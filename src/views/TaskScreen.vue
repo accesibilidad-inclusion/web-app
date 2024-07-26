@@ -19,6 +19,7 @@ import {Category} from '@/model/category'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
 import SpinnerLoader from '@/components/SpinnerLoader.vue'
 import {useAppDataStore} from '@/stores/app-data'
+import {useI18n} from 'vue-i18n'
 
 const route = useRoute()
 const router = useRouter()
@@ -154,7 +155,13 @@ if (data.value.task.prerequisites.trim() !== '') {
   show_prerequisites.value = true
 }
 if (task.value.steps.length <= state.active_step) state.active_step = 0
-document.title = `${task.value.title} en ${venue.value.name} (${service.value.name}) | Pictos`
+
+const { t } = useI18n({ useScope: 'global' })
+document.title = `${t('titles.taskIn', {
+  service: service.value.name,
+  venue: venue.value.name,
+  task: task.value.title
+})} | Pictos`
 
 const bus = useEventBus('close')
 const listener = () => {
