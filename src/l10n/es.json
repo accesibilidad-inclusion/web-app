@@ -392,6 +392,10 @@
     "createPictograms": "Crear pictogramas a tarea",
     "waitingHelp": "Esperando ayuda",
     "helpAvailable": "Ayuda disponible",
-    "withoutHelpAvailable":"Sin ayudas disponibles"
+    "withoutHelpAvailable":"Sin ayudas disponibles",
+    "servicesOf": "Servicios de {category}",
+    "venuesOf": "Lugares de {service}",
+    "tasksOf": "Tareas de {venue} ({service})",
+    "taskIn": "{task} en {venue} ({service})"
   }
 }

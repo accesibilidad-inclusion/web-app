@@ -13,6 +13,7 @@ import {Category} from '@/model/category'
 import {Service} from '@/model/service'
 import {useAppDataStore} from '@/stores/app-data.js'
 import {useAppNavStore} from '@/stores/app-nav.js'
+import {useI18n} from 'vue-i18n'
 
 const router = useRouter()
 const route = useRoute()
@@ -38,7 +39,11 @@ const {data} = await useFetch(
 services.value = data.value.services.map((s: Service) => new Service(s))
 category.value = new Category(data.value.category)
 appNav.setSelecteds(category.value)
-document.title = `Servicios de ${data.value.category.name} | Pictos`
+
+const { t } = useI18n({ useScope: 'global' })
+document.title = `${t('titles.servicesOf', {
+  category: t('categoriesList.list.names.' + data.value.category.slug)
+})} | Pictos`
 
 const bus = useEventBus('back')
 const listener = () => {
@@ -50,7 +55,7 @@ bus.on(listener)
 <template>
   <div class="category">
     <template v-if="category">
-      <BlockHeader :title="category.name" :description="$t('category.servicesNear')" location>
+      <BlockHeader :title="$t('categoriesList.list.names.' + category.slug)" :description="$t('category.servicesNear')" location>
         <template #icon>
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
