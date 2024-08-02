@@ -1,0 +1,402 @@
+{
+  "general": {
+    "cancel": "Cancelar",
+    "close": "Salir",
+    "comeback": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "back": "Atrás",
+    "ready": "Listo",
+    "finish": "Finalizar",
+    "send": "Enviar",
+    "save": "Guardar",
+    "yes": "Sí",
+    "no": "No",
+    "confirm": "Confirmar",
+    "add": "Agregar",
+    "delete": "Eliminar",
+    "seeOnTheMap": "Ver en el Mapa",
+    "goToWebsite": "Ir a sitio web",
+    "thanksForYourContribution": "Gracias por tu aporte",
+    "youAreHelping": "Estás ayudando al mundo a ser un lugar más accesible",
+    "comebackTo": "Volver a {name}",
+    "comebackToMenu": "Volver al menú",
+    "weWillNotifyYou": "Muchas gracias, te avisaremos cuando tu aporte sea aprobado.",
+    "doYouWantUsNotifyYou": "¿Quieres que te avisemos cuando publiquemos tu aporte?",
+    "yesNotifyMe": "Sí, avísame",
+    "writeYourEmail": "Escribe tu email aquí"
+  },
+  "menu": {
+    "title": "Menú",
+    "home": "Inicio",
+    "about": "Acerca de",
+    "colaborateWithUs": "Colabora con nosotros",
+    "reactivateTutorials": "Reactivar tutoriales",
+    "installPictos": "Instala PICTOS en tu dispositivo"
+  },
+  "textToSpeech": {
+    "read": "Leer texto",
+    "listen": "Escuchar"
+  },
+  "categoriesList": {
+    "header": {
+      "title": "Facilitamos tu vida en pasos simples",
+      "description": "Encuentra ayuda por categoría"
+    },
+    "list": {
+      "names": {
+        "tramites": "Trámites",
+        "salud": "Salud",
+        "transporte": "Transporte",
+        "ocio": "Ocio"
+      },
+      "descriptions": {
+        "tramites": "Bancos, Registro Civil, entre otros",
+        "salud": "Hospitales, Cesfam, entre otros",
+        "transporte": "Estación de metro, Terminal de buses, entre otros",
+        "ocio": "Cine, Tiendas comerciales, entre otros"
+      }
+    }
+  },
+  "locationSelector": {
+    "name": "Tu ubicación actual",
+    "change": "Cambiar"
+  },
+  "yourLocation": {
+    "continue": "Continuar",
+    "gpsTitle": "Estamos utilizando <strong>tu ubicacion GPS</strong>",
+    "communeSelectedTitle": "Actualmente estás ubicado en <strong>{communeName}</strong>",
+    "selectACommune": "Seleccionar una población",
+    "changeLocation": "Puedes cambiar tu ubicación de dos formas:",
+    "activatingGps": "Activando tu GPS",
+    "or": "o",
+    "selectingACommune": "Seleccionando una población",
+    "backToMain": "Volver al menú principal",
+    "permissionDeniedTitle": "No podemos acceder a <span class='font-weight-medium'>tu ubicacion GPS</span>",
+    "activatePermissions": "Activa los permisos de ubicación en tu dispositivo",
+    "tryAgain": "Volver a intentarlo",
+    "yourLocation": "Tu ubicación",
+    "chooseGpsOrCommune": "<span class='font-weight-medium'>Activa el GPS</span> o <span class='font-weight-medium'>ingresa una población</span> manualmente para ver los servicios disponibles cerca tuyo.",
+    "activateGps": "Activar GPS",
+    "selectCommune": "Selecciona una población",
+    "visitOurWebsite": "Visita nuestro sitio web",
+    "chooseACommune": "Elige o busca una población",
+    "notFindCommune": "No se han encontrado poblaciones con ese nombre",
+    "testAnotherWords": "Prueba escribiendo <strong>otras palabras</strong> o buscando por las <strong>provincias</strong> disponibles",
+    "exampleCommune": "Ejemplo: Barcelona"
+  },
+  "category": {
+    "servicesNear": "Servicios cercanos a",
+    "cantFind": "¿No encuentras el lugar? ¡Agrégalo!",
+    "addNew": "+ Agregar un lugar nuevo",
+    "numberOfPresentialVenues": "Sin lugares presenciales | Un lugar presencial | {count} lugares presenciales",
+    "numberOfOnlineVenues": "Sin lugares en internet | Un lugar en internet | {count} lugares en internet"
+  },
+  "service": {
+    "venuesOfService": "Lugares del servicio",
+    "onlineVenues": "Lugares en internet",
+    "presentialVenues": "Lugares presenciales",
+    "cantFind": "¿No encuentras el lugar que estás buscando?",
+    "addNewVenue": "Agregar un lugar nuevo"
+  },
+  "venue": {
+    "tasksList": "Listado de tareas en:",
+    "selectWhatToDo": "Selecciona lo que necesites hacer en este lugar",
+    "cantFind": "¿No encuentras lo que estabas buscando?",
+    "addAnotherThing": "Agrega otra cosa que puedas hacer en este lugar",
+    "addNewTask": "Agregar una tarea nueva",
+    "accesibilityLevel": "Nivel de accesibilidad de {venueName}",
+    "whatMeanIt": "¿Qué significa esto?",
+    "evaluateThisVenue": "Evaluar este lugar",
+    "noInformation": "Este lugar no tiene información, <span>ayúdanos a mejorar</span>",
+    "addTasks": "Agregar tareas a este lugar"
+  },
+  "task": {
+    "withoutPictos": "Esta tarea aún no tiene apoyo gráfico",
+    "createPictos": "Crear el apoyo gráfico",
+    "stepOf": "Paso {activeStep} de {countSteps}",
+    "thisHelpedYou": "¿Te ha servido este apoyo?",
+    "reportIssue": "Reportar un problema",
+    "withoutSteps": "Esta tarea todavía no tiene pasos ni apoyos gráficos.",
+    "createWithSteps": "Si sabes cómo hacer esta tarea puedes ayudarnos a crear una nueva con sus pasos y apoyos.",
+    "createNewTask": "Crear una tarea nueva",
+    "reportIssueWith": "Reportar un problema con esta tarea",
+    "exampleIssue": "Ejemplo: El pictograma no coincide con la instrucción",
+    "thanks": "¡Gracias! tu comentario ha sido enviado"
+  },
+  "noHelpAvailable": {
+    "wantToHelp": "¿Quieres ayudarnos? Selecciona una estas opciones",
+    "askAid": "Solicitar apoyo",
+    "evaluateSite": "Evaluar sitio",
+    "howToAsk": "Describe la tarea en la que requieres apoyo, por ejemplo: Cómo solicitar pasaporte",
+    "askSent": "Tu solicitud ha sido enviada",
+    "sendAsk": "Enviar solicitud",
+    "evaluationDescription": "<p>Al evaluar este sitio web, contribuirás a medir su <strong>accesibilidad</strong> y a identificar posibles áreas de mejora. Se te guiará a través de una serie de preguntas diseñadas para <strong>orientar la evaluación</strong>.</p>",
+    "startEvaluation":"Comenzar evaluación"
+  },
+  "mainSearch": {
+    "findHelp": "Encuentra ayuda para tareas en internet o presenciales",
+    "searchOnline": "Buscar tareas en internet",
+    "searchPresential": "Buscar tareas presenciales",
+    "showResults": "Ver resultados"
+  },
+  "recommendedVenues": {
+    "venuesWithHelp": "Lugares con ayudas cerca de tu ubicación",
+    "distance": "a {distance} de distancia",
+    "belongsTo": "Pertenece a: {serviceName}"
+  },
+  "searchResults": {
+    "onlineTasksNear": "Tareas en internet cerca de",
+    "presentialTasksNear": "Tareas presenciales cerca de",
+    "results": "Resultados",
+    "noResults": "Búsqueda sin resultados",
+    "testAnotherWords": "Prueba buscando con <strong>otras palabras</strong> o usando las <strong>categorías</strong> disponibles",
+    "backToHome": "Volver a Inicio"
+  },
+  "taskBlock": {
+    "numberOfSteps": "Sin pasos | Un paso | {count} pasos"
+  },
+  "welcome": {
+    "title1": "Activa el audio",
+    "desc1": "Si tienes dificultad o no quieres leer, no te preocupes. Puedes <b>activar la opción de sonido, pulsando el ícono de altavoz</b>.",
+    "title2": "¿Para qué sirve PICTOS?",
+    "desc2": "Pictos te ayudará a realizar tareas en distintos servicios, mostrándote una lista de todas las cosas que puedes hacer en cada lugar.",
+    "title3": "¿Cómo funciona?",
+    "desc3": "Pictos te explica paso a paso qué puedes hacer en cada lugar, a través de pictogramas.",
+    "title4": "¡Tú nos puedes ayudar!",
+    "desc4": "Queremos entregar a la comunidad las herramientas para apoyarnos entre todos."
+  },
+  "onboardingSuggestVenues": {
+    "title1": "Escribe el nombre del lugar",
+    "desc1": "PICTOS  te mostrará los lugares similares a lo que buscaste",
+    "title2": "Guarda el lugar",
+    "desc2": "Para guardar el lugar que elegiste, presiona “Listo”"
+  },
+  "onboardingNewTask": {
+    "title1": "Verás una lista de pasos. En esta lista tu puedes:",
+    "desc1": "<ul><li>Ordenar los pasos de forma correcta.</li><li>Agregar un nuevo paso.</li><li>Volver a escribir un paso de forma más clara y precisa</li></ul>",
+    "title2": "Ten en cuenta",
+    "desc2": "<ul><li>Una tarea no puede tener menos de 3 pasos, ni más de 9 pasos.</li><li>Cuando ya los hayas escrito todos, presionas el botón “Listo”</li></ul>",
+    "title3": "Recuerda revisar",
+    "desc3": "<ul><li>Debes revisar que están bien, pensando en cómo los harías tú.</li><li>Si están bien, haz click en “Confirmar”</li></ul>",
+    "title4": "Avísame",
+    "desc4": "<ul><li>Si quieres que te avisen escribe tu correo electrónico</li><li>Luego haz click en “Enviar”</li></ul>"
+  },
+  "onboardingEvaluation": {
+    "title1": "¡Hola!",
+    "desc1": "Acá te explicamos cómo debes hacer la evaluación de un lugar con PICTOS. A continuación, encontrarás los pasos que debes seguir.",
+    "title2": "¿Qué necesitas para evaluar?",
+    "desc2": "<ul><li>Debes estar en el lugar o servicio a evaluar</li><li>Observa atentamente tu entorno</li><li>Responde todas las preguntas</li><li>Evalúa poniendo nota</li></ul><div class='text-center mt-4'>Ahora te explicamos cómo funciona el <strong>método de puntuación</strong></div>",
+    "title3": "Reglas de puntuación",
+    "desc3": "<div class='evaluation__grade-description'><span class='evaluation__grade-square' data-grade='5'></span><strong>Excelente: </strong> No necesita mejoras</div><div class='evaluation__grade-description'><span class='evaluation__grade-square' data-grade='4'></span><strong>Bueno: </strong> Necesita pocas mejoras</div><div class='evaluation__grade-description'><span class='evaluation__grade-square' data-grade='3'></span><strong>Regular: </strong> Ni bueno ni malo</div><div class='evaluation__grade-description'><span class='evaluation__grade-square' data-grade='2'></span><strong>Malo: </strong> Necesita muchas mejoras</div><div class='evaluation__grade-description'><span class='evaluation__grade-square' data-grade='1'></span><strong>Pésimo: </strong> Tiene que mejorar todo</div>",
+    "title4": "Activar permisos",
+    "desc4": "Necesitamos que nos permitas acceder a la cámara de tu dispositivo para que puedas tomar fotos durante la evaluación"
+  },
+  "onboardingInstallPictos": {
+    "title1": "Instala PICTOS en tu dispositivo",
+    "desc1": "Te ayudamos a instalar un acceso directo a PICTOS en tu dispositivo",
+    "selectDevice": "Selecciona tu dispositivo",
+    "title2iphone": "Instala PICTOS en Iphone",
+    "desc2iphone": "Cuando estés en PICTOS presiona el botón central del menú inferior",
+    "title2android": "Instala PICTOS en Android",
+    "desc2android": "Cuando estés en PICTOS presiona los tres puntos que se encuentran a la derecha en el menú superior",
+    "title3iphone": "Agregar a Inicio",
+    "desc3iphone": "Cuando se abra el menú inferior, presiona la opción Agregar a Inicio",
+    "title3android": "Instalar Aplicación",
+    "desc3android": "Cuando se abra el menú lateral, presiona la opción Instalar aplicación",
+    "title4iphone": "Agregar a Inicio",
+    "desc4iphone": "Cuando se abra la opción Agregar a Inicio, presiona el botón “Agregar” en la esquina superior derecha",
+    "title4android": "Confirma la instalación",
+    "desc4android": "Cuando se abra la opción Instalar aplicación, presiona el botón “Instalar”"
+  },
+  "about": {
+    "title": "Acerca de PICTOS",
+    "body": "<ul><li>PICTOS es una aplicación para hacer el mundo inclusivo y accesible.</li><li>PICTOS es una aplicación de uso gratuito.</li><li>Todos pueden aportar en PICTOS.</li><li>Tú participación es importante, ayuda a construir PICTOS.</li><li>Para hacer esta app, trabajaron investigadores, diseñadores y desarrolladores con y sin discapacidad.</li><li>Este es un proyecto del Núcleo de Accesibilidad e Inclusión de la Pontificia Universidad Católica de Valparaíso.</li><li>Este proyecto fue financiado por SENADIS y FONDEF IT.</li></ul>"
+  },
+  "colaborateWithUs": {
+    "title": "¡Qué bueno que quieras colaborar!",
+    "body": "<p>Tu ayuda es muy importante para hacer entre todos una ciudad más fácil y amigable.</p> <p>Las ayudas que puedes darnos son:</p><ol><li>Si falta un lugar, lo puedes agregar.</li><li>Si falta una tarea de un lugar, la puedes agregar.</li><li>Si no hay pictogramas, los puedes crear.</li><li>Puedes evaluar la accesibilidad de un lugar.</li></ol>"
+  },
+  "error": {
+    "title": "¡Lo sentimos!",
+    "body": "Ha ocurrido un error inesperado, puedes volver a Inicio o recargar la página",
+    "btn": "Ir a inicio"
+  },
+  "personalInformation": {
+    "title": "Cuéntanos un poco de ti",
+    "body": "Registra tu fecha de nacimiento, género y si tienes algún tipo de discapacidad. Toda la información será estrictamente confidencial.",
+    "startEvaluation": "Empieza la evaluación",
+    "aboutYou": "Sobre ti",
+    "birthday": {
+      "title": "Fecha de nacimiento",
+      "day": "Día",
+      "month": "Mes",
+      "year": "Año",
+      "optionDay": "Selecciona el día",
+      "optionMonth": "Selecciona el mes",
+      "optionYear": "Selecciona el año"
+    },
+    "gender": {
+      "title": "¿Con qué género te identificas?",
+      "male": "Masculino",
+      "female": "Femenino",
+      "noBinary": "No binario",
+      "preferNotToSay": "Prefiero no decirlo"
+    },
+    "hasDisability": {
+      "title": "¿Tienes alguna discapacidad?",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "disabilityDetails": {
+      "title": "¿Qué tipo de discapacidad tienes? Selecciona 1 o mas",
+      "intellectual": "Intelectual",
+      "physical": "Física",
+      "visual": "Visual",
+      "auditory": "Auditiva",
+      "other": "Otra"
+    },
+    "informationThanks": {
+      "title": "¡Gracias por la información!"
+    }
+  },
+  "evaluateVenue": {
+    "title": "Evaluación",
+    "startEvaluation": "Comenzar evaluación",
+    "takePhotography": "Tomar foto",
+    "finishEvaluation": "Finalizar evaluación",
+    "auditory": "Auditiva",
+    "other": "Otra"
+  },
+  "questionInstruction": {
+    "btn": "Ver ayudas disponibles"
+  },
+  "takePhotography": {
+    "replace": "Reemplazar"
+  },
+  "textQuestion": {
+    "writeHere": "Escribe aquí tu respuesta"
+  },
+  "indicatorQuestion": {
+    "excelent": "Excelente",
+    "dontNeedImpovements": "No necesita mejoras",
+    "good": "Bueno",
+    "needFewImprovements": "Necesita pocas mejoras",
+    "regular": "Regular",
+    "notGoodNotBad": "Ni bueno Ni malo",
+    "bad": "Malo",
+    "needManyImpovements": "Necesita muchas mejoras",
+    "apalling": "Pésimo",
+    "everythingHasToImprove": "Tiene que mejorar todo"
+  },
+  "inputSearch": {
+    "presentialExample": "Ejemplo: Viajar en metro",
+    "onlineExample": "Ejemplo: Bloqueo de cédula"
+  },
+  "defineEvaluations": {
+    "presentialExample": "Ejemplo: Viajar en metro",
+    "onlineExample": "Ejemplo: Bloqueo de cédula",
+    "accesibilityLevel": "Nivel de accesibilidad",
+    "feature1": "Visibilidad: ",
+    "feature2": "Comprensión: ",
+    "feature3": "Espacialidad: ",
+    "noEvaluation": {
+      "title": "Sin evaluaciones",
+      "longdesc": "Todavía nadie ha evaluado la accesibilidad de este lugar. Si te encuentras aquí y tienes tiempo para ayudar a la comunidad con tu evaluación, por favor hazlo."
+    },
+    "apalling": {
+      "title": "Pésimo",
+      "desc": "El servicio evaluado tiene que mejorar todo",
+      "longdesc": "Diferentes personas han calificado la accesibilidad de este servicio con nivel de PÉSIMO debido a que presenta problemas graves de accesibilidad en uno o varios de los siguientes aspectos:",
+      "change": "",
+      "visibility": "El tamaño de las letras es muy pequeño y los colores y contrastes necesitan cambios.",
+      "understanding": "Los mensajes y las señales necesitan imágenes y una mejor redacción.",
+      "spatiality": "El espacio es sucio, hay mala luminosidad y hay demasiado ruido."
+    },
+    "bad": {
+      "title": "Malo",
+      "desc": "El servicio evaluado necesita muchas mejoras",
+      "longdesc": "Diferentes personas han calificado la accesibilidad es este servicio con el nivel de MALO.",
+      "change": "Este servicio tiene problemas de accesibilidad en uno o varios de los siguientes aspectos:",
+      "visibility": "El tamaño de las letras es muy pequeño y los colores y contrastes no son adecuados.",
+      "understanding": "Los mensajes y las señales son incomprensibles.",
+      "spatiality": "El espacio necesita limpieza, hay poca luminosidad y hay ruido."
+    },
+    "regular": {
+      "title": "Regular",
+      "desc": "El servicio evaluado no es ni bueno ni malo",
+      "longdesc": "Diferentes personas han calificado la accesibilidad es este servicio con el nivel de REGULAR.",
+      "change": "Este servicio puede mejorar uno o varios de los siguientes aspectos:",
+      "visibility": "El tamaño de las letras es insuficiente y los colores provocan confusión.",
+      "understanding": "Los mensajes y las señales son medianamente confusos.",
+      "spatiality": "La limpeza, luminosidad y calidad acústica del espacio debe mejorar."
+    },
+    "good": {
+      "title": "Bueno",
+      "desc": "El servicio evaluado necesita pocas mejoras",
+      "longdesc": "Diferentes personas han calificado la accesibilidad es este servicio con el nivel de BUENO.",
+      "change": "Este servicio debe considerar uno o varios de los siguientes aspectos para mejorar:",
+      "visibility": "Mejorar contrastes y colores de sus señales.",
+      "understanding": "Redacción e imágenes en sus señales y mensajes.",
+      "spatiality": "Mejorar ubicación de señales."
+    },
+    "excelent": {
+      "title": "Excelente",
+      "desc": "El servicio evaluado no necesita mejoras",
+      "longdesc": "Diferentes personas han calificado la accesibilidad es este servicio con el nivel de EXCELENTE.",
+      "change": "Este servicio no presenta problemas de accesibilidad:",
+      "visibility": "El tamaño, colores y tipografías es el adecuado.",
+      "understanding": "Los mensajes están bien redactados y tienen apoyos visuales pertinentes.",
+      "spatiality": "El espacio es limpio, bien iluminado y con buenas condiciones de sonido. La señalética está bien ubicada."
+    }
+  },
+  "suggestVenue": {
+    "searchAVenue": "Busca un lugar para agregarlo a Pictos",
+    "searchAgain": "Buscar nuevamente",
+    "example": "Ejemplo: Terminal de buses"
+  },
+  "newTask": {
+    "addNewTask": "Agregar una nueva tarea",
+    "example": "Ejemplo: Comprar tarjeta",
+    "enumSteps": "Enumera los pasos requeridos para completar esta acción",
+    "minAndMax": "Mínimo 3 y máximo 9 pasos",
+    "writeTheStep": "Escribe el paso {stepNumber}",
+    "addOtherStep": "Agregar otro paso",
+    "chackTheSteps": "Revisa los pasos ingresados",
+    "editTheSteps": "Edita los pasos en caso de ser necesario"
+  },
+  "createPictograms": {
+    "createSupport": "Crear el apoyo gráfico",
+    "person": "Persona",
+    "object": "Objeto",
+    "space": "Espacio",
+    "chooseAPerson": "Elige una persona para esta capa",
+    "layerSelected": "Capa <strong>{layerSelected}</strong> de <strong>3</strong> seleccionada "
+  },
+  "titles": {
+    "home": "Facilitamos tu vida en pasos simples",
+    "yourLocation": "Configura tu ubicación geografica para resultados mas precisos",
+    "welcome": "Busca ayudas para realizar tareas",
+    "searchResults": "Resultados de tu búsqueda",
+    "error": "Ha ocurrido un error inesperado",
+    "about": "Acerca de Pictos",
+    "colaborate": "Colabora con nosotros",
+    "installPictos": "Instala Pictos",
+    "onboardingEvaluation": "Aprende a evaluar",
+    "personalInformation": "Completa tu información personal",
+    "evaluateVenue": "Evalua este lugar",
+    "defineEvaluation": "¿Qué significa esta evaluación?",
+    "onboardingAddVenue": "Aprende a sugerir lugares",
+    "addVenue": "Sugiérenos un nuevo lugar",
+    "onboardingNewTask": "Aprende a agregar nuevas tareas",
+    "newTask": "Agregar nueva tarea",
+    "createPictograms": "Crear pictogramas a tarea",
+    "waitingHelp": "Esperando ayuda",
+    "helpAvailable": "Ayuda disponible",
+    "withoutHelpAvailable":"Sin ayudas disponibles",
+    "servicesOf": "Servicios de {category}",
+    "venuesOf": "Lugares de {service}",
+    "tasksOf": "Tareas de {venue} ({service})",
+    "taskIn": "{task} en {venue} ({service})"
+  }
+}

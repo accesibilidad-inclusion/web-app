@@ -82,7 +82,8 @@
     "visitOurWebsite": "Visita nuestro sitio web",
     "chooseACommune": "Elige o busca una comuna",
     "notFindCommune": "No se han encontrado comunas con ese nombre",
-    "testAnotherWords": "Prueba escribiendo <strong>otras palabras</strong> o buscando por las <strong>regiones</strong> disponibles"
+    "testAnotherWords": "Prueba escribiendo <strong>otras palabras</strong> o buscando por las <strong>regiones</strong> disponibles",
+    "exampleCommune": "Ejemplo: Viña del mar"
   },
   "category": {
     "servicesNear": "Servicios cercanos a",

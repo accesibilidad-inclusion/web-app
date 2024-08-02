@@ -112,7 +112,7 @@ export const useAppDataStore = defineStore('appData', {
         .get()
         .json()
 
-      locale.value = data.value.country.language
+      locale.value = data.value.country.language + '-' + data.value.country.iso_name
       this.country = data.value.country
       this.regions = data.value.regions
       this.categories = data.value.categories.map((c: Category) => new Category(c))

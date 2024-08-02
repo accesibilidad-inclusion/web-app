@@ -12,7 +12,7 @@ const { t, locale } = useI18n({ useScope: 'global' })
 const appNav = useAppNavStore()
 const appData = useAppDataStore()
 
-locale.value = appData.country?.language ?? 'es'
+locale.value = appData.country?.language + '-' + appData.country?.iso_name ?? 'es-cl'
 
 router.afterEach((to) => {
   if (to.meta !== undefined && to.meta.title) {
