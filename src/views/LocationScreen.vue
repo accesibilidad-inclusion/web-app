@@ -189,7 +189,7 @@ const toggle = (id: number) => {
             v-model="query"
             class="main-search__input"
             type="search"
-            placeholder="Ejemplo: Viña del mar" />
+            :placeholder="$t('yourLocation.exampleCommune')" />
           <icon-search class="main-search__icon" />
         </div>
       </header>
