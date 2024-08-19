@@ -19,6 +19,7 @@ import {PresentialVenue} from '@/model/presential_venue'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconLike from '@/assets/img/app-icons/instructions/like.svg?component'
 import IconInternet from '@/assets/img/app-icons/instructions/internet.svg?component'
+import SpinnerLoader from '@/components/SpinnerLoader.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -52,6 +53,7 @@ const venue =
 
 const started = ref(false)
 const finished = ref(false)
+const sending = ref(false)
 const currentQuestion = ref(0)
 const currentSubQuestion = ref<number | null>(null)
 const answers = ref<Array<Answer>>([])
@@ -122,6 +124,7 @@ const setAnswer = (answr: string) => {
 }
 
 const sendEvaluation = async () => {
+  sending.value = true
   await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/evaluations/store`)
     .post({
       answers: answers.value,
@@ -131,6 +134,7 @@ const sendEvaluation = async () => {
     })
     .json()
   finished.value = true
+  sending.value = false
 }
 
 const question = computed(() => {
@@ -293,8 +297,9 @@ const backToVenue = () => {
         <button
           class="btn btn--large btn--primary btn--block"
           v-if="currentQuestion === lastQuestion"
+          :disabled="sending"
           @click="sendEvaluation">
-          {{ $t('evaluateVenue.finishEvaluation') }}
+          {{ $t('evaluateVenue.finishEvaluation') }} <SpinnerLoader v-if="sending" />
         </button>
       </template>
     </footer>
