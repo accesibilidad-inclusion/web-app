@@ -32,7 +32,8 @@
     "about": "Acerca de",
     "colaborateWithUs": "Colabora con nosotros",
     "reactivateTutorials": "Reactivar tutoriales",
-    "installPictos": "Instala PICTOS en tu dispositivo"
+    "installPictos": "Instala PICTOS en tu dispositivo",
+    "changeLocation": "Cambiar ubicación"
   },
   "textToSpeech": {
     "read": "Leer texto",

@@ -54,6 +54,12 @@ const install = () => {
   closeMenu()
 }
 
+const toChangeLocation = () => {
+  appNav.redirectTo = route.fullPath
+  router.push('/tu-ubicacion')
+  closeMenu()
+}
+
 const close = () => {
   busClose.emit()
 }
@@ -117,6 +123,9 @@ const back = () => {
                 </li>
                 <li>
                   <a href="javascript:void(0)" @click="install">{{ $t('menu.installPictos') }}</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" @click="toChangeLocation">{{ $t('menu.changeLocation') }}</a>
                 </li>
               </ul>
             </nav>

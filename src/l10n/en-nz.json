@@ -31,7 +31,8 @@
     "about": "About",
     "colaborateWithUs": "Colaborate with us",
     "reactivateTutorials": "Reactivate tutorials",
-    "installPictos": "Install PICTOS on your device"
+    "installPictos": "Install PICTOS on your device",
+    "changeLocation": "Change location"
   },
   "textToSpeech": {
     "read": "Read text",
