@@ -32,7 +32,8 @@
     "about": "Acerca de",
     "colaborateWithUs": "Colabora con nosotros",
     "reactivateTutorials": "Reactivar tutoriales",
-    "installPictos": "Instala PICTOS en tu dispositivo"
+    "installPictos": "Instala PICTOS en tu dispositivo",
+    "changeLocation": "Cambiar ubicación"
   },
   "textToSpeech": {
     "read": "Leer texto",
@@ -44,6 +45,12 @@
       "description": "Encuentra ayuda por categoría"
     },
     "list": {
+      "names": {
+        "tramites": "Trámites",
+        "salud": "Salud",
+        "transporte": "Transporte",
+        "ocio": "Ocio"
+      },
       "descriptions": {
         "tramites": "Bancos, Registro Civil, entre otros",
         "salud": "Hospitales, Cesfam, entre otros",
@@ -76,7 +83,8 @@
     "visitOurWebsite": "Visita nuestro sitio web",
     "chooseACommune": "Elige o busca una comuna",
     "notFindCommune": "No se han encontrado comunas con ese nombre",
-    "testAnotherWords": "Prueba escribiendo <strong>otras palabras</strong> o buscando por las <strong>regiones</strong> disponibles"
+    "testAnotherWords": "Prueba escribiendo <strong>otras palabras</strong> o buscando por las <strong>regiones</strong> disponibles",
+    "exampleCommune": "Ejemplo: Viña del mar"
   },
   "category": {
     "servicesNear": "Servicios cercanos a",
@@ -385,6 +393,11 @@
     "newTask": "Agregar nueva tarea",
     "createPictograms": "Crear pictogramas a tarea",
     "waitingHelp": "Esperando ayuda",
-    "helpAvailable": "Ayuda disponible"
+    "helpAvailable": "Ayuda disponible",
+    "withoutHelpAvailable":"Sin ayudas disponibles",
+    "servicesOf": "Servicios de {category}",
+    "venuesOf": "Lugares de {service}",
+    "tasksOf": "Tareas de {venue} ({service})",
+    "taskIn": "{task} en {venue} ({service})"
   }
 }

@@ -24,10 +24,10 @@ if (route.query.t !== 'online' && route.query.t !== 'presential') {
     route.query.t === 'presential'
       ? `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/search?query=${
           route.query.s
-        }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}`
+        }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}&country_id=${appData.country?.id}`
       : `${import.meta.env.VITE_APP_API_DOMAIN}api/online_tasks/search?query=${
           route.query.s
-        }&commune_id=${appData.location.commune?.id}`
+        }&commune_id=${appData.location.commune?.id}&country_id=${appData.country?.id}`
   )
     .get()
     .json()

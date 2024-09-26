@@ -14,6 +14,7 @@ import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav'
 import {Category} from '@/model/category'
 import IconPlus from '@/assets/img/app-icons/plus.svg?component'
+import {useI18n} from 'vue-i18n'
 
 const route = useRoute()
 const router = useRouter()
@@ -29,7 +30,7 @@ const type = ref<'online' | 'presential'>('presential')
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements?category=${
     route.params.categorySlug
-  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}`
+  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}&commune_id=${appData.location.commune?.id}`
 )
   .get()
   .json()
@@ -47,7 +48,12 @@ venue.value =
     : new PresentialVenue(data.value.venue)
 
 appNav.setSelecteds(category.value, service.value, venue.value)
-document.title = `Tareas de ${data.value.venue.name} (${data.value.service.name}) | Pictos`
+
+const { t } = useI18n({ useScope: 'global' })
+document.title = `${t('titles.tasksOf', {
+  service: data.value.service.name,
+  venue: data.value.venue.name
+})} | Pictos`
 
 const evaluation = computed(() => {
   if (venue.value !== undefined) {

@@ -3,8 +3,25 @@ import {RouterView} from 'vue-router'
 import AppNav from './components/AppNav.vue'
 import LoadingLayer from '@/components/LoadingLayer.vue'
 import {useAppNavStore} from './stores/app-nav'
+import {useAppDataStore} from '@/stores/app-data'
+import {useI18n} from 'vue-i18n'
+import {nextTick} from 'vue'
+import router from '@/router'
+const { t, locale } = useI18n({ useScope: 'global' })
 
 const appNav = useAppNavStore()
+const appData = useAppDataStore()
+
+locale.value = appData.country?.language + '-' + appData.country?.iso_name ?? 'es-cl'
+
+router.afterEach((to) => {
+  if (to.meta !== undefined && to.meta.title) {
+    const {title} = to.meta
+    nextTick(() => {
+      document.title = t(title) + ' | Pictos'
+    })
+  }
+})
 </script>
 
 <template>

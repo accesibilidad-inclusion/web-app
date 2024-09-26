@@ -6,15 +6,20 @@ import * as Sentry from '@sentry/vue'
 
 import App from './App.vue'
 import router from './router'
-import langSPA from './l10n/es.json'
+import langEsCl from './l10n/es-cl.json'
+import langEsEs from './l10n/es-es.json'
+import langEnNz from './l10n/en-nz.json'
 
 const app = createApp(App)
 
 const i18n = createI18n({
-  locale: 'es',
-  legacy: true,
+  locale: 'es-cl',
+  legacy: false,
+  fallbackLocale: 'es-cl',
   messages: {
-    es: langSPA
+    "es-cl": langEsCl,
+    "es-es": langEsEs,
+    "en-nz": langEnNz,
   }
 })
 
