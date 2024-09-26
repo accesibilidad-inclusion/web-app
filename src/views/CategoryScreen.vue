@@ -13,6 +13,7 @@ import {Category} from '@/model/category'
 import {Service} from '@/model/service'
 import {useAppDataStore} from '@/stores/app-data.js'
 import {useAppNavStore} from '@/stores/app-nav.js'
+import {useI18n} from 'vue-i18n'
 
 const router = useRouter()
 const route = useRoute()
@@ -29,7 +30,8 @@ const setService = (service: Service) => {
 const {data} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearServices?category=${
     route.params.categorySlug
-  }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}`
+  }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}&
+  commune_id=${appData.location.commune?.id}&country_id=${appData.country?.id}`
 )
   .get()
   .json()
@@ -37,7 +39,11 @@ const {data} = await useFetch(
 services.value = data.value.services.map((s: Service) => new Service(s))
 category.value = new Category(data.value.category)
 appNav.setSelecteds(category.value)
-document.title = `Servicios de ${data.value.category.name} | Pictos`
+
+const { t } = useI18n({ useScope: 'global' })
+document.title = `${t('titles.servicesOf', {
+  category: t('categoriesList.list.names.' + data.value.category.slug)
+})} | Pictos`
 
 const bus = useEventBus('back')
 const listener = () => {
@@ -49,7 +55,7 @@ bus.on(listener)
 <template>
   <div class="category">
     <template v-if="category">
-      <BlockHeader :title="category.name" :description="$t('category.servicesNear')" location>
+      <BlockHeader :title="$t('categoriesList.list.names.' + category.slug)" :description="$t('category.servicesNear')" location>
         <template #icon>
           <CategoryIcon v-bind:category="category.slug"></CategoryIcon>
         </template>
@@ -61,17 +67,17 @@ bus.on(listener)
               <div v-if="service.count_presential > 0">
                 <PresentialPlaceIcon />
                 {{
-                  $tc('category.numberOfPresentialVenues', service.count_presential, {
+                  $t('category.numberOfPresentialVenues', {
                     count: service.count_presential
-                  })
+                  }, service.count_presential)
                 }}
               </div>
-              <div v-if="service.count_online > 0">
+              <div v-if="service.count_online_available > 0">
                 <InternetPlaceIcon />
                 {{
-                  $tc('category.numberOfOnlineVenues', service.count_online, {
-                    count: service.count_online
-                  })
+                  $t('category.numberOfOnlineVenues', {
+                    count: service.count_online_available
+                  }, service.count_online_available)
                 }}
               </div>
             </template>

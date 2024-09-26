@@ -2,10 +2,13 @@
 import {onMounted, ref} from 'vue'
 import IconAudio from '@/assets/img/app-icons/audio.svg?component'
 import IconStop from '@/assets/img/app-icons/stop-circle.svg?component'
+import {useAppDataStore} from '@/stores/app-data'
 
 const props = defineProps<{
   textAudio: string
 }>()
+
+const appData = useAppDataStore()
 
 const playing = ref(false)
 const voiceList = ref<Array<SpeechSynthesisVoice>>([])
@@ -28,7 +31,7 @@ onMounted(() => {
     voiceList.value = synth.getVoices()
   }
 
-  utterance.lang = 'es-MX'
+  utterance.lang = appData.country?.language || 'es'
   utterance.pitch = 1
   utterance.rate = 1
   utterance.voice =

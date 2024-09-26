@@ -1,8 +1,11 @@
 import {defineStore} from 'pinia'
 import {useFetch} from '@vueuse/core'
+import {useRoute} from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 import {Category} from '@/model/category'
 import {Location} from '@/model/location'
+import {Country} from '@/model/country'
 import type {Region} from '@/types/region'
 import {Question} from '@/model/question'
 
@@ -10,6 +13,7 @@ export const useAppDataStore = defineStore('appData', {
   state: () => {
     return {
       initialized: false,
+      country: null as Country|null,
       regions: [] as Array<Region>,
       categories: [] as Array<Category>,
       questions: {
@@ -101,9 +105,15 @@ export const useAppDataStore = defineStore('appData', {
   },
   actions: {
     async initiation() {
-      const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/init`)
+      const { locale } = useI18n({ useScope: 'global' })
+      const route = useRoute()
+      const params = route.query.country !== undefined ? '?country=' + route.query.country : ''
+      const {data} = await useFetch(`${import.meta.env.VITE_APP_API_DOMAIN}api/init${params}`)
         .get()
         .json()
+
+      locale.value = data.value.country.language + '-' + data.value.country.iso_name
+      this.country = data.value.country
       this.regions = data.value.regions
       this.categories = data.value.categories.map((c: Category) => new Category(c))
       this.questions = {

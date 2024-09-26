@@ -39,12 +39,12 @@ const activateGps = () => {
 
 const checkPosition = (position: any) => {
   geocoder
-    //.geocode({location: {lat: -34.602706, lng: -70.979868}})
+    //.geocode({location: {lat: 43.3775, lng: -4.483611}})
     .geocode({location: {lat: position.coords.latitude, lng: position.coords.longitude}})
     .then(async (response) => {
       if (response.results.length) {
         const address = response.results[0].address_components
-        const commune = address.find((a) => a.types.includes('administrative_area_level_3'))
+        const commune = address.find((a) => a.types.includes(appData.country?.administrative_area_google_field ?? 'administrative_area_level_3'))
         // const region = address.find((a) => a.types.includes('administrative_area_level_1'))
 
         const {data} = await useFetch(
@@ -189,7 +189,7 @@ const toggle = (id: number) => {
             v-model="query"
             class="main-search__input"
             type="search"
-            placeholder="Ejemplo: Viña del mar" />
+            :placeholder="$t('yourLocation.exampleCommune')" />
           <icon-search class="main-search__icon" />
         </div>
       </header>
