@@ -27,13 +27,36 @@ const service = ref<Service>()
 const venue = ref<PresentialVenue | OnlineVenue>()
 const type = ref<'online' | 'presential'>('presential')
 
-const {data} = await useFetch(
+// Validar que existe una comuna seleccionada antes de hacer la llamada
+if (!appData.location.isCommuneSelected()) {
+  // Guardar la ruta actual para redirigir después de seleccionar ubicación
+  appNav.redirectTo = route.fullPath
+  router.push('/ubicacion')
+  throw new Error('No hay comuna seleccionada')
+}
+
+const communeId = appData.location.commune?.id
+
+const {data, statusCode, error} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/slugs/getElements?category=${
     route.params.categorySlug
-  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}&commune_id=${appData.location.commune?.id}`
+  }&service=${route.params.serviceSlug}&venue=${route.params.venueSlug}&commune_id=${communeId}`
 )
   .get()
   .json()
+
+// Verificar que la respuesta fue exitosa
+if (error.value || !data.value || statusCode.value !== 200) {
+  console.error('Error al cargar los datos del lugar:', error.value)
+  // Si el error es por commune_id inválido, redirigir a ubicación
+  if (statusCode.value === 400 || statusCode.value === 404) {
+    appNav.redirectTo = route.fullPath
+    router.push('/ubicacion')
+    throw new Error('Comuna inválida, por favor selecciona tu ubicación nuevamente')
+  }
+  router.push('/error')
+  throw new Error('Error al cargar los datos')
+}
 
 type.value = data.value.type
 appNav.theme = type.value

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {ref, nextTick} from 'vue'
 
 import {Location} from '@/model/location'
 import {useAppDataStore} from '@/stores/app-data'
 import {useAppNavStore} from '@/stores/app-nav.js'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 import type {Commune} from '@/types/commune'
 import TextToSpeech from '@/components/TextToSpeech.vue'
 import IconSearch from '@/assets/img/app-icons/search.svg?component'
@@ -26,6 +26,7 @@ loader.importLibrary('geocoding').then(() => {
 const appData = useAppDataStore()
 const appNav = useAppNavStore()
 const router = useRouter()
+const route = useRoute()
 
 const showCommune = ref(false)
 const query = ref('')
@@ -86,18 +87,36 @@ const cancelCommune = () => {
   query.value = ''
 }
 
-const confirmCommune = () => {
+const confirmCommune = async () => {
   appData.location = new Location({
     gpsLat: '',
     gpsLng: '',
     commune: commune.value
   })
+  // Esperar a que Pinia persista el estado antes de redirigir
+  await nextTick()
+  // Pequeño delay adicional para asegurar que localStorage se haya actualizado
+  await new Promise(resolve => setTimeout(resolve, 100))
   redirect()
 }
 
 const redirect = () => {
-  router.push(appNav.redirectTo).catch(() => {})
+  // Si estamos en modo embed (dentro del sidepanel de la extensión), 
+  // NO navegar dentro del iframe, solo enviar mensaje al parent
+  const isEmbedMode = route.query.view === 'embed' || window.parent !== window
+  
+  if (isEmbedMode) {
+    // Solo enviar el mensaje al parent, el sidepanel se encargará de buscar
+    // y cargar las ayudas del sitio web actual en el iframe
+    window.parent.postMessage('SEARCH', '*')
+    // NO navegamos dentro del iframe en modo embed
+    return
+  }
+  
+  // Si no estamos en modo embed, redirigir normalmente
+  const targetRoute = appNav.redirectTo
   appNav.redirectTo = '/inicio'
+  router.push(targetRoute).catch(() => {})
 }
 
 const toggle = (id: number) => {

@@ -6,14 +6,16 @@ import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import {VitePWA} from 'vite-plugin-pwa'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(), svgLoader({
+// Plugins base
+const plugins = [
+  vue(),
+  svgLoader({
     defaultImport: 'component',
     svgoConfig: {
       multipass: true
     }
-  }), VitePWA({
+  }),
+  VitePWA({
     registerType: 'autoUpdate',
     manifest: {
       name: 'Pictos',
@@ -54,10 +56,23 @@ export default defineConfig({
         }
       ]
     }
-  }), sentryVitePlugin({
-    org: "bloom-user-experience",
-    project: "pictos-web-app"
-  })],
+  })
+]
+
+// Plugin de Sentry solo si hay authToken (opcional para desarrollo local)
+if (process.env.SENTRY_AUTH_TOKEN) {
+  plugins.push(
+    sentryVitePlugin({
+      org: "bloom-user-experience",
+      project: "pictos-web-app",
+      authToken: process.env.SENTRY_AUTH_TOKEN
+    })
+  )
+}
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins,
 
   resolve: {
     alias: {

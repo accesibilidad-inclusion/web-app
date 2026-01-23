@@ -9,9 +9,11 @@ import TaskBlock from '@/components/TaskBlock.vue'
 import {OnlineTask} from '@/model/online_task'
 import {PresentialTask} from '@/model/presential_task'
 import {useAppDataStore} from '@/stores/app-data'
+import {useAppNavStore} from '@/stores/app-nav'
 import IconInternet from '@/assets/img/app-icons/instructions/internet.svg?component'
 
 const appData = useAppDataStore()
+const appNav = useAppNavStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -20,21 +22,43 @@ const tasks = ref<Array<PresentialTask | OnlineTask>>([])
 if (route.query.t !== 'online' && route.query.t !== 'presential') {
   router.push('/inicio')
 } else {
-  const {data} = await useFetch(
+  // Validar que existe una comuna seleccionada
+  if (!appData.location.isCommuneSelected()) {
+    appNav.redirectTo = route.fullPath
+    router.push('/ubicacion')
+    throw new Error('No hay comuna seleccionada')
+  }
+
+  const communeId = appData.location.commune?.id
+
+  const {data, statusCode, error} = await useFetch(
     route.query.t === 'presential'
       ? `${import.meta.env.VITE_APP_API_DOMAIN}api/presential_tasks/search?query=${
           route.query.s
         }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}&country_id=${appData.country?.id}`
       : `${import.meta.env.VITE_APP_API_DOMAIN}api/online_tasks/search?query=${
           route.query.s
-        }&commune_id=${appData.location.commune?.id}&country_id=${appData.country?.id}`
+        }&commune_id=${communeId}&country_id=${appData.country?.id}`
   )
     .get()
     .json()
-  tasks.value =
-    route.query.t === 'online'
-      ? data.value.map((task: OnlineTask) => new OnlineTask(task))
-      : data.value.map((task: PresentialTask) => new PresentialTask(task))
+
+  // Verificar que la respuesta fue exitosa
+  if (error.value || !data.value || statusCode.value !== 200) {
+    console.error('Error en la búsqueda:', error.value)
+    if (statusCode.value === 400 || statusCode.value === 404) {
+      appNav.redirectTo = route.fullPath
+      router.push('/ubicacion')
+      throw new Error('Comuna inválida')
+    }
+    // Continuar con array vacío si hay error en búsqueda
+    tasks.value = []
+  } else {
+    tasks.value =
+      route.query.t === 'online'
+        ? data.value.map((task: OnlineTask) => new OnlineTask(task))
+        : data.value.map((task: PresentialTask) => new PresentialTask(task))
+  }
 }
 
 const query = ref(route.query.s as string)

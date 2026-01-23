@@ -27,14 +27,35 @@ const setService = (service: Service) => {
   router.push(`/${route.params.categorySlug}/${service.slug}`)
 }
 
-const {data} = await useFetch(
+// Validar que existe una comuna seleccionada
+if (!appData.location.isCommuneSelected()) {
+  appNav.redirectTo = route.fullPath
+  router.push('/ubicacion')
+  throw new Error('No hay comuna seleccionada')
+}
+
+const communeId = appData.location.commune?.id
+
+const {data, statusCode, error} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/categories/nearServices?category=${
     route.params.categorySlug
   }&lat=${appData.location.getCoordinates().lat}&lng=${appData.location.getCoordinates().lng}&
-  commune_id=${appData.location.commune?.id}&country_id=${appData.country?.id}`
+  commune_id=${communeId}&country_id=${appData.country?.id}`
 )
   .get()
   .json()
+
+// Verificar que la respuesta fue exitosa
+if (error.value || !data.value || statusCode.value !== 200) {
+  console.error('Error al cargar los servicios:', error.value)
+  if (statusCode.value === 400 || statusCode.value === 404) {
+    appNav.redirectTo = route.fullPath
+    router.push('/ubicacion')
+    throw new Error('Comuna inválida')
+  }
+  router.push('/error')
+  throw new Error('Error al cargar los datos')
+}
 
 services.value = data.value.services.map((s: Service) => new Service(s))
 category.value = new Category(data.value.category)

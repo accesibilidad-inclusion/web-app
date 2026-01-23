@@ -123,5 +123,12 @@ export const useAppDataStore = defineStore('appData', {
       this.initialized = true
     }
   },
-  persist: true
+  persist: {
+    afterRestore: (ctx) => {
+      // Reconstruir Location como instancia después de deserializar
+      if (ctx.store.location && !(ctx.store.location instanceof Location)) {
+        ctx.store.location = new Location(ctx.store.location)
+      }
+    }
+  }
 })

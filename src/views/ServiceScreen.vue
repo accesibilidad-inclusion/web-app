@@ -33,15 +33,36 @@ const setVenue = (venue: PresentialVenue | OnlineVenue) => {
   router.push(`/${route.params.categorySlug}/${route.params.serviceSlug}/${venue.slug}`)
 }
 
-const {data} = await useFetch(
+// Validar que existe una comuna seleccionada
+if (!appData.location.isCommuneSelected()) {
+  appNav.redirectTo = route.fullPath
+  router.push('/ubicacion')
+  throw new Error('No hay comuna seleccionada')
+}
+
+const communeId = appData.location.commune?.id
+
+const {data, statusCode, error} = await useFetch(
   `${import.meta.env.VITE_APP_API_DOMAIN}api/services/nearVenues?category=${
     route.params.categorySlug
   }&service=${route.params.serviceSlug}&lat=${appData.location.getCoordinates().lat}&lng=${
     appData.location.getCoordinates().lng
-  }&commune_id=${appData.location.commune?.id}`
+  }&commune_id=${communeId}`
 )
   .get()
   .json()
+
+// Verificar que la respuesta fue exitosa
+if (error.value || !data.value || statusCode.value !== 200) {
+  console.error('Error al cargar los lugares:', error.value)
+  if (statusCode.value === 400 || statusCode.value === 404) {
+    appNav.redirectTo = route.fullPath
+    router.push('/ubicacion')
+    throw new Error('Comuna inválida')
+  }
+  router.push('/error')
+  throw new Error('Error al cargar los datos')
+}
 
 venues_presential.value = data.value.venues.map((v: PresentialVenue) => new PresentialVenue(v))
 venues_online.value = data.value.venues_online.map((v: OnlineVenue) => new OnlineVenue(v))
